@@ -8,8 +8,10 @@
 
 #import "LiveSectionViewController.h"
 #import "LivePlayViewController.h"
+#import "LiveSectionChannelCollectionViewCell.h"
 
 @interface LiveSectionViewController ()
+<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,strong) UICollectionView *channelCollView;
 
@@ -27,10 +29,10 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
     v.backgroundColor = [UIColor blackColor];
     
-    [self.view addSubview:[self commNaviTitle:[LIVE_SECTION_LIST objectAtIndex:_section] color:[UIColor whiteColor]]];
+    [v addSubview:[self commNaviTitle:[LIVE_SECTION_LIST objectAtIndex:_section] color:[UIColor whiteColor]]];
     
-    UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navibar_search.png"]];
-    search.centerX = v.width - 25;
+    UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_white.png"]];
+    search.centerX = 25;
     search.centerY = (v.height - 20)/2 + 20;
     [v addSubview:search];
     
@@ -39,8 +41,7 @@
     btn.width = search.width + 20;
     btn.height = search.height + 20;
     btn.center = search.center;
-    btn.backgroundColor = [UIColor blackColor]; //todo
-    [self.view addSubview:btn];
+    [v addSubview:btn];
     
     return v;
 }
@@ -49,29 +50,63 @@
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor blueColor]; //todo
     
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
+    
+    UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 20;
+    layout.headerReferenceSize = CGSizeMake(0,0);
+    layout.footerReferenceSize = CGSizeMake(0,0);
+    layout.itemSize = CGSizeMake((K_UIScreenWidth-28-20)/2, 163);
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    [layout setHeaderReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
+    [layout setFooterReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
+    self.channelCollView = [[UICollectionView alloc] initWithFrame:CGRectMake(14, naviBar.maxY, K_UIScreenWidth-28, K_UIScreenHeight - naviBar.maxY - self.tabBarController.tabBar.height) collectionViewLayout:layout];
+    _channelCollView.backgroundColor = [UIColor whiteColor];
+    _channelCollView.delegate = self;
+    _channelCollView.dataSource = self;
+    _channelCollView.showsHorizontalScrollIndicator = NO;
+    _channelCollView.showsVerticalScrollIndicator = NO;
+    [_channelCollView registerClass:[LiveSectionChannelCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
+    [self.view addSubview:_channelCollView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    self.tabBarController.tabBar.hidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = YES;
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
+    
     self.navigationController.navigationBar.hidden = NO;
 }
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    return 12;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    LiveSectionChannelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.channelModel = nil;
+    return cell;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

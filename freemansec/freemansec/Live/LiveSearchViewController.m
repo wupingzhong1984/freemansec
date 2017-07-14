@@ -25,7 +25,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor blueColor]; //todo
     
-    UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navibar_search.png"]]; //todo
+    UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_white.png"]];
     search.centerX = 25;
     search.centerY = (K_UIScreenHeight - 20)/2 + 20;
     [self.view addSubview:search];

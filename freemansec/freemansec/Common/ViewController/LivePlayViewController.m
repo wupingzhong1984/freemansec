@@ -7,8 +7,12 @@
 //
 
 #import "LivePlayViewController.h"
+#import "IMYWebView.h"
 
 @interface LivePlayViewController ()
+<IMYWebViewDelegate>
+
+@property (nonatomic,strong) IMYWebView *webView;
 
 @end
 
@@ -36,7 +40,6 @@
     btn.width = search.width + 20;
     btn.height = search.height + 20;
     btn.center = search.center;
-    btn.backgroundColor = [UIColor blackColor]; //todo
     [self.view addSubview:btn];
     
     return v;
@@ -46,10 +49,15 @@
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor blueColor]; //todo
     
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
+    
+    self.webView = [[IMYWebView alloc] initWithFrame:CGRectMake(0, naviBar.maxY, K_UIScreenWidth, K_UIScreenHeight - naviBar.maxY)];
+    _webView.delegate = self;
+    [self.view addSubview:_webView];
+    
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://case.iamyuan.com/20170714CJ/video.html"]]]; //todo
     
 }
 
@@ -68,6 +76,29 @@
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
+}
+
+- (void)webViewDidStartLoad:(IMYWebView *)webView {
+    
+}
+
+- (void)webViewDidFinishLoad:(IMYWebView *)webView {
+    
+    [webView evaluateJavaScript:@"PlayVideo()" completionHandler:^(id result, NSError *error) {
+        
+        if (error) {
+            
+        }
+    }];
+}
+
+- (void)webView:(IMYWebView *)webView didFailLoadWithError:(NSError *)error {
+    
+}
+
+- (BOOL)webView:(IMYWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

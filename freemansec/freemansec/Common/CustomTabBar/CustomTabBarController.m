@@ -23,24 +23,18 @@
 //初始化子控制器
 - (void)setupChildVc:(UIViewController *)vc title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage {
     
+    [vc.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -3)];
     vc.tabBarItem.title = title;
     // 设置tabBar的字体颜色
-    UIColor *titleHighlightedColor = [UIColor colorWithRed:50.0/255 green:160.0/255 blue:219.0/255 alpha:1];
+    UIColor *titleHighlightedColor = [UIColor colorWithRed:117.0/255 green:210.0/255 blue:110.0/255 alpha:1];
     
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                       [UIColor grayColor], NSForegroundColorAttributeName,
+                                                       titleHighlightedColor, NSForegroundColorAttributeName,
                                                        nil] forState:UIControlStateSelected];
     
-    UIImage *img = [UIImage imageNamed:image];
-    img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    vc.tabBarItem.image = [[UIImage imageNamed:image] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    vc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    vc.tabBarItem.image =img ;
-    //设置不显示文字，将title的位置设置成无限远，就看不到了
-//    vc.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, MAXFLOAT);
-    UIImage *selImage = [UIImage imageNamed:selectedImage];
-    selImage = [selImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    vc.tabBarItem.selectedImage = selImage;
     CustomNaviController *nav = [[CustomNaviController alloc] initWithRootViewController:vc];
     
     [self addChildViewController:nav];
@@ -49,10 +43,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupChildVc:[[LiveRootViewController alloc] init] title:@"直播" image:@"tab_img_0.png" selectedImage:@"tab_img_0.png"];
-    [self setupChildVc:[[VideoRootViewController alloc] init] title:@"视频" image:@"tab_img_1.png" selectedImage:@"tab_img_1.png"];
-    [self setupChildVc:[[MessageRootViewController alloc] init] title:@"消息" image:@"tab_img_2.png" selectedImage:@"tab_img_2.png"];
-    [self setupChildVc:[[MineRootViewController alloc] init] title:@"我的" image:@"tab_img_3.png" selectedImage:@"tab_img_3.png"];
+    [self setupChildVc:[[LiveRootViewController alloc] init] title:@"直播" image:@"tab_img_0.png" selectedImage:@"tab_img_0_h.png"];
+    [self setupChildVc:[[VideoRootViewController alloc] init] title:@"视频" image:@"tab_img_1.png" selectedImage:@"tab_img_1_h.png"];
+    [self setupChildVc:[[MessageRootViewController alloc] init] title:@"消息" image:@"tab_img_2.png" selectedImage:@"tab_img_2_h.png"];
+    [self setupChildVc:[[MineRootViewController alloc] init] title:@"我的" image:@"tab_img_3.png" selectedImage:@"tab_img_3_h.png"];
     
     // 自定义tabBar ,用KVC 替换系统的tabbar
     CustomTabBar *tabbar = [[CustomTabBar alloc]init];

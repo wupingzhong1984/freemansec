@@ -20,6 +20,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         
+        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tabbar_head.png"]];
+        [self addSubview:bg];
+        
         // 加载子视图
         [self setUpChildrenViews];
     }
@@ -34,7 +37,7 @@
     //去掉TabBar的分割线
     [self setBackgroundImage:[UIImage new]];
     [self setShadowImage:[UIImage new]];
-    self.centerBtn = [[UIButton alloc] init];
+    self.centerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_centerBtn setBackgroundImage:[UIImage imageNamed:@"tab_img_center.png"] forState:UIControlStateNormal];
     [_centerBtn setBackgroundImage:[UIImage imageNamed:@"tab_img_center.png"] forState:UIControlStateHighlighted];
     // 按钮和当前背景图片一样大

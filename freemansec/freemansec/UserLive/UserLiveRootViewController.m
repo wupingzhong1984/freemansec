@@ -21,8 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.view.backgroundColor = [UIColor redColor];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];

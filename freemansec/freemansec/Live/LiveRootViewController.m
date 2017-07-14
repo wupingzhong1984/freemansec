@@ -22,11 +22,15 @@
 
 - (void)tabBarCenterAction {
     
+    return;//todo
+    
     UserLiveRootViewController *vc = [[UserLiveRootViewController alloc]init];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)loadSearchPage {
+    
+    return;//todo
     
     LiveSearchViewController *vc = [[LiveSearchViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
@@ -97,12 +101,11 @@
     [_contentView addSubview:playBtn];
     
     UIImageView *sectionBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liveroot_section_bg.png"]];
-    sectionBg.backgroundColor = [UIColor redColor];
-    sectionBg.y = bannerIV.maxY + 10;
+    sectionBg.y = bannerIV.maxY - 10;
     sectionBg.centerX = _contentView.width/2;
     [_contentView addSubview:sectionBg];
     
-    CGFloat centerX = 66;
+    CGFloat centerX = sectionBg.x + 60 + 10;
     CGFloat centerY = sectionBg.y + 61;
     UIImageView *sectionIV;
     UILabel *title;
@@ -128,12 +131,12 @@
         
         if ((i+1)%3==0) {
             
-            centerX = 66;
+            centerX = sectionBg.x + 60 + 10;
             centerY += 95;
             
         } else {
             
-            centerX += 121;
+            centerX += 114;
         }
     }
     
