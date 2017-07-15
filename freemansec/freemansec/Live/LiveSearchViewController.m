@@ -19,24 +19,35 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (UIView*)naviBarView {
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor blueColor]; //todo
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
+    v.backgroundColor = [UIColor blackColor];
+    
+    [v addSubview:[self commNaviTitle:@"搜索" color:[UIColor whiteColor]]];
     
     UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_white.png"]];
     search.centerX = 25;
-    search.centerY = (K_UIScreenHeight - 20)/2 + 20;
-    [self.view addSubview:search];
+    search.centerY = (v.height - 20)/2 + 20;
+    [v addSubview:search];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     btn.width = search.width + 20;
     btn.height = search.height + 20;
     btn.center = search.center;
-    btn.backgroundColor = [UIColor blackColor]; //todo
-    [self.view addSubview:btn];
+    [v addSubview:btn];
+    
+    return v;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    UIView *navi = [self naviBarView];
+    [self.view addSubview:navi];
 }
 
 - (void)viewWillAppear:(BOOL)animated

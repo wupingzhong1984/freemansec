@@ -28,10 +28,10 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
     v.backgroundColor = [UIColor blackColor];
     
-    [self.view addSubview:[self commNaviTitle:@"直播" color:[UIColor whiteColor]]];
+    [v addSubview:[self commNaviTitle:@"直播" color:[UIColor whiteColor]]];
     
-    UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navibar_search.png"]];
-    search.centerX = v.width - 25;
+    UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_white.png"]];
+    search.centerX = 25;
     search.centerY = (v.height - 20)/2 + 20;
     [v addSubview:search];
     
@@ -40,7 +40,7 @@
     btn.width = search.width + 20;
     btn.height = search.height + 20;
     btn.center = search.center;
-    [self.view addSubview:btn];
+    [v addSubview:btn];
     
     return v;
 }

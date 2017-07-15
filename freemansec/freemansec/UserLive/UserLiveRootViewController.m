@@ -22,10 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
-    btn.frame = self.view.bounds;
-    [self.view addSubview:btn];
 }
 
 - (void)didReceiveMemoryWarning {
