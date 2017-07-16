@@ -21,6 +21,7 @@
     if (self) {
         
         UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tabbar_head.png"]];
+        bg.width = K_UIScreenWidth;
         [self addSubview:bg];
         
         // 加载子视图

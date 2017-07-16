@@ -11,6 +11,7 @@
 #import "UserLiveRootViewController.h"
 #import "LiveSectionViewController.h"
 #import "LivePlayViewController.h"
+#import "CustomNaviController.h"
 
 @interface LiveRootViewController ()
 
@@ -38,8 +39,7 @@
 
 - (void)playBannerLive {
     
-    LivePlayViewController *vc = [[LivePlayViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.tabBarController presentViewController:[[CustomNaviController alloc] initWithRootViewController:[[LivePlayViewController alloc] init]] animated:YES completion:nil];
 }
 
 - (void)liveSectionClicked:(id)sender {
@@ -160,6 +160,7 @@
     
     self.navigationController.navigationBar.hidden = NO;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -54,16 +54,18 @@
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
     
+    UIImage *img = [UIImage imageNamed:@"livesectionchannel_cover_default.png"];
+    
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 20;
     layout.headerReferenceSize = CGSizeMake(0,0);
     layout.footerReferenceSize = CGSizeMake(0,0);
-    layout.itemSize = CGSizeMake((K_UIScreenWidth-28-20)/2, 163);
+    layout.itemSize = CGSizeMake((K_UIScreenWidth-28-20)/2, (K_UIScreenWidth-28-20)/2/(img.size.width/img.size.height) + 16);
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     [layout setHeaderReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
     [layout setFooterReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
-    self.channelCollView = [[UICollectionView alloc] initWithFrame:CGRectMake(14, naviBar.maxY, K_UIScreenWidth-28, K_UIScreenHeight - naviBar.maxY - self.tabBarController.tabBar.height) collectionViewLayout:layout];
+    self.channelCollView = [[UICollectionView alloc] initWithFrame:CGRectMake(14, naviBar.maxY, K_UIScreenWidth-28, K_UIScreenHeight - naviBar.maxY) collectionViewLayout:layout];
     _channelCollView.backgroundColor = [UIColor whiteColor];
     _channelCollView.delegate = self;
     _channelCollView.dataSource = self;
@@ -77,7 +79,7 @@
 {
     [super viewWillAppear:animated];
     
-    self.tabBarController.tabBar.hidden = NO;
+    self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = YES;
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
@@ -87,6 +89,7 @@
 {
     [super viewWillDisappear:animated];
     
+    self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
 }
 

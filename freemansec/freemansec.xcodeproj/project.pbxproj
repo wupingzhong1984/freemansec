@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F6980D81F1B7B790083E785 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6980D71F1B7B790083E785 /* PlayerView.m */; };
+		2F6980DD1F1BA87F0083E785 /* play_bar_orientation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980D91F1BA87F0083E785 /* play_bar_orientation@2x.png */; };
+		2F6980DE1F1BA87F0083E785 /* play_bar_orientation@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980DA1F1BA87F0083E785 /* play_bar_orientation@3x.png */; };
+		2F6980DF1F1BA87F0083E785 /* play_bar_voice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980DB1F1BA87F0083E785 /* play_bar_voice@2x.png */; };
+		2F6980E01F1BA87F0083E785 /* play_bar_voice@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980DC1F1BA87F0083E785 /* play_bar_voice@3x.png */; };
+		2F6980E51F1BAED60083E785 /* play_bar_pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980E11F1BAED60083E785 /* play_bar_pause@2x.png */; };
+		2F6980E61F1BAED60083E785 /* play_bar_pause@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980E21F1BAED60083E785 /* play_bar_pause@3x.png */; };
+		2F6980E71F1BAED60083E785 /* play_bar_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980E31F1BAED60083E785 /* play_bar_play@2x.png */; };
+		2F6980E81F1BAED60083E785 /* play_bar_play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980E41F1BAED60083E785 /* play_bar_play@3x.png */; };
+		2F8368201F1B42EA000C4D9A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F83681F1F1B42EA000C4D9A /* CoreMotion.framework */; };
 		2FAF30B41F1603F8004329ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF30B31F1603F8004329ED /* main.m */; };
 		2FAF30B71F1603F8004329ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF30B61F1603F8004329ED /* AppDelegate.m */; };
 		2FAF30BA1F1603F8004329ED /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF30B91F1603F8004329ED /* ViewController.m */; };
@@ -123,6 +133,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F6980D61F1B7B790083E785 /* PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
+		2F6980D71F1B7B790083E785 /* PlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
+		2F6980D91F1BA87F0083E785 /* play_bar_orientation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_orientation@2x.png"; sourceTree = "<group>"; };
+		2F6980DA1F1BA87F0083E785 /* play_bar_orientation@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_orientation@3x.png"; sourceTree = "<group>"; };
+		2F6980DB1F1BA87F0083E785 /* play_bar_voice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_voice@2x.png"; sourceTree = "<group>"; };
+		2F6980DC1F1BA87F0083E785 /* play_bar_voice@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_voice@3x.png"; sourceTree = "<group>"; };
+		2F6980E11F1BAED60083E785 /* play_bar_pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_pause@2x.png"; sourceTree = "<group>"; };
+		2F6980E21F1BAED60083E785 /* play_bar_pause@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_pause@3x.png"; sourceTree = "<group>"; };
+		2F6980E31F1BAED60083E785 /* play_bar_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_play@2x.png"; sourceTree = "<group>"; };
+		2F6980E41F1BAED60083E785 /* play_bar_play@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_play@3x.png"; sourceTree = "<group>"; };
+		2F83681F1F1B42EA000C4D9A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		2FAF30AF1F1603F8004329ED /* freemansec.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = freemansec.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FAF30B31F1603F8004329ED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2FAF30B51F1603F8004329ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -314,6 +335,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F8368201F1B42EA000C4D9A /* CoreMotion.framework in Frameworks */,
 				2FAF32011F191D2C004329ED /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,6 +343,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F6980D51F1B7B790083E785 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2F6980D61F1B7B790083E785 /* PlayerView.h */,
+				2F6980D71F1B7B790083E785 /* PlayerView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		2FAF30A61F1603F8004329ED = {
 			isa = PBXGroup;
 			children = (
@@ -375,6 +406,7 @@
 		2FAF30CA1F1605BD004329ED /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				2F6980D51F1B7B790083E785 /* View */,
 				2FAF31C71F16A480004329ED /* Model */,
 				2FAF30CB1F1605BD004329ED /* Category */,
 				2FAF30CE1F1605BD004329ED /* CustomTabBar */,
@@ -668,6 +700,14 @@
 		2FAF31741F160FDF004329ED /* images */ = {
 			isa = PBXGroup;
 			children = (
+				2F6980E11F1BAED60083E785 /* play_bar_pause@2x.png */,
+				2F6980E21F1BAED60083E785 /* play_bar_pause@3x.png */,
+				2F6980E31F1BAED60083E785 /* play_bar_play@2x.png */,
+				2F6980E41F1BAED60083E785 /* play_bar_play@3x.png */,
+				2F6980D91F1BA87F0083E785 /* play_bar_orientation@2x.png */,
+				2F6980DA1F1BA87F0083E785 /* play_bar_orientation@3x.png */,
+				2F6980DB1F1BA87F0083E785 /* play_bar_voice@2x.png */,
+				2F6980DC1F1BA87F0083E785 /* play_bar_voice@3x.png */,
 				2FAF31FB1F191945004329ED /* navi_back_white@2x.png */,
 				2FAF31FC1F191945004329ED /* navi_back_white@3x.png */,
 				2FAF31F71F18E3B0004329ED /* livesectionchannel_cover_default@2x.png */,
@@ -759,6 +799,7 @@
 		2FAF31FF1F191D2C004329ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2F83681F1F1B42EA000C4D9A /* CoreMotion.framework */,
 				2FAF32001F191D2C004329ED /* WebKit.framework */,
 			);
 			name = Frameworks;
@@ -806,8 +847,7 @@
 				TargetAttributes = {
 					2FAF30AE1F1603F8004329ED = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = CHHRHS8962;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -839,8 +879,11 @@
 				2FAF317C1F16175E004329ED /* navibar_search@3x.png in Resources */,
 				2FAF319A1F166DA8004329ED /* tab_img_3@2x.png in Resources */,
 				2FAF31F31F17ECDD004329ED /* tabbar_head@3x.png in Resources */,
+				2F6980DF1F1BA87F0083E785 /* play_bar_voice@2x.png in Resources */,
 				2FAF30C21F1603F8004329ED /* LaunchScreen.storyboard in Resources */,
+				2F6980E51F1BAED60083E785 /* play_bar_pause@2x.png in Resources */,
 				2FAF318B1F16698C004329ED /* liveroot_section_bg@3x.png in Resources */,
+				2F6980DD1F1BA87F0083E785 /* play_bar_orientation@2x.png in Resources */,
 				2FAF31AB1F167405004329ED /* live_section_5@2x.png in Resources */,
 				2FAF31841F162657004329ED /* banner_play@3x.png in Resources */,
 				2FAF31781F160FDF004329ED /* live_navi_logo@3x.png in Resources */,
@@ -856,6 +899,7 @@
 				2FAF31EB1F17ECDD004329ED /* tab_img_0_h@3x.png in Resources */,
 				2FAF317F1F161C22004329ED /* liveroot_banner@2x.png in Resources */,
 				2FAF31981F166DA8004329ED /* tab_img_2@2x.png in Resources */,
+				2F6980DE1F1BA87F0083E785 /* play_bar_orientation@3x.png in Resources */,
 				2FAF31991F166DA8004329ED /* tab_img_2@3x.png in Resources */,
 				2FAF31EC1F17ECDD004329ED /* tab_img_1_h@2x.png in Resources */,
 				2FAF31941F166DA8004329ED /* tab_img_0@2x.png in Resources */,
@@ -867,8 +911,10 @@
 				2FAF31ED1F17ECDD004329ED /* tab_img_1_h@3x.png in Resources */,
 				2FAF31EF1F17ECDD004329ED /* tab_img_2_h@3x.png in Resources */,
 				2FAF31F91F18E3B0004329ED /* livesectionchannel_cover_default@2x.png in Resources */,
+				2F6980E61F1BAED60083E785 /* play_bar_pause@3x.png in Resources */,
 				2FAF30BD1F1603F8004329ED /* Main.storyboard in Resources */,
 				2FAF31FD1F191945004329ED /* navi_back_white@2x.png in Resources */,
+				2F6980E71F1BAED60083E785 /* play_bar_play@2x.png in Resources */,
 				2FAF319F1F1670BB004329ED /* tab_img_center@3x.png in Resources */,
 				2FAF31E71F17ECDD004329ED /* live_section_3@3x.png in Resources */,
 				2FAF31831F162657004329ED /* banner_play@2x.png in Resources */,
@@ -882,6 +928,8 @@
 				2FAF319E1F1670BB004329ED /* tab_img_center@2x.png in Resources */,
 				2FAF31A61F167405004329ED /* live_section_0@2x.png in Resources */,
 				2FAF31951F166DA8004329ED /* tab_img_0@3x.png in Resources */,
+				2F6980E01F1BA87F0083E785 /* play_bar_voice@3x.png in Resources */,
+				2F6980E81F1BAED60083E785 /* play_bar_play@3x.png in Resources */,
 				2FAF319B1F166DA8004329ED /* tab_img_3@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -940,6 +988,7 @@
 				2FAF31471F1605BD004329ED /* CustomNaviController.m in Sources */,
 				2FAF31541F1605BD004329ED /* Reachability.m in Sources */,
 				2FAF315C1F1605BD004329ED /* TYHttpManager.m in Sources */,
+				2F6980D81F1B7B790083E785 /* PlayerView.m in Sources */,
 				2FAF316E1F1605BD004329ED /* XBPageCell.m in Sources */,
 				2FAF31511F1605BD004329ED /* AFURLRequestSerialization.m in Sources */,
 				2FAF31501F1605BD004329ED /* AFSecurityPolicy.m in Sources */,
@@ -1076,14 +1125,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ken Yu (QHB7Z56PFF)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ken Yu (QHB7Z56PFF)";
-				DEVELOPMENT_TEAM = CHHRHS8962;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = freemansec/PrefixHeader.pch;
 				INFOPLIST_FILE = freemansec/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.liveplay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "843a9044-3a8f-4211-9ac0-5c7875de85c0";
+				PROVISIONING_PROFILE_SPECIFIER = live_dev;
 			};
 			name = Debug;
 		};
@@ -1092,14 +1144,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Freeman Securities Limited (U8NNC43JQ4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Freeman Securities Limited (U8NNC43JQ4)";
-				DEVELOPMENT_TEAM = CHHRHS8962;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = freemansec/PrefixHeader.pch;
 				INFOPLIST_FILE = freemansec/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.liveplay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "896ae97b-5703-4976-915a-454249dcc1e5";
+				PROVISIONING_PROFILE_SPECIFIER = live_dis;
 			};
 			name = Release;
 		};

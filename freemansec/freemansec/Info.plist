@@ -38,6 +38,6 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<string></string>
+	<string>YES</string>
 </dict>
 </plist>
