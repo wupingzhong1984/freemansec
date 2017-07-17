@@ -25,6 +25,7 @@
 #define K_UIScreenWidth [UIScreen mainScreen].bounds.size.width
 #define K_UIScreenHeight [UIScreen mainScreen].bounds.size.height
 
+#define BASE_URL @"http://mzcj.dhteam.net"
 
 #define TEST_LIVE_URL @"http://9654.liveplay.myqcloud.com/9654_freeman.m3u8"
 

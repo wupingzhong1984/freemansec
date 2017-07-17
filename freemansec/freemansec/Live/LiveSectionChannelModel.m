@@ -9,5 +9,17 @@
 #import "LiveSectionChannelModel.h"
 
 @implementation LiveSectionChannelModel
-
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc]
+            initWithModelToJSONDictionary:@{
+                                            @"id": @"typeId",
+                                            @"liveName": @"liveName",
+                                            @"liveImg": @"liveImg",
+                                            @"liveIntroduce": @"liveIntroduce",
+                                            @"aid": @"anchorId",
+                                            @"anchorName": @"anchorName",
+                                            @"anchorImg": @"anchorImg",
+                                            @"anchorIntroduce": @"anchorIntroduce"}];
+}
 @end
