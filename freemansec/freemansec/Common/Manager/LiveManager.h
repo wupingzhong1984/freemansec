@@ -11,10 +11,16 @@
 typedef void(^LiveChannelListCompletion)(NSArray* _Nullable channelList, NSError* _Nullable error);
 
 @interface LiveManager : NSObject
-+ (instancetype _Nonnull )sharedInstance;
--(void)getLiveBannerByLiveTypeId:(NSString* _Nonnull)typeId
-                      completion:(LiveChannelListCompletion _Nullable)completion;
+
++ (LiveManager* _Nonnull)sharedInstance;
+
++ (BOOL)liveBannerNeedUpdate;
++ (void)updateLiveBannerLastUpdateTime:(NSDate*)time;
++ (NSString* _Nonnull)getLiveTypeIdBySectionIndex:(int)section;
+
+-(void)getLiveBannerCompletion:(LiveChannelListCompletion _Nullable)completion;
 
 -(void)getLiveListByLiveTypeId:(NSString* _Nonnull)typeId
                     completion:(LiveChannelListCompletion _Nullable)completion;
+
 @end

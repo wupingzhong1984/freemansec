@@ -9,23 +9,75 @@
 #import "LiveManager.h"
 #import "LiveHttpService.h"
 
+static LiveManager *instance;
+
 @implementation LiveManager
 
-+ (instancetype)sharedInstance
+- (id)init
 {
-    static id instance;
-    static dispatch_once_t pred;
-    dispatch_once(&pred, ^{
+    self = [super init];
+    
+    return self;
+}
+
++ (LiveManager*)sharedInstance
+{
+    if (instance)
+        return instance;
+    
+    static dispatch_once_t predict;
+    
+    dispatch_once(&predict,^{
         instance = [[self alloc] init];
     });
+    
     return instance;
 }
 
--(void)getLiveBannerByLiveTypeId:(NSString*)typeId
-                      completion:(LiveChannelListCompletion)completion {
++ (BOOL)liveBannerNeedUpdate {
+    
+    NSDate *lastUpdateTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"livebannerlastupdatetime"];
+    if (!lastUpdateTime || [[NSDate date] timeIntervalSinceDate:lastUpdateTime] > 3600) {
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
++ (void)updateLiveBannerLastUpdateTime:(NSDate*)time {
+    
+    [[NSUserDefaults standardUserDefaults] setObject:time forKey:@"livebannerlastupdatetime"];
+}
+
++ (NSString*)getLiveTypeIdBySectionIndex:(int)section {
+    
+    switch (section) {
+        case 0:
+            return @"100";
+            break;
+        case 1:
+            return @"103";
+            break;
+        case 2:
+            return @"104";
+            break;
+        case 3:
+            return @"105";
+            break;
+        case 4:
+            return @"106";
+            break;
+        default:
+            return @"107";
+            break;
+    }
+}
+
+-(void)getLiveBannerCompletion:(LiveChannelListCompletion)completion {
     
     LiveHttpService* service = [[LiveHttpService alloc] init];
-    [service getLiveBannerByLiveTypeId:typeId completion:^(id obj, NSError *err) {
+    [service getLiveBannerCompletion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);

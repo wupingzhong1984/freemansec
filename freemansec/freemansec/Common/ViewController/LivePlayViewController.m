@@ -9,6 +9,7 @@
 #import "LivePlayViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMotion/CoreMotion.h>
+#import "Reachability.h"
 #import "PlayerView.h"
 //#import "IMYWebView.h"
 
@@ -112,9 +113,25 @@
 }
 
 - (void)playAction {
+    
     if (!_played) {
+        
+        if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWWAN) {
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您当前在非WIFI状态下，是否继续使用流量观看？" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"一会再说" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"继续观看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                [self.playerView.player play];
+                [self.stateButton setImage:[UIImage imageNamed:@"play_bar_pause.png"] forState:UIControlStateNormal];
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+            return;
+        }
+        
         [self.playerView.player play];
         [self.stateButton setImage:[UIImage imageNamed:@"play_bar_pause.png"] forState:UIControlStateNormal];
+        
     } else {
         [self.playerView.player pause];
         [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
@@ -131,15 +148,41 @@
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
     
-    NSURL *videoUrl = [NSURL URLWithString:@"http://9654.liveplay.myqcloud.com/9654_freeman.m3u8"];
+    NSURL *videoUrl = [NSURL URLWithString:self.liveChannelModel.livelink];
     self.playerItem = [AVPlayerItem playerItemWithURL:videoUrl];
     self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
     self.playerView = [[PlayerView alloc] init];
     _playerView.backgroundColor = [UIColor blackColor];
     self.playerView.player = _player;
     self.playerView.frame = CGRectMake(0, (K_UIScreenHeight-K_UIScreenWidth*3/4)/2, K_UIScreenWidth, K_UIScreenWidth*3/4);
-    [self.view addSubview:_playerView];
     
+    UIImageView *face = [[UIImageView alloc] initWithFrame:CGRectMake(20, _playerView.maxY + 15, 40, 40)];
+    face.clipsToBounds = YES;
+    face.layer.cornerRadius = face.width/2;
+    [self.view addSubview:face];
+    [face setImageWithURL:[NSURL URLWithString:_liveChannelModel.anchorImg]
+         placeholderImage:[UIImage imageNamed:@"livesectionchannel_cover_default.png"]];
+    
+    UILabel *name = [UILabel createLabelWithFrame:CGRectZero text:_liveChannelModel.anchorName textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:14]];
+    [name sizeToFit];
+    name.x = face.maxX + 10;
+    name.centerY = face.centerY;
+    name.width = 200;
+    [self.view addSubview:name];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    [self.view addSubview:_playerView];
     self.controlBar = [[UIView alloc] initWithFrame:CGRectMake(0, K_UIScreenHeight-40, K_UIScreenWidth, 40)];
     _controlBar.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:_controlBar];
@@ -193,6 +236,12 @@
         if ([playerItem status] == AVPlayerStatusReadyToPlay) {
             NSLog(@"AVPlayerStatusReadyToPlay");
             self.stateButton.enabled = YES;
+            
+            if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWiFi) {
+                
+                [self playAction];
+            }
+            
         } else if ([playerItem status] == AVPlayerStatusFailed) {
             NSLog(@"AVPlayerStatusFailed");
         }

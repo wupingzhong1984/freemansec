@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LiveChannelModel.h"
 
 @interface LivePlayViewController : UIViewController
 
-@property (nonatomic, strong) NSString *streamUrl; //http:.....
+@property (nonatomic, strong) LiveChannelModel *liveChannelModel;
 
 @end

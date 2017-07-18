@@ -8,19 +8,18 @@
 
 #import "LiveHttpService.h"
 #import "JsonResponse.h"
-#import "LiveSectionChannelModel.h"
+#import "LiveChannelModel.h"
 
-static NSString* GetLiveBannerPath = @"ajax/GetLive.ashx";
+static NSString* GetLiveBannerPath = @"ajax/GetBanner.ashx";
+static NSString* GetLiveListByTypePath = @"ajax/GetLive.ashx";
 
 @implementation LiveHttpService
 
--(void)getLiveBannerByLiveTypeId:(NSString*)typeId
-                      completion:(HttpClientServiceObjectBlock)complete {
+-(void)getLiveBannerCompletion:(HttpClientServiceObjectBlock)complete {
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:GetLiveBannerPath
-                     params:@{@"typeid":typeId
-                              }
+                     params:nil
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      if(response == nil) {
@@ -28,7 +27,7 @@ static NSString* GetLiveBannerPath = @"ajax/GetLive.ashx";
                          return ;
                      }
                      
-                     NSArray *list = [LiveSectionChannelModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     NSArray *list = [LiveChannelModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
                      if(list == nil){
                          
                          NSLog(@"%@", err);
@@ -43,7 +42,7 @@ static NSString* GetLiveBannerPath = @"ajax/GetLive.ashx";
                     completion:(HttpClientServiceObjectBlock)complete {
     
     [self httpRequestMethod:HttpReuqestMethodGet
-                       path:GetLiveBannerPath
+                       path:GetLiveListByTypePath
                      params:@{@"typeid":typeId
                               }
                  completion:^(JsonResponse* response, NSError *err) {
@@ -53,7 +52,7 @@ static NSString* GetLiveBannerPath = @"ajax/GetLive.ashx";
                          return ;
                      }
                      
-                     NSArray *list = [LiveSectionChannelModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     NSArray *list = [LiveChannelModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
                      if(list == nil){
                          
                          NSLog(@"%@", err);

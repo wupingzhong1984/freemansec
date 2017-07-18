@@ -76,6 +76,7 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
+            NSLog(@"%@", error);
             complete(nil,error);
         }];
         

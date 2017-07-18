@@ -21,10 +21,8 @@
     
     if (self = [super initWithFrame:frame]) {
         
-        UIImage *img = [UIImage imageNamed:@"livesectionchannel_cover_default.png"];
-        
         self.coverIV = [[UIImageView alloc] init];
-        _coverIV.size = CGSizeMake(self.width, self.width/(img.size.width/img.size.height));
+        _coverIV.size = CGSizeMake(self.width, self.width*3/4);
         [self addSubview:_coverIV];
         
         self.title = [[UILabel alloc] init];
@@ -39,17 +37,18 @@
     return self;
 }
 
-- (void)setChannelModel:(LiveSectionChannelModel *)channelModel {
+- (void)setChannelModel:(LiveChannelModel *)channelModel {
     
-//    if (channelModel) {
+    if (channelModel) {
         
-        [_coverIV setImage:[UIImage imageNamed:@"livesectionchannel_cover_default.png"]];
-        _title.text = @"小平的直播";
+    [self.coverIV setImageWithURL:[NSURL URLWithString:channelModel.liveImg]
+                 placeholderImage:[UIImage imageNamed:@"livesectionchannel_cover_default.png"]];
+        _title.text = channelModel.liveName;
         [_title sizeToFit];
         _title.width = _coverIV.width;
         _title.x = _coverIV.x;
         _title.y = _coverIV.maxY + 5;
-//    }
+    }
 }
 
 @end

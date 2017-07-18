@@ -7,17 +7,30 @@
 //
 
 #import "LiveSectionViewController.h"
+#import "CustomNaviController.h"
 #import "LivePlayViewController.h"
 #import "LiveSectionChannelCollectionViewCell.h"
+#import "LiveManager.h"
 
 @interface LiveSectionViewController ()
 <UICollectionViewDelegate,UICollectionViewDataSource>
 
+@property (nonatomic,strong) NSMutableArray *channelList;
 @property (nonatomic,strong) UICollectionView *channelCollView;
 
 @end
 
 @implementation LiveSectionViewController
+
+- (NSMutableArray*)channelList {
+    
+    if (!_channelList) {
+        
+        _channelList = [[NSMutableArray alloc] init];
+    }
+    
+    return _channelList;
+}
 
 - (void)back {
     
@@ -54,14 +67,13 @@
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
     
-    UIImage *img = [UIImage imageNamed:@"livesectionchannel_cover_default.png"];
-    
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 20;
     layout.headerReferenceSize = CGSizeMake(0,0);
     layout.footerReferenceSize = CGSizeMake(0,0);
-    layout.itemSize = CGSizeMake((K_UIScreenWidth-28-20)/2, (K_UIScreenWidth-28-20)/2/(img.size.width/img.size.height) + 16);
+    CGFloat itemWidth = (K_UIScreenWidth-28-20)/2;
+    layout.itemSize = CGSizeMake(itemWidth, itemWidth*3/4 + 16);
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     [layout setHeaderReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
     [layout setFooterReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
@@ -73,6 +85,22 @@
     _channelCollView.showsVerticalScrollIndicator = NO;
     [_channelCollView registerClass:[LiveSectionChannelCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
     [self.view addSubview:_channelCollView];
+    
+    [[LiveManager sharedInstance] getLiveListByLiveTypeId:[LiveManager getLiveTypeIdBySectionIndex:_section] completion:^(NSArray * _Nullable channelList, NSError * _Nullable error) {
+        
+        if (error) {
+            
+        } else {
+            
+            if (channelList.count > 0) {
+                
+                [self.channelList removeAllObjects];
+                [self.channelList addObjectsFromArray:channelList];
+                [_channelCollView reloadData];
+                [LiveManager updateLiveBannerLastUpdateTime:[NSDate date]];
+            }
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -93,23 +121,24 @@
     self.navigationController.navigationBar.hidden = NO;
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    
-    return 1;
-}
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return 12;
+    return self.channelList.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     LiveSectionChannelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.channelModel = nil;
+    cell.channelModel = [_channelList objectAtIndex:indexPath.row];
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    LivePlayViewController *vc = [[LivePlayViewController alloc] init];
+    vc.liveChannelModel = [_channelList objectAtIndex:indexPath.row];
+    [self.tabBarController presentViewController:[[CustomNaviController alloc] initWithRootViewController:vc] animated:YES completion:nil];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

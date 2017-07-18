@@ -10,8 +10,7 @@
 
 @interface LiveHttpService : HttpClientService
 
--(void)getLiveBannerByLiveTypeId:(NSString*)typeId
-                      completion:(HttpClientServiceObjectBlock)complete;
+-(void)getLiveBannerCompletion:(HttpClientServiceObjectBlock)complete;
 
 -(void)getLiveListByLiveTypeId:(NSString*)typeId
                     completion:(HttpClientServiceObjectBlock)complete;

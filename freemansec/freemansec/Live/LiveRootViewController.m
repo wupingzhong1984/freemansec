@@ -12,14 +12,29 @@
 #import "LiveSectionViewController.h"
 #import "LivePlayViewController.h"
 #import "CustomNaviController.h"
+#import "LiveManager.h"
+#import "LiveBannerCollectionViewCell.h"
 
 @interface LiveRootViewController ()
+<UICollectionViewDelegate,UICollectionViewDataSource>
 
+@property (nonatomic,strong) NSMutableArray *bannerList;
+@property (nonatomic,strong) UICollectionView *bannerView;
 @property (nonatomic,strong) UIScrollView *contentView;
 
 @end
 
 @implementation LiveRootViewController
+
+- (NSMutableArray*)bannerList {
+    
+    if (!_bannerList) {
+        
+        _bannerList = [[NSMutableArray alloc] init];
+    }
+    
+    return _bannerList;
+}
 
 - (void)tabBarCenterAction {
     
@@ -35,11 +50,6 @@
     
     LiveSearchViewController *vc = [[LiveSearchViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)playBannerLive {
-    
-    [self.tabBarController presentViewController:[[CustomNaviController alloc] initWithRootViewController:[[LivePlayViewController alloc] init]] animated:YES completion:nil];
 }
 
 - (void)liveSectionClicked:(id)sender {
@@ -87,21 +97,23 @@
     self.contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.maxY, K_UIScreenWidth, K_UIScreenHeight - self.navigationController.navigationBar.maxY - self.tabBarController.tabBar.height)];
     [self.view addSubview:_contentView];
     
-    UIImageView *bannerIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liveroot_banner.png"]];
-    bannerIV.size = CGSizeMake(K_UIScreenWidth, K_UIScreenWidth/(bannerIV.width/bannerIV.height));
-    [_contentView addSubview:bannerIV];
-    
-    UIImage *playIcon = [UIImage imageNamed:@"banner_play.png"];
-    UIButton *playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [playBtn addTarget:self action:@selector(playBannerLive) forControlEvents:UIControlEventTouchUpInside];
-    [playBtn setImage:playIcon forState:UIControlStateNormal];
-    playBtn.size = playIcon.size;
-    playBtn.centerX = bannerIV.x + bannerIV.width/2;
-    playBtn.centerY = 170;
-    [_contentView addSubview:playBtn];
+    UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.itemSize = CGSizeMake(K_UIScreenWidth, K_UIScreenWidth*3/4);
+    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 0;
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    self.bannerView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, K_UIScreenWidth*3/4) collectionViewLayout:layout];
+    _bannerView.backgroundColor = [UIColor whiteColor];
+    _bannerView.delegate = self;
+    _bannerView.dataSource = self;
+    _bannerView.showsHorizontalScrollIndicator = NO;
+    _bannerView.showsVerticalScrollIndicator = NO;
+    [_bannerView registerClass:[LiveBannerCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
+    [_contentView addSubview:_bannerView];
     
     UIImageView *sectionBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liveroot_section_bg.png"]];
-    sectionBg.y = bannerIV.maxY - 10;
+    sectionBg.y = _bannerView.maxY - 10;
     sectionBg.centerX = _contentView.width/2;
     [_contentView addSubview:sectionBg];
     
@@ -152,6 +164,25 @@
     self.navigationController.navigationBar.hidden = YES;
     
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    
+    if ([LiveManager liveBannerNeedUpdate]) {
+        
+        [[LiveManager sharedInstance] getLiveBannerCompletion:^(NSArray * _Nullable channelList, NSError * _Nullable error) {
+            
+            if (error) {
+                
+            } else {
+                
+                if (channelList.count > 0) {
+                    
+                    [self.bannerList removeAllObjects];
+                    [self.bannerList addObjectsFromArray:channelList];
+                    [_bannerView reloadData];
+                    [LiveManager updateLiveBannerLastUpdateTime:[NSDate date]];
+                }
+            }
+        }];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -161,6 +192,25 @@
     self.navigationController.navigationBar.hidden = NO;
 }
 
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    return self.bannerList.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    LiveBannerCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.channelModel = [self.bannerList objectAtIndex:indexPath.row];
+    
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    LivePlayViewController *vc = [[LivePlayViewController alloc] init];
+    vc.liveChannelModel = [self.bannerList objectAtIndex:indexPath.row];
+    [self.tabBarController presentViewController:[[CustomNaviController alloc] initWithRootViewController:vc] animated:YES completion:nil];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
