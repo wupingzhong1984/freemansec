@@ -33,7 +33,7 @@
     if (channelModel) {
         
         [self.coverIV setImageWithURL:[NSURL URLWithString:channelModel.liveImg]
-                     placeholderImage:[UIImage imageNamed:@"livesectionchannel_cover_default.png"]];
+                     placeholderImage:[UIImage imageNamed:@"livetypechannel_cover_default.png"]];
     }
 }
 @end

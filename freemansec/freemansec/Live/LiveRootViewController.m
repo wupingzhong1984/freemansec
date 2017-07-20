@@ -9,7 +9,7 @@
 #import "LiveRootViewController.h"
 #import "LiveSearchViewController.h"
 #import "UserLiveRootViewController.h"
-#import "LiveSectionViewController.h"
+#import "LiveTypeViewController.h"
 #import "LivePlayViewController.h"
 #import "CustomNaviController.h"
 #import "LiveManager.h"
@@ -56,8 +56,8 @@
 - (void)liveTypeClicked:(id)sender {
     
     int type = (int)((UIButton*)sender).tag - 100;
-    LiveSectionViewController *vc = [[LiveSectionViewController alloc] init];
-    vc.section = type;
+    LiveTypeViewController *vc = [[LiveTypeViewController alloc] init];
+    vc.type = type;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -112,15 +112,16 @@
     _bannerView.showsVerticalScrollIndicator = NO;
     [_bannerView registerClass:[LiveBannerCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
     [_contentView addSubview:_bannerView];
+    _bannerView.backgroundColor = [UIColor blackColor];//test
     
     CGFloat centerX = 20 + (K_UIScreenWidth-40)/6;
-    CGFloat centerY = _bannerView.maxX + 90;
+    CGFloat centerY = _bannerView.maxY + 53;
     UIImageView *typeIV;
     UILabel *title;
     UIButton *btn;
     for (int i = 0; i < 6; i++) {
         
-        typeIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"live_section_%d.png",i]]];
+        typeIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"live_type_%d.png",i]]];
         typeIV.centerX = centerX;
         typeIV.centerY = centerY;
         [_contentView addSubview:typeIV];

@@ -161,7 +161,7 @@
     face.layer.cornerRadius = face.width/2;
     [self.view addSubview:face];
     [face setImageWithURL:[NSURL URLWithString:_liveChannelModel.anchorImg]
-         placeholderImage:[UIImage imageNamed:@"livesectionchannel_cover_default.png"]];
+         placeholderImage:[UIImage imageNamed:@"livetypechannel_cover_default.png"]];
     
     UILabel *name = [UILabel createLabelWithFrame:CGRectZero text:_liveChannelModel.anchorName textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:14]];
     [name sizeToFit];

@@ -44,7 +44,7 @@
     [super viewDidLoad];
     
     [self setupChildVc:[[LiveRootViewController alloc] init] title:@"直播" image:@"tab_img_0.png" selectedImage:@"tab_img_0_h.png"];
-    [self setupChildVc:[[VideoRootViewController alloc] init] title:@"视频" image:@"tab_img_1.png" selectedImage:@"tab_img_1_h.png"];
+    [self setupChildVc:[[VideoRootViewController alloc] init] title:@"热门视频" image:@"tab_img_1.png" selectedImage:@"tab_img_1_h.png"];
     [self setupChildVc:[[MessageRootViewController alloc] init] title:@"消息" image:@"tab_img_2.png" selectedImage:@"tab_img_2_h.png"];
     [self setupChildVc:[[MineRootViewController alloc] init] title:@"我的" image:@"tab_img_3.png" selectedImage:@"tab_img_3_h.png"];
     
