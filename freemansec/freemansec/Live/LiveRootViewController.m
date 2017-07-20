@@ -14,6 +14,7 @@
 #import "CustomNaviController.h"
 #import "LiveManager.h"
 #import "LiveBannerCollectionViewCell.h"
+#import "Reachability.h"
 
 @interface LiveRootViewController ()
 <UICollectionViewDelegate,UICollectionViewDataSource>
@@ -52,11 +53,11 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)liveSectionClicked:(id)sender {
+- (void)liveTypeClicked:(id)sender {
     
-    int section = (int)((UIButton*)sender).tag - 100;
+    int type = (int)((UIButton*)sender).tag - 100;
     LiveSectionViewController *vc = [[LiveSectionViewController alloc] init];
-    vc.section = section;
+    vc.section = type;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -112,43 +113,38 @@
     [_bannerView registerClass:[LiveBannerCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
     [_contentView addSubview:_bannerView];
     
-    UIImageView *sectionBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"liveroot_section_bg.png"]];
-    sectionBg.y = _bannerView.maxY - 10;
-    sectionBg.centerX = _contentView.width/2;
-    [_contentView addSubview:sectionBg];
-    
-    CGFloat centerX = sectionBg.x + 60 + 10;
-    CGFloat centerY = sectionBg.y + 61;
-    UIImageView *sectionIV;
+    CGFloat centerX = 20 + (K_UIScreenWidth-40)/6;
+    CGFloat centerY = _bannerView.maxX + 90;
+    UIImageView *typeIV;
     UILabel *title;
     UIButton *btn;
     for (int i = 0; i < 6; i++) {
         
-        sectionIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"live_section_%d.png",i]]];
-        sectionIV.centerX = centerX;
-        sectionIV.centerY = centerY;
-        [_contentView addSubview:sectionIV];
+        typeIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"live_section_%d.png",i]]];
+        typeIV.centerX = centerX;
+        typeIV.centerY = centerY;
+        [_contentView addSubview:typeIV];
         
-        title = [UILabel createLabelWithFrame:CGRectZero text:[LIVE_SECTION_LIST objectAtIndex:i] textColor:[UIColor grayColor] font:[UIFont systemFontOfSize:12]];
+        title = [UILabel createLabelWithFrame:CGRectZero text:[LIVE_TYPE_NAME_LIST objectAtIndex:i] textColor:[UIColor grayColor] font:[UIFont systemFontOfSize:12]];
         [title sizeToFit];
-        title.centerX = sectionIV.centerX;
-        title.y = sectionIV.centerY + 34;
+        title.centerX = typeIV.centerX;
+        title.y = typeIV.centerY + 34;
         [_contentView addSubview:title];
         
         btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn addTarget:self action:@selector(liveSectionClicked:) forControlEvents:UIControlEventTouchUpInside];
-        btn.frame = sectionIV.frame;
+        [btn addTarget:self action:@selector(liveTypeClicked:) forControlEvents:UIControlEventTouchUpInside];
+        btn.frame = typeIV.frame;
         btn.tag = i + 100;
         [_contentView addSubview:btn];
         
         if ((i+1)%3==0) {
             
-            centerX = sectionBg.x + 60 + 10;
-            centerY += 95;
+            centerX = 20 + (K_UIScreenWidth-40)/6;
+            centerY += 105;
             
         } else {
             
-            centerX += 114;
+            centerX += (K_UIScreenWidth-40)/3;
         }
     }
     

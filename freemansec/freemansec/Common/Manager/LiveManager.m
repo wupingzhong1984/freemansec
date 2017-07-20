@@ -50,9 +50,9 @@ static LiveManager *instance;
     [[NSUserDefaults standardUserDefaults] setObject:time forKey:@"livebannerlastupdatetime"];
 }
 
-+ (NSString*)getLiveTypeIdBySectionIndex:(int)section {
++ (NSString*)getLiveTypeIdByTypeIndex:(int)type {
     
-    switch (section) {
+    switch (type) {
         case 0:
             return @"100";
             break;

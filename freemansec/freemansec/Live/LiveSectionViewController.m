@@ -42,7 +42,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
     v.backgroundColor = [UIColor blackColor];
     
-    [v addSubview:[self commNaviTitle:[LIVE_SECTION_LIST objectAtIndex:_section] color:[UIColor whiteColor]]];
+    [v addSubview:[self commNaviTitle:[LIVE_TYPE_NAME_LIST objectAtIndex:_section] color:[UIColor whiteColor]]];
     
     UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_white.png"]];
     search.centerX = 25;
