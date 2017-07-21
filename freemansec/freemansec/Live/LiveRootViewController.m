@@ -71,18 +71,18 @@
     logoIV.centerY = (v.height - 20)/2 + 20;
     [v addSubview:logoIV];
     
-    UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navibar_search.png"]];
-    search.centerX = v.width - 25;
-    search.centerY = logoIV.centerY;
-    [v addSubview:search];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn addTarget:self action:@selector(loadSearchPage) forControlEvents:UIControlEventTouchUpInside];
-    btn.width = search.width + 20;
-    btn.height = search.height + 20;
-    btn.center = search.center;
-    [v addSubview:btn];
-    
+//    UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navibar_search.png"]];
+//    search.centerX = v.width - 25;
+//    search.centerY = logoIV.centerY;
+//    [v addSubview:search];
+//    
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [btn addTarget:self action:@selector(loadSearchPage) forControlEvents:UIControlEventTouchUpInside];
+//    btn.width = search.width + 20;
+//    btn.height = search.height + 20;
+//    btn.center = search.center;
+//    [v addSubview:btn];
+//    
     return v;
 }
 
@@ -148,6 +148,8 @@
             centerX += (K_UIScreenWidth-40)/3;
         }
     }
+    
+    _contentView.contentSize = CGSizeMake(_contentView.width, title.maxY + 20);
     
     //tabbar中间按钮相应
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tabBarCenterAction) name:@"tabBarCenterAction" object:nil];

@@ -44,16 +44,16 @@
     
     [v addSubview:[self commNaviTitle:[LIVE_TYPE_NAME_LIST objectAtIndex:_type] color:[UIColor whiteColor]]];
     
-    UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_white.png"]];
-    search.centerX = 25;
-    search.centerY = (v.height - 20)/2 + 20;
-    [v addSubview:search];
+    UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_white.png"]];
+    back.centerX = 25;
+    back.centerY = (v.height - 20)/2 + 20;
+    [v addSubview:back];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    btn.width = search.width + 20;
-    btn.height = search.height + 20;
-    btn.center = search.center;
+    btn.width = back.width + 20;
+    btn.height = back.height + 20;
+    btn.center = back.center;
     [v addSubview:btn];
     
     return v;
