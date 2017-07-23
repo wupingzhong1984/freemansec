@@ -137,7 +137,7 @@
     
     LivePlayViewController *vc = [[LivePlayViewController alloc] init];
     vc.liveChannelModel = [_channelList objectAtIndex:indexPath.row];
-    [self.tabBarController presentViewController:[[CustomNaviController alloc] initWithRootViewController:vc] animated:YES completion:nil];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

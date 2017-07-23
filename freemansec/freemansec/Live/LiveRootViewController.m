@@ -96,6 +96,8 @@
     [self.view addSubview:naviBar];
     
     self.contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.maxY, K_UIScreenWidth, K_UIScreenHeight - self.navigationController.navigationBar.maxY - self.tabBarController.tabBar.height)];
+    _contentView.showsVerticalScrollIndicator = NO;
+    _contentView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:_contentView];
     
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
@@ -208,7 +210,7 @@
     
     LivePlayViewController *vc = [[LivePlayViewController alloc] init];
     vc.liveChannelModel = [self.bannerList objectAtIndex:indexPath.row];
-    [self.tabBarController presentViewController:[[CustomNaviController alloc] initWithRootViewController:vc] animated:YES completion:nil];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

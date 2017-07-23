@@ -24,7 +24,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
     v.backgroundColor = [UIColor blackColor];
     
-    [v addSubview:[self commNaviTitle:@"搜索" color:[UIColor whiteColor]]];
+    [v addSubview:[self commNaviTitle:@"搜索" color:[UIColor whiteColor]]];//NSLocalizedString
     
     UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_white.png"]];
     search.centerX = 25;

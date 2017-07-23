@@ -34,4 +34,4 @@
 #define kNotificationUpdateStatusBar @"kNotificationUpdateStatusBar"
 
 
-#define LIVE_TYPE_NAME_LIST [NSArray arrayWithObjects:@"郭sir专区",@"皇牌节目",@"财经访谈",@"股市新闻",@"财经互动",@"其他",nil]
+#define LIVE_TYPE_NAME_LIST [NSArray arrayWithObjects:@"郭sir专区",@"皇牌节目",@"财经访谈",@"股市新闻",@"财经互动",@"其他",nil] //NSLocalizedString
