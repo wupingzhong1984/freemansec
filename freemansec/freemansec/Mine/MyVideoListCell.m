@@ -11,7 +11,7 @@
 @interface MyVideoListCell ()
 
 @property (nonatomic,strong) UIImageView *imgV;
-@property (nonatomic,strong) UILabel *nameLbl;
+@property (nonatomic,strong) UILabel *titleLbl;
 @property (nonatomic,strong) UILabel *dateLbl;
 @property (nonatomic,strong) UILabel *countLbl;
 @end
@@ -61,15 +61,15 @@
         _dateLbl.width = cellBg.maxX - 10 - _dateLbl.x;
         [self.contentView addSubview:_dateLbl];
         
-        self.nameLbl = [[UILabel alloc] init];
-        _nameLbl.textColor = [UIColor blackColor];
-        _nameLbl.font = [UIFont systemFontOfSize:16];
-        _nameLbl.x = count.x;
-        _nameLbl.y = _imgV.y;
-        _nameLbl.text = @"1";
-        [_nameLbl sizeToFit];
-        _nameLbl.width = cellBg.maxX - 10 - _nameLbl.x;
-        [self.contentView addSubview:_nameLbl];
+        self.titleLbl = [[UILabel alloc] init];
+        _titleLbl.textColor = [UIColor blackColor];
+        _titleLbl.font = [UIFont systemFontOfSize:16];
+        _titleLbl.x = count.x;
+        _titleLbl.y = _imgV.y;
+        _titleLbl.text = @"1";
+        [_titleLbl sizeToFit];
+        _titleLbl.width = cellBg.maxX - 10 - _titleLbl.x;
+        [self.contentView addSubview:_titleLbl];
     }
     return self;
 }
@@ -82,7 +82,7 @@
         
         [_imgV setImageWithURL:[NSURL URLWithString:_videoModel.videoImg]];
         
-        _nameLbl.text = _videoModel.videoName;
+        _titleLbl.text = _videoModel.videoName;
         _dateLbl.text = _videoModel.date;
         _countLbl.text = _videoModel.playCount;
     }
