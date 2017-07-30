@@ -89,7 +89,7 @@
     [[LiveManager sharedInstance] getLiveListByLiveTypeId:[LiveManager getLiveTypeIdByTypeIndex:_type] completion:^(NSArray * _Nullable channelList, NSError * _Nullable error) {
         
         if (error) {
-            
+            //todo
         } else {
             
             if (channelList.count > 0) {
@@ -97,7 +97,6 @@
                 [self.channelList removeAllObjects];
                 [self.channelList addObjectsFromArray:channelList];
                 [_channelCollView reloadData];
-                [LiveManager updateLiveBannerLastUpdateTime:[NSDate date]];
             }
         }
     }];

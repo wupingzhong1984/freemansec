@@ -82,11 +82,11 @@
 - (void)setupDefaultProperties
 {
     self.normalTitleFont = [UIFont systemFontOfSize:14];
-    self.selectedTitleFont = [UIFont systemFontOfSize:16];
+    self.selectedTitleFont = [UIFont systemFontOfSize:14];
     self.normalTitleColor = [UIColor darkGrayColor];
-    self.selectedTitleColor = [UIColor redColor];
-    self.selectedIndicatorColor = [UIColor redColor];
-    self.tagItemSize = (CGSize){XBScreenWidth/3,49};
+    self.selectedTitleColor = [UIColor blueColor]; //
+    self.selectedIndicatorColor = [UIColor blueColor];//
+//    self.tagItemSize = (CGSize){XBScreenWidth/3,_tagViewHeight};
 //    self.tagItemGap = 10.f;
     self.selectedIndex = -1;
 }
@@ -307,6 +307,13 @@
 }
 - (void)reloadDataWith:(NSArray *)titleArray andSubViewdisplayClasses:(NSArray *)classes withParams:(NSArray *)params
 {
+    if (titleArray.count < 4) {
+        
+        self.tagItemSize = (CGSize){XBScreenWidth/titleArray.count,_tagViewHeight};
+    } else {
+        self.tagItemSize = (CGSize){XBScreenWidth/3.5,_tagViewHeight};
+    }
+    
     [self convertKeyValue2Model:titleArray];
     self.displayClasses = classes;
     [self.tagCollectionView reloadData];
@@ -469,7 +476,7 @@
         //1.使用固定的tagItemSize
         if (![self isZeroSize:self.tagItemSize]) {
             if ([self isZeroSize:self.selectedIndicatorSize]) { //如果未手动设定指示条宽高,则设置默认值
-                self.selectedIndicatorSize = CGSizeMake(self.tagItemSize.width, 2);
+                self.selectedIndicatorSize = CGSizeMake(40, 1);
             }
             _selectionIndicator.frame = CGRectMake(0, self.tagViewHeight - self.selectedIndicatorSize.height, self.tagItemSize.width, self.selectedIndicatorSize.height);
         }

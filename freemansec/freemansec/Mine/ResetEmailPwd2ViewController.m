@@ -50,6 +50,10 @@
 
 - (void)submit {
     
+    [_verifyCodeTF resignFirstResponder];
+    [_nPwdTF resignFirstResponder];
+    [_nPwdTF2 resignFirstResponder];
+    
     //NSLocalizedString
     NSMutableString *error = [NSMutableString string];
     if (!_verifyCodeTF.text.length) {

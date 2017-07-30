@@ -24,6 +24,9 @@
 
 - (void)submit {
     
+    [_verifyCodeTF resignFirstResponder];
+    [_pwdTF resignFirstResponder];
+    
     NSMutableString *error = [NSMutableString string];
     
     if (!_verifyCodeTF.text.length) {
@@ -119,12 +122,10 @@
     [_contentView addSubview:_pwdTF];
 
     UIButton *submit = [UIButton buttonWithType:UIButtonTypeCustom];
-    submit.size = pwdBg.size;
-    submit.x = pwdBg.x;
-    submit.y = pwdBg.maxY + 50;
+    submit.frame = CGRectMake(pwdBg.x, pwdBg.maxY + 50, pwdBg.width, 40);
     submit.backgroundColor = [UIColor blueColor];//todo
     submit.layer.cornerRadius = 4;
-    [submit setTitle:@"确认提交" forState:UIControlStateNormal];//NSLocalizedString
+    [submit setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
     [submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal]; //todo
     submit.titleLabel.font = [UIFont systemFontOfSize:16];
     [submit addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];

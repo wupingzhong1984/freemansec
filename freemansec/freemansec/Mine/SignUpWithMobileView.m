@@ -126,9 +126,7 @@
         [self addSubview:agreeBtn];
         
         self.signBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _signBtn.size = pwdBg.size;
-        _signBtn.x = pwdBg.x;
-        _signBtn.y = _agreeIV.maxY + 25;
+        _signBtn.frame = CGRectMake(pwdBg.x, _agreeIV.maxY + 25, pwdBg.width, 40);
         _signBtn.backgroundColor = [UIColor blueColor];//todo
         _signBtn.layer.cornerRadius = 4;
         [_signBtn setTitle:@"注册" forState:UIControlStateNormal];//NSLocalizedString

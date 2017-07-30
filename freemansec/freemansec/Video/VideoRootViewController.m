@@ -7,12 +7,44 @@
 //
 
 #import "VideoRootViewController.h"
+#import "VideoKindViewController.h"
+#import "VideoKindModel.h"
 
 @interface VideoRootViewController ()
 
+@property (nonatomic,strong)NSMutableArray *kindNameArray;
+@property (nonatomic,strong)NSMutableArray *classNameArray;
+@property (nonatomic,strong)NSMutableArray *kindIdArray;
 @end
 
 @implementation VideoRootViewController
+
+- (NSMutableArray*)kindNameArray {
+    
+    if (!_kindNameArray) {
+        _kindNameArray = [[NSMutableArray alloc] init];
+    }
+    
+    return _kindNameArray;
+}
+
+- (NSMutableArray*)classNameArray {
+    
+    if (!_classNameArray) {
+        _classNameArray = [[NSMutableArray alloc] init];
+    }
+    
+    return _classNameArray;
+}
+
+- (NSMutableArray*)kindIdArray {
+    
+    if (!_kindIdArray) {
+        _kindIdArray = [[NSMutableArray alloc] init];
+    }
+    
+    return _kindIdArray;
+}
 
 - (void)loadSearchPage {
     
@@ -21,26 +53,24 @@
 
 - (UIView*)naviBarView {
     
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, 64)];
     v.backgroundColor = [UIColor blackColor];
     
     UIView *title = [self commNaviTitle:@"热门视频" color:[UIColor whiteColor]]; //NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
-    
-//    UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navibar_search.png"]];
-//    search.centerX = v.width - 25;
-//    search.centerY = title.centerY;
-//    [v addSubview:search];
-//    
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [btn addTarget:self action:@selector(loadSearchPage) forControlEvents:UIControlEventTouchUpInside];
-//    btn.width = search.width + 20;
-//    btn.height = search.height + 20;
-//    btn.center = search.center;
-//    [v addSubview:btn];
-//    
+   
     return v;
+}
+
+//重载init方法
+- (instancetype)init
+{
+    if (self = [super initWithTagViewHeight:38])
+    {
+        
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -52,9 +82,30 @@
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
     
-    UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"p1.png"]];
-    img.frame = CGRectMake(0, naviBar.maxY, K_UIScreenWidth, K_UIScreenWidth/(img.width/img.height));
-    [self.view addSubview:img];
+    //test
+    NSArray *titleArray = @[
+                            @"分类1",
+                            @"分类2",
+                            @"分类3",
+                            @"分类2"
+                            ];
+    
+    NSArray *classNames = @[
+                            [VideoKindViewController class],
+                            [VideoKindViewController class],[VideoKindViewController class],
+                            [VideoKindViewController class]
+                            ];
+    
+    NSArray *params = @[
+                        @"1",
+                        @"2",
+                        @"2",
+                        @"3"
+                        ];
+    
+    
+    [self reloadDataWith:titleArray andSubViewdisplayClasses:classNames withParams:params];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -66,6 +117,60 @@
     
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
+    //test
+    return;
+    
+    if ([VideoManager videoKindNeedUpdate] || !self.kindNameArray.count) {
+        
+        [VideoManager updateVideoKindLastUpdateTime:[NSDate date]];
+        
+        [[VideoManager sharedInstance] getVideoKindCompletion:^(NSArray * _Nullable kindList, NSError * _Nullable error) {
+            
+            if (error) {
+                
+                //todo
+                
+            } else {
+                
+                BOOL needUpdate = NO;
+                if (kindList.count != self.kindNameArray.count) {
+                    needUpdate = YES;
+                } else {
+                    
+                    if (kindList.count != 0) {
+                        
+                        for (int i = 0; i < kindList.count; i++) {
+                            
+                            VideoKindModel *model = [kindList objectAtIndex:i];
+                            
+                            if (![model.kindId isEqualToString:[self.kindIdArray objectAtIndex:i]] ||
+                                  ![model.kindName isEqualToString:[self.kindNameArray objectAtIndex:i]]) {
+                                needUpdate = YES;
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                if (needUpdate) {
+                    
+                    [self.kindNameArray removeAllObjects];
+                    [self.kindIdArray removeAllObjects];
+                    [self.classNameArray removeAllObjects];
+                    
+                    for (VideoKindModel *model in kindList) {
+                        
+                        [self.kindNameArray addObject:model.kindName];
+                        [self.kindIdArray addObject:model.kindId];
+                        [self.classNameArray addObject:[VideoKindViewController class]];
+                    }
+                    
+                    [self reloadDataWith:self.kindNameArray andSubViewdisplayClasses:self.classNameArray withParams:self.kindIdArray];
+                }
+            }
+        }];
+    }
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -100,6 +100,9 @@ SetTelCodeViewControllerDelegate>
 
 - (void)submit {
     
+    [_mobileTF resignFirstResponder];
+    [_verifyCodeTF resignFirstResponder];
+    
     NSMutableString *error = [NSMutableString string];
     
     //NSLocalizedString

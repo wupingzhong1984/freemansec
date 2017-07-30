@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LiveChannelModel.h"
 
 @interface LogicManager : NSObject
+
++(BOOL)isSameLiveChannelModel:(LiveChannelModel*)model1
+                        other:(LiveChannelModel*)model2;
 
 @end

@@ -32,8 +32,8 @@
 
 - (UIView*)naviBarView {
     
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, 64)];
-    v.backgroundColor = [UIColor whiteColor];
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.m)];
+    v.backgroundColor = [UIColor blackColor];
     
     UIImageView *logoIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
     logoIV.x = 0;//todo

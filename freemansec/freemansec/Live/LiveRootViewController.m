@@ -166,20 +166,37 @@
     
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
-    if ([LiveManager liveBannerNeedUpdate]) {
+    if ([LiveManager liveBannerNeedUpdate] || !self.bannerList.count) {
+        
+        [LiveManager updateLiveBannerLastUpdateTime:[NSDate date]];
         
         [[LiveManager sharedInstance] getLiveBannerCompletion:^(NSArray * _Nullable channelList, NSError * _Nullable error) {
             
             if (error) {
-                
+                //todo
             } else {
                 
-                if (channelList.count > 0) {
+                BOOL needUpdate = NO;
+                if (channelList.count != self.bannerList.count) {
+                    needUpdate = YES;
+                } else {
                     
+                    if (channelList.count != 0) {
+                        
+                        for (int i = 0; i < channelList.count; i++) {
+                            
+                            if (![LogicManager isSameLiveChannelModel:[channelList objectAtIndex:i] other:[self.bannerList objectAtIndex:i]]) {
+                                needUpdate = YES;
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                if (needUpdate) {
                     [self.bannerList removeAllObjects];
                     [self.bannerList addObjectsFromArray:channelList];
                     [_bannerView reloadData];
-                    [LiveManager updateLiveBannerLastUpdateTime:[NSDate date]];
                 }
             }
         }];

@@ -50,6 +50,8 @@
 
 - (void)submit {
     
+    [_emailTF resignFirstResponder];
+    
     if ([Utility validateEmail:_emailTF.text]) {
         
         //todo
@@ -97,9 +99,7 @@
     [_contentView addSubview:_emailTF];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.size = emailBg.size;
-    btn.x = emailBg.x;
-    btn.y = emailBg.maxY + 27;
+    btn.frame = CGRectMake(emailBg.x, emailBg.maxY + 27, emailBg.width, 40);
     btn.backgroundColor = [UIColor blueColor];//todo
     btn.layer.cornerRadius = 4;
     [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString

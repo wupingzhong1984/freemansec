@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XBScrollPageController.h"
 
-@interface VideoRootViewController : UIViewController
+@interface VideoRootViewController : XBScrollPageController
 
 @end

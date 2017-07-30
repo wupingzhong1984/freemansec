@@ -14,7 +14,7 @@
 {
     return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{
                                                        @"code": @"code",
-                                                       @"msg": @"message",
+                                                       @"message": @"msg",
                                                        @"data": @"data"
                                                        }];
 }

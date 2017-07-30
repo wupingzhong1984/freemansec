@@ -13,12 +13,12 @@
 {
     return [[JSONKeyMapper alloc]
             initWithModelToJSONDictionary:@{
-                                            @"id": @"liveId",
+                                            @"liveId": @"id",
                                             @"liveName": @"liveName",
                                             @"liveImg": @"liveImg",
                                             @"liveIntroduce": @"liveIntroduce",
                                             @"liveLink": @"liveLink",
-                                            @"aid": @"anchorId",
+                                            @"anchorId": @"aid",
                                             @"anchorName": @"anchorName",
                                             @"anchorImg": @"anchorImg",
                                             @"anchorIntroduce": @"anchorIntroduce"}];

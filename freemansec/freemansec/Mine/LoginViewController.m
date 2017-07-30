@@ -32,27 +32,27 @@
 
 - (void)loginAction {
     
-    
+    //todo
 }
 
 - (void)forgetPwdAction {
     
-    
+    //todo
 }
 
 - (void)loginByQQ {
     
-    
+    //todo
 }
 
 - (void)loginByWX {
     
-    
+    //todo
 }
 
 - (void)loginByFB {
     
-    
+    //todo
 }
 
 - (UIView*)naviBarView {

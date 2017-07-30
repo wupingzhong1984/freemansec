@@ -24,3 +24,6 @@
 #import "AFNetworking.h"
 #import "UIKit+AFNetworking.h"
 
+#import "LogicManager.h"
+#import "LiveManager.h"
+#import "VideoManager.h"

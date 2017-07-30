@@ -13,4 +13,6 @@
 
 + (BOOL)validateEmail:(NSString *)str2validate;
 +(UILabel*)formatLabel:(UILabel*)lbl text:(NSString*)text font:(UIFont*)font lineSpacing:(CGFloat)lineSpacing;
++ (UIImage *)fixOrientation:(UIImage *)aImage;
++ (NSArray*)getRGBByColor:(UIColor*)color;
 @end

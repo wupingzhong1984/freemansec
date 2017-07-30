@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "CustomTabBarController.h"
-#import "LiveManager.h"
 
 @interface AppDelegate ()
 
@@ -19,7 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    [LiveManager updateLiveBannerLastUpdateTime:nil]; //reset
+    [LiveManager updateLiveBannerLastUpdateTime:nil];
+    [VideoManager updateVideoKindLastUpdateTime:nil];
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
