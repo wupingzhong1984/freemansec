@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef void(^VideoKindListCompletion)(NSArray* _Nullable kindList, NSError* _Nullable error);
+typedef void(^VideoListCompletion)(NSArray* _Nullable videoList, NSError* _Nullable error);
 
 @interface VideoManager : NSObject
 
@@ -17,5 +18,6 @@ typedef void(^VideoKindListCompletion)(NSArray* _Nullable kindList, NSError* _Nu
 + (BOOL)videoKindNeedUpdate;
 + (void)updateVideoKindLastUpdateTime:(NSDate*_Nullable)time;
 
--(void)getVideoKindCompletion:(VideoKindListCompletion _Nullable)completion;
+- (void)getVideoKindCompletion:(VideoKindListCompletion _Nullable)completion;
+- (void)getVideoListByKindId:(NSString*_Nullable)kindId completion:(VideoListCompletion _Nullable)completion;
 @end

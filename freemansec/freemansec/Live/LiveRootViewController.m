@@ -196,7 +196,11 @@
                 if (needUpdate) {
                     [self.bannerList removeAllObjects];
                     [self.bannerList addObjectsFromArray:channelList];
-                    [_bannerView reloadData];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [self.bannerView reloadData];
+                        
+                    });
                 }
             }
         }];

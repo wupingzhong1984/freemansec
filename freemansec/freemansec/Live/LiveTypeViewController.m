@@ -96,7 +96,11 @@
                 
                 [self.channelList removeAllObjects];
                 [self.channelList addObjectsFromArray:channelList];
-                [_channelCollView reloadData];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [self.channelCollView reloadData];
+                    
+                });
             }
         }
     }];

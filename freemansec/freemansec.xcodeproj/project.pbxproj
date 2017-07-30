@@ -167,6 +167,18 @@
 		2FE7FF091F2CEB4D007DFCC0 /* RealNameCertifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF081F2CEB4D007DFCC0 /* RealNameCertifyViewController.m */; };
 		2FE7FF0C1F2CFC54007DFCC0 /* DottedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF0B1F2CFC54007DFCC0 /* DottedLineView.m */; };
 		2FE7FF0E1F2D07C7007DFCC0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FE7FF0D1F2D07C7007DFCC0 /* CoreGraphics.framework */; };
+		2FE7FF121F2DCEEA007DFCC0 /* MyVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF111F2DCEEA007DFCC0 /* MyVideoViewController.m */; };
+		2FE7FF161F2DCF86007DFCC0 /* MyVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF151F2DCF86007DFCC0 /* MyVideoModel.m */; };
+		2FE7FF191F2DCFA2007DFCC0 /* MyVideoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF181F2DCFA2007DFCC0 /* MyVideoListCell.m */; };
+		2FE7FF1C1F2DDC6A007DFCC0 /* MineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF1B1F2DDC6A007DFCC0 /* MineManager.m */; };
+		2FE7FF1F1F2DDE00007DFCC0 /* VideoHttpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF1E1F2DDE00007DFCC0 /* VideoHttpService.m */; };
+		2FE7FF221F2DDFEC007DFCC0 /* MineHttpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF211F2DDFEC007DFCC0 /* MineHttpService.m */; };
+		2FE7FF251F2E387E007DFCC0 /* MyFavourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF241F2E387E007DFCC0 /* MyFavourViewController.m */; };
+		2FE7FF281F2E38B3007DFCC0 /* MyAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF271F2E38B3007DFCC0 /* MyAttentionViewController.m */; };
+		2FE7FF2B1F2E397B007DFCC0 /* MyFavourModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF2A1F2E397B007DFCC0 /* MyFavourModel.m */; };
+		2FE7FF2E1F2E399E007DFCC0 /* MyAttentionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF2D1F2E399E007DFCC0 /* MyAttentionModel.m */; };
+		2FE7FF311F2E56DD007DFCC0 /* MyFavourListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF301F2E56DD007DFCC0 /* MyFavourListCell.m */; };
+		2FE7FF341F2E56F3007DFCC0 /* MyAttentionListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF331F2E56F3007DFCC0 /* MyAttentionListCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -441,6 +453,30 @@
 		2FE7FF0A1F2CFC54007DFCC0 /* DottedLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DottedLineView.h; sourceTree = "<group>"; };
 		2FE7FF0B1F2CFC54007DFCC0 /* DottedLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DottedLineView.m; sourceTree = "<group>"; };
 		2FE7FF0D1F2D07C7007DFCC0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2FE7FF101F2DCEEA007DFCC0 /* MyVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyVideoViewController.h; sourceTree = "<group>"; };
+		2FE7FF111F2DCEEA007DFCC0 /* MyVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyVideoViewController.m; sourceTree = "<group>"; };
+		2FE7FF141F2DCF86007DFCC0 /* MyVideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyVideoModel.h; sourceTree = "<group>"; };
+		2FE7FF151F2DCF86007DFCC0 /* MyVideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyVideoModel.m; sourceTree = "<group>"; };
+		2FE7FF171F2DCFA2007DFCC0 /* MyVideoListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyVideoListCell.h; sourceTree = "<group>"; };
+		2FE7FF181F2DCFA2007DFCC0 /* MyVideoListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyVideoListCell.m; sourceTree = "<group>"; };
+		2FE7FF1A1F2DDC6A007DFCC0 /* MineManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineManager.h; sourceTree = "<group>"; };
+		2FE7FF1B1F2DDC6A007DFCC0 /* MineManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineManager.m; sourceTree = "<group>"; };
+		2FE7FF1D1F2DDE00007DFCC0 /* VideoHttpService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoHttpService.h; sourceTree = "<group>"; };
+		2FE7FF1E1F2DDE00007DFCC0 /* VideoHttpService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoHttpService.m; sourceTree = "<group>"; };
+		2FE7FF201F2DDFEC007DFCC0 /* MineHttpService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineHttpService.h; sourceTree = "<group>"; };
+		2FE7FF211F2DDFEC007DFCC0 /* MineHttpService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHttpService.m; sourceTree = "<group>"; };
+		2FE7FF231F2E387E007DFCC0 /* MyFavourViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFavourViewController.h; sourceTree = "<group>"; };
+		2FE7FF241F2E387E007DFCC0 /* MyFavourViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFavourViewController.m; sourceTree = "<group>"; };
+		2FE7FF261F2E38B3007DFCC0 /* MyAttentionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAttentionViewController.h; sourceTree = "<group>"; };
+		2FE7FF271F2E38B3007DFCC0 /* MyAttentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAttentionViewController.m; sourceTree = "<group>"; };
+		2FE7FF291F2E397B007DFCC0 /* MyFavourModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFavourModel.h; sourceTree = "<group>"; };
+		2FE7FF2A1F2E397B007DFCC0 /* MyFavourModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFavourModel.m; sourceTree = "<group>"; };
+		2FE7FF2C1F2E399E007DFCC0 /* MyAttentionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAttentionModel.h; sourceTree = "<group>"; };
+		2FE7FF2D1F2E399E007DFCC0 /* MyAttentionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAttentionModel.m; sourceTree = "<group>"; };
+		2FE7FF2F1F2E56DD007DFCC0 /* MyFavourListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFavourListCell.h; sourceTree = "<group>"; };
+		2FE7FF301F2E56DD007DFCC0 /* MyFavourListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFavourListCell.m; sourceTree = "<group>"; };
+		2FE7FF321F2E56F3007DFCC0 /* MyAttentionListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAttentionListCell.h; sourceTree = "<group>"; };
+		2FE7FF331F2E56F3007DFCC0 /* MyAttentionListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAttentionListCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -460,32 +496,15 @@
 		2F22DF5B1F20F9810039316B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				2FE7FF0F1F2DCEAF007DFCC0 /* MyAccount */,
 				2FAF30E51F1605BD004329ED /* MineRootViewController.h */,
 				2FAF30E61F1605BD004329ED /* MineRootViewController.m */,
-				2F88AF041F29B056005E8383 /* MinePersonInfoViewController.h */,
-				2F88AF051F29B056005E8383 /* MinePersonInfoViewController.m */,
-				2F22DF5C1F20FA9C0039316B /* LoginViewController.h */,
-				2F22DF5D1F20FA9C0039316B /* LoginViewController.m */,
-				2F22DF5F1F2108180039316B /* SignUpViewController.h */,
-				2F22DF601F2108180039316B /* SignUpViewController.m */,
-				2F22DF8C1F225D2D0039316B /* VerifyEmailCodeViewController.h */,
-				2F22DF8D1F225D2D0039316B /* VerifyEmailCodeViewController.m */,
-				2F9EEE521F23521200E161C3 /* SetTelCodeViewController.h */,
-				2F9EEE531F23521200E161C3 /* SetTelCodeViewController.m */,
-				2F9EEE581F238F0300E161C3 /* ForgetPwdViewController.h */,
-				2F9EEE591F238F0300E161C3 /* ForgetPwdViewController.m */,
-				2F9EEE5B1F23924500E161C3 /* ResetMobilePwdViewController.h */,
-				2F9EEE5C1F23924500E161C3 /* ResetMobilePwdViewController.m */,
-				2F9EEE641F24731500E161C3 /* ResetMobilePwd2ViewController.h */,
-				2F9EEE651F24731500E161C3 /* ResetMobilePwd2ViewController.m */,
-				2F9EEE5E1F23925500E161C3 /* ResetEmailPwdViewController.h */,
-				2F9EEE5F1F23925500E161C3 /* ResetEmailPwdViewController.m */,
-				2F9EEE611F23BB2B00E161C3 /* ResetEmailPwd2ViewController.h */,
-				2F9EEE621F23BB2B00E161C3 /* ResetEmailPwd2ViewController.m */,
-				2FE7FF041F2CD7A0007DFCC0 /* NickNameViewController.h */,
-				2FE7FF051F2CD7A0007DFCC0 /* NickNameViewController.m */,
-				2FE7FF071F2CEB4D007DFCC0 /* RealNameCertifyViewController.h */,
-				2FE7FF081F2CEB4D007DFCC0 /* RealNameCertifyViewController.m */,
+				2FE7FF101F2DCEEA007DFCC0 /* MyVideoViewController.h */,
+				2FE7FF111F2DCEEA007DFCC0 /* MyVideoViewController.m */,
+				2FE7FF231F2E387E007DFCC0 /* MyFavourViewController.h */,
+				2FE7FF241F2E387E007DFCC0 /* MyFavourViewController.m */,
+				2FE7FF261F2E38B3007DFCC0 /* MyAttentionViewController.h */,
+				2FE7FF271F2E38B3007DFCC0 /* MyAttentionViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -497,6 +516,12 @@
 				2F22DF8A1F225A050039316B /* SignUpWithMobileView.m */,
 				2F22DF8F1F225ECF0039316B /* SignUpWithEmailView.h */,
 				2F22DF901F225ECF0039316B /* SignUpWithEmailView.m */,
+				2FE7FF171F2DCFA2007DFCC0 /* MyVideoListCell.h */,
+				2FE7FF181F2DCFA2007DFCC0 /* MyVideoListCell.m */,
+				2FE7FF2F1F2E56DD007DFCC0 /* MyFavourListCell.h */,
+				2FE7FF301F2E56DD007DFCC0 /* MyFavourListCell.m */,
+				2FE7FF321F2E56F3007DFCC0 /* MyAttentionListCell.h */,
+				2FE7FF331F2E56F3007DFCC0 /* MyAttentionListCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -519,6 +544,10 @@
 				2F6980EB1F1C99EB0083E785 /* HttpClientService.m */,
 				2F6981401F1CA3E60083E785 /* LiveHttpService.h */,
 				2F6981411F1CA3E70083E785 /* LiveHttpService.m */,
+				2FE7FF1D1F2DDE00007DFCC0 /* VideoHttpService.h */,
+				2FE7FF1E1F2DDE00007DFCC0 /* VideoHttpService.m */,
+				2FE7FF201F2DDFEC007DFCC0 /* MineHttpService.h */,
+				2FE7FF211F2DDFEC007DFCC0 /* MineHttpService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -581,6 +610,8 @@
 				2F6981451F1CA95C0083E785 /* LiveManager.m */,
 				2F9EEE6B1F24F72000E161C3 /* VideoManager.h */,
 				2F9EEE6C1F24F72000E161C3 /* VideoManager.m */,
+				2FE7FF1A1F2DDC6A007DFCC0 /* MineManager.h */,
+				2FE7FF1B1F2DDC6A007DFCC0 /* MineManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -790,6 +821,7 @@
 		2FAF30E41F1605BD004329ED /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				2FE7FF131F2DCF67007DFCC0 /* Model */,
 				2F22DF881F2259EC0039316B /* View */,
 				2F22DF5B1F20F9810039316B /* ViewController */,
 			);
@@ -927,8 +959,8 @@
 		2FAF31411F1605BD004329ED /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				2F9EEE8B1F25C60A00E161C3 /* View */,
 				2F9EEE6E1F2514FA00E161C3 /* Model */,
+				2F9EEE8B1F25C60A00E161C3 /* View */,
 				2F9EEE6A1F24ED4400E161C3 /* ViewController */,
 				2FAF31421F1605BD004329ED /* VideoRootViewController.h */,
 				2FAF31431F1605BD004329ED /* VideoRootViewController.m */,
@@ -1077,6 +1109,50 @@
 			path = IMYWebView;
 			sourceTree = "<group>";
 		};
+		2FE7FF0F1F2DCEAF007DFCC0 /* MyAccount */ = {
+			isa = PBXGroup;
+			children = (
+				2F88AF041F29B056005E8383 /* MinePersonInfoViewController.h */,
+				2F88AF051F29B056005E8383 /* MinePersonInfoViewController.m */,
+				2F22DF5C1F20FA9C0039316B /* LoginViewController.h */,
+				2F22DF5D1F20FA9C0039316B /* LoginViewController.m */,
+				2F22DF5F1F2108180039316B /* SignUpViewController.h */,
+				2F22DF601F2108180039316B /* SignUpViewController.m */,
+				2F22DF8C1F225D2D0039316B /* VerifyEmailCodeViewController.h */,
+				2F22DF8D1F225D2D0039316B /* VerifyEmailCodeViewController.m */,
+				2F9EEE521F23521200E161C3 /* SetTelCodeViewController.h */,
+				2F9EEE531F23521200E161C3 /* SetTelCodeViewController.m */,
+				2F9EEE581F238F0300E161C3 /* ForgetPwdViewController.h */,
+				2F9EEE591F238F0300E161C3 /* ForgetPwdViewController.m */,
+				2F9EEE5B1F23924500E161C3 /* ResetMobilePwdViewController.h */,
+				2F9EEE5C1F23924500E161C3 /* ResetMobilePwdViewController.m */,
+				2F9EEE641F24731500E161C3 /* ResetMobilePwd2ViewController.h */,
+				2F9EEE651F24731500E161C3 /* ResetMobilePwd2ViewController.m */,
+				2F9EEE5E1F23925500E161C3 /* ResetEmailPwdViewController.h */,
+				2F9EEE5F1F23925500E161C3 /* ResetEmailPwdViewController.m */,
+				2F9EEE611F23BB2B00E161C3 /* ResetEmailPwd2ViewController.h */,
+				2F9EEE621F23BB2B00E161C3 /* ResetEmailPwd2ViewController.m */,
+				2FE7FF041F2CD7A0007DFCC0 /* NickNameViewController.h */,
+				2FE7FF051F2CD7A0007DFCC0 /* NickNameViewController.m */,
+				2FE7FF071F2CEB4D007DFCC0 /* RealNameCertifyViewController.h */,
+				2FE7FF081F2CEB4D007DFCC0 /* RealNameCertifyViewController.m */,
+			);
+			name = MyAccount;
+			sourceTree = "<group>";
+		};
+		2FE7FF131F2DCF67007DFCC0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2FE7FF141F2DCF86007DFCC0 /* MyVideoModel.h */,
+				2FE7FF151F2DCF86007DFCC0 /* MyVideoModel.m */,
+				2FE7FF291F2E397B007DFCC0 /* MyFavourModel.h */,
+				2FE7FF2A1F2E397B007DFCC0 /* MyFavourModel.m */,
+				2FE7FF2C1F2E399E007DFCC0 /* MyAttentionModel.h */,
+				2FE7FF2D1F2E399E007DFCC0 /* MyAttentionModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1217,6 +1293,7 @@
 				2FAF320A1F19214D004329ED /* IMYWebView.m in Sources */,
 				2F88AF061F29B056005E8383 /* MinePersonInfoViewController.m in Sources */,
 				2FAF31481F1605BD004329ED /* LivePlayViewController.m in Sources */,
+				2FE7FF2E1F2E399E007DFCC0 /* MyAttentionModel.m in Sources */,
 				2FAF31C11F167C32004329ED /* UIBarButtonItem+Extensions.m in Sources */,
 				2FAF320B1F19214D004329ED /* WYWeakScriptMessageDelegate.m in Sources */,
 				2FAF30BA1F1603F8004329ED /* ViewController.m in Sources */,
@@ -1226,6 +1303,7 @@
 				2FAF31C41F167C32004329ED /* UIImage-Extensions.m in Sources */,
 				2F9EEE631F23BB2B00E161C3 /* ResetEmailPwd2ViewController.m in Sources */,
 				2FAF316C1F1605BD004329ED /* XBScrollPageController.m in Sources */,
+				2FE7FF1F1F2DDE00007DFCC0 /* VideoHttpService.m in Sources */,
 				2FAF31631F1605BD004329ED /* AFAutoPurgingImageCache.m in Sources */,
 				2FAF316B1F1605BD004329ED /* UIWebView+AFNetworking.m in Sources */,
 				2F69813F1F1CA35F0083E785 /* Error.m in Sources */,
@@ -1248,6 +1326,7 @@
 				2FAF31641F1605BD004329ED /* AFImageDownloader.m in Sources */,
 				2F69813B1F1CA1B40083E785 /* JSONKeyMapper.m in Sources */,
 				2F9EEE841F25C25A00E161C3 /* MJRefreshBaseView.m in Sources */,
+				2FE7FF191F2DCFA2007DFCC0 /* MyVideoListCell.m in Sources */,
 				2FAF314F1F1605BD004329ED /* AFNetworkReachabilityManager.m in Sources */,
 				2FAF314D1F1605BD004329ED /* MineRootViewController.m in Sources */,
 				2FAF31691F1605BD004329ED /* UIProgressView+AFNetworking.m in Sources */,
@@ -1258,7 +1337,10 @@
 				2F22DF8B1F225A050039316B /* SignUpWithMobileView.m in Sources */,
 				2FAF31C51F167C32004329ED /* UILabel+MyLabel.m in Sources */,
 				2F6981391F1CA1B40083E785 /* JSONHTTPClient.m in Sources */,
+				2FE7FF1C1F2DDC6A007DFCC0 /* MineManager.m in Sources */,
+				2FE7FF161F2DCF86007DFCC0 /* MyVideoModel.m in Sources */,
 				2F9EEE851F25C25A00E161C3 /* MJRefreshConst.m in Sources */,
+				2FE7FF221F2DDFEC007DFCC0 /* MineHttpService.m in Sources */,
 				2F6980EC1F1C99EB0083E785 /* HttpClientService.m in Sources */,
 				2F9EEE511F2348F000E161C3 /* Utility.m in Sources */,
 				2F9EEE6D1F24F72000E161C3 /* VideoManager.m in Sources */,
@@ -1273,10 +1355,13 @@
 				2F9EEE881F25C25A00E161C3 /* UIScrollView+MJExtension.m in Sources */,
 				2FAF316F1F1605BD004329ED /* XBTagTitleCell.m in Sources */,
 				2FAF31521F1605BD004329ED /* AFURLResponseSerialization.m in Sources */,
+				2FE7FF121F2DCEEA007DFCC0 /* MyVideoViewController.m in Sources */,
 				2F9EEE861F25C25A00E161C3 /* MJRefreshFooterView.m in Sources */,
 				2F22DEC71F1E75550039316B /* LiveBannerCollectionViewCell.m in Sources */,
 				2FE7FF061F2CD7A0007DFCC0 /* NickNameViewController.m in Sources */,
 				2FAF31451F1605BD004329ED /* CustomTabBar.m in Sources */,
+				2FE7FF281F2E38B3007DFCC0 /* MyAttentionViewController.m in Sources */,
+				2FE7FF311F2E56DD007DFCC0 /* MyFavourListCell.m in Sources */,
 				2F9EEE911F25C64300E161C3 /* VideoModel.m in Sources */,
 				2FAF31F61F18718E004329ED /* LiveTypeChannelCollectionViewCell.m in Sources */,
 				2F9EEE661F24731500E161C3 /* ResetMobilePwd2ViewController.m in Sources */,
@@ -1287,6 +1372,7 @@
 				2F6980D81F1B7B790083E785 /* PlayerView.m in Sources */,
 				2FAF316E1F1605BD004329ED /* XBPageCell.m in Sources */,
 				2FAF31511F1605BD004329ED /* AFURLRequestSerialization.m in Sources */,
+				2FE7FF341F2E56F3007DFCC0 /* MyAttentionListCell.m in Sources */,
 				2FAF31501F1605BD004329ED /* AFSecurityPolicy.m in Sources */,
 				2FAF31721F1605BD004329ED /* VideoRootViewController.m in Sources */,
 				2FAF31871F1666C8004329ED /* LiveTypeViewController.m in Sources */,
@@ -1300,6 +1386,8 @@
 				2F9EEE711F25150E00E161C3 /* VideoKindModel.m in Sources */,
 				2FAF30B41F1603F8004329ED /* main.m in Sources */,
 				2FAF31BF1F167C32004329ED /* MKMapView-Extensions.m in Sources */,
+				2FE7FF2B1F2E397B007DFCC0 /* MyFavourModel.m in Sources */,
+				2FE7FF251F2E387E007DFCC0 /* MyFavourViewController.m in Sources */,
 				2F22DF911F225ECF0039316B /* SignUpWithEmailView.m in Sources */,
 				2F69813A1F1CA1B40083E785 /* JSONModel+networking.m in Sources */,
 				2F9EEE691F24E2C800E161C3 /* VideoKindViewController.m in Sources */,

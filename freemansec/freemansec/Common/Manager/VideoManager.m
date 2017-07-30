@@ -7,6 +7,7 @@
 //
 
 #import "VideoManager.h"
+#import "VideoHttpService.h"
 
 static VideoManager *instance;
 
@@ -47,5 +48,35 @@ static VideoManager *instance;
 + (void)updateVideoKindLastUpdateTime:(NSDate*_Nullable)time {
     
         [[NSUserDefaults standardUserDefaults] setObject:time forKey:@"videokindlastupdatetime"];
+}
+
+- (void)getVideoKindCompletion:(VideoKindListCompletion _Nullable)completion {
+    VideoHttpService* service = [[VideoHttpService alloc] init];
+    [service getVideoKindCompletion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+    }];
+}
+- (void)getVideoListByKindId:(NSString*_Nullable)kindId completion:(VideoListCompletion _Nullable)completion {
+    
+    VideoHttpService* service = [[VideoHttpService alloc] init];
+    [service getVideoListByKindId:kindId completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+    }];
 }
 @end
