@@ -7,7 +7,6 @@
 //
 
 #import "LiveHttpService.h"
-#import "JsonResponse.h"
 #import "LiveChannelModel.h"
 
 static NSString* GetLiveBannerPath = @"ajax/GetBanner.ashx";

@@ -112,7 +112,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     //todo
 }
 
-- (void)loadSubViews {
+- (void)setupSubviews {
     
     UIView *bg1 = [[UIView alloc] initWithFrame:CGRectMake(-0.5, 20, _contentView.width+1, 45*4)];
     bg1.backgroundColor = [UIColor whiteColor];
@@ -223,7 +223,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     _contentView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:_contentView];
     
-    [self loadSubViews];
+    [self setupSubviews];
 }
 
 - (void)viewWillAppear:(BOOL)animated

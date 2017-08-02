@@ -138,11 +138,10 @@
 
 - (void)requestGetVideo {
     
-    [self.tableView headerEndRefreshing];
-    [self.tableView footerEndRefreshing];
-    
-    //todo
-    [[MineManager sharedInstance] getMyVideoListByUserId:@"" completion:^(NSArray * _Nullable videoList, NSError * _Nullable error) {
+    [[MineManager sharedInstance] getMyVideoListCompletion:^(NSArray * _Nullable videoList, NSError * _Nullable error) {
+        
+        [self.tableView headerEndRefreshing];
+        [self.tableView footerEndRefreshing];
         
         if (error) {
             //todo

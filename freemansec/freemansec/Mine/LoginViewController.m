@@ -79,9 +79,9 @@
     return v;
 }
 
-- (void)loadSubViews {
+- (void)setupSubviews {
     
-    UIView *tfBg = [[UIView alloc] initWithFrame:CGRectMake(15, 60, (K_UIScreenWidth-30)/2, 88)];
+    UIView *tfBg = [[UIView alloc] initWithFrame:CGRectMake(15, 60, K_UIScreenWidth-30, 88)];
     tfBg.backgroundColor = [UIColor whiteColor];
     tfBg.layer.cornerRadius = 4;
     tfBg.layer.borderWidth = 1;
@@ -203,7 +203,7 @@
     _contentView.size = (CGSize){_contentView.width,_contentView.height+1};
     [self.view addSubview:_contentView];
     
-    [self loadSubViews];
+    [self setupSubviews];
 }
 
 - (void)viewWillAppear:(BOOL)animated

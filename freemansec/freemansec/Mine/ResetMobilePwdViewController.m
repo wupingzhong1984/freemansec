@@ -131,7 +131,7 @@ SetTelCodeViewControllerDelegate>
     }
 }
 
-- (void)loadSubViews {
+- (void)setupSubviews {
     
     //code
     UIView *codeBg = [[UIView alloc] initWithFrame:CGRectMake(15, 60, 73, 44)];
@@ -221,7 +221,7 @@ SetTelCodeViewControllerDelegate>
     _contentView.size = (CGSize){_contentView.width,_contentView.height+1};
     [self.view addSubview:_contentView];
     
-    [self loadSubViews];
+    [self setupSubviews];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

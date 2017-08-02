@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JsonResponse.h"
 
 typedef void (^HttpClientServiceObjectBlock)(id obj, NSError* err);
 

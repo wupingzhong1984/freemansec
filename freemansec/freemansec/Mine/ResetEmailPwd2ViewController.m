@@ -87,7 +87,7 @@
     }
 }
 
-- (void)loadSubViews {
+- (void)setupSubviews {
     
     UIView *verifyCodeBg = [[UIView alloc] initWithFrame:CGRectMake(15, 60, K_UIScreenWidth- 30, 44)];
     verifyCodeBg.backgroundColor = [UIColor whiteColor];
@@ -164,7 +164,7 @@
     _contentView.size = (CGSize){_contentView.width,_contentView.height+1};
     [self.view addSubview:_contentView];
     
-    [self loadSubViews];
+    [self setupSubviews];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

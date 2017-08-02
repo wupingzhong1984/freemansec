@@ -34,10 +34,11 @@ static MineManager *instance;
     return instance;
 }
 
-- (void)getMyVideoListByUserId:(NSString*_Nullable)userId completion:(MyVideoListCompletion _Nullable)completion {
+- (void)getMyVideoListCompletion:(MyVideoListCompletion _Nullable)completion {
     
+    //todo
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service getMyVideoListByUserId:userId completion:^(id obj, NSError *err) {
+    [service getMyVideoListByUserId:@"" completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -50,10 +51,11 @@ static MineManager *instance;
     }];
 }
 
-- (void)getMyFavourListByUserId:(NSString*_Nullable)userId completion:(MyFavourListCompletion _Nullable)completion {
+- (void)getMyFavourListCompletion:(MyFavourListCompletion _Nullable)completion {
     
+    //todo
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service getMyFavourListByUserId:userId completion:^(id obj, NSError *err) {
+    [service getMyFavourListByUserId:@"" completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -66,10 +68,11 @@ static MineManager *instance;
     }];
 }
 
-- (void)getMyAttentionListByUserId:(NSString*_Nullable)userId completion:(MyAttentionListCompletion _Nullable)completion {
+- (void)getMyAttentionListCompletion:(MyAttentionListCompletion _Nullable)completion {
     
+    //todo
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service getMyAttentionListByUserId:userId completion:^(id obj, NSError *err) {
+    [service getMyAttentionListByUserId:@"" completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);

@@ -16,7 +16,7 @@ typedef void(^MyAttentionListCompletion)(NSArray* _Nullable attentionList, NSErr
 
 + (MineManager* _Nonnull)sharedInstance;
 
-- (void)getMyVideoListByUserId:(NSString*_Nullable)userId completion:(MyVideoListCompletion _Nullable)completion;
-- (void)getMyFavourListByUserId:(NSString*_Nullable)userId completion:(MyFavourListCompletion _Nullable)completion;
-- (void)getMyAttentionListByUserId:(NSString*_Nullable)userId completion:(MyAttentionListCompletion _Nullable)completion;
+- (void)getMyVideoListCompletion:(MyVideoListCompletion _Nullable)completion;
+- (void)getMyFavourListCompletion:(MyFavourListCompletion _Nullable)completion;
+- (void)getMyAttentionListCompletion:(MyAttentionListCompletion _Nullable)completion;
 @end

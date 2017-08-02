@@ -63,7 +63,7 @@
     }
 }
 
-- (void)loadSubViews {
+- (void)setupSubviews {
     
     UIView *nameBg = [[UIView alloc] initWithFrame:CGRectMake(15, 60, K_UIScreenWidth-30, 44)];
     nameBg.backgroundColor = [UIColor whiteColor];
@@ -108,7 +108,7 @@
     _contentView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:_contentView];
     
-    [self loadSubViews];
+    [self setupSubviews];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

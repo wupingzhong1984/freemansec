@@ -138,11 +138,10 @@
 
 - (void)requestGetFavour {
     
-    [self.tableView headerEndRefreshing];
-    [self.tableView footerEndRefreshing];
-    
-    //todo
-    [[MineManager sharedInstance] getMyFavourListByUserId:@"" completion:^(NSArray * _Nullable favourList, NSError * _Nullable error) {
+    [[MineManager sharedInstance] getMyFavourListCompletion:^(NSArray * _Nullable favourList, NSError * _Nullable error) {
+        
+        [self.tableView headerEndRefreshing];
+        [self.tableView footerEndRefreshing];
         
         if (error) {
             //todo

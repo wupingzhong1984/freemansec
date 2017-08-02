@@ -39,15 +39,32 @@
 
 - (void)tabBarCenterAction {
     
-    return;//todo
     
-    UserLiveRootViewController *vc = [[UserLiveRootViewController alloc]init];
-    [self presentViewController:vc animated:YES completion:nil];
+    if (YES) { //实名验证
+        
+        if (YES) { //申请主播
+            
+            UserLiveRootViewController *vc = [[UserLiveRootViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+            //   [self.navigationController presentViewController:vc animated:YES completion:nil];
+        } else {
+            //NSLocalizedString
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先完成主播申请。" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        }
+    } else {
+        
+        //NSLocalizedString
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先完成实名认证并申请主播。" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
 }
 
 - (void)loadSearchPage {
-    
-    return;//todo
     
     LiveSearchViewController *vc = [[LiveSearchViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];

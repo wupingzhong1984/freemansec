@@ -10,7 +10,7 @@
 
 @interface MineHttpService : HttpClientService
 
-- (void)getMyVideoListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
-- (void)getMyFavourListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
-- (void)getMyAttentionListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
+- (void)getMyVideoListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)complete;
+- (void)getMyFavourListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)complete;
+- (void)getMyAttentionListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)complete;
 @end

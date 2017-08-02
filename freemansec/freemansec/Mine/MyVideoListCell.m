@@ -80,9 +80,9 @@
         
         _videoModel = videoModel;
         
-        [_imgV setImageWithURL:[NSURL URLWithString:_videoModel.videoImg]];
+        [_imgV setImageWithURL:[NSURL URLWithString:_videoModel.img]];
         
-        _titleLbl.text = _videoModel.videoName;
+        _titleLbl.text = _videoModel.title;
         _dateLbl.text = _videoModel.date;
         _countLbl.text = _videoModel.playCount;
     }

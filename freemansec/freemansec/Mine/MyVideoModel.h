@@ -10,9 +10,9 @@
 #import "JSONModel.h"
 
 @interface MyVideoModel : JSONModel
-@property (nonatomic,strong) NSString<Optional>* videoId;
-@property (nonatomic,strong) NSString<Optional>* videoImg;
-@property (nonatomic,strong) NSString<Optional>* videoName;
+@property (nonatomic,strong) NSString<Optional>* vid;
+@property (nonatomic,strong) NSString<Optional>* img;
+@property (nonatomic,strong) NSString<Optional>* title;
 @property (nonatomic,strong) NSString<Optional>* date;
 @property (nonatomic,strong) NSString<Optional>* playCount;
 

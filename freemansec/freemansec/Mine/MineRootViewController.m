@@ -322,6 +322,19 @@
         MinePersonInfoViewController *vc = [[MinePersonInfoViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
+    //todo
+    
+    if (indexPath.row == 5) {
+        
+        if (YES) { //实名认证
+            
+        } else {
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先在我的账户中完成实名认证。" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {

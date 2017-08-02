@@ -13,9 +13,9 @@
 {   //todo
     return [[JSONKeyMapper alloc]
             initWithModelToJSONDictionary:@{
-                                            @"videoId": @"id",
-                                            @"videoImg": @"videoImg",
-                                            @"videoName": @"videoName",
+                                            @"vid": @"id",
+                                            @"img": @"videoImg",
+                                            @"title": @"videoName",
                                             @"date": @"date",
                                             @"playCount": @"playCount"}];
 }

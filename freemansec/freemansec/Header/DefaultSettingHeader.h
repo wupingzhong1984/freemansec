@@ -24,8 +24,13 @@
 
 #define K_UIScreenWidth [UIScreen mainScreen].bounds.size.width
 #define K_UIScreenHeight [UIScreen mainScreen].bounds.size.height
+#define K_UISreenWidthScale    UIScreenWidth/375.0  //以iphone6 屏幕为基准
+#define K_UIScale(x)           x*K_UISreenWidthScale
 
 #define BASE_URL @"http://mzcj.dhteam.net"
+
+#define LIVE_APP_KEY @"728d3efc69a56832f570c12c5fa7d780"
+#define LIVE_APP_SECRET @"9f252a052b49"
 
 #define TEST_LIVE_URL @"http://9654.liveplay.myqcloud.com/9654_freeman.m3u8"
 

@@ -81,7 +81,7 @@
     }
 }
 
-- (void)loadSubViews {
+- (void)setupSubviews {
     
     UIView *pwdBg = [[UIView alloc] initWithFrame:CGRectMake(15, 60, _contentView.width-30, 44)];
     pwdBg.backgroundColor = [UIColor whiteColor];
@@ -143,7 +143,7 @@
     _contentView.size = (CGSize){_contentView.width,_contentView.height+1};
     [self.view addSubview:_contentView];
     
-    [self loadSubViews];
+    [self setupSubviews];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

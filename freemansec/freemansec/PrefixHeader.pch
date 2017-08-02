@@ -27,3 +27,6 @@
 #import "LogicManager.h"
 #import "LiveManager.h"
 #import "VideoManager.h"
+
+#import "LSMediaCapture.h"
+#import "nMediaLiveStreamingDefs.h"

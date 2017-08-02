@@ -77,7 +77,7 @@
     return v;
 }
 
-- (void)loadSubViews {
+- (void)setupSubviews {
     
     UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
     icon.center = (CGPoint){36,42};
@@ -149,7 +149,7 @@
     _contentView.size = (CGSize){_contentView.width,_contentView.height+1};
     [self.view addSubview:_contentView];
     
-    [self loadSubViews];
+    [self setupSubviews];
 }
 
 - (void)viewWillAppear:(BOOL)animated
