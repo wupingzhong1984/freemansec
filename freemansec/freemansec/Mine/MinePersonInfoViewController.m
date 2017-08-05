@@ -263,7 +263,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
         //submit face
         
         UIImageView *imgV = (UIImageView*)[_contentView viewWithTag:100];
-        imgV.image = editImage;
+        [imgV setImageWithURL:[NSURL URLWithString:@""]];
         
     }];
 }

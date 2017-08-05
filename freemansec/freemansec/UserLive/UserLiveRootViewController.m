@@ -14,7 +14,9 @@
 #import "NEAuthorizeManager.h"
 #import "NEReachability.h"
 
-@interface UserLiveRootViewController () {
+
+@interface UserLiveRootViewController ()
+<UITextFieldDelegate>{
     
     LSVideoParaCtx paraCtx;
     BOOL _isLiving;//是否正在直播
@@ -23,8 +25,14 @@
 //    BOOL _isRecording;//是否正在录制
     
     BOOL _isAccess;
+    
+    BOOL keyboardDidShow;
 
 }
+@property (nonatomic,strong) UILabel *roomPCount;
+@property (nonatomic,strong) UIView *IMAreaView;
+@property (nonatomic,strong) UIView *inputView;
+@property (nonatomic,strong) UITextField *inputTF;
 
 @property (nonatomic,strong) UserLiveChannelModel *channelModel;
 
@@ -33,6 +41,7 @@
 //直播SDK API
 @property (nonatomic,strong) LSMediaCapture *mediaCapture;
 @property (nonatomic, strong) UIView *localPreview;//相机预览视图
+
 @end
 
 @implementation UserLiveRootViewController
@@ -42,6 +51,32 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)IMSendMsg {
+ 
+    //todo
+    
+    [_inputTF resignFirstResponder];
+}
+
+- (UIView*)inputView {
+    
+    
+    
+    if (!_inputView) {
+        _inputView = [[UIView alloc] initWithFrame:CGRectMake(0, K_UIScreenHeight, K_UIScreenWidth, 34)];
+        _inputView.backgroundColor = [UIColor whiteColor];
+        
+        self.inputTF = [[UITextField alloc] initWithFrame:CGRectMake(5, 0, _inputView.width - 10, _inputView.height)];
+        _inputTF.font = [UIFont systemFontOfSize:16];
+        _inputTF.textColor = [UIColor blackColor];
+        _inputTF.returnKeyType = UIReturnKeySend;
+        _inputTF.delegate = self;
+        [_inputView addSubview:_inputTF];
+    }
+    
+    return _inputView;
 }
 
 - (void)showErrorAlert:(NSError*)error {
@@ -78,10 +113,11 @@
 
 - (void)IMAction {
     
-    //todo
+    [self.view addSubview:self.inputView];
+    [_inputTF becomeFirstResponder];
 }
 
-- (void)closeBtnAction {
+- (void)closeAction {
     
     if (_isLiving) {
         
@@ -137,6 +173,85 @@
     self.localPreview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, K_UIScreenWidth,  K_UIScreenHeight)];
     self.localPreview.backgroundColor = [UIColor clearColor];
     [self.view insertSubview:_localPreview atIndex:0];
+    
+    UIImageView *userBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
+    userBg.origin = CGPointMake(32, 35);
+    [self.view addSubview:userBg];
+    
+    UIImageView *userFace = [[UIImageView alloc] init];
+    userFace.backgroundColor = [UIColor whiteColor];
+    userFace.size = CGSizeMake(40, 40);
+    userFace.center = CGPointMake(userBg.x, userBg.centerY);
+    userFace.clipsToBounds = YES;
+    userFace.layer.cornerRadius = userFace.width/2;
+    [userFace setImageWithURL:[NSURL URLWithString:@""]];//todo
+    [self.view addSubview:userFace];
+    
+    //todo
+    UILabel *nameLbl = [UILabel createLabelWithFrame:CGRectZero text:@"" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:14]];
+    [nameLbl sizeToFit];
+    nameLbl.width = 110;
+    nameLbl.lineBreakMode = NSLineBreakByTruncatingTail;
+    nameLbl.x = userFace.maxX + 8;
+    nameLbl.centerY = userBg.y + 15;
+    [self.view addSubview:nameLbl];
+    
+    UILabel *roomNumLbl = [UILabel createLabelWithFrame:CGRectZero text:@"" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:12]];
+    [roomNumLbl sizeToFit];
+    roomNumLbl.x = userFace.maxX + 8;
+    roomNumLbl.centerY = userBg.y + 30;
+    [self.view addSubview:roomNumLbl];
+    
+    UIView *countBg = [[UIView alloc] init];
+    countBg.tag = 101;
+    countBg.backgroundColor = [UIColor blueColor];//todo
+    [self.view addSubview:countBg];
+    
+    UIImageView *countIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
+    countIcon.tag = 102;
+    [countBg addSubview:countIcon];
+    
+    self.roomPCount = [UILabel createLabelWithFrame:CGRectZero text:@"0" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:12]];
+    [_roomPCount sizeToFit];
+    [countBg addSubview:_roomPCount];
+    
+    countBg.size = CGSizeMake(countIcon.width + _roomPCount.width + 30, 20);
+    countBg.layer.cornerRadius = countBg.height/2;
+    countBg.x = K_UIScreenWidth-20-countBg.width;
+    countBg.centerY = userBg.centerY;
+    
+    countIcon.x = 10;
+    countIcon.centerY = countBg.height/2;
+    _roomPCount.x = countIcon.maxX + 10;
+    _roomPCount.centerY = countIcon.centerY;
+    
+    //todo
+    self.IMAreaView = [[UIView alloc] init];
+    
+    
+    UIButton *imBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [imBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];//todo
+    imBtn.size = [imBtn imageForState:UIControlStateNormal].size;
+    imBtn.y = K_UIScreenHeight-48;
+    imBtn.centerX = K_UIScreenWidth/2;
+    [imBtn addTarget:self action:@selector(IMAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:imBtn];
+    
+    UIButton *cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cameraBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];//todo
+    cameraBtn.size = imBtn.size;
+    cameraBtn.y = imBtn.y;
+    cameraBtn.x = imBtn.x - 44;
+    [cameraBtn addTarget:self action:@selector(cameraSwitchAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cameraBtn];
+    
+    UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];//todo
+    closeBtn.size = imBtn.size;
+    closeBtn.y = imBtn.y;
+    closeBtn.x = imBtn.x + 44;
+    [closeBtn addTarget:self action:@selector(closeAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:closeBtn];
     
     //请注意：监听对象已修改，不再是_mediaCapture，同时去除原先的SDK_dellloc通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onStartLiveStream:) name:LS_LiveStreaming_Started object:nil];
@@ -266,17 +381,17 @@
     [self initLSVideoParaCtxAndCamera];
     [self setupSubviews];
     
-    self.updateUserLiveTitleView = [[UpdateUserLiveTitleView alloc] init];
-    [_updateUserLiveTitleView.bgBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
-    [_updateUserLiveTitleView.cancelBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
-    [_updateUserLiveTitleView.startLiveBtn addTarget:self action:@selector(updateUserLiveTitleViewStartLive) forControlEvents:UIControlEventTouchUpInside];
     
     //test
     self.channelModel = [[UserLiveChannelModel alloc] init];
     _channelModel.pushUrl = @"rtmp://pe25ff8be.live.126.net/live/52d6911fc91b417c84f2cc8e790fe689?wsSecret=02096929813efd8ebf4c01b7da1a8abb&wsTime=1501655352";
     [self startPush];
     
-    //[self.view addSubview:_updateUserLiveTitleView];
+//    self.updateUserLiveTitleView = [[UpdateUserLiveTitleView alloc] init];
+//    [_updateUserLiveTitleView.bgBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
+//    [_updateUserLiveTitleView.cancelBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
+//    [_updateUserLiveTitleView.startLiveBtn addTarget:self action:@selector(updateUserLiveTitleViewStartLive) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:_updateUserLiveTitleView];
     
 }
 
@@ -288,7 +403,11 @@
     self.navigationController.navigationBar.hidden = YES;
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -296,6 +415,12 @@
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
 - (void)requestLiveTitle:(NSString*)title {
@@ -322,6 +447,7 @@
         }
     }];
 }
+
 
 #pragma mark -网络监听通知
 - (void)didNetworkConnectChanged:(NSNotification *)notify{
@@ -351,7 +477,15 @@
                 [weakSelf showErrorAlert:error ];
             }
         }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            //开始直播
+            __weak typeof(self) weakSelf = self;
+            [_mediaCapture stopLiveStream:^(NSError *error) {
+                
+                [weakSelf unInitLiveStream];
+                [weakSelf back];
+            }];
+        }]];
         [self presentViewController:alert animated:YES completion:nil];
     }else if(status == NotReachable) {
         NSLog(@"网络已断开");
@@ -364,7 +498,15 @@
                     _isLiving = NO;
                     //NSLocalizedString
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络已断开" preferredStyle:UIAlertControllerStyleAlert];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        //开始直播
+                        __weak typeof(self) weakSelf = self;
+                        [_mediaCapture stopLiveStream:^(NSError *error) {
+                            
+                            [weakSelf unInitLiveStream];
+                            [weakSelf back];
+                        }];
+                    }]];
                     [self presentViewController:alert animated:YES completion:nil];
                 }
             }];
@@ -458,7 +600,57 @@
     });
 }
 
+- (BOOL)textFieldShouldReturn {
     
+    [self IMSendMsg];
+    return YES;
+}
+
+- (void)keyboardDidShow:(NSNotification*)notice {
+    
+    keyboardDidShow = YES;
+    //获取键盘的高度
+    NSDictionary *userInfo =[notice userInfo];
+    
+    NSValue*aValue =[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    CGRect keyboardRect = [aValue CGRectValue];
+    NSLog(@"键盘高度是  %f",keyboardRect.size.height);
+    
+    self.inputView.y = keyboardRect.size.height - self.inputView.height;
+    self.IMAreaView.y = self.inputView.y - self.IMAreaView.height - 10;
+}
+
+- (void)keyboardWillHide:(NSNotification*)notice {
+    
+    keyboardDidShow = NO;
+    self.inputView.y = K_UIScreenHeight;
+    self.IMAreaView.y = K_UIScreenHeight - 190;
+}
+
+- (void)keyboardWillChangeFrame:(NSNotification*)notice {
+    
+    if (keyboardDidShow) {
+        
+        NSDictionary *userInfo = notice.userInfo;
+        
+        // 动画的持续时间
+        double duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+        
+        // 键盘的frame
+        CGRect keyboardRect = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        
+        // 执行动画
+        [UIView animateWithDuration:duration animations:^{
+            
+            self.inputView.y = keyboardRect.size.height - self.inputView.height;
+            self.IMAreaView.y = self.inputView.y - self.IMAreaView.height - 10;
+        }];
+
+    }
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
