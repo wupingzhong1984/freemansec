@@ -30,7 +30,5 @@
 
 #import "LSMediaCapture.h"
 #import "nMediaLiveStreamingDefs.h"
-#import <NIMSDK/NIMSDK.h>
-#import <NIMAVChat/NIMAVChat.h>
 
 #define NTES_USE_CLEAR_BAR - (BOOL)useClearBar{return YES;}
