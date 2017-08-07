@@ -43,5 +43,10 @@
 #define UIColor_line_d2d2d2 (UIColorFromRGB(0xd2d2d2))
 #define UIColor_vc_bgcolor_lightgray (UIColorFromRGB(0xf2f2f2))
 #define UIColor_textfield_placecolor (UIColorFromRGB(0xc0c0c0)) //light gray
+#define UIColor_0a6ed2 (UIColorFromRGB(0x0a6ed2))
+#define UIColor_9f9f9f (UIColorFromRGB(0x9f9f9f))
 
-#define LIVE_TYPE_NAME_LIST [NSArray arrayWithObjects:@"郭sir专区",@"皇牌节目",@"财经访谈",@"股市新闻",@"财经互动",@"其他",nil] //NSLocalizedString
+typedef enum {
+    RPKForgetPwd,
+    RPKResetPwd
+} ResetPwdKind;

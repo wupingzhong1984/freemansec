@@ -12,10 +12,9 @@
 @interface UserLiveChannelModel : JSONModel
 
 @property (nonatomic,strong) NSString<Optional>* cid;
-@property (nonatomic,strong) NSString<Optional>* image;
+@property (nonatomic,strong) NSString<Optional>* ctime;
 @property (nonatomic,strong) NSString<Optional>* title;
-@property (nonatomic,strong) NSString<Optional>* roomNum;
-@property (nonatomic,strong) NSString<Optional>* IMRoomId;
+@property (nonatomic,strong) NSString<Optional>* image;
 @property (nonatomic,strong) NSString<Optional>* pushUrl;
 @property (nonatomic,strong) NSString<Optional>* pullUrlHttp;
 @property (nonatomic,strong) NSString<Optional>* pullUrlHLS;

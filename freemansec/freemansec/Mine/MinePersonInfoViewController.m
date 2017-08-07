@@ -7,12 +7,19 @@
 //
 
 #import "MinePersonInfoViewController.h"
+#import "LoginViewController.h"
+#import "CustomNaviController.h"
+#import "NickNameViewController.h"
+#import "ForgetPwdViewController.h"
+#import "RealNameCertifyViewController.h"
 
 @interface MinePersonInfoViewController ()
 <UIScrollViewDelegate,
-UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+UIImagePickerControllerDelegate,UINavigationControllerDelegate,
+RealNameCertifyViewControllerDelegate>
 
 @property (nonatomic,strong) UIScrollView *contentView;
+@property (nonatomic,assign) BOOL didSubmitRealNameVerify;
 @end
 
 @implementation MinePersonInfoViewController
@@ -85,6 +92,12 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
             break;
         }
         case 1: {
+         
+            NickNameViewController *vc = [[NickNameViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
+        }
+        case 2: {
             //NSLocalizedString
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请选择性别" preferredStyle:UIAlertControllerStyleActionSheet];
             [alert addAction:[UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -102,14 +115,67 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
             [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
             break;
         }
-        default:
+        case 3: {
+            
+            //todo
+            //所在地 picker
             break;
+        }
+        case 4: {
+            //重设密码=密码找回
+            ForgetPwdViewController *vc = [[ForgetPwdViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
+        }
+        case 5: {
+            if(![MineManager sharedInstance].myInfo.phone.length) {
+                
+                //todo
+                //手机绑定
+            }
+            break;
+        }
+        case 6: {
+            if(![MineManager sharedInstance].myInfo.email.length) {
+                
+                //todo
+                //邮箱绑定
+            }
+            break;
+        }
+        default: {
+            
+            NSString *state = [MineManager sharedInstance].myInfo.realNameVerifyState;
+            if (!state || [state isEqualToString:@"3"]) {
+                
+                RealNameCertifyViewController *vc = [[RealNameCertifyViewController alloc] init];
+                vc.delegate = self;
+                [self.navigationController pushViewController:vc animated:YES];
+            } else {
+                //NSLocalizedString
+                NSString *msg;
+                if ([state isEqualToString:@"1"]) {
+                    msg = @"对不起，您的实名认证已通过，无法重复提交。";
+                } else if ([state isEqualToString:@"2"]) {
+                    msg = @"对不起，您的身份已冻结，无法再提交实名认证。";
+                } else {
+                    msg = @"我们正在审核您的认证申请，请耐心等待。";
+                }
+                [self presentViewController:[Utility createAlertWithTitle:@"提示" content:msg okBtnTitle:nil] animated:YES completion:nil];
+            }
+            break;
+        }
     }
 }
 
 - (void)logout {
     
-    //todo
+    [MineManager sharedInstance].myInfo = nil;
+    [MineManager sharedInstance].IMToken = nil;
+    
+    LoginViewController *vc = [[LoginViewController alloc] init];
+    CustomNaviController *nav = [[CustomNaviController alloc] initWithRootViewController:vc];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:nav animated:NO completion:nil];
 }
 
 - (void)setupSubviews {
@@ -128,7 +194,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     
     UIButton *logout = [UIButton buttonWithType:UIButtonTypeCustom];
     logout.frame = CGRectMake(15, bg2.maxY + 40, _contentView.width-30, 44);
-    logout.backgroundColor = [UIColor blueColor];//todo
+    logout.backgroundColor = UIColor_0a6ed2;
     logout.layer.cornerRadius = 4;
     [logout setTitle:@"退出登录" forState:UIControlStateNormal];//NSLocalizedString
     [logout setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal]; //todo
@@ -147,30 +213,36 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
         title.centerY = originY + 45/2;
         [_contentView addSubview:title];
         
+        UIImageView *right = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"common_cell_right.png"]];
+        right.centerY = title.centerY;
+        right.x = _contentView.width-15-right.width;
+        [_contentView addSubview:right];
+        
         UIImageView *img;
         UILabel *lbl;
         if (i == 0) {
             img = [[UIImageView alloc] init];
             img.size = CGSizeMake(35, 35);
-            img.x = _contentView.width - 54;
+            img.x = right.x - 10 - img.width;
             img.centerY = originY + 45/2;
             img.tag = 100+i;
             [_contentView addSubview:img];
         } else {
             lbl = [[UILabel alloc] init];
-            lbl.font = [UIFont systemFontOfSize:14];
+            lbl.font = [UIFont systemFontOfSize:16];
             lbl.textColor = UIColor_line_d2d2d2;
             lbl.numberOfLines = 1;
             lbl.textAlignment = NSTextAlignmentRight;
             lbl.x = title.maxX + 10;
             lbl.height = 45;
             lbl.y = originY;
-            lbl.width = _contentView.width - 30 - lbl.x;
+            lbl.width = right.x - 10 - lbl.x;
             lbl.tag = 100+i;
             [_contentView addSubview:lbl];
         }
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.tag = i;
         btn.frame = CGRectMake(0, originY, _contentView.width, 45);
         [btn addTarget:self action:@selector(cellAction:) forControlEvents:UIControlEventTouchUpInside];
         [_contentView addSubview:btn];
@@ -196,16 +268,54 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 - (void)loadInfos {
     
-    //todo
     UIImageView *imgV = (UIImageView*)[_contentView viewWithTag:100];
+    [imgV setImageWithURL:[NSURL URLWithString:[MineManager sharedInstance].myInfo.headImg]];
+    
     UILabel *nickNameLbl = (UILabel*)[_contentView viewWithTag:101];
+    nickNameLbl.text = [MineManager sharedInstance].myInfo.nickName;
+    
     UILabel *genderLbl = (UILabel*)[_contentView viewWithTag:102];
+    genderLbl.text = ([MineManager sharedInstance].myInfo.sex.integerValue == 0?@"男":@"女");
+    
     UILabel *cityLbl = (UILabel*)[_contentView viewWithTag:103];
+    cityLbl.text = [MineManager sharedInstance].myInfo.area.length > 0?[MineManager sharedInstance].myInfo.area:@"请选择";
     
     UILabel *pwdLbl = (UILabel*)[_contentView viewWithTag:104];
+    pwdLbl.text = @"点击修改";
+    
     UILabel *mobileLbl = (UILabel*)[_contentView viewWithTag:105];
+    mobileLbl.text = [MineManager sharedInstance].myInfo.phone.length > 0?[MineManager sharedInstance].myInfo.phone:@"点击绑定";
+    
     UILabel *emailLbl = (UILabel*)[_contentView viewWithTag:106];
+    emailLbl.text = [MineManager sharedInstance].myInfo.email.length > 0?[MineManager sharedInstance].myInfo.email:@"点击绑定";
+    
     UILabel *realLbl = (UILabel*)[_contentView viewWithTag:107];
+    
+    if([MineManager sharedInstance].myInfo.realNameVerifyState) {
+        //0未审核，1已审核，2已冻结，3未通过审核，4审核中
+        switch ([[MineManager sharedInstance].myInfo.realNameVerifyState intValue]) {
+            case 0:
+                realLbl.text = @"未审核";
+                break;
+            case 1:
+                realLbl.text = @"已审核";
+                break;
+            case 2:
+                realLbl.text = @"已冻结";
+                break;
+            case 3:
+                realLbl.text = @"未通过审核";
+                break;
+            default:
+                realLbl.text = @"审核中";
+                break;
+        }
+        
+    } else {
+        realLbl.text = @"点击提交";
+    }
+    
+    
 }
 
 - (void)viewDidLoad {
@@ -266,6 +376,11 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
         [imgV setImageWithURL:[NSURL URLWithString:@""]];
         
     }];
+}
+
+- (void)RealNameCertifyViewControllerDelegateDidSubmit {
+    
+    _didSubmitRealNameVerify = YES;
 }
 
 

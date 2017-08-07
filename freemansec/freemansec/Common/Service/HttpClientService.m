@@ -18,11 +18,11 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
 -(void) httpRequestMethod:(HttpReuqestMethod)method
                      path:(NSString*)path
                    params:(NSDictionary*)params
-               completion:(HttpClientServiceObjectBlock)complete{
+               completion:(HttpClientServiceObjectBlock)completion{
 
     NSString* url = [NSString stringWithFormat:@"%@/%@", BASE_URL, path];
     
-    NSLog(@"request:%@?%@", url,params);
+    NNSLog(@"request:%@?%@", url,params);
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     if (method == HttpReuqestMethodGet) {
@@ -32,7 +32,7 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
             //test
-            NSLog(@"result:%@", responseObject);
+            NNSLog(@"result:%@", responseObject);
             
             NSError* error = nil;
             
@@ -51,7 +51,7 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
                     NSLog(@"%@", error);
                 }
                 
-                complete(nil, error);
+                completion(nil, error);
                 return;
             }
             
@@ -59,7 +59,7 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
                 error = [NSError errorWithDomain:SystemErrorDomain
                                             code:SystemErrorWrongApiData
                                         userInfo:@{NSLocalizedDescriptionKey:NSLocalizedString(SystemErrorMessageWrongApiData, @"")}];
-                complete(nil, error);
+                completion(nil, error);
                 return ;
                 
             }
@@ -68,16 +68,16 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
                 error = [NSError errorWithDomain:LogicErrorDomain
                                             code:[res.code intValue]
                                         userInfo:@{NSLocalizedDescriptionKey:res.message}];
-                complete(nil, error);
+                completion(nil, error);
                 return;
             }
             
-            complete(res,nil);
+            completion(res,nil);
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
             NSLog(@"%@", error);
-            complete(nil,error);
+            completion(nil,error);
         }];
         
     } else if (method == HttpReuqestMethodPost) {
@@ -106,7 +106,7 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
                     NSLog(@"%@", error);
                 }
                 
-                complete(nil, error);
+                completion(nil, error);
                 return;
             }
             
@@ -114,7 +114,7 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
                 error = [NSError errorWithDomain:SystemErrorDomain
                                             code:SystemErrorWrongApiData
                                         userInfo:@{NSLocalizedDescriptionKey:NSLocalizedString(SystemErrorMessageWrongApiData, @"")}];
-                complete(nil, error);
+                completion(nil, error);
                 return ;
                 
             }
@@ -123,15 +123,15 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
                 error = [NSError errorWithDomain:LogicErrorDomain
                                             code:[res.code intValue]
                                         userInfo:@{NSLocalizedDescriptionKey:res.message}];
-                complete(nil, error);
+                completion(nil, error);
                 return;
             }
             
-            complete(res,nil);
+            completion(res,nil);
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
-            complete(nil, error);
+            completion(nil, error);
         }];
         
     } else if (method == HttpReuqestMethodPut) {

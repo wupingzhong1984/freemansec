@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RealNameCertifyViewController : UIViewController
+@protocol RealNameCertifyViewControllerDelegate <NSObject>
 
+-(void)RealNameCertifyViewControllerDelegateDidSubmit;
+
+@end
+
+@interface RealNameCertifyViewController : UIViewController
+@property (nonatomic,assign) id<RealNameCertifyViewControllerDelegate> delegate;
 @end

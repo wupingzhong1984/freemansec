@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ResetEmailPwd2ViewController : UIViewController
+@property (nonatomic,assign) ResetPwdKind resetPwdKind;
+@property (nonatomic,strong) NSString *email;
 
 @end

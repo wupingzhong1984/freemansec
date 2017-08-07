@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ForgetPwdViewController : UIViewController
-
+@property (nonatomic,assign) ResetPwdKind resetPwdKind;
 @end

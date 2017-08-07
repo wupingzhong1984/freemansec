@@ -34,6 +34,128 @@ static MineManager *instance;
     return instance;
 }
 
+- (void)registerUserAreaCode:(NSString* _Nullable)areaCode
+                       phone:(NSString* _Nullable)phone
+                  verifyCode:(NSString* _Nullable)verify
+                         pwd:(NSString* _Nullable)pwd
+                       email:(NSString* _Nullable)email
+                  completion:(RegisterUserCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    
+    if (areaCode) { //phone
+        
+        [service registerUserAreaCode:areaCode phone:phone verify:verify pwd:pwd completion:^(id obj, NSError *err) {
+            if(err){
+                
+                completion(nil,err);
+                
+            } else {
+                
+                MyInfoModel *model = obj;
+                completion(model,err);
+            }
+        }];
+        
+    } else {
+        
+        [service registerUserEmail:email verify:verify pwd:pwd completion:^(id obj, NSError *err) {
+            if(err){
+                
+                completion(nil,err);
+                
+            } else {
+                
+                MyInfoModel *model = obj;
+                completion(model,err);
+            }
+        }];
+    }
+    
+}
+
+- (void)loginUserName:(NSString* _Nullable)name
+                  pwd:(NSString* _Nullable)pwd
+           completion:(LoginUserCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service loginUserName:name pwd:pwd completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            MyInfoModel *model = obj;
+            completion(model,err);
+        }
+    }];
+}
+
+- (void)getPhoneVerifyCode:(NSString* _Nullable)areaCode phone:(NSString* _Nullable)phone completion:(PhoneVerifyCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service getPhoneVerifyCode:areaCode phone:phone completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSString *verify = obj;
+            completion(verify,err);
+        }
+    }];
+}
+
+- (void)getEmailVerifyCode:(NSString* _Nullable)email completion:(EmailVerifyCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service getEmailVerifyCode:email completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSString *verify = obj;
+            completion(verify,err);
+        }
+    }];
+}
+
+
+- (void)createMyLiveWithLiveTitle:(NSString* _Nonnull)title liveType:(NSString* _Nonnull)typeId completion:(CreateMyLiveCompletion _Nullable)completion
+{
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service createMyLiveWithLiveTitle:title liveType:typeId userId:[MineManager sharedInstance].myInfo.userId completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            UserLiveChannelModel *model = obj;
+            completion(model,nil);
+        }
+    }];
+}
+
+- (void)getIMToken:(NSString* _Nullable)userLoginId completion:(IMTokenCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service getIMToken:userLoginId completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            IMTokenModel *tokenInfo = obj;
+            completion(tokenInfo,err);
+        }
+    }];
+}
+
 - (void)getMyVideoListCompletion:(MyVideoListCompletion _Nullable)completion {
     
     //todo
@@ -85,4 +207,35 @@ static MineManager *instance;
     }];
 }
 
+- (void)checkVerifyCode:(NSString* _Nullable)verify phone:(NSString* _Nullable)phone areaCode:(NSString* _Nullable)areaCode email:(NSString* _Nullable)email completion:(CheckVerifyCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    if (phone) {
+        [service checkVerifyCode:verify phone:phone areaCode:areaCode completion:^(id obj, NSError *err) {
+            
+            completion(err);
+        }];
+    } else {
+        
+        [service checkVerifyCode:verify email:email completion:^(id obj, NSError *err) {
+            completion(err);
+        }];
+    }
+}
+
+- (void)resetPwd:(NSString* _Nullable)pwd phone:(NSString* _Nullable)phone email:(NSString* _Nullable)email completion:(ResetPwdCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    if (phone) {
+        [service resetPwd:pwd phone:phone completion:^(id obj, NSError *err) {
+            
+            completion(err);
+        }];
+    } else {
+        
+        [service resetPwd:pwd email:email completion:^(id obj, NSError *err) {
+            completion(err);
+        }];
+    }
+}
 @end

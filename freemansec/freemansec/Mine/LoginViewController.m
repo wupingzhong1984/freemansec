@@ -8,6 +8,8 @@
 
 #import "LoginViewController.h"
 #import "SignUpViewController.h"
+#import "ForgetPwdViewController.h"
+
 
 @interface LoginViewController ()
 <UIScrollViewDelegate>
@@ -19,25 +21,42 @@
 
 @implementation LoginViewController
 
-- (void)back {
-    
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)signUpAction {
     
     SignUpViewController *vc = [[SignUpViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:nil];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)loginAction {
     
-    //todo
+    if (!_uNameTF.text.length || !_pwdTF.text.length) {
+        
+        [self presentViewController:[Utility createAlertWithTitle:@"提示" content:@"请正确数据用户名和密码。" okBtnTitle:nil] animated:YES completion:nil];
+        
+        return;
+    }
+    
+    [[MineManager sharedInstance] loginUserName:_uNameTF.text
+                                            pwd:_pwdTF.text
+                                     completion:^(MyInfoModel*  _Nullable myInfo, NSError * _Nullable error)
+     {
+         if (error) {
+             
+             [self presentViewController:[Utility createAlertWithTitle:@"提示" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+         } else {
+             
+             [MineManager sharedInstance].myInfo = myInfo;
+             
+             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+         }
+        
+    }];
 }
 
 - (void)forgetPwdAction {
     
-    //todo
+    ForgetPwdViewController *vc = [[ForgetPwdViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)loginByQQ {
@@ -64,18 +83,6 @@
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
-    UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_white.png"]];
-    back.centerX = 25;
-    back.centerY = (v.height - 20)/2 + 20;
-    [v addSubview:back];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    btn.width = back.width + 20;
-    btn.height = back.height + 20;
-    btn.center = back.center;
-    [v addSubview:btn];
-    
     return v;
 }
 
@@ -92,11 +99,11 @@
     line.backgroundColor = [UIColor lightGrayColor];
     [_contentView addSubview:line];
     
-    UIImageView *uNameImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
+    UIImageView *uNameImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_icon_username.png"]];
     uNameImg.center = (CGPoint){tfBg.x + 22, tfBg.y + tfBg.height/4};
     [_contentView addSubview:uNameImg];
     
-    UIImageView *pwdImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
+    UIImageView *pwdImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_icon_pwd.png"]];
     pwdImg.center = (CGPoint){uNameImg.centerX, uNameImg.centerY + tfBg.height/2};
     [_contentView addSubview:pwdImg];
     
@@ -120,19 +127,19 @@
     sign.backgroundColor = [UIColor whiteColor];
     sign.layer.cornerRadius = 4;
     sign.layer.borderWidth = 1;
-    sign.layer.borderColor = [UIColor blueColor].CGColor; //todo
+    sign.layer.borderColor = UIColor_0a6ed2.CGColor;
     [sign setTitle:@"注册" forState:UIControlStateNormal];//NSLocalizedString
-    [sign setTitleColor:[UIColor blueColor] forState:UIControlStateNormal]; //todo
+    [sign setTitleColor:UIColor_0a6ed2 forState:UIControlStateNormal];
     sign.titleLabel.font = [UIFont systemFontOfSize:16];
     [sign addTarget:self action:@selector(signUpAction) forControlEvents:UIControlEventTouchUpInside];
     [_contentView addSubview:sign];
     
     UIButton *login = [UIButton buttonWithType:UIButtonTypeCustom];
     login.frame = CGRectMake(tfBg.maxX - sign.width, sign.y, sign.width, sign.height);
-    login.backgroundColor = [UIColor blueColor];//todo
+    login.backgroundColor = UIColor_0a6ed2;
     login.layer.cornerRadius = 4;
     [login setTitle:@"登录" forState:UIControlStateNormal];//NSLocalizedString
-    [login setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal]; //todo
+    [login setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     login.titleLabel.font = [UIFont systemFontOfSize:16];
     [login addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
     [_contentView addSubview:login];
@@ -156,7 +163,7 @@
     other.y = forget.maxY + 44;
     [_contentView addSubview:other];
     
-    UIImage *wxImg = [UIImage imageNamed:@""]; //todo
+    UIImage *wxImg = [UIImage imageNamed:@"login_wx.png"];
     UIButton *wx = [UIButton buttonWithType:UIButtonTypeCustom];
     wx.clipsToBounds = YES;
     wx.size = wxImg.size;
@@ -166,24 +173,24 @@
     wx.centerX = other.centerX;
     [_contentView addSubview:wx];
     
-    UIImage *qqImg = [UIImage imageNamed:@""]; //todo
+    UIImage *qqImg = [UIImage imageNamed:@"login_qq.png"];
     UIButton *qq = [UIButton buttonWithType:UIButtonTypeCustom];
     qq.clipsToBounds = YES;
     qq.size = wx.size;
     [qq setImage:qqImg forState:UIControlStateNormal];
     [qq addTarget:self action:@selector(loginByQQ) forControlEvents:UIControlEventTouchUpInside];
-    qq.y = wx.centerX - 20;
-    qq.centerX = other.centerX-200;
+    qq.y = wx.y;
+    qq.centerX = wx.centerX-100;
     [_contentView addSubview:qq];
     
-    UIImage *fbImg = [UIImage imageNamed:@""]; //todo
+    UIImage *fbImg = [UIImage imageNamed:@"login_fb.png"];
     UIButton *fb = [UIButton buttonWithType:UIButtonTypeCustom];
     fb.clipsToBounds = YES;
     fb.size = wx.size;
     [fb setImage:fbImg forState:UIControlStateNormal];
     [fb addTarget:self action:@selector(loginByFB) forControlEvents:UIControlEventTouchUpInside];
-    fb.y = wx.centerX - 20;
-    fb.centerX = other.centerX+200;
+    fb.y = wx.y;
+    fb.centerX = wx.centerX+100;
     [_contentView addSubview:fb];
 }
 
@@ -191,7 +198,7 @@
     [super viewDidLoad];
 
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor whiteColor]; //todo
+    self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];

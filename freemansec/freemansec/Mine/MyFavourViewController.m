@@ -10,7 +10,6 @@
 #import "MJRefresh.h"
 #import "MyFavourModel.h"
 #import "MyFavourListCell.h"
-#import "MineManager.h"
 
 @interface MyFavourViewController ()
 <UITableViewDelegate,UITableViewDataSource>
@@ -40,7 +39,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = [UIColor blackColor];
     
-    UIView *title = [self commNaviTitle:@"我的收藏" color:[UIColor whiteColor]];//NSLocalizedString
+    UIView *title = [self commNaviTitle:@"视频收藏" color:[UIColor whiteColor]];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     

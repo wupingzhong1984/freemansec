@@ -10,7 +10,6 @@
 #import "MJRefresh.h"
 #import "MyVideoModel.h"
 #import "MyVideoListCell.h"
-#import "MineManager.h"
 
 @interface MyVideoViewController ()
 <UITableViewDelegate,UITableViewDataSource>

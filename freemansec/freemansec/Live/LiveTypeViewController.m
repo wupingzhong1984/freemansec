@@ -11,6 +11,7 @@
 #import "LivePlayViewController.h"
 #import "LiveTypeChannelCollectionViewCell.h"
 #import "LiveManager.h"
+#import "OfficialLiveType.h"
 
 @interface LiveTypeViewController ()
 <UICollectionViewDelegate,UICollectionViewDataSource>
@@ -42,7 +43,8 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
     v.backgroundColor = [UIColor blackColor];
     
-    [v addSubview:[self commNaviTitle:[LIVE_TYPE_NAME_LIST objectAtIndex:_type] color:[UIColor whiteColor]]];
+    OfficialLiveType *type = [[LiveManager getOfficialLiveTypeList] objectAtIndex:_typeIndex];
+    [v addSubview:[self commNaviTitle:type.liveTypeName color:[UIColor whiteColor]]];
     
     UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_white.png"]];
     back.centerX = 25;
@@ -86,7 +88,9 @@
     [_channelCollView registerClass:[LiveTypeChannelCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
     [self.view addSubview:_channelCollView];
     
-    [[LiveManager sharedInstance] getLiveListByLiveTypeId:[LiveManager getLiveTypeIdByTypeIndex:_type] completion:^(NSArray * _Nullable channelList, NSError * _Nullable error) {
+    OfficialLiveType *type = [[LiveManager getOfficialLiveTypeList] objectAtIndex:_typeIndex];
+    
+    [[LiveManager sharedInstance] getLiveListByLiveTypeId:type.liveTypeId completion:^(NSArray * _Nullable channelList, NSError * _Nullable error) {
         
         if (error) {
             //todo

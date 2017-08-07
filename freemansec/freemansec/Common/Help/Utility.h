@@ -17,4 +17,5 @@
 + (NSArray*)getRGBByColor:(UIColor*)color;
 + (NSString*)convertToJSONData:(id)infoDict;
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
++ (UIAlertController *)createAlertWithTitle:(NSString*)titleStr content:(NSString*)content okBtnTitle:(NSString*)btnStr;
 @end

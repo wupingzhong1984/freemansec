@@ -56,7 +56,7 @@
         
         self.signBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _signBtn.frame = CGRectMake(emailBg.x, _agreeIV.maxY + 25, emailBg.width, 40);
-        _signBtn.backgroundColor = [UIColor blueColor];//todo
+        _signBtn.backgroundColor = UIColor_0a6ed2;
         _signBtn.layer.cornerRadius = 4;
         [_signBtn setTitle:@"注册" forState:UIControlStateNormal];//NSLocalizedString
         [_signBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal]; //todo

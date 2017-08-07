@@ -8,8 +8,6 @@
 
 #import "UserLiveRootViewController.h"
 #import "UpdateUserLiveTitleView.h"
-#import "UserLiveManager.h"
-#import "UserLiveChannelModel.h"
 #import "NEMediaCaptureEntity.h"
 #import "NEAuthorizeManager.h"
 #import "NEReachability.h"
@@ -34,7 +32,7 @@
 @property (nonatomic,strong) UIView *inputView;
 @property (nonatomic,strong) UITextField *inputTF;
 
-@property (nonatomic,strong) UserLiveChannelModel *channelModel;
+@property (nonatomic,strong) NSString *pushUrl;
 
 @property (nonatomic,strong) UpdateUserLiveTitleView *updateUserLiveTitleView;
 
@@ -193,18 +191,12 @@
     nameLbl.width = 110;
     nameLbl.lineBreakMode = NSLineBreakByTruncatingTail;
     nameLbl.x = userFace.maxX + 8;
-    nameLbl.centerY = userBg.y + 15;
+    nameLbl.centerY = userBg.centerY;
     [self.view addSubview:nameLbl];
-    
-    UILabel *roomNumLbl = [UILabel createLabelWithFrame:CGRectZero text:@"" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:12]];
-    [roomNumLbl sizeToFit];
-    roomNumLbl.x = userFace.maxX + 8;
-    roomNumLbl.centerY = userBg.y + 30;
-    [self.view addSubview:roomNumLbl];
     
     UIView *countBg = [[UIView alloc] init];
     countBg.tag = 101;
-    countBg.backgroundColor = [UIColor blueColor];//todo
+    countBg.backgroundColor = UIColor_0a6ed2;
     [self.view addSubview:countBg];
     
     UIImageView *countIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
@@ -307,7 +299,7 @@
     streamparaCtx.sLSAudioParaCtx.numOfChannels = 1;
     streamparaCtx.sLSAudioParaCtx.samplerate    = 44100;
     
-    _mediaCapture = [[LSMediaCapture alloc]initLiveStream:_channelModel.pushUrl withLivestreamParaCtx:streamparaCtx];
+    _mediaCapture = [[LSMediaCapture alloc]initLiveStream:_pushUrl withLivestreamParaCtx:streamparaCtx];
     if (_mediaCapture == nil) {
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"初始化失败" forKey:NSLocalizedDescriptionKey];
         [self showErrorAlert:[NSError errorWithDomain:@"LSMediaCaptureErrorDomain" code:0 userInfo:userInfo]];
@@ -383,8 +375,7 @@
     
     
     //test
-    self.channelModel = [[UserLiveChannelModel alloc] init];
-    _channelModel.pushUrl = @"rtmp://pe25ff8be.live.126.net/live/52d6911fc91b417c84f2cc8e790fe689?wsSecret=02096929813efd8ebf4c01b7da1a8abb&wsTime=1501655352";
+    self.pushUrl = @"rtmp://pe25ff8be.live.126.net/live/52d6911fc91b417c84f2cc8e790fe689?wsSecret=02096929813efd8ebf4c01b7da1a8abb&wsTime=1501655352";
     [self startPush];
     
 //    self.updateUserLiveTitleView = [[UpdateUserLiveTitleView alloc] init];
@@ -425,7 +416,7 @@
 
 - (void)requestLiveTitle:(NSString*)title {
     
-    [[UserLiveManager sharedInstance] getLivePushStreamWithLiveTitle:title completion:^(UserLiveChannelModel *channelModel, NSError * _Nullable error) {
+    [[UserLiveManager sharedInstance] updateMyLiveWTitle:title completion:^(NSError * _Nullable error) {
         
         if (error) {
             
@@ -442,7 +433,7 @@
             [_updateUserLiveTitleView removeFromSuperview];
             self.updateUserLiveTitleView = nil;
             
-            self.channelModel = channelModel;
+            self.pushUrl = [MineManager sharedInstance].myInfo.pushUrl;
             [self startPush];
         }
     }];

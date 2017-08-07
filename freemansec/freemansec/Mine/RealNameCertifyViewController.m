@@ -9,11 +9,6 @@
 #import "RealNameCertifyViewController.h"
 #import "DottedLineView.h"
 
-typedef enum {
-    IDPhotoTypeFont,
-    IDPhotoTypeBack
-} IDPhotoType;
-
 @interface RealNameCertifyViewController ()
 <UIScrollViewDelegate,
 UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -22,10 +17,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic,strong) UITextField *nameTF;
 @property (nonatomic,strong) UILabel *userTypeLbl;
 @property (nonatomic,strong) UIView *frontPlaceV;
-@property (nonatomic,strong) UIView *backPlaceV;
 @property (nonatomic,strong) UIImageView *frontIV;
-@property (nonatomic,strong) UIImageView *backIV;
-@property (nonatomic,assign) IDPhotoType idPhotoType;
 @end
 
 @implementation RealNameCertifyViewController
@@ -147,25 +139,15 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (void)frontIVAction {
-    
-    _idPhotoType = IDPhotoTypeFont;
-    
-    [self showImagePick];
-}
-
-- (void)backIVAction {
-    
-    _idPhotoType = IDPhotoTypeBack;
-    
-    [self showImagePick];
-}
-
 - (void) submit {
     
     //todo
     //submit
     
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(RealNameCertifyViewControllerDelegateDidSubmit)]) {
+        [_delegate RealNameCertifyViewControllerDelegateDidSubmit];
+    }
     [self back];
 }
 
@@ -213,7 +195,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     [_contentView addSubview:_frontIV];
     UIButton *frontBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     frontBtn.frame = whiteBg1.frame;
-    [frontBtn addTarget:self action:@selector(frontIVAction) forControlEvents:UIControlEventTouchUpInside];
+    [frontBtn addTarget:self action:@selector(showImagePick) forControlEvents:UIControlEventTouchUpInside];
     [_contentView addSubview:frontBtn];
     
     UILabel *sample1 = [UILabel createLabelWithFrame:CGRectZero text:@"示例：" textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:13]];
@@ -230,36 +212,9 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     //todo
     //text
     
-    DottedLineView *whiteBg2 = [[DottedLineView alloc] initWithLineColor:[UIColor lightGrayColor] width:1 frame:CGRectMake(15, samplePhoto1.maxY + 15, K_UIScreenWidth-30, 140)];
-    whiteBg2.backgroundColor = [UIColor whiteColor];
-    [_contentView addSubview:whiteBg2];
-    UIView *place2 = self.backPlaceV;
-    place2.center = whiteBg2.center;
-    [_contentView addSubview:place2];
-    self.backIV = [[UIImageView alloc] initWithFrame:whiteBg2.frame];
-    [_contentView addSubview:_backIV];
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = whiteBg2.frame;
-    [backBtn addTarget:self action:@selector(backIVAction) forControlEvents:UIControlEventTouchUpInside];
-    [_contentView addSubview:backBtn];
-    
-    UILabel *sample2 = [UILabel createLabelWithFrame:CGRectZero text:@"示例：" textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:13]];
-    [sample2 sizeToFit];
-    sample2.x = backBtn.x;
-    sample2.y = backBtn.maxY + 13;
-    [_contentView addSubview:sample2];
-    
-    UIImageView *samplePhoto2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
-    samplePhoto2.x = sample2.x;
-    samplePhoto2.y = sample2.maxY + 10;
-    [_contentView addSubview:samplePhoto2];
-    
-    //todo
-    //text
-    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(nameBg.x, samplePhoto2.maxY + 27, nameBg.width, 40);
-    btn.backgroundColor = [UIColor blueColor];//todo
+    btn.frame = CGRectMake(nameBg.x, samplePhoto1.maxY + 27, nameBg.width, 40);
+    btn.backgroundColor = UIColor_0a6ed2;
     btn.layer.cornerRadius = 4;
     [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -309,15 +264,11 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
         
         UIImageView *imgV;
         CGPoint center;
-        if (_idPhotoType == IDPhotoTypeFont) {
+        
             _frontPlaceV.hidden = YES;
             imgV = _frontIV;
             center = _frontIV.center;
-        } else {
-            _backPlaceV.hidden = YES;
-            imgV = _backIV;
-            center = _backIV.center;
-        }
+    
         
         if (imgV.width/imgV.height < originalImage.size.width/originalImage.size.height) {
             
@@ -326,7 +277,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
             imgV.frame = CGRectMake(0, imgV.y, imgV.width, imgV.width/(originalImage.size.width/originalImage.size.height));
         }
         imgV.center = center;
-        
+        [_contentView addSubview:imgV];
     }];
 }
 

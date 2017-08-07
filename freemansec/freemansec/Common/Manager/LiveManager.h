@@ -16,7 +16,7 @@ typedef void(^LiveChannelListCompletion)(NSArray* _Nullable channelList, NSError
 
 + (BOOL)liveBannerNeedUpdate;
 + (void)updateLiveBannerLastUpdateTime:(NSDate*_Nullable)time;
-+ (NSString* _Nonnull)getLiveTypeIdByTypeIndex:(int)type;
++ (NSMutableArray*_Nonnull)getOfficialLiveTypeList;
 
 -(void)getLiveBannerCompletion:(LiveChannelListCompletion _Nullable)completion;
 

@@ -41,8 +41,7 @@
     
     if (channelModel) {
         
-    [self.coverIV setImageWithURL:[NSURL URLWithString:channelModel.liveImg]
-                 placeholderImage:[UIImage imageNamed:@"livetypechannel_cover_default.png"]];
+    [self.coverIV setImageWithURL:[NSURL URLWithString:channelModel.liveImg]];
         _title.text = channelModel.liveName;
         [_title sizeToFit];
         _title.width = _coverIV.width;

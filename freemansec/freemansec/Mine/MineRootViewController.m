@@ -9,6 +9,10 @@
 #import "MineRootViewController.h"
 #import "MinePersonInfoViewController.h"
 #import "DottedLineView.h"
+#import "MyVideoViewController.h"
+#import "MyFavourViewController.h"
+#import "MyAttentionViewController.h"
+#import "ApplyAnchorViewController.h"
 
 @interface MineRootViewController ()
 <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
@@ -27,7 +31,13 @@
     
     if (!_imgArray) {
         //todo
-        _imgArray = [NSMutableArray arrayWithObjects:@"tab_img_3.png",@"tab_img_3.png",@"tab_img_3.png",@"tab_img_3.png",@"tab_img_3.png",@"tab_img_3.png", nil];
+        _imgArray = [NSMutableArray arrayWithObjects:
+                     @"mineroot_cell_img_0.png",
+                     @"mineroot_cell_img_1.png",
+                     @"mineroot_cell_img_2.png",
+                     @"mineroot_cell_img_3.png",
+                     @"mineroot_cell_img_4.png",
+                     @"mineroot_cell_img_5.png", nil];
     }
     return _imgArray;
 }
@@ -35,7 +45,6 @@
 - (NSMutableArray*)titleArray {
     
     if (!_titleArray) {
-        //todo
         _titleArray = [NSMutableArray arrayWithObjects:@"我的账户",@"我的视频",@"视频收藏",@"我的关注",@"主播申请",@"设置", nil];
     }
     return _titleArray;
@@ -54,7 +63,7 @@
     // Do any additional setup after loading the view.
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
@@ -66,7 +75,7 @@
     _tableView.showsHorizontalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = [UIColor whiteColor];
-    _tableView.scrollEnabled = NO;
+//    _tableView.scrollEnabled = NO;
     [self.view addSubview:_tableView];
     
 }
@@ -80,7 +89,8 @@
     
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
-    //todo
+    [_tableView reloadData];
+    
     //get point
     _pointLbl.text = @"0";
     [_pointLbl sizeToFit];
@@ -153,11 +163,13 @@
     
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"TopCell"];
     
+    UIImageView *face;
+    UILabel *name;
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TopCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor clearColor];
-        cell.contentView.backgroundColor = [UIColor clearColor];
+        cell.contentView.backgroundColor = [UIColor blackColor];
         
         UIView *container = [[UIView alloc] init];
         container.size = CGSizeMake(tableView.width, 150);
@@ -165,41 +177,56 @@
         [cell.contentView addSubview:container];
         
         UIImageView *bgImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
-        bgImg.center = container.center;
+        bgImg.size = container.size;
         [container addSubview:bgImg];
         
         UIBlurEffect *blurEffrct =[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
         UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc]initWithEffect:blurEffrct];
-        visualEffectView.size = bgImg.size;
+        visualEffectView.size = container.size;
         visualEffectView.alpha = 0.5;
         [container addSubview:visualEffectView];
         
+        UIView *con1 = [[UIView alloc] init];
+        con1.clipsToBounds = YES;
+        con1.size = CGSizeMake(68, 68);
+        con1.center = CGPointMake(container.width/2, 60);
+        con1.layer.cornerRadius = con1.width/2;
+        [container addSubview:con1];
+        
         UIVisualEffectView *visualEffectView2 = [[UIVisualEffectView alloc]initWithEffect:blurEffrct];
-        visualEffectView2.size = CGSizeMake(68, 68);
-        visualEffectView2.layer.cornerRadius = 34;
+        visualEffectView2.size = con1.size;
         visualEffectView2.alpha = 0.5;
-        visualEffectView2.center = CGPointMake(container.width/2, 58);
-        [container addSubview:visualEffectView2];
+        visualEffectView2.center = CGPointMake(con1.width/2, con1.width/2);
+        [con1 addSubview:visualEffectView2];
         
-        UIImageView *face = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
-        face.size = CGSizeMake(62, 62);
-        face.layer.cornerRadius = 31;
+        face = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
+        face.tag = 1;
+        face.size = CGSizeMake(64, 64);
+        face.layer.cornerRadius = face.width/2;
         face.center = visualEffectView2.center;
-        [container addSubview:face];
+        [con1 addSubview:face];
         
-        //todo
-        UILabel *name = [UILabel createLabelWithFrame:CGRectZero text:@"" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:12]];
+        name = [UILabel createLabelWithFrame:CGRectZero text:@"未登录" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:12]];
+        name.tag = 2;
         [name sizeToFit];
-        name.centerX = face.centerX;
-        name.centerY = 110;
+        name.width = tableView.width;
+        name.textAlignment = NSTextAlignmentCenter;
+        name.centerX = con1.centerX;
+        name.centerY = 107;
         [container addSubview:name];
         
-        self.pointBg = [[UIVisualEffectView alloc]initWithEffect:blurEffrct];
-        _pointBg.y = 122;
+        self.pointBg = [[UIView alloc]init];
+        _pointBg.clipsToBounds = YES;
+        _pointBg.y = 121;
         _pointBg.height = 21;
-        _pointBg.layer.cornerRadius = 34;
-        _pointBg.alpha = 0.5;
+        _pointBg.layer.cornerRadius = _pointBg.height/2;
         [container addSubview:_pointBg];
+        
+        UIVisualEffectView *visualEffectView3 = [[UIVisualEffectView alloc]initWithEffect:blurEffrct];
+        visualEffectView3.width = K_UIScreenWidth;
+        visualEffectView3.height = 21;
+        visualEffectView3.alpha = 0.5;
+        [_pointBg addSubview:visualEffectView3];
         
         self.pLbl = [UILabel createLabelWithFrame:CGRectZero text:@"金币数" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:12]];
         [_pLbl sizeToFit];
@@ -218,7 +245,12 @@
         _pointLbl.centerY = _pointBg.centerY;
         
     }
-
+    
+    face = (UIImageView*)[cell.contentView viewWithTag:1];
+    [face setImageWithURL:[NSURL URLWithString:@""]]; //todo
+    
+    name = (UILabel*)[cell.contentView viewWithTag:2];
+    name.text = [MineManager sharedInstance].myInfo.nickName;
     
     return cell;
 }
@@ -270,8 +302,8 @@
         [cell.contentView addSubview:img];
         
         title = [[UILabel alloc] init];
-        title.font = [UIFont systemFontOfSize:14];
-        title.textColor = [UIColor lightGrayColor];
+        title.font = [UIFont systemFontOfSize:15];
+        title.textColor = UIColor_9f9f9f;
         title.tag = 3;
         [cell.contentView addSubview:title];
     }
@@ -317,24 +349,47 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    if (indexPath.row == 1) {
-        
-        MinePersonInfoViewController *vc = [[MinePersonInfoViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    //todo
-    
-    if (indexPath.row == 5) {
-        
-        if (YES) { //实名认证
-            
-        } else {
-            
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先在我的账户中完成实名认证。" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-            [self presentViewController:alert animated:YES completion:nil];
+    switch (indexPath.row) {
+        case 0:
+        case 1: {
+            MinePersonInfoViewController *vc = [[MinePersonInfoViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
         }
+        case 2: {
+            MyVideoViewController *vc = [[MyVideoViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
+        }
+        case 3: {
+            MyFavourViewController *vc = [[MyFavourViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
+        }
+        case 4: {
+            MyAttentionViewController *vc = [[MyAttentionViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
+        }
+        case 5: {
+            NSString *state = [MineManager sharedInstance].myInfo.realNameVerifyState;
+            if (state && [state isEqualToString:@"1"]) { //已实名认证
+                
+                ApplyAnchorViewController *vc = [[ApplyAnchorViewController alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            } else {
+                
+                [self presentViewController:[Utility createAlertWithTitle:@"提示" content:@"请先在我的账户中完成实名认证。" okBtnTitle:nil] animated:YES completion:nil];
+            }
+            break;
+        }
+        default:
+            break;
     }
+
+        
+        
 }
 
 - (void)didReceiveMemoryWarning {

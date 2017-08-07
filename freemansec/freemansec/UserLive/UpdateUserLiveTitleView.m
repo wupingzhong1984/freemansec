@@ -63,7 +63,7 @@
         
         self.startLiveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _startLiveBtn.frame = CGRectMake(tfBg.x, tfBg.maxY + 37, tfBg.width, 40);
-        _startLiveBtn.backgroundColor = [UIColor blueColor];//todo
+        _startLiveBtn.backgroundColor = UIColor_0a6ed2;
         _startLiveBtn.layer.cornerRadius = 4;
         [_startLiveBtn setTitle:@"开始直播" forState:UIControlStateNormal];//NSLocalizedString
         [_startLiveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal]; //todo

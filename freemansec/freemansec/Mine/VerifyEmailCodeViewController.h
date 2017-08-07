@@ -10,4 +10,6 @@
 
 @interface VerifyEmailCodeViewController : UIViewController
 
+@property (nonatomic,strong) NSString *email;
+
 @end

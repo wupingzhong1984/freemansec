@@ -41,8 +41,23 @@
     
     if (!error.length) {
         
-        //todo
-        //submit email verify code
+        [[MineManager sharedInstance]
+         registerUserAreaCode:nil
+         phone:nil
+         verifyCode:_verifyCodeTF.text
+         pwd:_pwdTF.text
+         email:_email completion:^(MyInfoModel* _Nullable myInfo, NSError * _Nullable error) {
+             
+             if (error) {
+                 
+                 [self presentViewController:[Utility createAlertWithTitle:@"提示" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+             } else {
+                 
+                 [MineManager sharedInstance].myInfo = myInfo;
+                 
+                 [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+             }
+         }];
         
     } else {
         
@@ -79,11 +94,16 @@
 
 - (void)setupSubviews {
     
-    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
-    icon.center = (CGPoint){36,42};
+    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"emailverify_icon_notice.png"]];
+    bg.y = 64 + 15;
+    bg.x = (K_UIScreenWidth - bg.width)/2;
+    [_contentView addSubview:bg];
+    
+    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"emailverify_icon_notice.png"]];
+    icon.center = (CGPoint){bg.x + 22,bg.centerY};
     [_contentView addSubview:icon];
     
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(57, 0, K_UIScreenWidth - 57 - 40, 0)];
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(bg.x+43, 0, bg.width - 43 - 17, 0)];
     title.textColor = [UIColor blackColor];
     //NSLocalizedString
     title.numberOfLines = 0;
@@ -123,10 +143,10 @@
 
     UIButton *submit = [UIButton buttonWithType:UIButtonTypeCustom];
     submit.frame = CGRectMake(pwdBg.x, pwdBg.maxY + 50, pwdBg.width, 40);
-    submit.backgroundColor = [UIColor blueColor];//todo
+    submit.backgroundColor = UIColor_0a6ed2;
     submit.layer.cornerRadius = 4;
     [submit setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
-    [submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal]; //todo
+    [submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     submit.titleLabel.font = [UIFont systemFontOfSize:16];
     [submit addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
     [_contentView addSubview:submit];
@@ -137,7 +157,7 @@
     // Do any additional setup after loading the view.
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor whiteColor]; //todo
+    self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
@@ -150,6 +170,19 @@
     [self.view addSubview:_contentView];
     
     [self setupSubviews];
+    
+    [[MineManager sharedInstance] getEmailVerifyCode:_email completion:^(NSString * _Nullable verify, NSError * _Nullable error) {
+        if(error) {
+            
+            //NSLocalizedString
+            [self presentViewController:[Utility createAlertWithTitle:@"错误" content:@"获取验证码失败。" okBtnTitle:nil] animated:YES completion:nil];
+        } else {
+            
+            //test
+            _verifyCodeTF.text = verify;
+            
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated

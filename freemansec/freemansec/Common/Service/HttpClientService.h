@@ -26,7 +26,7 @@ typedef enum  {
 -(void) httpRequestMethod:(HttpReuqestMethod) method
     path:(NSString*)path
       params:(NSDictionary*)params
-  completion:(HttpClientServiceObjectBlock)complete;
+  completion:(HttpClientServiceObjectBlock)completion;
 
 
 @end

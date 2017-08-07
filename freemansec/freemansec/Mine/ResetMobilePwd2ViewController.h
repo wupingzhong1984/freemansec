@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ResetMobilePwd2ViewController : UIViewController
-
+@property (nonatomic,assign) ResetPwdKind resetPwdKind;
+@property (nonatomic,strong) NSString *phone;
 @end

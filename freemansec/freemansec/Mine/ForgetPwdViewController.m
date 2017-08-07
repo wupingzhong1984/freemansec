@@ -24,12 +24,14 @@
 - (void)loadResetMobilePwdVC {
     
     ResetMobilePwdViewController *vc = [[ResetMobilePwdViewController alloc] init];
+    vc.resetPwdKind = _resetPwdKind;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)loadResetEmailPwdVC {
     
     ResetEmailPwdViewController *vc = [[ResetEmailPwdViewController alloc] init];
+    vc.resetPwdKind = _resetPwdKind;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -38,7 +40,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = [UIColor blackColor];
     
-    UIView *title = [self commNaviTitle:@"忘记密码" color:[UIColor whiteColor]];//NSLocalizedString
+    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?@"重设密码":@"忘记密码") color:[UIColor whiteColor]];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -61,67 +63,60 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor whiteColor]; //todo
+    self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
     
     UIView *bg1 = [[UIView alloc] initWithFrame:CGRectMake(15, naviBar.maxY+ 38, K_UIScreenWidth - 30, 50)];
     bg1.backgroundColor = [UIColor whiteColor];
-    bg1.layer.borderWidth = 1;
+    bg1.layer.borderWidth = 0.5;
     bg1.layer.borderColor = [UIColor lightGrayColor].CGColor;
     [self.view addSubview:bg1];
     
-    UIView *blue1 =  [[UIView alloc] initWithFrame:CGRectMake(bg1.x, bg1.y, 53, bg1.height)];
-    blue1.backgroundColor = [UIColor blueColor]; //todo
-    [self.view addSubview:blue1];
-    
-    UIImageView *left1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
-    left1.center = blue1.center;
+    UIImageView *left1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"forgetpwd_email.png"]];
+    left1.frame = CGRectMake(bg1.x, bg1.y, bg1.height, bg1.height);
     [self.view addSubview:left1];
     
-    UILabel *title1 = [UILabel createLabelWithFrame:CGRectZero text:@"邮箱找回" textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];//NSLocalizedString
+    UILabel *title1 = [UILabel createLabelWithFrame:CGRectZero text:(_resetPwdKind == RPKResetPwd?@"通过邮箱重设":@"邮箱找回") textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];//NSLocalizedString
     [title1 sizeToFit];
     title1.x = 85;
-    title1.centerY = blue1.centerY;
+    title1.centerY = left1.centerY;
+    [self.view addSubview:title1];
     
-    UIImageView *right1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
+    UIImageView *right1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"common_cell_right.png"]];
     right1.center = CGPointMake(K_UIScreenWidth - 31, title1.centerY);
     [self.view addSubview:right1];
     
     UIView *bg2 = [[UIView alloc] initWithFrame:CGRectMake(bg1.x, bg1.maxY+ 18, bg1.width, bg1.height)];
     bg2.backgroundColor = [UIColor whiteColor];
-    bg2.layer.borderWidth = 1;
+    bg2.layer.borderWidth = 0.5;
     bg2.layer.borderColor = [UIColor lightGrayColor].CGColor;
     [self.view addSubview:bg2];
     
-    UIView *blue2 =  [[UIView alloc] initWithFrame:CGRectMake(bg2.x, bg2.y, 53, bg2.height)];
-    blue2.backgroundColor = [UIColor blueColor]; //todo
-    [self.view addSubview:blue2];
-    
-    UIImageView *left2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
-    left2.center = blue2.center;
+    UIImageView *left2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"forgetpwd_phone.png"]];
+    left2.frame = CGRectMake(bg2.x, bg2.y, bg2.height, bg2.height);
     [self.view addSubview:left2];
     
-    
-    UILabel *title2 = [UILabel createLabelWithFrame:CGRectZero text:@"手机号找回" textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];//NSLocalizedString
+    UILabel *title2 = [UILabel createLabelWithFrame:CGRectZero text:(_resetPwdKind == RPKResetPwd?@"通过手机号重设":@"手机号找回") textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];//NSLocalizedString
     [title2 sizeToFit];
     title2.x = 85;
-    title2.centerY = blue2.centerY;
+    title2.centerY = left2.centerY;
+    [self.view addSubview:title2];
     
-    UIImageView *right2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
+    UIImageView *right2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"common_cell_right.png"]];
     right2.center = CGPointMake(K_UIScreenWidth - 31, title2.centerY);
     [self.view addSubview:right2];
     
     
     UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn1.frame = bg1.frame;
-    [btn1 addTarget:self action:@selector(loadResetMobilePwdVC) forControlEvents:UIControlEventTouchUpInside];
+    [btn1 addTarget:self action:@selector(loadResetEmailPwdVC) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn1];
     
     UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn2.frame = bg2.frame;
-    [btn2 addTarget:self action:@selector(loadResetEmailPwdVC) forControlEvents:UIControlEventTouchUpInside];
+    [btn2 addTarget:self action:@selector(loadResetMobilePwdVC) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn2];
 }
 

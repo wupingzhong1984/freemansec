@@ -10,5 +10,4 @@
 
 @interface UserLiveHttpService : HttpClientService
 
-- (void)getLivePushStreamWithLiveTitle:(NSString*)title userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)complete;
 @end

@@ -162,4 +162,11 @@
     }
     return dic;
 }
+
++ (UIAlertController *)createAlertWithTitle:(NSString*)titleStr content:(NSString*)content okBtnTitle:(NSString*)btnStr {
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:titleStr message:content preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:(btnStr?btnStr:NSLocalizedString(@"OK", nil)) style:UIAlertActionStyleDefault handler:nil]];
+    return alert;
+}
 @end

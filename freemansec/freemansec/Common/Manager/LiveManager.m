@@ -8,6 +8,7 @@
 
 #import "LiveManager.h"
 #import "LiveHttpService.h"
+#import "OfficialLiveType.h"
 
 static LiveManager *instance;
 
@@ -50,29 +51,23 @@ static LiveManager *instance;
     [[NSUserDefaults standardUserDefaults] setObject:time forKey:@"livebannerlastupdatetime"];
 }
 
-+ (NSString*)getLiveTypeIdByTypeIndex:(int)type {
++ (NSMutableArray*)getOfficialLiveTypeList {
     
-    switch (type) {
-        case 0:
-            return @"100";
-            break;
-        case 1:
-            return @"103";
-            break;
-        case 2:
-            return @"104";
-            break;
-        case 3:
-            return @"105";
-            break;
-        case 4:
-            return @"106";
-            break;
-        default:
-            return @"107";
-            break;
+    NSMutableArray *names = [NSMutableArray arrayWithObjects:@"郭sir专区",@"皇牌节目",@"财经访谈",@"股市新闻",@"财经互动",@"其它", nil];
+    NSMutableArray *ids = [NSMutableArray arrayWithObjects:@"100",@"103",@"104",@"105",@"106",@"107", nil];
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:1];
+    
+    for (int i = 0;i < names.count;i++) {
+        
+        OfficialLiveType *type = [[OfficialLiveType alloc] init];
+        type.liveTypeId = [ids objectAtIndex:i];
+        type.liveTypeName = [names objectAtIndex:i];
+        [array addObject:type];
     }
+    
+    return array;
 }
+
 
 -(void)getLiveBannerCompletion:(LiveChannelListCompletion)completion {
     

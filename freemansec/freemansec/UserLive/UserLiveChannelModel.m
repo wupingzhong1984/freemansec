@@ -16,8 +16,6 @@
                                             @"cid": @"id",
                                             @"image": @"videoImg",
                                             @"title": @"videoName",
-                                            @"roomNum": @"date",
-                                            @"IMRoomId": @"playCount",
                                             @"pushUrl": @"date",
                                             @"pullUrlHttp": @"date",
                                             @"pullUrlHLS": @"date",

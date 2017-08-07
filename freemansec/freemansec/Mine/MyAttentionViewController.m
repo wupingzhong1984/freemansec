@@ -10,7 +10,6 @@
 #import "MJRefresh.h"
 #import "MyAttentionModel.h"
 #import "MyAttentionListCell.h"
-#import "MineManager.h"
 
 @interface MyAttentionViewController ()
 <UITableViewDelegate,UITableViewDataSource>

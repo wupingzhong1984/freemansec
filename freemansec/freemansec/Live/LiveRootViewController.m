@@ -15,6 +15,7 @@
 #import "LiveManager.h"
 #import "LiveBannerCollectionViewCell.h"
 #import "Reachability.h"
+#import "OfficialLiveType.h"
 
 @interface LiveRootViewController ()
 <UICollectionViewDelegate,UICollectionViewDataSource>
@@ -74,7 +75,7 @@
     
     int type = (int)((UIButton*)sender).tag - 100;
     LiveTypeViewController *vc = [[LiveTypeViewController alloc] init];
-    vc.type = type;
+    vc.typeIndex = type;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -145,7 +146,9 @@
         typeIV.centerY = centerY;
         [_contentView addSubview:typeIV];
         
-        title = [UILabel createLabelWithFrame:CGRectZero text:[LIVE_TYPE_NAME_LIST objectAtIndex:i] textColor:[UIColor grayColor] font:[UIFont systemFontOfSize:12]];
+        OfficialLiveType *type = [[LiveManager getOfficialLiveTypeList] objectAtIndex:i];
+        
+        title = [UILabel createLabelWithFrame:CGRectZero text:type.liveTypeName textColor:[UIColor grayColor] font:[UIFont systemFontOfSize:12]];
         [title sizeToFit];
         title.centerX = typeIV.centerX;
         title.y = typeIV.centerY + 34;

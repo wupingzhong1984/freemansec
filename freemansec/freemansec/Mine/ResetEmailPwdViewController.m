@@ -29,7 +29,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = [UIColor blackColor];
     
-    UIView *title = [self commNaviTitle:@"忘记密码" color:[UIColor whiteColor]];//NSLocalizedString
+    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?@"重设密码":@"忘记密码") color:[UIColor whiteColor]];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -56,7 +56,9 @@
         
         //todo
         //sumbit email
+        
         ResetEmailPwd2ViewController *vc = [[ResetEmailPwd2ViewController alloc] init];
+        vc.email = _emailTF.text;
         [self.navigationController pushViewController:vc animated:YES];
         
     } else {
@@ -72,7 +74,7 @@
     // Do any additional setup after loading the view.
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor whiteColor]; //todo
+    self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
@@ -100,7 +102,7 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(emailBg.x, emailBg.maxY + 27, emailBg.width, 40);
-    btn.backgroundColor = [UIColor blueColor];//todo
+    btn.backgroundColor = UIColor_0a6ed2;
     btn.layer.cornerRadius = 4;
     [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

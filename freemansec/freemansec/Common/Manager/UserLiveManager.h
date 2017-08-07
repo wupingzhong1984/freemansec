@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UserLiveChannelModel.h"
 
-typedef void(^UpdateMyUserLiveTitleCompletion)(UserLiveChannelModel* _Nullable channelModel, NSError* _Nullable error);
+typedef void(^UpdateMyLiveTitleCompletion)(NSError* _Nullable error);
 
 @interface UserLiveManager : NSObject
 
 + (UserLiveManager* _Nonnull)sharedInstance;
 
-- (void)getLivePushStreamWithLiveTitle:(NSString* _Nonnull)title completion:(UpdateMyUserLiveTitleCompletion _Nullable)completion;
+- (void)updateMyLiveWTitle:(NSString* _Nonnull)title completion:(UpdateMyLiveTitleCompletion _Nullable)completion;
 
 @end

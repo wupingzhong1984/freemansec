@@ -73,8 +73,19 @@ SetTelCodeViewControllerDelegate>
             
         }];
         
-        //todo
-        //request verify code
+        [[MineManager sharedInstance] getPhoneVerifyCode:_mobileSignView.telCodeLbl.text phone:_mobileSignView.mobileTF.text completion:^(NSString * _Nullable verify, NSError * _Nullable error) {
+            
+            if(error) {
+                
+                //NSLocalizedString
+                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:@"获取验证码失败。" okBtnTitle:nil] animated:YES completion:nil];
+            } else {
+                
+                //test
+                _mobileSignView.verifyCodeTF.text = verify;
+
+            }
+        }];
     }
 }
 
@@ -106,15 +117,27 @@ SetTelCodeViewControllerDelegate>
     
     if (!error.length) {
         
-        //todo
-        //verify email
+        [[MineManager sharedInstance]
+         registerUserAreaCode:_mobileSignView.telCodeLbl.text
+         phone:_mobileSignView.mobileTF.text
+         verifyCode:_mobileSignView.verifyCodeTF.text
+         pwd:_mobileSignView.pwdTF.text
+         email:nil completion:^(MyInfoModel* _Nullable myInfo, NSError * _Nullable error) {
+             
+             if (error) {
+                 
+                 [self presentViewController:[Utility createAlertWithTitle:@"提示" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+             } else {
+                 
+                 [MineManager sharedInstance].myInfo = myInfo;
+                 [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+             }
+         }];
         
     } else {
         
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:error preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self presentViewController:[Utility createAlertWithTitle:@"提示" content:error okBtnTitle:nil] animated:YES completion:nil];
     }
 }
 
@@ -164,17 +187,15 @@ SetTelCodeViewControllerDelegate>
     
     if (!error.length) {
         
-        //todo
         //sign by email
         VerifyEmailCodeViewController *vc = [[VerifyEmailCodeViewController alloc] init];
+        vc.email = _emailSignView.emailTF.text;
         [self.navigationController pushViewController:vc animated:YES];
         
     } else {
         
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:error preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self presentViewController:[Utility createAlertWithTitle:@"提示" content:error okBtnTitle:nil] animated:YES completion:nil];
     }
 }
 
@@ -232,7 +253,7 @@ SetTelCodeViewControllerDelegate>
     _signUpType = SignUpTypeMobile;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor whiteColor]; //todo
+    self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];

@@ -40,7 +40,7 @@
         _telCodeLbl.font = [UIFont systemFontOfSize:16];
         NSArray *appLanguages = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"];
         NSString *languageName = [appLanguages objectAtIndex:0];
-        _telCodeLbl.text = ([languageName isEqualToString:@"zh-Hans"]?@"+86":@"+852");
+        _telCodeLbl.text = ([languageName isEqualToString:@"zh-Hans"]?@"86":@"852");
         [self addSubview:_telCodeLbl];
         
         UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
@@ -60,9 +60,9 @@
         [self addSubview:mobileBg];
         
         self.verifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _verifyBtn.backgroundColor = [UIColor blueColor]; //todo
+        _verifyBtn.backgroundColor = UIColor_0a6ed2;
         _verifyBtn.layer.cornerRadius = 4;
-        _verifyBtn.size = (CGSize){60,32};
+        _verifyBtn.size = (CGSize){70,32};
         _verifyBtn.centerY = mobileBg.centerY;
         _verifyBtn.x = mobileBg.maxX - 5 - _verifyBtn.width;
         [_verifyBtn setTitle:@"验证码" forState:UIControlStateNormal]; //NSLocalizedString
@@ -127,7 +127,7 @@
         
         self.signBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _signBtn.frame = CGRectMake(pwdBg.x, _agreeIV.maxY + 25, pwdBg.width, 40);
-        _signBtn.backgroundColor = [UIColor blueColor];//todo
+        _signBtn.backgroundColor = UIColor_0a6ed2;
         _signBtn.layer.cornerRadius = 4;
         [_signBtn setTitle:@"注册" forState:UIControlStateNormal];//NSLocalizedString
         [_signBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal]; //todo

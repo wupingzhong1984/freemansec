@@ -36,7 +36,7 @@ SetTelCodeViewControllerDelegate>
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = [UIColor blackColor];
     
-    UIView *title = [self commNaviTitle:@"忘记密码" color:[UIColor whiteColor]];//NSLocalizedString
+    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?@"重设密码":@"忘记密码") color:[UIColor whiteColor]];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -92,8 +92,19 @@ SetTelCodeViewControllerDelegate>
             
         }];
         
-        //todo
-        //request verify code
+        [[MineManager sharedInstance] getPhoneVerifyCode:_telCodeLbl.text phone:_mobileTF.text completion:^(NSString * _Nullable verify, NSError * _Nullable error) {
+            
+            if(error) {
+                
+                //NSLocalizedString
+                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:@"获取验证码失败。" okBtnTitle:nil] animated:YES completion:nil];
+            } else {
+                
+                //test
+                _verifyCodeTF.text = verify;
+                
+            }
+        }];
     }
 
 }
@@ -121,6 +132,7 @@ SetTelCodeViewControllerDelegate>
         //todo
         //sumbit mobile
         ResetMobilePwd2ViewController *vc = [[ResetMobilePwd2ViewController alloc] init];
+        vc.phone = _mobileTF.text;
         [self.navigationController pushViewController:vc animated:YES];
         
     } else {
@@ -148,7 +160,7 @@ SetTelCodeViewControllerDelegate>
     _telCodeLbl.font = [UIFont systemFontOfSize:16];
     NSArray *appLanguages = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"];
     NSString *languageName = [appLanguages objectAtIndex:0];
-    _telCodeLbl.text = ([languageName isEqualToString:@"zh-Hans"]?@"+86":@"+852");
+    _telCodeLbl.text = ([languageName isEqualToString:@"zh-Hans"]?@"86":@"852");
     [_contentView addSubview:_telCodeLbl];
     
     UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
@@ -169,9 +181,9 @@ SetTelCodeViewControllerDelegate>
     [_contentView addSubview:mobileBg];
     
     self.verifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _verifyBtn.backgroundColor = [UIColor blueColor]; //todo
+    _verifyBtn.backgroundColor = UIColor_0a6ed2;
     _verifyBtn.layer.cornerRadius = 4;
-    _verifyBtn.size = (CGSize){60,32};
+    _verifyBtn.size = (CGSize){70,32};
     _verifyBtn.centerY = mobileBg.centerY;
     _verifyBtn.x = mobileBg.maxX - 5 - _verifyBtn.width;
     [_verifyBtn setTitle:@"验证码" forState:UIControlStateNormal]; //NSLocalizedString
@@ -202,6 +214,16 @@ SetTelCodeViewControllerDelegate>
     _verifyCodeTF.placeholder = @"请输入验证码";//NSLocalizedString
     _verifyCodeTF.keyboardType = UIKeyboardTypeNumberPad;
     [_contentView addSubview:_verifyCodeTF];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(verifyCodeBg.x, verifyCodeBg.maxY + 27, verifyCodeBg.width, 40);
+    btn.backgroundColor = UIColor_0a6ed2;
+    btn.layer.cornerRadius = 4;
+    [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [btn addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
+    [_contentView addSubview:btn];
 }
 
 - (void)viewDidLoad {
@@ -209,7 +231,7 @@ SetTelCodeViewControllerDelegate>
     // Do any additional setup after loading the view.
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor whiteColor]; //todo
+    self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
@@ -224,10 +246,33 @@ SetTelCodeViewControllerDelegate>
     [self setupSubviews];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
+    
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     [_mobileTF resignFirstResponder];
     [_verifyCodeTF resignFirstResponder];
+}
+
+- (void)SetTelCodeViewControllerTelCode:(NSString*)code {
+
+    _telCodeLbl.text = code;
 }
 
 - (void)didReceiveMemoryWarning {

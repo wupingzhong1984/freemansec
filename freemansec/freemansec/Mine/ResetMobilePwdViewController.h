@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ResetMobilePwdViewController : UIViewController
-
+@property (nonatomic,assign) ResetPwdKind resetPwdKind;
 @end

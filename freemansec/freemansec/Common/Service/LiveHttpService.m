@@ -14,7 +14,7 @@ static NSString* GetLiveListByTypePath = @"Ajax/GetLive.ashx";
 
 @implementation LiveHttpService
 
--(void)getLiveBannerCompletion:(HttpClientServiceObjectBlock)complete {
+-(void)getLiveBannerCompletion:(HttpClientServiceObjectBlock)completion {
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:GetLiveBannerPath
@@ -22,7 +22,7 @@ static NSString* GetLiveListByTypePath = @"Ajax/GetLive.ashx";
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      if(response == nil) {
-                         complete(response, err);
+                         completion(response, err);
                          return ;
                      }
                      
@@ -30,15 +30,15 @@ static NSString* GetLiveListByTypePath = @"Ajax/GetLive.ashx";
                      if(list == nil){
                          
                          NSLog(@"%@", err);
-                         complete(nil, err);
+                         completion(nil, err);
                      }else{
-                         complete(list, nil); //success
+                         completion(list, nil); //success
                      }
                  }];
 }
 
 -(void)getLiveListByLiveTypeId:(NSString*)typeId
-                    completion:(HttpClientServiceObjectBlock)complete {
+                    completion:(HttpClientServiceObjectBlock)completion {
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:GetLiveListByTypePath
@@ -47,7 +47,7 @@ static NSString* GetLiveListByTypePath = @"Ajax/GetLive.ashx";
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      if(response == nil) {
-                         complete(response, err);
+                         completion(response, err);
                          return ;
                      }
                      
@@ -55,9 +55,9 @@ static NSString* GetLiveListByTypePath = @"Ajax/GetLive.ashx";
                      if(list == nil){
                          
                          NSLog(@"%@", err);
-                         complete(nil, err);
+                         completion(nil, err);
                      }else{
-                         complete(list, nil); //success
+                         completion(list, nil); //success
                      }
                  }];
 }

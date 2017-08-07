@@ -9,31 +9,11 @@
 #import "UserLiveHttpService.h"
 #import "UserLiveChannelModel.h"
 
-static NSString* GetLivePushStreamWithLiveTitlePath = @"ajax/GetBanner.ashx"; //todo
+static NSString* GetLivePushStreamWithLiveTitlePath = @"Ajax/CreateLive.ashx";
+static NSString* GetUserLiveTypesPath = @"GetLiveTypeByUser.ashx";
 
 @implementation UserLiveHttpService
 
-- (void)getLivePushStreamWithLiveTitle:(NSString*)title userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)complete {
-    
-    [self httpRequestMethod:HttpReuqestMethodGet
-                       path:GetLivePushStreamWithLiveTitlePath
-                     params:nil
-                 completion:^(JsonResponse* response, NSError *err) {
-                     
-                     if(response == nil) {
-                         complete(response, err);
-                         return ;
-                     }
-                     
-                     UserLiveChannelModel* model = [[UserLiveChannelModel alloc] initWithDictionary:(NSDictionary*)response.data error:&err];
-                     if(model == nil){
 
-                         
-                         NSLog(@"%@", err);
-                         complete(nil, err);
-                     }else{
-                         complete(model, nil); //success
-                     }
-                 }];
-}
+
 @end

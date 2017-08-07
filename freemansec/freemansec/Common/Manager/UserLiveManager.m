@@ -34,20 +34,9 @@ static UserLiveManager *instance;
     return instance;
 }
 
-- (void)getLivePushStreamWithLiveTitle:(NSString* _Nonnull)title completion:(UpdateMyUserLiveTitleCompletion _Nullable)completion
-{
+- (void)updateMyLiveWTitle:(NSString* _Nonnull)title completion:(UpdateMyLiveTitleCompletion _Nullable)completion {
     
     //todo
-    UserLiveHttpService* service = [[UserLiveHttpService alloc] init];
-    [service getLivePushStreamWithLiveTitle:title userId:@"" completion:^(id obj, NSError *err) {
-        if(err){
-            
-            completion(nil,err);
-            
-        } else {
-            
-            completion(obj,nil);
-        }
-    }];
 }
+
 @end

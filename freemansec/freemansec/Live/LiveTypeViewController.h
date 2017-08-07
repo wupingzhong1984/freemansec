@@ -10,5 +10,5 @@
 
 @interface LiveTypeViewController : UIViewController
 
-@property (nonatomic,assign) int type;
+@property (nonatomic,assign) int typeIndex;
 @end
