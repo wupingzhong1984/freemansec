@@ -170,8 +170,7 @@ RealNameCertifyViewControllerDelegate>
 
 - (void)logout {
     
-    [MineManager sharedInstance].myInfo = nil;
-    [MineManager sharedInstance].IMToken = nil;
+    [[MineManager sharedInstance] logout];
     
     LoginViewController *vc = [[LoginViewController alloc] init];
     CustomNaviController *nav = [[CustomNaviController alloc] initWithRootViewController:vc];

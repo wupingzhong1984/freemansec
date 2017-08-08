@@ -53,7 +53,7 @@
                  [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
              } else {
                  
-                 [MineManager sharedInstance].myInfo = myInfo;
+                 [[MineManager sharedInstance] updateMyInfo:myInfo];
                  
                  [self.navigationController dismissViewControllerAnimated:YES completion:nil];
              }

@@ -134,8 +134,8 @@ SetTelCodeViewControllerDelegate>
                          [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
                      } else {
                          
-                         [MineManager sharedInstance].myInfo = myInfo;
-                         [MineManager sharedInstance].IMToken = tokenInfo;
+                         [[MineManager sharedInstance] updateMyInfo:myInfo];
+                         [[MineManager sharedInstance] updateIMToken:tokenInfo];
                          [self.navigationController dismissViewControllerAnimated:YES completion:nil];
                      }
                  }];

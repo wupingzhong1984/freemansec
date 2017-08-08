@@ -34,6 +34,32 @@ static MineManager *instance;
     return instance;
 }
 
+- (MyInfoModel* _Nullable)myInfo {
+    
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"MyInfoModel"];
+}
+
+- (void)updateMyInfo:(MyInfoModel* _Nullable)info {
+    
+    [[NSUserDefaults standardUserDefaults] setObject:info forKey:@"MyInfoModel"];
+}
+
+- (IMTokenModel* _Nullable)IMToken {
+    
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"IMTokenModel"];
+}
+
+- (void)updateIMToken:(IMTokenModel* _Nullable)token {
+    
+    [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"IMTokenModel"];
+}
+
+- (void)logout {
+    
+    [self updateMyInfo:nil];
+    [self updateIMToken:nil];
+}
+
 - (void)registerUserAreaCode:(NSString* _Nullable)areaCode
                        phone:(NSString* _Nullable)phone
                   verifyCode:(NSString* _Nullable)verify

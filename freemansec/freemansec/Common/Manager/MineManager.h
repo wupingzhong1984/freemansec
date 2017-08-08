@@ -32,10 +32,14 @@ typedef void(^UpdateEmailCompletion)(NSError* _Nullable error);
 
 @interface MineManager : NSObject
 
-@property (nonatomic,strong) MyInfoModel* _Nullable myInfo;
-@property (nonatomic,strong) IMTokenModel* _Nullable IMToken;
 
 + (MineManager* _Nonnull)sharedInstance;
+
+- (MyInfoModel* _Nullable)myInfo;
+- (void)updateMyInfo:(MyInfoModel* _Nullable)info;
+- (IMTokenModel* _Nullable)IMToken;
+- (void)updateIMToken:(IMTokenModel* _Nullable)token;
+- (void)logout;
 
 - (void)registerUserAreaCode:(NSString* _Nullable)areaCode
                        phone:(NSString* _Nullable)phone

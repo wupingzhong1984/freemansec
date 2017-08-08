@@ -60,7 +60,9 @@
                 //NSLocalizedString
                 [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
-                [MineManager sharedInstance].myInfo.email = _email;
+                MyInfoModel *info = [MineManager sharedInstance].myInfo;
+                info.email = _email;
+                [[MineManager sharedInstance] updateMyInfo:info];
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
