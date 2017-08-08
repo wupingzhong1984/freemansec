@@ -54,12 +54,21 @@
     
     if ([Utility validateEmail:_emailTF.text]) {
         
-        //todo
-        //sumbit email
+        [[MineManager sharedInstance] getEmailVerifyCode:_emailTF.text completion:^(NSString * _Nullable verify, NSError * _Nullable error) {
+            
+            if(error) {
+                
+                //NSLocalizedString
+                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:@"获取验证码失败。" okBtnTitle:nil] animated:YES completion:nil];
+            } else {
+                
+                ResetEmailPwd2ViewController *vc = [[ResetEmailPwd2ViewController alloc] init];
+                vc.email = _emailTF.text;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }
+        }];
         
-        ResetEmailPwd2ViewController *vc = [[ResetEmailPwd2ViewController alloc] init];
-        vc.email = _emailTF.text;
-        [self.navigationController pushViewController:vc animated:YES];
         
     } else {
         //NSLocalizedString

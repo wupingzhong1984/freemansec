@@ -50,6 +50,7 @@
 		2F22DF8B1F225A050039316B /* SignUpWithMobileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F22DF8A1F225A050039316B /* SignUpWithMobileView.m */; };
 		2F22DF8E1F225D2D0039316B /* VerifyEmailCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F22DF8D1F225D2D0039316B /* VerifyEmailCodeViewController.m */; };
 		2F22DF911F225ECF0039316B /* SignUpWithEmailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F22DF901F225ECF0039316B /* SignUpWithEmailView.m */; };
+		2F234DC71F39AE7A00862029 /* UserLiveType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F234DC61F39AE7A00862029 /* UserLiveType.m */; };
 		2F3102291F35E87600F9364D /* NEMediaCaptureEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3102281F35E87600F9364D /* NEMediaCaptureEntity.m */; };
 		2F6980D81F1B7B790083E785 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6980D71F1B7B790083E785 /* PlayerView.m */; };
 		2F6980DD1F1BA87F0083E785 /* play_bar_orientation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980D91F1BA87F0083E785 /* play_bar_orientation@2x.png */; };
@@ -276,6 +277,9 @@
 		2FAF32011F191D2C004329ED /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FAF32001F191D2C004329ED /* WebKit.framework */; };
 		2FAF320A1F19214D004329ED /* IMYWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF32071F19214D004329ED /* IMYWebView.m */; };
 		2FAF320B1F19214D004329ED /* WYWeakScriptMessageDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF32091F19214D004329ED /* WYWeakScriptMessageDelegate.m */; };
+		2FC4CF611F3A068A002DF8D8 /* UpdatePhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC4CF601F3A068A002DF8D8 /* UpdatePhoneViewController.m */; };
+		2FC4CF641F3A069D002DF8D8 /* UpdateEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC4CF631F3A069D002DF8D8 /* UpdateEmailViewController.m */; };
+		2FC4CF6A1F3A2340002DF8D8 /* UpdateEmail2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC4CF691F3A2340002DF8D8 /* UpdateEmail2ViewController.m */; };
 		2FE7FF061F2CD7A0007DFCC0 /* NickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF051F2CD7A0007DFCC0 /* NickNameViewController.m */; };
 		2FE7FF091F2CEB4D007DFCC0 /* RealNameCertifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF081F2CEB4D007DFCC0 /* RealNameCertifyViewController.m */; };
 		2FE7FF0C1F2CFC54007DFCC0 /* DottedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF0B1F2CFC54007DFCC0 /* DottedLineView.m */; };
@@ -360,6 +364,8 @@
 		2F22DF8D1F225D2D0039316B /* VerifyEmailCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyEmailCodeViewController.m; sourceTree = "<group>"; };
 		2F22DF8F1F225ECF0039316B /* SignUpWithEmailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpWithEmailView.h; sourceTree = "<group>"; };
 		2F22DF901F225ECF0039316B /* SignUpWithEmailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpWithEmailView.m; sourceTree = "<group>"; };
+		2F234DC51F39AE7A00862029 /* UserLiveType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLiveType.h; sourceTree = "<group>"; };
+		2F234DC61F39AE7A00862029 /* UserLiveType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLiveType.m; sourceTree = "<group>"; };
 		2F3102271F35E87600F9364D /* NEMediaCaptureEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaCaptureEntity.h; sourceTree = "<group>"; };
 		2F3102281F35E87600F9364D /* NEMediaCaptureEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaCaptureEntity.m; sourceTree = "<group>"; };
 		2F6980D61F1B7B790083E785 /* PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
@@ -729,6 +735,12 @@
 		2FAF32071F19214D004329ED /* IMYWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMYWebView.m; sourceTree = "<group>"; };
 		2FAF32081F19214D004329ED /* WYWeakScriptMessageDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYWeakScriptMessageDelegate.h; sourceTree = "<group>"; };
 		2FAF32091F19214D004329ED /* WYWeakScriptMessageDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYWeakScriptMessageDelegate.m; sourceTree = "<group>"; };
+		2FC4CF5F1F3A068A002DF8D8 /* UpdatePhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatePhoneViewController.h; sourceTree = "<group>"; };
+		2FC4CF601F3A068A002DF8D8 /* UpdatePhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdatePhoneViewController.m; sourceTree = "<group>"; };
+		2FC4CF621F3A069D002DF8D8 /* UpdateEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateEmailViewController.h; sourceTree = "<group>"; };
+		2FC4CF631F3A069D002DF8D8 /* UpdateEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateEmailViewController.m; sourceTree = "<group>"; };
+		2FC4CF681F3A2340002DF8D8 /* UpdateEmail2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateEmail2ViewController.h; sourceTree = "<group>"; };
+		2FC4CF691F3A2340002DF8D8 /* UpdateEmail2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateEmail2ViewController.m; sourceTree = "<group>"; };
 		2FE7FF041F2CD7A0007DFCC0 /* NickNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NickNameViewController.h; sourceTree = "<group>"; };
 		2FE7FF051F2CD7A0007DFCC0 /* NickNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NickNameViewController.m; sourceTree = "<group>"; };
 		2FE7FF071F2CEB4D007DFCC0 /* RealNameCertifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealNameCertifyViewController.h; sourceTree = "<group>"; };
@@ -1697,6 +1709,8 @@
 				2F869E3E1F37821E005C8212 /* OfficialLiveType.m */,
 				2F869E401F3820EE005C8212 /* IMTokenModel.h */,
 				2F869E411F3820EE005C8212 /* IMTokenModel.m */,
+				2F234DC51F39AE7A00862029 /* UserLiveType.h */,
+				2F234DC61F39AE7A00862029 /* UserLiveType.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1787,6 +1801,12 @@
 				2FE7FF051F2CD7A0007DFCC0 /* NickNameViewController.m */,
 				2FE7FF071F2CEB4D007DFCC0 /* RealNameCertifyViewController.h */,
 				2FE7FF081F2CEB4D007DFCC0 /* RealNameCertifyViewController.m */,
+				2FC4CF5F1F3A068A002DF8D8 /* UpdatePhoneViewController.h */,
+				2FC4CF601F3A068A002DF8D8 /* UpdatePhoneViewController.m */,
+				2FC4CF621F3A069D002DF8D8 /* UpdateEmailViewController.h */,
+				2FC4CF631F3A069D002DF8D8 /* UpdateEmailViewController.m */,
+				2FC4CF681F3A2340002DF8D8 /* UpdateEmail2ViewController.h */,
+				2FC4CF691F3A2340002DF8D8 /* UpdateEmail2ViewController.m */,
 			);
 			name = MyAccount;
 			sourceTree = "<group>";
@@ -2008,6 +2028,7 @@
 				2FAF31631F1605BD004329ED /* AFAutoPurgingImageCache.m in Sources */,
 				2FAF316B1F1605BD004329ED /* UIWebView+AFNetworking.m in Sources */,
 				2F69813F1F1CA35F0083E785 /* Error.m in Sources */,
+				2FC4CF611F3A068A002DF8D8 /* UpdatePhoneViewController.m in Sources */,
 				2FE7FF0C1F2CFC54007DFCC0 /* DottedLineView.m in Sources */,
 				2FAF31461F1605BD004329ED /* CustomTabBarController.m in Sources */,
 				2FAF316A1F1605BD004329ED /* UIRefreshControl+AFNetworking.m in Sources */,
@@ -2038,6 +2059,7 @@
 				2F9EEE841F25C25A00E161C3 /* MJRefreshBaseView.m in Sources */,
 				2FE7FF191F2DCFA2007DFCC0 /* MyVideoListCell.m in Sources */,
 				2FAF314F1F1605BD004329ED /* AFNetworkReachabilityManager.m in Sources */,
+				2F234DC71F39AE7A00862029 /* UserLiveType.m in Sources */,
 				2FAF314D1F1605BD004329ED /* MineRootViewController.m in Sources */,
 				2FAF31691F1605BD004329ED /* UIProgressView+AFNetworking.m in Sources */,
 				2FAF31C21F167C32004329ED /* UIButton+MyButton.m in Sources */,
@@ -2054,6 +2076,7 @@
 				2FAF31C51F167C32004329ED /* UILabel+MyLabel.m in Sources */,
 				2F6981391F1CA1B40083E785 /* JSONHTTPClient.m in Sources */,
 				2FE7FF1C1F2DDC6A007DFCC0 /* MineManager.m in Sources */,
+				2FC4CF641F3A069D002DF8D8 /* UpdateEmailViewController.m in Sources */,
 				2FE7FF161F2DCF86007DFCC0 /* MyVideoModel.m in Sources */,
 				2F869BFE1F35F29A005C8212 /* FMResultSet.m in Sources */,
 				2F869C101F35F29B005C8212 /* UIImage+GIF.m in Sources */,
@@ -2112,6 +2135,7 @@
 				2F6980D81F1B7B790083E785 /* PlayerView.m in Sources */,
 				2FAF316E1F1605BD004329ED /* XBPageCell.m in Sources */,
 				2F869C201F35F29B005C8212 /* README.md in Sources */,
+				2FC4CF6A1F3A2340002DF8D8 /* UpdateEmail2ViewController.m in Sources */,
 				2FAF31511F1605BD004329ED /* AFURLRequestSerialization.m in Sources */,
 				2FE7FF341F2E56F3007DFCC0 /* MyAttentionListCell.m in Sources */,
 				2FAF31501F1605BD004329ED /* AFSecurityPolicy.m in Sources */,

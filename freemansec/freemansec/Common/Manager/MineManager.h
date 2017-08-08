@@ -27,6 +27,9 @@ typedef void(^CreateMyLiveCompletion)(UserLiveChannelModel* _Nullable channelMod
 typedef void(^CheckVerifyCompletion)(NSError* _Nullable error);
 typedef void(^ResetPwdCompletion)(NSError* _Nullable error);
 
+typedef void(^UpdatePhoneCompletion)(NSError* _Nullable error);
+typedef void(^UpdateEmailCompletion)(NSError* _Nullable error);
+
 @interface MineManager : NSObject
 
 @property (nonatomic,strong) MyInfoModel* _Nullable myInfo;
@@ -52,6 +55,9 @@ typedef void(^ResetPwdCompletion)(NSError* _Nullable error);
 
 - (void)checkVerifyCode:(NSString* _Nullable)verify phone:(NSString* _Nullable)phone areaCode:(NSString* _Nullable)areaCode email:(NSString* _Nullable)email completion:(CheckVerifyCompletion _Nullable)completion;
 - (void)resetPwd:(NSString* _Nullable)pwd phone:(NSString* _Nullable)phone email:(NSString* _Nullable)email completion:(ResetPwdCompletion _Nullable)completion;
+
+- (void)updatePhone:(NSString* _Nullable)phone areaCode:(NSString* _Nullable)areaCode verify:(NSString* _Nullable)verify completion:(UpdatePhoneCompletion _Nullable)completion;
+- (void)updateEmail:(NSString* _Nullable)email verify:(NSString* _Nullable)verify completion:(UpdateEmailCompletion _Nullable)completion;
 
 - (void)getMyVideoListCompletion:(MyVideoListCompletion _Nullable)completion;
 - (void)getMyFavourListCompletion:(MyFavourListCompletion _Nullable)completion;

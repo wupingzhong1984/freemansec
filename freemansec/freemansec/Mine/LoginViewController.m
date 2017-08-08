@@ -42,12 +42,20 @@
      {
          if (error) {
              
-             [self presentViewController:[Utility createAlertWithTitle:@"提示" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+             [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
          } else {
              
-             [MineManager sharedInstance].myInfo = myInfo;
+             [[MineManager sharedInstance]getIMToken:myInfo.userLoginId completion:^(IMTokenModel * _Nullable tokenInfo, NSError * _Nullable error) {
+                 if (error) {
+                     [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                 } else {
+                     
+                     [MineManager sharedInstance].myInfo = myInfo;
+                     [MineManager sharedInstance].IMToken = tokenInfo;
+                     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                 }
+             }];
              
-             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
          }
         
     }];

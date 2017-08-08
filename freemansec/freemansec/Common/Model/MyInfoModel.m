@@ -25,6 +25,7 @@
                                             @"province": @"province",
                                             @"city": @"city",
                                             @"area": @"area",
+                                            @"cid":@"cid",
                                             @"liveId": @"aid",
                                             @"liveLink": @"liveLink",
                                             @"liveTitle": @"liveName",

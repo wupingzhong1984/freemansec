@@ -128,7 +128,7 @@
             
             if (error) {
                 
-                //todo
+                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
                 
             } else {
                 

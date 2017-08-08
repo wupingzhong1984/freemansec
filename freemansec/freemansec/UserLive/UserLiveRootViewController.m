@@ -91,9 +91,7 @@
     _isLiving = NO;
     
     //NSLocalizedString
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"错误" message:errMsg preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-    [self presentViewController:alert animated:YES completion:nil];
+    [self presentViewController:[Utility createAlertWithTitle:@"错误" content:errMsg okBtnTitle:nil] animated:YES completion:nil];
 }
 
 - (void)unInitLiveStream{
@@ -421,7 +419,7 @@
         if (error) {
             
             UIAlertController *alert =
-            [UIAlertController alertControllerWithTitle:@"提示"
+            [UIAlertController alertControllerWithTitle:@"错误"
                                                 message:[error.userInfo objectForKey:NSLocalizedDescriptionKey]
                                          preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

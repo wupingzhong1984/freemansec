@@ -1,30 +1,25 @@
 //
-//  ResetMobilePwdViewController.m
+//  UpdatePhoneViewController.m
 //  freemansec
 //
-//  Created by adamwu on 2017/7/22.
+//  Created by adamwu on 2017/8/8.
 //  Copyright © 2017年 adamwu. All rights reserved.
 //
 
-#import "ResetMobilePwdViewController.h"
-#import "ResetMobilePwd2ViewController.h"
+#import "UpdatePhoneViewController.h"
 #import "SetTelCodeViewController.h"
 
-@interface ResetMobilePwdViewController ()
-<UIScrollViewDelegate,
-SetTelCodeViewControllerDelegate>
-
-@property (nonatomic,strong) UIScrollView *contentView;
+@interface UpdatePhoneViewController ()
+<SetTelCodeViewControllerDelegate>
 @property (nonatomic,strong) UILabel *telCodeLbl;
 @property (nonatomic,strong) UITextField *mobileTF;
 @property (nonatomic,strong) UIButton *verifyBtn;
 @property (nonatomic,strong) UITextField *verifyCodeTF;
 @property (nonatomic,strong) NSTimer *timer;
 @property (nonatomic,assign) int second;
-
 @end
 
-@implementation ResetMobilePwdViewController
+@implementation UpdatePhoneViewController
 
 - (void)back {
     
@@ -36,7 +31,7 @@ SetTelCodeViewControllerDelegate>
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = [UIColor blackColor];
     
-    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?@"重设密码":@"忘记密码") color:[UIColor whiteColor]];//NSLocalizedString
+    UIView *title = [self commNaviTitle:@"绑定手机" color:[UIColor whiteColor]];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -55,14 +50,14 @@ SetTelCodeViewControllerDelegate>
     return v;
 }
 
-- (void)telCodeAction {
+-(void)mobileTelCodeBtnAction {
     
     SetTelCodeViewController *vc = [[SetTelCodeViewController alloc] init];
     vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)verifyCodeAction {
+-(void)mobileVerifyBtnAction {
     
     if (!_mobileTF.text.length) {
         
@@ -106,7 +101,6 @@ SetTelCodeViewControllerDelegate>
             }
         }];
     }
-
 }
 
 - (void)submit {
@@ -114,9 +108,9 @@ SetTelCodeViewControllerDelegate>
     [_mobileTF resignFirstResponder];
     [_verifyCodeTF resignFirstResponder];
     
+    //NSLocalizedString
     NSMutableString *error = [NSMutableString string];
     
-    //NSLocalizedString
     if (!_mobileTF.text.length) {
         
         [error appendString:@"请输入手机号。"];
@@ -129,26 +123,21 @@ SetTelCodeViewControllerDelegate>
     
     if (!error.length) {
         
-        
-        [[MineManager sharedInstance] checkVerifyCode:_verifyCodeTF.text phone:_mobileTF.text areaCode:_telCodeLbl.text email:nil completion:^(NSError * _Nullable error) {
+        [[MineManager sharedInstance] updatePhone:_mobileTF.text areaCode:_telCodeLbl.text verify:_verifyCodeTF.text completion:^(NSError * _Nullable error) {
             
             if (error) {
-                
+                //NSLocalizedString
                 [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
-                
             } else {
-                
-                ResetMobilePwd2ViewController *vc = [[ResetMobilePwd2ViewController alloc] init];
-                vc.phone = _mobileTF.text;
-                [self.navigationController pushViewController:vc animated:YES];
+                [MineManager sharedInstance].myInfo.phone = _mobileTF.text;
+                [self.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
         
     } else {
+        
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:error preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self presentViewController:[Utility createAlertWithTitle:@"提示" content:error okBtnTitle:nil] animated:YES completion:nil];
     }
 }
 
@@ -160,7 +149,7 @@ SetTelCodeViewControllerDelegate>
     codeBg.layer.cornerRadius = 4;
     codeBg.layer.borderWidth = 1;
     codeBg.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    [_contentView addSubview:codeBg];
+    [self.view addSubview:codeBg];
     
     self.telCodeLbl = [[UILabel alloc] initWithFrame:CGRectMake(codeBg.x, codeBg.y, 47, codeBg.height)];
     _telCodeLbl.numberOfLines = 1;
@@ -170,24 +159,24 @@ SetTelCodeViewControllerDelegate>
     NSArray *appLanguages = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"];
     NSString *languageName = [appLanguages objectAtIndex:0];
     _telCodeLbl.text = ([languageName isEqualToString:@"zh-Hans"]?@"86":@"852");
-    [_contentView addSubview:_telCodeLbl];
+    [self.view addSubview:_telCodeLbl];
     
     UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
     icon.centerX = (codeBg.maxX - _telCodeLbl.maxX)/2 + _telCodeLbl.maxX;
     icon.centerY = codeBg.centerY;
-    [_contentView addSubview:icon];
+    [self.view addSubview:icon];
     
     UIButton *telCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [telCodeBtn addTarget:self action:@selector(telCodeAction) forControlEvents:UIControlEventTouchUpInside];
     telCodeBtn.frame = codeBg.frame;
-    [_contentView addSubview:telCodeBtn];
+    [telCodeBtn addTarget:self action:@selector(mobileTelCodeBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:telCodeBtn];
     
-    UIView *mobileBg = [[UIView alloc] initWithFrame:CGRectMake(codeBg.maxX + 10, codeBg.y, _contentView.width - 15 - (codeBg.maxX + 10), codeBg.height)];
+    UIView *mobileBg = [[UIView alloc] initWithFrame:CGRectMake(codeBg.maxX + 10, codeBg.y, K_UIScreenWidth - 15 - (codeBg.maxX + 10), codeBg.height)];
     mobileBg.backgroundColor = [UIColor whiteColor];
     mobileBg.layer.cornerRadius = 4;
     mobileBg.layer.borderWidth = 1;
     mobileBg.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    [_contentView addSubview:mobileBg];
+    [self.view addSubview:mobileBg];
     
     self.verifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _verifyBtn.backgroundColor = UIColor_0a6ed2;
@@ -198,8 +187,8 @@ SetTelCodeViewControllerDelegate>
     [_verifyBtn setTitle:@"验证码" forState:UIControlStateNormal]; //NSLocalizedString
     [_verifyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _verifyBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-    [_verifyBtn addTarget:self action:@selector(verifyCodeAction) forControlEvents:UIControlEventTouchUpInside];
-    [_contentView addSubview:_verifyBtn];
+    [_verifyBtn addTarget:self action:@selector(mobileVerifyBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_verifyBtn];
     
     self.mobileTF = [[UITextField alloc] init];
     _mobileTF.frame = CGRectMake(mobileBg.x + 10, (mobileBg.height-20)/2 + mobileBg.y, _verifyBtn.x - 10 - (mobileBg.x + 10), 20);
@@ -207,14 +196,14 @@ SetTelCodeViewControllerDelegate>
     _mobileTF.textColor = [UIColor darkGrayColor];
     _mobileTF.placeholder = @"请输入手机号";//NSLocalizedString
     _mobileTF.keyboardType = UIKeyboardTypeNumberPad;
-    [_contentView addSubview:_mobileTF];
+    [self.view addSubview:_mobileTF];
     
-    UIView *verifyCodeBg = [[UIView alloc] initWithFrame:CGRectMake(codeBg.x, codeBg.maxY + 10, _contentView.width - codeBg.x*2, codeBg.height)];
+    UIView *verifyCodeBg = [[UIView alloc] initWithFrame:CGRectMake(codeBg.x, codeBg.maxY + 10, K_UIScreenWidth - codeBg.x*2, codeBg.height)];
     verifyCodeBg.backgroundColor = [UIColor whiteColor];
     verifyCodeBg.layer.cornerRadius = 4;
     verifyCodeBg.layer.borderWidth = 1;
     verifyCodeBg.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    [_contentView addSubview:verifyCodeBg];
+    [self.view addSubview:verifyCodeBg];
     
     self.verifyCodeTF = [[UITextField alloc] init];
     _verifyCodeTF.frame = CGRectMake(verifyCodeBg.x + 10, (verifyCodeBg.height-20)/2 + verifyCodeBg.y, verifyCodeBg.width-20, 20);
@@ -222,17 +211,17 @@ SetTelCodeViewControllerDelegate>
     _verifyCodeTF.textColor = [UIColor darkGrayColor];
     _verifyCodeTF.placeholder = @"请输入验证码";//NSLocalizedString
     _verifyCodeTF.keyboardType = UIKeyboardTypeNumberPad;
-    [_contentView addSubview:_verifyCodeTF];
+    [self.view addSubview:_verifyCodeTF];
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(verifyCodeBg.x, verifyCodeBg.maxY + 27, verifyCodeBg.width, 40);
-    btn.backgroundColor = UIColor_0a6ed2;
-    btn.layer.cornerRadius = 4;
-    [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
-    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:16];
-    [btn addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
-    [_contentView addSubview:btn];
+    UIButton *sumbit = [UIButton buttonWithType:UIButtonTypeCustom];
+    sumbit.frame = CGRectMake(verifyCodeBg.x, verifyCodeBg.maxY + 25, verifyCodeBg.width, 40);
+    sumbit.backgroundColor = UIColor_0a6ed2;
+    sumbit.layer.cornerRadius = 4;
+    [sumbit setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
+    [sumbit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal]; //todo
+    sumbit.titleLabel.font = [UIFont systemFontOfSize:16];
+    [sumbit addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:sumbit];
 }
 
 - (void)viewDidLoad {
@@ -244,13 +233,6 @@ SetTelCodeViewControllerDelegate>
     
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
-    
-    self.contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, naviBar.maxY, K_UIScreenWidth, K_UIScreenHeight-naviBar.maxY)];
-    _contentView.delegate = self;
-    _contentView.showsVerticalScrollIndicator = NO;
-    _contentView.showsHorizontalScrollIndicator = NO;
-    _contentView.size = (CGSize){_contentView.width,_contentView.height+1};
-    [self.view addSubview:_contentView];
     
     [self setupSubviews];
 }
@@ -273,14 +255,8 @@ SetTelCodeViewControllerDelegate>
     
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    [_mobileTF resignFirstResponder];
-    [_verifyCodeTF resignFirstResponder];
-}
-
 - (void)SetTelCodeViewControllerTelCode:(NSString*)code {
-
+    
     _telCodeLbl.text = code;
 }
 
@@ -288,6 +264,7 @@ SetTelCodeViewControllerDelegate>
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

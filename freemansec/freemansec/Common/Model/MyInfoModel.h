@@ -25,7 +25,8 @@
 @property (nonatomic,strong) NSString<Optional>* city;
 @property (nonatomic,strong) NSString<Optional>* area;
 //直播信息
-@property (nonatomic,strong) NSString<Optional>* liveId;
+@property (nonatomic,strong) NSString<Optional>* cId;//网易侧频道id
+@property (nonatomic,strong) NSString<Optional>* liveId; //服务器侧频道id
 @property (nonatomic,strong) NSString<Optional>* liveTitle;
 @property (nonatomic,strong) NSString<Optional>* liveImg;
 @property (nonatomic,strong) NSString<Optional>* liveTypeId;

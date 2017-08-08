@@ -64,7 +64,7 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
                 
             }
             
-            if(![res.code isEqualToString:@"0"]) {
+            if(![res.code isEqualToString:@"0"] && ![res.code isEqualToString:@"200"]) {
                 error = [NSError errorWithDomain:LogicErrorDomain
                                             code:[res.code intValue]
                                         userInfo:@{NSLocalizedDescriptionKey:res.message}];

@@ -238,4 +238,22 @@ static MineManager *instance;
         }];
     }
 }
+
+- (void)updatePhone:(NSString* _Nullable)phone areaCode:(NSString* _Nullable)areaCode verify:(NSString* _Nullable)verify completion:(UpdatePhoneCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service updatePhone:phone areaCode:areaCode verify:verify userId:[MineManager sharedInstance].myInfo.userId completion:^(id obj, NSError *err) {
+            
+            completion(err);
+    }];
+}
+
+- (void)updateEmail:(NSString* _Nullable)email verify:(NSString* _Nullable)verify completion:(UpdateEmailCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service updateEmail:email verify:verify userId:[MineManager sharedInstance].myInfo.userId completion:^(id obj, NSError *err) {
+        
+        completion(err);
+    }];
+}
 @end

@@ -19,6 +19,8 @@ static NSString* GetIMPath = @"Ajax/GetIM.ashx";
 static NSString* CreateMyLivePath = @"Ajax/CreateLive.ashx";
 static NSString* CheckVerifyCodePath = @"Ajax/CheckCode.ashx";
 static NSString* ResetPwdPath = @"Ajax/BackPassWord.ashx";
+static NSString* UpdatePhonePath = @"Ajax/UpdatePhone.ashx";
+static NSString* UpdateEmailPath = @"Ajax/UpdateEmail.ashx";
 
 @implementation MineHttpService
 
@@ -166,7 +168,7 @@ static NSString* ResetPwdPath = @"Ajax/BackPassWord.ashx";
                          return ;
                      }
                      
-                     IMTokenModel * model = [[IMTokenModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
+                     IMTokenModel * model = [[IMTokenModel alloc] initWithDictionary:(NSDictionary*)response.data error:&err];
                      
                      if(model == nil){
                          
@@ -254,6 +256,35 @@ static NSString* ResetPwdPath = @"Ajax/BackPassWord.ashx";
                      params:@{@"type":@"1",
                               @"email":email,
                               @"password":pwd
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     completion(response, err);
+                 }];
+}
+
+- (void)updatePhone:(NSString*)phone areaCode:(NSString*)areaCode verify:(NSString*)verify userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:UpdatePhonePath
+                     params:@{@"userid":userId,
+                              @"areacode":areaCode,
+                              @"phone":phone,
+                              @"code":verify
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     completion(response, err);
+                 }];
+}
+
+- (void)updateEmail:(NSString*)email verify:(NSString*)verify userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:UpdateEmailPath
+                     params:@{@"userid":userId,
+                              @"email":email,
+                              @"code":verify
                               }
                  completion:^(JsonResponse* response, NSError *err) {
                      

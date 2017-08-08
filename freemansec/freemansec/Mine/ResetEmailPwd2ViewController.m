@@ -73,10 +73,25 @@
     
     if (!error.length) {
         
-        //todo
-        //sumbit new pwd
-        
-        
+        [[MineManager sharedInstance] checkVerifyCode:_verifyCodeTF.text phone:nil areaCode:nil email:_email completion:^(NSError * _Nullable error) {
+            if (error) {
+                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+            } else {
+                [[MineManager sharedInstance] resetPwd:_nPwdTF.text phone:nil email:_email completion:^(NSError * _Nullable error) {
+                    
+                    if (error) {
+                        [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                    } else {
+                        
+                        if (_resetPwdKind == RPKResetPwd) {
+                            [self.navigationController popToRootViewControllerAnimated:YES];
+                        } else {
+                            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                        }
+                    }
+                }];
+            }
+        }];
         
     } else {
         
