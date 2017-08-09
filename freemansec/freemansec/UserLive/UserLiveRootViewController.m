@@ -431,7 +431,7 @@
             [_updateUserLiveTitleView removeFromSuperview];
             self.updateUserLiveTitleView = nil;
             
-            self.pushUrl = [MineManager sharedInstance].myInfo.pushUrl;
+            self.pushUrl = [[MineManager sharedInstance] getMyInfo].pushUrl;
             [self startPush];
         }
     }];
@@ -540,13 +540,13 @@
             // 其他内存清理的代码也可以在此处完成
             [_mediaCapture stopLiveStream:^(NSError *error) {
                 if (error == nil) {
-                    NSLog(@"退到后台的直播结束了");
+                    NNSLog(@"退到后台的直播结束了");
                     _isLiving = NO;
                     _needStartLive = YES;
                     [app endBackgroundTask:backTaskId];
                 }
                 else{
-                    NSLog(@"退到后台的结束直播发生错误");
+                    NNSLog(@"退到后台的结束直播发生错误");
                     [app endBackgroundTask:backTaskId];
                 }
             }];
@@ -564,7 +564,7 @@
 //收到此消息，说明直播真的开始了
 -(void)onStartLiveStream:(NSNotification*)notification
 {
-    NSLog(@"on start live stream");//只有收到直播开始的 信号，才可以关闭直播
+    NNSLog(@"on start live stream");//只有收到直播开始的 信号，才可以关闭直播
     dispatch_async(dispatch_get_main_queue(), ^(void){
         _isLiving = YES;
         
@@ -582,7 +582,7 @@
 //直播结束的通知消息
 -(void)onFinishedLiveStream:(NSNotification*)notification
 {
-    NSLog(@"on finished live stream");
+    NNSLog(@"on finished live stream");
     dispatch_async(dispatch_get_main_queue(), ^(void){
         _isLiving = NO;
         //        [self startButtonPressed:_selectView.startBtn];
@@ -604,7 +604,7 @@
     NSValue*aValue =[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     
     CGRect keyboardRect = [aValue CGRectValue];
-    NSLog(@"键盘高度是  %f",keyboardRect.size.height);
+    NNSLog(@"键盘高度是  %f",keyboardRect.size.height);
     
     self.inputView.y = keyboardRect.size.height - self.inputView.height;
     self.IMAreaView.y = self.inputView.y - self.IMAreaView.height - 10;

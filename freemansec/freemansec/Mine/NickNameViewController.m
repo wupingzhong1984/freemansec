@@ -58,8 +58,15 @@
         [self presentViewController:alert animated:YES completion:nil];
     } else {
         
-        //todo
-        //submit nickname
+        [[MineManager sharedInstance] updateNickName:_nickNameTF.text completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+            if (error) {
+                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+            } else {
+                
+                [[MineManager sharedInstance] updateMyInfo:myInfo];
+                [self back];
+            }
+        }];
     }
 }
 

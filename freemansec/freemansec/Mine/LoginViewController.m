@@ -29,6 +29,9 @@
 
 - (void)loginAction {
     
+    [_uNameTF resignFirstResponder];
+    [_pwdTF resignFirstResponder];
+    
     if (!_uNameTF.text.length || !_pwdTF.text.length) {
         
         [self presentViewController:[Utility createAlertWithTitle:@"提示" content:@"请正确数据用户名和密码。" okBtnTitle:nil] animated:YES completion:nil];
@@ -45,12 +48,12 @@
              [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
          } else {
              
+             [[MineManager sharedInstance] updateMyInfo:myInfo];
              [[MineManager sharedInstance]getIMToken:myInfo.userLoginId completion:^(IMTokenModel * _Nullable tokenInfo, NSError * _Nullable error) {
                  if (error) {
                      [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
                  } else {
                      
-                     [[MineManager sharedInstance] updateMyInfo:myInfo];
                      [[MineManager sharedInstance] updateIMToken:tokenInfo];
                      [self.navigationController dismissViewControllerAnimated:YES completion:nil];
                  }

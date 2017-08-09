@@ -10,6 +10,9 @@
 #import "MyInfoModel.h"
 #import "IMTokenModel.h"
 #import "UserLiveChannelModel.h"
+#import "ProvinceModel.h"
+#import "CityModel.h"
+#import "AreaModel.h"
 
 static NSString* RegisterUserPath = @"Ajax/RegisterUser.ashx";
 static NSString* LoginUserPath = @"Ajax/LoginUser.ashx";
@@ -21,6 +24,11 @@ static NSString* CheckVerifyCodePath = @"Ajax/CheckCode.ashx";
 static NSString* ResetPwdPath = @"Ajax/BackPassWord.ashx";
 static NSString* UpdatePhonePath = @"Ajax/UpdatePhone.ashx";
 static NSString* UpdateEmailPath = @"Ajax/UpdateEmail.ashx";
+static NSString* RealNameVerifyPath = @"Ajax/Realname.ashx";
+static NSString* UpdateUserInfoPath = @"Ajax/updateUser.ashx";
+static NSString* GetProvincePath = @"Ajax/getProvince.ashx";
+static NSString* GetCityPath = @"Ajax/getCitytoPid.ashx";
+static NSString* GetAreaPath = @"Ajax/getAreaToCid.ashx";
 
 @implementation MineHttpService
 
@@ -289,6 +297,194 @@ static NSString* UpdateEmailPath = @"Ajax/UpdateEmail.ashx";
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      completion(response, err);
+                 }];
+}
+
+- (void)realNameVerify:(NSString*)name userType:(NSString*)type cardPhoto:(UIImage*)photo userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+    
+    NSData *data = UIImageJPEGRepresentation(photo,1.0);
+    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:RealNameVerifyPath
+                     params:@{@"userid":userId,
+                              @"name":name,
+                              @"IDcar":encodedImageStr,
+                              @"IDcarType":type,
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     completion(response, err);
+                 }];
+}
+
+- (void)updateNickName:(NSString*)nickName userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:UpdateUserInfoPath
+                     params:@{@"userid":userId,
+                              @"nickName":nickName
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
+                     if(model == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(model, nil); //success
+                     }
+                 }];
+}
+
+- (void)updateHeadImg:(UIImage*)photo userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+    
+    NSData *data = UIImageJPEGRepresentation(photo,1.0);
+    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:UpdateUserInfoPath
+                     params:@{@"userid":userId,
+                              @"headImg":encodedImageStr
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
+                     if(model == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(model, nil); //success
+                     }
+                 }];
+}
+
+- (void)updateSex:(NSString*)sex userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:UpdateUserInfoPath
+                     params:@{@"userid":userId,
+                              @"sex":sex
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
+                     if(model == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(model, nil); //success
+                     }
+                 }];
+}
+
+- (void)updateProvince:(NSString*)provinceId city:(NSString*)cityId area:(NSString*)areaId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:UpdateUserInfoPath
+                     params:@{@"userid":userId,
+                              @"province":provinceId,
+                              @"city":cityId,
+                              @"area":areaId
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
+                     if(model == nil){
+                         
+                         NNSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(model, nil); //success
+                     }
+                 }];
+}
+
+- (void)getProvinceListCompletion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetProvincePath
+                     params:nil
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [ProvinceModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NNSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
+}
+
+- (void)getCityListByProvinceId:(NSString*)pId completion:(HttpClientServiceObjectBlock)completion {
+
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetCityPath
+                     params:@{@"pid":pId}
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [CityModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
+}
+
+- (void)getAreaListByCityId:(NSString*)cId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetAreaPath
+                     params:@{@"cid":cId}
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [AreaModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
                  }];
 }
 @end

@@ -280,6 +280,9 @@
 		2FC4CF611F3A068A002DF8D8 /* UpdatePhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC4CF601F3A068A002DF8D8 /* UpdatePhoneViewController.m */; };
 		2FC4CF641F3A069D002DF8D8 /* UpdateEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC4CF631F3A069D002DF8D8 /* UpdateEmailViewController.m */; };
 		2FC4CF6A1F3A2340002DF8D8 /* UpdateEmail2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC4CF691F3A2340002DF8D8 /* UpdateEmail2ViewController.m */; };
+		2FC4CF6D1F3AFF2A002DF8D8 /* ProvinceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC4CF6C1F3AFF2A002DF8D8 /* ProvinceModel.m */; };
+		2FC4CF701F3B02F4002DF8D8 /* CityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC4CF6F1F3B02F4002DF8D8 /* CityModel.m */; };
+		2FC4CF731F3B03C2002DF8D8 /* AreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC4CF721F3B03C2002DF8D8 /* AreaModel.m */; };
 		2FE7FF061F2CD7A0007DFCC0 /* NickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF051F2CD7A0007DFCC0 /* NickNameViewController.m */; };
 		2FE7FF091F2CEB4D007DFCC0 /* RealNameCertifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF081F2CEB4D007DFCC0 /* RealNameCertifyViewController.m */; };
 		2FE7FF0C1F2CFC54007DFCC0 /* DottedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF0B1F2CFC54007DFCC0 /* DottedLineView.m */; };
@@ -741,6 +744,12 @@
 		2FC4CF631F3A069D002DF8D8 /* UpdateEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateEmailViewController.m; sourceTree = "<group>"; };
 		2FC4CF681F3A2340002DF8D8 /* UpdateEmail2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateEmail2ViewController.h; sourceTree = "<group>"; };
 		2FC4CF691F3A2340002DF8D8 /* UpdateEmail2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateEmail2ViewController.m; sourceTree = "<group>"; };
+		2FC4CF6B1F3AFF2A002DF8D8 /* ProvinceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceModel.h; sourceTree = "<group>"; };
+		2FC4CF6C1F3AFF2A002DF8D8 /* ProvinceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceModel.m; sourceTree = "<group>"; };
+		2FC4CF6E1F3B02F4002DF8D8 /* CityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityModel.h; sourceTree = "<group>"; };
+		2FC4CF6F1F3B02F4002DF8D8 /* CityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityModel.m; sourceTree = "<group>"; };
+		2FC4CF711F3B03C2002DF8D8 /* AreaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaModel.h; sourceTree = "<group>"; };
+		2FC4CF721F3B03C2002DF8D8 /* AreaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaModel.m; sourceTree = "<group>"; };
 		2FE7FF041F2CD7A0007DFCC0 /* NickNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NickNameViewController.h; sourceTree = "<group>"; };
 		2FE7FF051F2CD7A0007DFCC0 /* NickNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NickNameViewController.m; sourceTree = "<group>"; };
 		2FE7FF071F2CEB4D007DFCC0 /* RealNameCertifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealNameCertifyViewController.h; sourceTree = "<group>"; };
@@ -1711,6 +1720,12 @@
 				2F869E411F3820EE005C8212 /* IMTokenModel.m */,
 				2F234DC51F39AE7A00862029 /* UserLiveType.h */,
 				2F234DC61F39AE7A00862029 /* UserLiveType.m */,
+				2FC4CF6B1F3AFF2A002DF8D8 /* ProvinceModel.h */,
+				2FC4CF6C1F3AFF2A002DF8D8 /* ProvinceModel.m */,
+				2FC4CF6E1F3B02F4002DF8D8 /* CityModel.h */,
+				2FC4CF6F1F3B02F4002DF8D8 /* CityModel.m */,
+				2FC4CF711F3B03C2002DF8D8 /* AreaModel.h */,
+				2FC4CF721F3B03C2002DF8D8 /* AreaModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2050,6 +2065,7 @@
 				2F9EEE871F25C25A00E161C3 /* MJRefreshHeaderView.m in Sources */,
 				2F869C221F35F29B005C8212 /* TZAssetCell.m in Sources */,
 				2F869C0E1F35F29B005C8212 /* SDWebImagePrefetcher.m in Sources */,
+				2FC4CF731F3B03C2002DF8D8 /* AreaModel.m in Sources */,
 				2F869C161F35F29B005C8212 /* README.md in Sources */,
 				2F869BF91F35F29A005C8212 /* README.markdown in Sources */,
 				2F869C031F35F29B005C8212 /* NSMutableAttributedString+M80.m in Sources */,
@@ -2063,6 +2079,7 @@
 				2FAF314D1F1605BD004329ED /* MineRootViewController.m in Sources */,
 				2FAF31691F1605BD004329ED /* UIProgressView+AFNetworking.m in Sources */,
 				2FAF31C21F167C32004329ED /* UIButton+MyButton.m in Sources */,
+				2FC4CF701F3B02F4002DF8D8 /* CityModel.m in Sources */,
 				2FE7FF091F2CEB4D007DFCC0 /* RealNameCertifyViewController.m in Sources */,
 				2F869C001F35F29A005C8212 /* M80AttributedLabel.m in Sources */,
 				2F12E0141F3105A00064AD5A /* UpdateUserLiveTitleView.m in Sources */,
@@ -2081,6 +2098,7 @@
 				2F869BFE1F35F29A005C8212 /* FMResultSet.m in Sources */,
 				2F869C101F35F29B005C8212 /* UIImage+GIF.m in Sources */,
 				2F869C291F35F29B005C8212 /* TZPhotoPickerController.m in Sources */,
+				2FC4CF6D1F3AFF2A002DF8D8 /* ProvinceModel.m in Sources */,
 				2F869BFA1F35F29A005C8212 /* FMDatabase.m in Sources */,
 				2F9EEE851F25C25A00E161C3 /* MJRefreshConst.m in Sources */,
 				2FE7FF221F2DDFEC007DFCC0 /* MineHttpService.m in Sources */,

@@ -34,24 +34,28 @@ static MineManager *instance;
     return instance;
 }
 
-- (MyInfoModel* _Nullable)myInfo {
+- (MyInfoModel* _Nullable)getMyInfo {
     
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"MyInfoModel"];
+    return _userInfo;
+//    return [[NSUserDefaults standardUserDefaults] objectForKey:@"MyInfoModel"];
 }
 
 - (void)updateMyInfo:(MyInfoModel* _Nullable)info {
     
-    [[NSUserDefaults standardUserDefaults] setObject:info forKey:@"MyInfoModel"];
+    self.userInfo = info;
+//    [[NSUserDefaults standardUserDefaults] setObject:info forKey:@"MyInfoModel"];
 }
 
 - (IMTokenModel* _Nullable)IMToken {
     
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"IMTokenModel"];
+    return _userToken;
+//    return [[NSUserDefaults standardUserDefaults] objectForKey:@"IMTokenModel"];
 }
 
 - (void)updateIMToken:(IMTokenModel* _Nullable)token {
     
-    [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"IMTokenModel"];
+    self.userToken = token;
+//    [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"IMTokenModel"];
 }
 
 - (void)logout {
@@ -153,7 +157,7 @@ static MineManager *instance;
 - (void)createMyLiveWithLiveTitle:(NSString* _Nonnull)title liveType:(NSString* _Nonnull)typeId completion:(CreateMyLiveCompletion _Nullable)completion
 {
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service createMyLiveWithLiveTitle:title liveType:typeId userId:[MineManager sharedInstance].myInfo.userId completion:^(id obj, NSError *err) {
+    [service createMyLiveWithLiveTitle:title liveType:typeId userId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -268,7 +272,7 @@ static MineManager *instance;
 - (void)updatePhone:(NSString* _Nullable)phone areaCode:(NSString* _Nullable)areaCode verify:(NSString* _Nullable)verify completion:(UpdatePhoneCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service updatePhone:phone areaCode:areaCode verify:verify userId:[MineManager sharedInstance].myInfo.userId completion:^(id obj, NSError *err) {
+    [service updatePhone:phone areaCode:areaCode verify:verify userId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
             
             completion(err);
     }];
@@ -277,9 +281,137 @@ static MineManager *instance;
 - (void)updateEmail:(NSString* _Nullable)email verify:(NSString* _Nullable)verify completion:(UpdateEmailCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service updateEmail:email verify:verify userId:[MineManager sharedInstance].myInfo.userId completion:^(id obj, NSError *err) {
+    [service updateEmail:email verify:verify userId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
         
         completion(err);
     }];
 }
+
+- (void)realNameVerify:(NSString* _Nullable)name userType:(NSString* _Nullable)type cardPhoto:(UIImage* _Nullable)photo completion:(RealNameVerifyCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service realNameVerify:name userType:type cardPhoto:photo userId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
+        
+        completion(err);
+    }];
+}
+
+- (void)updateNickName:(NSString* _Nullable)nickName completion:(UpdateNickNameCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service updateNickName:nickName userId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            MyInfoModel *model = obj;
+            completion(model,err);
+        }
+    }];
+}
+
+- (void)updateHeadImg:(UIImage* _Nullable)photo completion:(UpdateHeadImgCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service updateHeadImg:photo userId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            MyInfoModel *model = obj;
+            completion(model,err);
+        }
+    }];
+}
+
+- (void)updateSex:(NSString* _Nullable)sex completion:(UpdateSexCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service updateSex:sex userId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            MyInfoModel *model = obj;
+            completion(model,err);
+        }
+    }];
+}
+
+- (void)updateProvince:(NSString* _Nullable)provinceId city:(NSString* _Nullable)cityId area:(NSString* _Nullable)areaId completion:(UpdateLocationCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service updateProvince:provinceId city:cityId area:areaId userId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            MyInfoModel *model = obj;
+            completion(model,err);
+        }
+    }];
+}
+
+- (void)getProvinceListCompletion:(ProvinceListCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service getProvinceListCompletion:^(id obj, NSError *err) {
+        
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+
+    }];
+}
+
+- (void)getCityListByProvinceId:(NSString* _Nullable)pId completion:(CityListCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service getCityListByProvinceId:pId completion:^(id obj, NSError *err) {
+        
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+        
+    }];
+}
+
+- (void)getAreaListByCityId:(NSString* _Nullable)cId completion:(AreaListCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service getAreaListByCityId:cId completion:^(id obj, NSError *err) {
+        
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+        
+    }];
+}
+
 @end

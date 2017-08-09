@@ -250,7 +250,7 @@
     [face setImageWithURL:[NSURL URLWithString:@""]]; //todo
     
     name = (UILabel*)[cell.contentView viewWithTag:2];
-    name.text = [MineManager sharedInstance].myInfo.nickName;
+    name.text = [[MineManager sharedInstance] getMyInfo].nickName;
     
     return cell;
 }
@@ -372,7 +372,7 @@
             break;
         }
         case 5: {
-            NSString *state = [MineManager sharedInstance].myInfo.realNameVerifyState;
+            NSString *state = [[MineManager sharedInstance] getMyInfo].realNameVerifyState;
             if (state && [state isEqualToString:@"1"]) { //已实名认证
                 
                 ApplyAnchorViewController *vc = [[ApplyAnchorViewController alloc] init];

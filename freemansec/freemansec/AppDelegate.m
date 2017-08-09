@@ -54,7 +54,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
-    if(![MineManager sharedInstance].myInfo) {
+    if(![[MineManager sharedInstance] getMyInfo]) {
         
         LoginViewController *vc = [[LoginViewController alloc] init];
         CustomNaviController *nav = [[CustomNaviController alloc] initWithRootViewController:vc];

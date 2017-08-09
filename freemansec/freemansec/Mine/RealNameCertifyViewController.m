@@ -18,6 +18,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic,strong) UILabel *userTypeLbl;
 @property (nonatomic,strong) UIView *frontPlaceV;
 @property (nonatomic,strong) UIImageView *frontIV;
+@property (nonatomic,strong) UIImage *frontImg;
 @end
 
 @implementation RealNameCertifyViewController
@@ -39,26 +40,6 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
         
         //NSLocalizedString
         UILabel *title = [UILabel createLabelWithFrame:CGRectZero text:@"上传手持身份证" textColor:UIColor_textfield_placecolor font:[UIFont systemFontOfSize:16]];
-        [title sizeToFit];
-        title.center = CGPointMake(add.centerX, 98);
-        [_frontPlaceV addSubview:title];
-        
-    }
-    return _frontPlaceV;
-}
-
-- (UIView*)backPlaceV {
-    
-    if (!_frontPlaceV) {
-        
-        _frontPlaceV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth-30, 140)];
-        
-        UIImageView *add = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
-        add.center = CGPointMake(_frontPlaceV.width/2, 57);
-        [_frontPlaceV addSubview:add];
-        
-        //NSLocalizedString
-        UILabel *title = [UILabel createLabelWithFrame:CGRectZero text:@"上传身份证背面" textColor:UIColor_textfield_placecolor font:[UIFont systemFontOfSize:16]];
         [title sizeToFit];
         title.center = CGPointMake(add.centerX, 98);
         [_frontPlaceV addSubview:title];
@@ -93,6 +74,8 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 - (void)userTypeAction {
     
+    [_nameTF resignFirstResponder];
+    
     //NSLocalizedString
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"用户类型" preferredStyle:UIAlertControllerStyleActionSheet];
     [alert addAction:[UIAlertAction actionWithTitle:@"大陆用户" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -113,6 +96,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 - (void)showImagePick {
     
+    [_nameTF resignFirstResponder];
     //NSLocalizedString
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -141,14 +125,49 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 - (void) submit {
     
-    //todo
-    //submit
+    [_nameTF resignFirstResponder];
     
-    
-    if (_delegate && [_delegate respondsToSelector:@selector(RealNameCertifyViewControllerDelegateDidSubmit)]) {
-        [_delegate RealNameCertifyViewControllerDelegateDidSubmit];
+    //NSLocalizedString
+    //NSLocalizedString
+    NSMutableString *error = [NSMutableString string];
+    if (!_nameTF.text.length) {
+        
+        [error appendString:@"请输入真实姓名。"];
     }
-    [self back];
+    
+    if (!_userTypeLbl.text.length) {
+        
+        [error appendString:@"请选择用户类型。"];
+    }
+    
+    if (!_frontImg) {
+        
+        [error appendString:@"请设置手持身份证正面照。"];
+    }
+    
+    NSString *userType;
+    if ([_userTypeLbl.text isEqualToString:@"大陆用户"]) {
+        userType = @"0";
+    } else if ([_userTypeLbl.text isEqualToString:@"香港用户"]) {
+        userType = @"1";
+    } else {
+        userType = @"2";
+    }
+    
+    if (!error.length) {
+        [[MineManager sharedInstance] realNameVerify:_nameTF.text userType:userType cardPhoto:_frontImg completion:^(NSError * _Nullable error) {
+            if (error) {
+                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+            } else {
+                
+                MyInfoModel *userInfo = [[MineManager sharedInstance] getMyInfo];
+                userInfo.realNameVerifyState = @"4"; //审核中
+                [[MineManager sharedInstance] updateMyInfo:userInfo];
+                [self back];
+            }
+        }];
+    }
+    
 }
 
 - (void)setupSubviews {
@@ -261,23 +280,22 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
         
         originalImage = [Utility fixOrientation:originalImage];
         //UIImageJPEGRepresentation(originImage,0.8);
-        
-        UIImageView *imgV;
+        self.frontImg = originalImage;
         CGPoint center;
         
-            _frontPlaceV.hidden = YES;
-            imgV = _frontIV;
-            center = _frontIV.center;
+        _frontPlaceV.hidden = YES;
+        CGRect initFrame = CGRectMake(0,0,K_UIScreenWidth-30, 140);
+        center = _frontIV.center;
     
         
-        if (imgV.width/imgV.height < originalImage.size.width/originalImage.size.height) {
+        if (initFrame.size.width/initFrame.size.height < originalImage.size.width/originalImage.size.height) {
             
-            imgV.frame = CGRectMake(0, imgV.y, imgV.height*(originalImage.size.width/originalImage.size.height), imgV.height);
+            _frontIV.frame = CGRectMake(0, initFrame.origin.y, initFrame.size.height*(originalImage.size.width/originalImage.size.height), initFrame.size.height);
         } else {
-            imgV.frame = CGRectMake(0, imgV.y, imgV.width, imgV.width/(originalImage.size.width/originalImage.size.height));
+            _frontIV.frame = CGRectMake(0, initFrame.origin.y, initFrame.size.width, initFrame.size.width/(originalImage.size.width/originalImage.size.height));
         }
-        imgV.center = center;
-        [_contentView addSubview:imgV];
+        _frontIV.center = center;
+        _frontIV.image = originalImage;
     }];
 }
 

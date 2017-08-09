@@ -131,7 +131,7 @@
     
     if (! jsonData)
     {
-        NSLog(@"Got an error: %@", error);
+        NNSLog(@"Got an error: %@", error);
     }else
     {
         jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
@@ -157,7 +157,7 @@
                                                           error:&err];
     if(err)
     {
-        NSLog(@"json解析失败：%@",err);
+        NNSLog(@"json解析失败：%@",err);
         return nil;
     }
     return dic;

@@ -11,10 +11,12 @@
 @implementation UserLiveType
 +(JSONKeyMapper*)keyMapper
 {
-    //todo
+    
     return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{
-                                                                  @"liveTypeId": @"liveTypeId",
-                                                                  @"liveTypeName": @"liveTypeName"
+                                                                  @"liveTypeId": @"id",
+                                                                  @"liveTypeName": @"typename",
+                                                                  
+                                                                  @"liveTypeImg":@"liveTypeImg"
                                                                   }];
 }
 @end

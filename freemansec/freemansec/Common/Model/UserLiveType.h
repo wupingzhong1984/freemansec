@@ -11,4 +11,5 @@
 @interface UserLiveType : JSONModel
 @property (nonatomic,strong) NSString<Optional> *liveTypeId;
 @property (nonatomic,strong) NSString<Optional> *liveTypeName;
+@property (nonatomic,strong) NSString<Optional> *liveTypeImg;
 @end

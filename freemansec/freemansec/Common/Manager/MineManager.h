@@ -30,12 +30,26 @@ typedef void(^ResetPwdCompletion)(NSError* _Nullable error);
 typedef void(^UpdatePhoneCompletion)(NSError* _Nullable error);
 typedef void(^UpdateEmailCompletion)(NSError* _Nullable error);
 
+typedef void(^RealNameVerifyCompletion)(NSError* _Nullable error);
+
+typedef void(^UpdateNickNameCompletion)(MyInfoModel* _Nullable myInfo, NSError* _Nullable error);
+typedef void(^UpdateHeadImgCompletion)(MyInfoModel* _Nullable myInfo, NSError* _Nullable error);
+typedef void(^UpdateSexCompletion)(MyInfoModel* _Nullable myInfo, NSError* _Nullable error);
+typedef void(^UpdateLocationCompletion)(MyInfoModel* _Nullable myInfo, NSError* _Nullable error);
+
+typedef void(^ProvinceListCompletion)(NSArray* _Nullable provinceList, NSError* _Nullable error);
+typedef void(^CityListCompletion)(NSArray* _Nullable cityList, NSError* _Nullable error);
+typedef void(^AreaListCompletion)(NSArray* _Nullable areaList, NSError* _Nullable error);
+
+
 @interface MineManager : NSObject
 
+@property (nonatomic,strong) MyInfoModel *_Nullable userInfo;
+@property (nonatomic,strong) IMTokenModel *_Nullable userToken;
 
 + (MineManager* _Nonnull)sharedInstance;
 
-- (MyInfoModel* _Nullable)myInfo;
+- (MyInfoModel* _Nullable)getMyInfo;
 - (void)updateMyInfo:(MyInfoModel* _Nullable)info;
 - (IMTokenModel* _Nullable)IMToken;
 - (void)updateIMToken:(IMTokenModel* _Nullable)token;
@@ -63,7 +77,19 @@ typedef void(^UpdateEmailCompletion)(NSError* _Nullable error);
 - (void)updatePhone:(NSString* _Nullable)phone areaCode:(NSString* _Nullable)areaCode verify:(NSString* _Nullable)verify completion:(UpdatePhoneCompletion _Nullable)completion;
 - (void)updateEmail:(NSString* _Nullable)email verify:(NSString* _Nullable)verify completion:(UpdateEmailCompletion _Nullable)completion;
 
+- (void)realNameVerify:(NSString* _Nullable)name userType:(NSString* _Nullable)type cardPhoto:(UIImage* _Nullable)photo completion:(RealNameVerifyCompletion _Nullable)completion;
+
+- (void)updateNickName:(NSString* _Nullable)nickName completion:(UpdateNickNameCompletion _Nullable)completion;
+- (void)updateHeadImg:(UIImage* _Nullable)photo completion:(UpdateHeadImgCompletion _Nullable)completion;
+- (void)updateSex:(NSString* _Nullable)sex completion:(UpdateSexCompletion _Nullable)completion;
+- (void)updateProvince:(NSString* _Nullable)provinceId city:(NSString* _Nullable)cityId area:(NSString* _Nullable)areaId completion:(UpdateLocationCompletion _Nullable)completion;
+
+- (void)getProvinceListCompletion:(ProvinceListCompletion _Nullable)completion;
+- (void)getCityListByProvinceId:(NSString* _Nullable)pId completion:(CityListCompletion _Nullable)completion;
+- (void)getAreaListByCityId:(NSString* _Nullable)cId completion:(AreaListCompletion _Nullable)completion;
+
 - (void)getMyVideoListCompletion:(MyVideoListCompletion _Nullable)completion;
 - (void)getMyFavourListCompletion:(MyFavourListCompletion _Nullable)completion;
 - (void)getMyAttentionListCompletion:(MyAttentionListCompletion _Nullable)completion;
+
 @end

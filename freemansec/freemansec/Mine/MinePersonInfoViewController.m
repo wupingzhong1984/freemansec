@@ -12,14 +12,23 @@
 #import "NickNameViewController.h"
 #import "ForgetPwdViewController.h"
 #import "RealNameCertifyViewController.h"
+#import "UpdatePhoneViewController.h"
+#import "UpdateEmailViewController.h"
+#import "ProvinceModel.h"
+#import "CityModel.h"
+#import "AreaModel.h"
 
 @interface MinePersonInfoViewController ()
 <UIScrollViewDelegate,
 UIImagePickerControllerDelegate,UINavigationControllerDelegate,
-RealNameCertifyViewControllerDelegate>
+UIPickerViewDelegate,UIPickerViewDataSource>
 
 @property (nonatomic,strong) UIScrollView *contentView;
-@property (nonatomic,assign) BOOL didSubmitRealNameVerify;
+@property (nonatomic,strong) UIView *locationPickerView;
+@property (nonatomic,strong) UIPickerView *locationPicker;
+@property (nonatomic,strong) NSMutableArray *provinceArray;
+@property (nonatomic,strong) NSMutableArray *cityArray;
+@property (nonatomic,strong) NSMutableArray *areaArray;
 @end
 
 @implementation MinePersonInfoViewController
@@ -30,9 +39,117 @@ RealNameCertifyViewControllerDelegate>
     return [NSMutableArray arrayWithObjects:@"头像",@"昵称",@"性别",@"所在地",@"密码",@"手机",@"邮箱绑定",@"实名认证", nil];
 }
 
+- (NSMutableArray*)provinceArray {
+    
+    if (!_provinceArray) {
+        
+        _provinceArray = [[NSMutableArray alloc] init];
+    }
+    return _provinceArray;
+}
+
+- (NSMutableArray*)cityArray {
+    
+    if (!_cityArray) {
+        
+        _cityArray = [[NSMutableArray alloc] init];
+    }
+    return _cityArray;
+}
+
+- (NSMutableArray*)areaArray {
+    
+    if (!_areaArray) {
+        
+        _areaArray = [[NSMutableArray alloc] init];
+    }
+    return _areaArray;
+}
+
 - (void)back {
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)locationPickerViewCancel {
+    
+    _locationPickerView.y = K_UIScreenHeight;
+}
+
+- (void)locationPickerViewConfirm {
+    
+    _locationPickerView.y = K_UIScreenHeight;
+    
+    ProvinceModel *p;
+    if (self.provinceArray.count > 0){
+        p = [self.provinceArray objectAtIndex:[_locationPicker selectedRowInComponent:0]];
+    }
+    
+    CityModel *c;
+    if (self.cityArray.count > 0){
+        c = [self.cityArray objectAtIndex:[_locationPicker selectedRowInComponent:1]];
+    }
+    
+    AreaModel *a;
+    if (self.areaArray.count > 0){
+        a = [self.areaArray objectAtIndex:[_locationPicker selectedRowInComponent:2]];
+    }
+    
+    [[MineManager sharedInstance] updateProvince:(p.provinceId.length > 0?p.provinceId:@"")
+                                            city:(c.cityId.length > 0?c.cityId:@"")
+                                            area:(a.areaId.length > 0?a.areaId:@"")
+                                      completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+        if (error) {
+            [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+        } else {
+            
+            [[MineManager sharedInstance] updateMyInfo:myInfo];
+            UILabel *locationLbl = (UILabel*)[_contentView viewWithTag:103];
+            locationLbl.text = myInfo.area.length > 0?myInfo.area:myInfo.city;
+        }
+    }];
+}
+
+- (UIView*)locationPickerView {
+    
+    if(!_locationPickerView) {
+        
+        _locationPicker = [[UIPickerView alloc] init];
+        _locationPicker.width = K_UIScreenWidth;
+        _locationPicker.showsSelectionIndicator = YES;
+        _locationPicker.delegate = self;
+        _locationPicker.dataSource = self;
+        
+        _locationPickerView = [[UIView alloc] initWithFrame:CGRectMake(0, K_UIScreenHeight, K_UIScreenWidth, _locationPicker.height + 40)];
+        _locationPickerView.backgroundColor = [UIColor whiteColor];
+        
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _locationPicker.width, 1)];
+        line.backgroundColor = UIColor_line_d2d2d2;
+        [_locationPickerView addSubview:line];
+        
+        
+        [_locationPickerView addSubview:_locationPicker];
+        _locationPicker.y = 40;
+        
+        UIButton *cancel = [UIButton buttonWithType:UIButtonTypeCustom];
+        [cancel setTitle:@"取消" forState:UIControlStateNormal];
+        [cancel setTitleColor:UIColor_0a6ed2 forState:UIControlStateNormal];
+        cancel.titleLabel.font = [UIFont systemFontOfSize:16];
+        cancel.size = CGSizeMake(60, 40);
+        [cancel addTarget:self action:@selector(locationPickerViewCancel) forControlEvents:UIControlEventTouchUpInside];
+        [_locationPickerView addSubview:cancel];
+        
+        UIButton *confirm = [UIButton buttonWithType:UIButtonTypeCustom];
+        [confirm setTitle:@"确定" forState:UIControlStateNormal];
+        [confirm setTitleColor:UIColor_0a6ed2 forState:UIControlStateNormal];
+        confirm.titleLabel.font = [UIFont systemFontOfSize:16];
+        confirm.size = CGSizeMake(60, 40);
+        confirm.x = _locationPickerView.width-confirm.width;
+        [confirm addTarget:self action:@selector(locationPickerViewConfirm) forControlEvents:UIControlEventTouchUpInside];
+        [_locationPickerView addSubview:confirm];
+    }
+    
+    return _locationPickerView;
 }
 
 - (UIView*)naviBarView {
@@ -101,24 +218,49 @@ RealNameCertifyViewControllerDelegate>
             //NSLocalizedString
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请选择性别" preferredStyle:UIAlertControllerStyleActionSheet];
             [alert addAction:[UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                //todo
-                //submit gender
-                UILabel *genderLbl = (UILabel*)[_contentView viewWithTag:102];
-                genderLbl.text = @"女";
+                
+                [[MineManager sharedInstance] updateSex:@"1" completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+                    if (error) {
+                        
+                        [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                        
+                    } else {
+                        
+                        [[MineManager sharedInstance] updateMyInfo:myInfo];
+                        UILabel *genderLbl = (UILabel*)[_contentView viewWithTag:102];
+                        genderLbl.text = @"女";
+                    }
+                }];
+                
             }]];
             [alert addAction:[UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                //todo
-                //submit gender
-                UILabel *genderLbl = (UILabel*)[_contentView viewWithTag:102];
-                genderLbl.text = @"男";
+                [[MineManager sharedInstance] updateSex:@"0" completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+                    if (error) {
+                        
+                        [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                        
+                    } else {
+                        
+                        [[MineManager sharedInstance] updateMyInfo:myInfo];
+                        UILabel *genderLbl = (UILabel*)[_contentView viewWithTag:102];
+                        genderLbl.text = @"男";
+                    }
+                }];
             }]];
             [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
             break;
         }
         case 3: {
             
-            //todo
-            //所在地 picker
+            if (!_locationPickerView) {
+                
+                [self.view addSubview:self.locationPickerView];
+            }
+            
+            if (_locationPickerView.y == K_UIScreenHeight) {
+                
+                _locationPickerView.y = K_UIScreenHeight - _locationPickerView.height;
+            }
             break;
         }
         case 4: {
@@ -128,28 +270,27 @@ RealNameCertifyViewControllerDelegate>
             break;
         }
         case 5: {
-            if(![MineManager sharedInstance].myInfo.phone.length) {
+            if(![[MineManager sharedInstance] getMyInfo].phone.length) {
                 
-                //todo
-                //手机绑定
+                UpdatePhoneViewController *vc = [[UpdatePhoneViewController alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
             }
             break;
         }
         case 6: {
-            if(![MineManager sharedInstance].myInfo.email.length) {
+            if(![[MineManager sharedInstance] getMyInfo].email.length) {
                 
-                //todo
-                //邮箱绑定
+                UpdateEmailViewController *vc = [[UpdateEmailViewController alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
             }
             break;
         }
         default: {
             
-            NSString *state = [MineManager sharedInstance].myInfo.realNameVerifyState;
+            NSString *state = [[MineManager sharedInstance] getMyInfo].realNameVerifyState;
             if (!state || [state isEqualToString:@"3"]) {
                 
                 RealNameCertifyViewController *vc = [[RealNameCertifyViewController alloc] init];
-                vc.delegate = self;
                 [self.navigationController pushViewController:vc animated:YES];
             } else {
                 //NSLocalizedString
@@ -268,33 +409,33 @@ RealNameCertifyViewControllerDelegate>
 - (void)loadInfos {
     
     UIImageView *imgV = (UIImageView*)[_contentView viewWithTag:100];
-    [imgV setImageWithURL:[NSURL URLWithString:[MineManager sharedInstance].myInfo.headImg]];
+    [imgV setImageWithURL:[NSURL URLWithString:[[MineManager sharedInstance] getMyInfo].headImg]];
     
     UILabel *nickNameLbl = (UILabel*)[_contentView viewWithTag:101];
-    nickNameLbl.text = [MineManager sharedInstance].myInfo.nickName;
+    nickNameLbl.text = [[MineManager sharedInstance] getMyInfo].nickName;
     
     UILabel *genderLbl = (UILabel*)[_contentView viewWithTag:102];
-    genderLbl.text = ([MineManager sharedInstance].myInfo.sex.integerValue == 0?@"男":@"女");
+    genderLbl.text = ([[MineManager sharedInstance] getMyInfo].sex.integerValue == 0?@"男":@"女");
     
     UILabel *cityLbl = (UILabel*)[_contentView viewWithTag:103];
-    cityLbl.text = [MineManager sharedInstance].myInfo.area.length > 0?[MineManager sharedInstance].myInfo.area:@"请选择";
+    cityLbl.text = [[MineManager sharedInstance] getMyInfo].area.length > 0?[[MineManager sharedInstance] getMyInfo].area:@"请选择";
     
     UILabel *pwdLbl = (UILabel*)[_contentView viewWithTag:104];
     pwdLbl.text = @"点击修改";
     
     UILabel *mobileLbl = (UILabel*)[_contentView viewWithTag:105];
-    mobileLbl.text = [MineManager sharedInstance].myInfo.phone.length > 0?[MineManager sharedInstance].myInfo.phone:@"点击绑定";
+    mobileLbl.text = [[MineManager sharedInstance] getMyInfo].phone.length > 0?[[MineManager sharedInstance] getMyInfo].phone:@"点击绑定";
     
     UILabel *emailLbl = (UILabel*)[_contentView viewWithTag:106];
-    emailLbl.text = [MineManager sharedInstance].myInfo.email.length > 0?[MineManager sharedInstance].myInfo.email:@"点击绑定";
+    emailLbl.text = [[MineManager sharedInstance] getMyInfo].email.length > 0?[[MineManager sharedInstance] getMyInfo].email:@"点击绑定";
     
     UILabel *realLbl = (UILabel*)[_contentView viewWithTag:107];
     
-    if([MineManager sharedInstance].myInfo.realNameVerifyState) {
+    if([[MineManager sharedInstance] getMyInfo].realNameVerifyState) {
         //0未审核，1已审核，2已冻结，3未通过审核，4审核中
-        switch ([[MineManager sharedInstance].myInfo.realNameVerifyState intValue]) {
+        switch ([[[MineManager sharedInstance] getMyInfo].realNameVerifyState intValue]) {
             case 0:
-                realLbl.text = @"未审核";
+                realLbl.text = @"点击提交";
                 break;
             case 1:
                 realLbl.text = @"已审核";
@@ -314,7 +455,6 @@ RealNameCertifyViewControllerDelegate>
         realLbl.text = @"点击提交";
     }
     
-    
 }
 
 - (void)viewDidLoad {
@@ -333,6 +473,31 @@ RealNameCertifyViewControllerDelegate>
     [self.view addSubview:_contentView];
     
     [self setupSubviews];
+    
+    [[MineManager sharedInstance] getProvinceListCompletion:^(NSArray * _Nullable provinceList, NSError * _Nullable error) {
+        
+        if (provinceList) {
+            [self.provinceArray removeAllObjects];
+            [self.provinceArray addObjectsFromArray:provinceList];
+            [self.view addSubview:self.locationPickerView];
+            
+            ProvinceModel *p = [self.provinceArray objectAtIndex:0];
+            [[MineManager sharedInstance] getCityListByProvinceId:p.provinceId completion:^(NSArray * _Nullable cityList, NSError * _Nullable error) {
+                if (cityList) {
+                    [self.cityArray addObjectsFromArray:cityList];
+                    [_locationPicker reloadComponent:1];
+                    CityModel *c = [self.cityArray objectAtIndex:0];
+                    [[MineManager sharedInstance] getAreaListByCityId:c.cityId completion:^(NSArray * _Nullable areaList, NSError * _Nullable error) {
+                        if (areaList) {
+                            [self.areaArray addObjectsFromArray:areaList];
+                            [_locationPicker reloadComponent:2];
+                        }
+                    }];
+                }
+            }];
+
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -368,20 +533,90 @@ RealNameCertifyViewControllerDelegate>
         editImage = [Utility fixOrientation:editImage];
         //UIImageJPEGRepresentation(originImage,0.8);
         
-        //todo
-        //submit face
-        
-        UIImageView *imgV = (UIImageView*)[_contentView viewWithTag:100];
-        [imgV setImageWithURL:[NSURL URLWithString:@""]];
+        [[MineManager sharedInstance] updateHeadImg:editImage completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+            if (error) {
+                
+                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                
+            } else {
+                
+                [[MineManager sharedInstance] updateMyInfo:myInfo];
+                UIImageView *imgV = (UIImageView*)[_contentView viewWithTag:100];
+                [imgV setImageWithURL:[NSURL URLWithString:@""]];
+                
+            }
+        }];
         
     }];
 }
 
-- (void)RealNameCertifyViewControllerDelegateDidSubmit {
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     
-    _didSubmitRealNameVerify = YES;
+    return 3;
 }
 
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    
+    if (component == 0) {
+        return self.provinceArray.count;
+    } else if (component == 1) {
+        return self.cityArray.count;
+    } else {
+        return self.areaArray.count;
+    }
+}
+
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    
+    if (component == 0) {
+        
+        ProvinceModel *p = [self.provinceArray objectAtIndex:row];
+        return p.name;
+    } else if (component == 1) {
+        CityModel *c = [self.cityArray objectAtIndex:row];
+        return c.name;
+    } else {
+        AreaModel *a = [self.areaArray objectAtIndex:row];
+        return a.name;
+    }
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    
+    if (component == 0) {
+        
+        [self.areaArray removeAllObjects];
+        [self.cityArray removeAllObjects];
+        [_locationPicker reloadComponent:2];
+        [_locationPicker reloadComponent:1];
+        
+        ProvinceModel *p = [self.provinceArray objectAtIndex:row];
+        [[MineManager sharedInstance] getCityListByProvinceId:p.provinceId completion:^(NSArray * _Nullable cityList, NSError * _Nullable error) {
+            if (cityList) {
+                [self.cityArray addObjectsFromArray:cityList];
+                [_locationPicker reloadComponent:1];
+                CityModel *c = [self.cityArray objectAtIndex:row];
+                [[MineManager sharedInstance] getAreaListByCityId:c.cityId completion:^(NSArray * _Nullable areaList, NSError * _Nullable error) {
+                    if (areaList) {
+                        [self.areaArray addObjectsFromArray:areaList];
+                        [_locationPicker reloadComponent:2];
+                    }
+                }];
+            }
+        }];
+    } else if (component == 1) {
+        
+        [self.areaArray removeAllObjects];
+        [_locationPicker reloadComponent:2];
+        CityModel *c = [self.cityArray objectAtIndex:row];
+        [[MineManager sharedInstance] getAreaListByCityId:c.cityId completion:^(NSArray * _Nullable areaList, NSError * _Nullable error) {
+            if (areaList) {
+                [self.areaArray addObjectsFromArray:areaList];
+                [_locationPicker reloadComponent:2];
+            }
+        }];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
