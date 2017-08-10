@@ -288,7 +288,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
         default: {
             
             NSString *state = [[MineManager sharedInstance] getMyInfo].realNameVerifyState;
-            if (!state || [state isEqualToString:@"3"]) {
+            if (!state || !state.length || [state isEqualToString:@"3"]) {
                 
                 RealNameCertifyViewController *vc = [[RealNameCertifyViewController alloc] init];
                 [self.navigationController pushViewController:vc animated:YES];

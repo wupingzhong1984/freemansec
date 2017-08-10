@@ -73,7 +73,7 @@
 
 - (void)setupSubviews {
     
-    UIView *emailBg = [[UIView alloc] initWithFrame:CGRectMake(15, 60, K_UIScreenWidth - 15*2, 44)];
+    UIView *emailBg = [[UIView alloc] initWithFrame:CGRectMake(15, 64+60, K_UIScreenWidth - 15*2, 44)];
     emailBg.backgroundColor = [UIColor whiteColor];
     emailBg.layer.cornerRadius = 4;
     emailBg.layer.borderWidth = 1;

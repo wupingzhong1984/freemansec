@@ -349,29 +349,26 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    switch (indexPath.row) {
-        case 0:
-        case 1: {
+    if (indexPath.section == 0) {
+        
+        if (indexPath.row == 0||indexPath.row == 1) {
             MinePersonInfoViewController *vc = [[MinePersonInfoViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
-            break;
-        }
-        case 2: {
+        } else if (indexPath.row == 2) {
+            
             MyVideoViewController *vc = [[MyVideoViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
-            break;
-        }
-        case 3: {
+        } else {
+            
             MyFavourViewController *vc = [[MyFavourViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
-            break;
         }
-        case 4: {
+    } else {
+        
+        if (indexPath.row == 0) {
             MyAttentionViewController *vc = [[MyAttentionViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
-            break;
-        }
-        case 5: {
+        } else if (indexPath.row == 1) {
             NSString *state = [[MineManager sharedInstance] getMyInfo].realNameVerifyState;
             if (state && [state isEqualToString:@"1"]) { //已实名认证
                 
@@ -382,14 +379,12 @@
                 
                 [self presentViewController:[Utility createAlertWithTitle:@"提示" content:@"请先在我的账户中完成实名认证。" okBtnTitle:nil] animated:YES completion:nil];
             }
-            break;
+        } else {
+            
+            
         }
-        default:
-            break;
     }
-
-        
-        
+    
 }
 
 - (void)didReceiveMemoryWarning {

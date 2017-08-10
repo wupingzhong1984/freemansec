@@ -20,6 +20,8 @@
 
 +(UILabel*)formatLabel:(UILabel*)lbl text:(NSString*)text font:(UIFont*)font lineSpacing:(CGFloat)lineSpacing{
     
+    lbl.numberOfLines = 0;
+    
     //    NSString * brief = [text stringByRemovingPercentEncoding];
     NSMutableAttributedString * attributedString = [[NSMutableAttributedString alloc] initWithString:text]; //brief
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];

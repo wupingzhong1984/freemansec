@@ -283,6 +283,10 @@
 		2FC4CF6D1F3AFF2A002DF8D8 /* ProvinceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC4CF6C1F3AFF2A002DF8D8 /* ProvinceModel.m */; };
 		2FC4CF701F3B02F4002DF8D8 /* CityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC4CF6F1F3B02F4002DF8D8 /* CityModel.m */; };
 		2FC4CF731F3B03C2002DF8D8 /* AreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC4CF721F3B03C2002DF8D8 /* AreaModel.m */; };
+		2FC4CF781F3C18F3002DF8D8 /* realnameverify_icon_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC4CF741F3C18F3002DF8D8 /* realnameverify_icon_add@2x.png */; };
+		2FC4CF791F3C18F3002DF8D8 /* realnameverify_icon_add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC4CF751F3C18F3002DF8D8 /* realnameverify_icon_add@3x.png */; };
+		2FC4CF7A1F3C18F3002DF8D8 /* realnameverify_sample@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC4CF761F3C18F3002DF8D8 /* realnameverify_sample@2x.png */; };
+		2FC4CF7B1F3C18F3002DF8D8 /* realnameverify_sample@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC4CF771F3C18F3002DF8D8 /* realnameverify_sample@3x.png */; };
 		2FE7FF061F2CD7A0007DFCC0 /* NickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF051F2CD7A0007DFCC0 /* NickNameViewController.m */; };
 		2FE7FF091F2CEB4D007DFCC0 /* RealNameCertifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF081F2CEB4D007DFCC0 /* RealNameCertifyViewController.m */; };
 		2FE7FF0C1F2CFC54007DFCC0 /* DottedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF0B1F2CFC54007DFCC0 /* DottedLineView.m */; };
@@ -750,6 +754,10 @@
 		2FC4CF6F1F3B02F4002DF8D8 /* CityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityModel.m; sourceTree = "<group>"; };
 		2FC4CF711F3B03C2002DF8D8 /* AreaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaModel.h; sourceTree = "<group>"; };
 		2FC4CF721F3B03C2002DF8D8 /* AreaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaModel.m; sourceTree = "<group>"; };
+		2FC4CF741F3C18F3002DF8D8 /* realnameverify_icon_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "realnameverify_icon_add@2x.png"; sourceTree = "<group>"; };
+		2FC4CF751F3C18F3002DF8D8 /* realnameverify_icon_add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "realnameverify_icon_add@3x.png"; sourceTree = "<group>"; };
+		2FC4CF761F3C18F3002DF8D8 /* realnameverify_sample@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "realnameverify_sample@2x.png"; sourceTree = "<group>"; };
+		2FC4CF771F3C18F3002DF8D8 /* realnameverify_sample@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "realnameverify_sample@3x.png"; sourceTree = "<group>"; };
 		2FE7FF041F2CD7A0007DFCC0 /* NickNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NickNameViewController.h; sourceTree = "<group>"; };
 		2FE7FF051F2CD7A0007DFCC0 /* NickNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NickNameViewController.m; sourceTree = "<group>"; };
 		2FE7FF071F2CEB4D007DFCC0 /* RealNameCertifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealNameCertifyViewController.h; sourceTree = "<group>"; };
@@ -1611,6 +1619,10 @@
 		2FAF31741F160FDF004329ED /* images */ = {
 			isa = PBXGroup;
 			children = (
+				2FC4CF741F3C18F3002DF8D8 /* realnameverify_icon_add@2x.png */,
+				2FC4CF751F3C18F3002DF8D8 /* realnameverify_icon_add@3x.png */,
+				2FC4CF761F3C18F3002DF8D8 /* realnameverify_sample@2x.png */,
+				2FC4CF771F3C18F3002DF8D8 /* realnameverify_sample@3x.png */,
 				2F869E321F37534A005C8212 /* forgetpwd_email@2x.png */,
 				2F869E331F37534A005C8212 /* forgetpwd_email@3x.png */,
 				2F869E341F37534A005C8212 /* forgetpwd_phone@2x.png */,
@@ -1909,6 +1921,7 @@
 				2FAF319A1F166DA8004329ED /* tab_img_3@2x.png in Resources */,
 				2FAF31F31F17ECDD004329ED /* tabbar_head@3x.png in Resources */,
 				2F869E0A1F36F3D5005C8212 /* mineroot_cell_img_3@3x.png in Resources */,
+				2FC4CF7B1F3C18F3002DF8D8 /* realnameverify_sample@3x.png in Resources */,
 				2F6980DF1F1BA87F0083E785 /* play_bar_voice@2x.png in Resources */,
 				2FAF30C21F1603F8004329ED /* LaunchScreen.storyboard in Resources */,
 				2F869C1F1F35F29B005C8212 /* LICENSE in Resources */,
@@ -1932,6 +1945,7 @@
 				2F22DF6B1F21D63F0039316B /* p2@3x.png in Resources */,
 				2F869C191F35F29B005C8212 /* SVProgressHUD.bundle in Resources */,
 				2F22DF4A1F20A4E00039316B /* live_type_0@3x.png in Resources */,
+				2FC4CF7A1F3C18F3002DF8D8 /* realnameverify_sample@2x.png in Resources */,
 				2FAF31971F166DA8004329ED /* tab_img_1@3x.png in Resources */,
 				2F22DF4E1F20A4E00039316B /* live_type_2@3x.png in Resources */,
 				2F869E0B1F36F3D5005C8212 /* mineroot_cell_img_4@2x.png in Resources */,
@@ -1949,6 +1963,7 @@
 				2F22DF681F21D63F0039316B /* p1@2x.png in Resources */,
 				2F22DF541F20A4E00039316B /* live_type_5@3x.png in Resources */,
 				2FAF31EC1F17ECDD004329ED /* tab_img_1_h@2x.png in Resources */,
+				2FC4CF781F3C18F3002DF8D8 /* realnameverify_icon_add@2x.png in Resources */,
 				2F22DF551F20A4E00039316B /* livetypechannel_cover_default@2x.png in Resources */,
 				2F9EEE831F25C25A00E161C3 /* MJRefresh.bundle in Resources */,
 				2FAF31941F166DA8004329ED /* tab_img_0@2x.png in Resources */,
@@ -1992,6 +2007,7 @@
 				2FAF31951F166DA8004329ED /* tab_img_0@3x.png in Resources */,
 				2F6980E01F1BA87F0083E785 /* play_bar_voice@3x.png in Resources */,
 				2F6980E81F1BAED60083E785 /* play_bar_play@3x.png in Resources */,
+				2FC4CF791F3C18F3002DF8D8 /* realnameverify_icon_add@3x.png in Resources */,
 				2F22DF511F20A4E00039316B /* live_type_4@2x.png in Resources */,
 				2F869E371F37534A005C8212 /* forgetpwd_email@3x.png in Resources */,
 				2F869E201F371D62005C8212 /* login_icon_pwd@3x.png in Resources */,

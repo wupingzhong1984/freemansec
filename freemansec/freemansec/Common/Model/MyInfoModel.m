@@ -31,6 +31,7 @@
                                             @"liveTitle": @"liveName",
                                             @"liveImg": @"liveImg",
                                             @"liveTypeId": @"liveTypeId",
+                                            @"liveTypeName": @"liveTypeName",
                                             @"pushUrl": @"pushUrl",
                                             @"rtmpPullUrl": @"rtmpPullUrl",
                                             @"hlsPullUrl": @"hlsPullUrl",

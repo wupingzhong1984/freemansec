@@ -118,6 +118,24 @@
     [self setupSubviews];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
+    
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     [_nickNameTF resignFirstResponder];

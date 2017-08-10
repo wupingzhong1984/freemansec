@@ -21,8 +21,8 @@ typedef void(^PhoneVerifyCompletion)(NSString* _Nullable verify, NSError* _Nulla
 typedef void(^EmailVerifyCompletion)(NSString* _Nullable verify, NSError* _Nullable error);
 
 typedef void(^IMTokenCompletion)(IMTokenModel* _Nullable tokenInfo, NSError* _Nullable error);
-
-typedef void(^CreateMyLiveCompletion)(UserLiveChannelModel* _Nullable channelModel, NSError* _Nullable error);
+typedef void(^UserLiveTypeCompletion)(NSArray* _Nullable typeList, NSError* _Nullable error);
+typedef void(^CreateMyLiveCompletion)(MyInfoModel* _Nullable myInfo, NSError* _Nullable error);
 
 typedef void(^CheckVerifyCompletion)(NSError* _Nullable error);
 typedef void(^ResetPwdCompletion)(NSError* _Nullable error);
@@ -69,6 +69,7 @@ typedef void(^AreaListCompletion)(NSArray* _Nullable areaList, NSError* _Nullabl
 - (void)getPhoneVerifyCode:(NSString* _Nullable)areaCode phone:(NSString* _Nullable)phone completion:(PhoneVerifyCompletion _Nullable)completion;
 - (void)getEmailVerifyCode:(NSString* _Nullable)email completion:(EmailVerifyCompletion _Nullable)completion;
 
+- (void)getUserLiveTypeCompletion:(UserLiveTypeCompletion _Nullable)completion;
 - (void)createMyLiveWithLiveTitle:(NSString* _Nonnull)title liveType:(NSString* _Nonnull)typeId completion:(CreateMyLiveCompletion _Nullable)completion;
 
 - (void)checkVerifyCode:(NSString* _Nullable)verify phone:(NSString* _Nullable)phone areaCode:(NSString* _Nullable)areaCode email:(NSString* _Nullable)email completion:(CheckVerifyCompletion _Nullable)completion;

@@ -34,12 +34,12 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
         
         _frontPlaceV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth-30, 140)];
         
-        UIImageView *add = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
+        UIImageView *add = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"realnameverify_icon_add.png"]];
         add.center = CGPointMake(_frontPlaceV.width/2, 57);
         [_frontPlaceV addSubview:add];
         
         //NSLocalizedString
-        UILabel *title = [UILabel createLabelWithFrame:CGRectZero text:@"上传手持身份证" textColor:UIColor_textfield_placecolor font:[UIFont systemFontOfSize:16]];
+        UILabel *title = [UILabel createLabelWithFrame:CGRectZero text:@"上传手持身份证" textColor:UIColor_textfield_placecolor font:[UIFont systemFontOfSize:14]];
         [title sizeToFit];
         title.center = CGPointMake(add.centerX, 98);
         [_frontPlaceV addSubview:title];
@@ -223,13 +223,15 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     sample1.y = frontBtn.maxY + 13;
     [_contentView addSubview:sample1];
     
-    UIImageView *samplePhoto1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
+    UIImageView *samplePhoto1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"realnameverify_sample.png"]];
     samplePhoto1.x = sample1.x;
     samplePhoto1.y = sample1.maxY + 10;
     [_contentView addSubview:samplePhoto1];
     
-    //todo
-    //text
+    UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(samplePhoto1.maxX + 10, samplePhoto1.y, whiteBg1.maxX - (samplePhoto1.maxX + 10), 0)];
+    text.textColor = [UIColor lightGrayColor];
+    [Utility formatLabel:text text:@"●  拍摄清晰的本人身份证正面照\n●  请确保手持的身份证与填写的身份证信息一致" font:[UIFont systemFontOfSize:12] lineSpacing:9];
+    [_contentView addSubview:text];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(nameBg.x, samplePhoto1.maxY + 27, nameBg.width, 40);
@@ -260,6 +262,24 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     [self.view addSubview:_contentView];
     
     [self setupSubviews];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

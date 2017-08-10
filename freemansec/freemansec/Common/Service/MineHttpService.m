@@ -13,6 +13,7 @@
 #import "ProvinceModel.h"
 #import "CityModel.h"
 #import "AreaModel.h"
+#import "UserLiveType.h"
 
 static NSString* RegisterUserPath = @"Ajax/RegisterUser.ashx";
 static NSString* LoginUserPath = @"Ajax/LoginUser.ashx";
@@ -29,6 +30,7 @@ static NSString* UpdateUserInfoPath = @"Ajax/updateUser.ashx";
 static NSString* GetProvincePath = @"Ajax/getProvince.ashx";
 static NSString* GetCityPath = @"Ajax/getCitytoPid.ashx";
 static NSString* GetAreaPath = @"Ajax/getAreaToCid.ashx";
+static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
 
 @implementation MineHttpService
 
@@ -203,7 +205,7 @@ static NSString* GetAreaPath = @"Ajax/getAreaToCid.ashx";
                          return ;
                      }
                      
-                     UserLiveChannelModel* model = [[UserLiveChannelModel alloc] initWithDictionary:[(NSArray*)response.data  objectAtIndex:0] error:&err];
+                     MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data  objectAtIndex:0] error:&err];
                      if(model == nil){
                          
                          
@@ -487,4 +489,28 @@ static NSString* GetAreaPath = @"Ajax/getAreaToCid.ashx";
                      }
                  }];
 }
+
+- (void)getUserLiveTypeCompletion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetUserLiveTypesPath
+                     params:nil
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [UserLiveType arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
+}
+
 @end

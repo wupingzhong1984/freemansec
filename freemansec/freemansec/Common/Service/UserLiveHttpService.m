@@ -7,10 +7,7 @@
 //
 
 #import "UserLiveHttpService.h"
-#import "UserLiveChannelModel.h"
 
-static NSString* GetLivePushStreamWithLiveTitlePath = @"Ajax/CreateLive.ashx";
-static NSString* GetUserLiveTypesPath = @"GetLiveTypeByUser.ashx";
 
 @implementation UserLiveHttpService
 

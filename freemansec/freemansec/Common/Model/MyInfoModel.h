@@ -30,6 +30,7 @@
 @property (nonatomic,strong) NSString<Optional>* liveTitle;
 @property (nonatomic,strong) NSString<Optional>* liveImg;
 @property (nonatomic,strong) NSString<Optional>* liveTypeId;
+@property (nonatomic,strong) NSString<Optional>* liveTypeName;
 @property (nonatomic,strong) NSString<Optional>* pushUrl;
 @property (nonatomic,strong) NSString<Optional>* rtmpPullUrl;
 @property (nonatomic,strong) NSString<Optional>* hlsPullUrl;

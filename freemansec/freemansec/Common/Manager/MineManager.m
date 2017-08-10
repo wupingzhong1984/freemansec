@@ -153,19 +153,34 @@ static MineManager *instance;
     }];
 }
 
-
-- (void)createMyLiveWithLiveTitle:(NSString* _Nonnull)title liveType:(NSString* _Nonnull)typeId completion:(CreateMyLiveCompletion _Nullable)completion
+- (void)getUserLiveTypeCompletion:(UserLiveTypeCompletion _Nullable)completion
 {
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service createMyLiveWithLiveTitle:title liveType:typeId userId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
+    [service getUserLiveTypeCompletion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
             
         } else {
             
-            UserLiveChannelModel *model = obj;
-            completion(model,nil);
+            NSArray* list = obj;
+            completion(list,err);
+        }
+    }];
+}
+
+- (void)createMyLiveWithLiveTitle:(NSString* _Nonnull)title liveType:(NSString* _Nonnull)typeId completion:(CreateMyLiveCompletion _Nullable)completion
+{
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service createMyLiveWithLiveTitle:title liveType:typeId userId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
+        
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            MyInfoModel *model = obj;
+            completion(model,err);
         }
     }];
 }
@@ -188,7 +203,6 @@ static MineManager *instance;
 
 - (void)getMyVideoListCompletion:(MyVideoListCompletion _Nullable)completion {
     
-    //todo
     MineHttpService* service = [[MineHttpService alloc] init];
     [service getMyVideoListByUserId:@"" completion:^(id obj, NSError *err) {
         if(err){
@@ -205,9 +219,8 @@ static MineManager *instance;
 
 - (void)getMyFavourListCompletion:(MyFavourListCompletion _Nullable)completion {
     
-    //todo
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service getMyFavourListByUserId:@"" completion:^(id obj, NSError *err) {
+    [service getMyFavourListByUserId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -222,9 +235,8 @@ static MineManager *instance;
 
 - (void)getMyAttentionListCompletion:(MyAttentionListCompletion _Nullable)completion {
     
-    //todo
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service getMyAttentionListByUserId:@"" completion:^(id obj, NSError *err) {
+    [service getMyAttentionListByUserId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);

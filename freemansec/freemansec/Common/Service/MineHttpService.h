@@ -43,4 +43,6 @@
 - (void)getProvinceListCompletion:(HttpClientServiceObjectBlock)completion;
 - (void)getCityListByProvinceId:(NSString*)pId completion:(HttpClientServiceObjectBlock)completion;
 - (void)getAreaListByCityId:(NSString*)cId completion:(HttpClientServiceObjectBlock)completion;
+
+- (void)getUserLiveTypeCompletion:(HttpClientServiceObjectBlock)completion;
 @end
