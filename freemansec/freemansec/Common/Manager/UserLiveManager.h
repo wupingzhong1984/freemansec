@@ -14,6 +14,5 @@ typedef void(^UpdateMyLiveTitleCompletion)(NSError* _Nullable error);
 
 + (UserLiveManager* _Nonnull)sharedInstance;
 
-- (void)updateMyLiveWTitle:(NSString* _Nonnull)title completion:(UpdateMyLiveTitleCompletion _Nullable)completion;
 
 @end

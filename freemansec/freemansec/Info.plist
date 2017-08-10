@@ -31,6 +31,24 @@
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string></string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <!-- 微信 URL Scheme 白名单-->
+        <string>wechat</string>
+        <string>weixin</string>
+        
+        <!-- 新浪微博 URL Scheme 白名单-->
+        <string>sinaweibohd</string>
+        <string>sinaweibo</string>
+        <string>sinaweibosso</string>
+        <string>weibosdk</string>
+        <string>weibosdk2.5</string>
+        <!-- Facebook URL Scheme 白名单-->
+        <string>fbapi</string>
+        <string>fb-messenger-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
+	</array>
 	<key>NSMicrophoneUsageDescription</key>
 	<string></string>
 	<key>UIBackgroundModes</key>

@@ -32,5 +32,6 @@
 
 #import "LSMediaCapture.h"
 #import "nMediaLiveStreamingDefs.h"
+#import <UMSocialCore/UMSocialCore.h>
 
 #define NTES_USE_CLEAR_BAR - (BOOL)useClearBar{return YES;}

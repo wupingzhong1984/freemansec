@@ -414,7 +414,7 @@
 
 - (void)requestLiveTitle:(NSString*)title {
     
-    [[UserLiveManager sharedInstance] updateMyLiveWTitle:title completion:^(NSError * _Nullable error) {
+    [[MineManager sharedInstance] updateMyLiveTitle:title completion:^(NSError * _Nullable error) {
         
         if (error) {
             

@@ -21,6 +21,7 @@ static NSString* GetPhoneVerifyPath = @"Ajax/SendCode.ashx";
 static NSString* GetEmailVerifyPath = @"Ajax/SendEmail.ashx";
 static NSString* GetIMPath = @"Ajax/GetIM.ashx";
 static NSString* CreateMyLivePath = @"Ajax/CreateLive.ashx";
+static NSString* UpdateMyLivePath = @"Ajax/UpdateLiveImg.ashx";
 static NSString* CheckVerifyCodePath = @"Ajax/CheckCode.ashx";
 static NSString* ResetPwdPath = @"Ajax/BackPassWord.ashx";
 static NSString* UpdatePhonePath = @"Ajax/UpdatePhone.ashx";
@@ -513,4 +514,32 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
                  }];
 }
 
+- (void)updateMyLiveTitle:(NSString*)title liveId:(NSString*)liveId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:UpdateMyLivePath
+                     params:@{@"aid":liveId,
+                              @"liveName":title
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     completion(response, err);
+                 }];
+}
+
+- (void)updateMyLiveImg:(UIImage*)photo liveId:(NSString*)liveId completion:(HttpClientServiceObjectBlock)completion {
+    
+    NSData *data = UIImageJPEGRepresentation(photo,1.0);
+    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:UpdateMyLivePath
+                     params:@{@"aid":liveId,
+                              @"liveimg":encodedImageStr
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     completion(response, err);
+                 }];
+}
 @end

@@ -28,6 +28,8 @@
 - (void)updateEmail:(NSString*)email verify:(NSString*)verify userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 
 - (void)createMyLiveWithLiveTitle:(NSString*)title liveType:(NSString*)typeId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
+- (void)updateMyLiveTitle:(NSString*)title liveId:(NSString*)liveId completion:(HttpClientServiceObjectBlock)completion;
+- (void)updateMyLiveImg:(UIImage*)photo liveId:(NSString*)liveId completion:(HttpClientServiceObjectBlock)completion;
 
 - (void)realNameVerify:(NSString*)name userType:(NSString*)type cardPhoto:(UIImage*)photo userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 

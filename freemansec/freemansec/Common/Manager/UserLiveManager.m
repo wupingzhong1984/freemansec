@@ -34,9 +34,5 @@ static UserLiveManager *instance;
     return instance;
 }
 
-- (void)updateMyLiveWTitle:(NSString* _Nonnull)title completion:(UpdateMyLiveTitleCompletion _Nullable)completion {
-    
-    //todo
-}
 
 @end

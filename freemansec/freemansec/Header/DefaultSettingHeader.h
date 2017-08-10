@@ -32,6 +32,8 @@
 #define NETEASE_APP_KEY @"728d3efc69a56832f570c12c5fa7d780"  //test
 #define NETEASE_APP_SECRET @"9f252a052b49" //test
 
+#define UMENG_APPKEY @"598c20e49f06fd5a22000229"
+
 #define TEST_LIVE_URL @"http://9654.liveplay.myqcloud.com/9654_freeman.m3u8"
 
 
