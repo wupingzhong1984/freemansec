@@ -9,7 +9,6 @@
 #import "MineHttpService.h"
 #import "MyInfoModel.h"
 #import "IMTokenModel.h"
-#import "UserLiveChannelModel.h"
 #import "ProvinceModel.h"
 #import "CityModel.h"
 #import "AreaModel.h"
@@ -308,7 +307,7 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
     NSData *data = UIImageJPEGRepresentation(photo,1.0);
     NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
-    [self httpRequestMethod:HttpReuqestMethodGet
+    [self httpRequestMethod:HttpReuqestMethodPost
                        path:RealNameVerifyPath
                      params:@{@"userid":userId,
                               @"name":name,

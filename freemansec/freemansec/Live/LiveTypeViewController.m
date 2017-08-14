@@ -93,7 +93,7 @@
     [[LiveManager sharedInstance] getLiveListByLiveTypeId:type.liveTypeId completion:^(NSArray * _Nullable channelList, NSError * _Nullable error) {
         
         if (error) {
-            [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
         } else {
             
             if (channelList.count > 0) {

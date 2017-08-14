@@ -10,4 +10,9 @@
 
 @interface UserLiveHttpService : HttpClientService
 
+- (void)createChatroom:(NSString* _Nullable)roomName announcement:(NSString* _Nullable)announcement broadCastUrl:(NSString*_Nullable)broadCasturl accId:(NSString*_Nullable)accId completion:(HttpClientServiceObjectBlock _Nullable)completion;
+
+- (void)getChatroomInfoNeedOnlineUserCount:(NSString*_Nullable)need accId:(NSString*_Nullable)accId completion:(HttpClientServiceObjectBlock _Nullable)completion;
+
+- (void)sendChatroomMsg:(NSString*_Nullable)content msgType:(NSString*_Nullable)msgType roomId:(NSString*_Nullable)roomId msgId:(NSString*_Nullable)msgId accId:(NSString*_Nullable)accId completion:(HttpClientServiceObjectBlock _Nullable)completion;
 @end

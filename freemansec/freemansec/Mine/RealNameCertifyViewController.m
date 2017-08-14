@@ -157,7 +157,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     if (!error.length) {
         [[MineManager sharedInstance] realNameVerify:_nameTF.text userType:userType cardPhoto:_frontImg completion:^(NSError * _Nullable error) {
             if (error) {
-                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
                 
                 MyInfoModel *userInfo = [[MineManager sharedInstance] getMyInfo];
@@ -308,11 +308,11 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
         center = _frontIV.center;
     
         
-        if (initFrame.size.width/initFrame.size.height < originalImage.size.width/originalImage.size.height) {
+        if (initFrame.size.width/initFrame.size.height > originalImage.size.width/originalImage.size.height) {
             
-            _frontIV.frame = CGRectMake(0, initFrame.origin.y, initFrame.size.height*(originalImage.size.width/originalImage.size.height), initFrame.size.height);
+            _frontIV.frame = CGRectMake(0, 0, initFrame.size.height*(originalImage.size.width/originalImage.size.height), initFrame.size.height);
         } else {
-            _frontIV.frame = CGRectMake(0, initFrame.origin.y, initFrame.size.width, initFrame.size.width/(originalImage.size.width/originalImage.size.height));
+            _frontIV.frame = CGRectMake(0, 0, initFrame.size.width, initFrame.size.width/(originalImage.size.width/originalImage.size.height));
         }
         _frontIV.center = center;
         _frontIV.image = originalImage;

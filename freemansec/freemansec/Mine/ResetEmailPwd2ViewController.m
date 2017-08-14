@@ -75,12 +75,12 @@
         
         [[MineManager sharedInstance] checkVerifyCode:_verifyCodeTF.text phone:nil areaCode:nil email:_email completion:^(NSError * _Nullable error) {
             if (error) {
-                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
                 [[MineManager sharedInstance] resetPwd:_nPwdTF.text phone:nil email:_email completion:^(NSError * _Nullable error) {
                     
                     if (error) {
-                        [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                        [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
                     } else {
                         
                         if (_resetPwdKind == RPKResetPwd) {
@@ -95,10 +95,7 @@
         
     } else {
         
-        //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:error preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:error okBtnTitle:nil] animated:YES completion:nil];
     }
 }
 

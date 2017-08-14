@@ -58,8 +58,7 @@
             
             if(error) {
                 
-                //NSLocalizedString
-                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:@"获取验证码失败。" okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
                 
                 ResetEmailPwd2ViewController *vc = [[ResetEmailPwd2ViewController alloc] init];
@@ -72,9 +71,7 @@
         
     } else {
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请正确输入邮箱。" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"请正确输入邮箱。" okBtnTitle:nil] animated:YES completion:nil];
     }
 }
 

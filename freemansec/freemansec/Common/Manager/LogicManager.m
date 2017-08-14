@@ -8,7 +8,51 @@
 
 #import "LogicManager.h"
 
+static LogicManager *instance;
+@interface LogicManager()
+
+@property (strong, nonatomic) NSDateFormatter *cachedDateFormatter;
+
+@end
+
 @implementation LogicManager
+
+- (id)init
+{
+    self = [super init];
+    
+    _cachedDateFormatter = [[NSDateFormatter alloc] init];
+    
+    return self;
+}
+
++ (LogicManager *)getInstance
+{
+    if (instance)
+        return instance;
+    
+    static dispatch_once_t predict;
+    
+    dispatch_once(&predict,^{
+        instance = [[self alloc] init];
+    });
+    
+    return instance;
+}
+
++ (NSString*)formatDate:(NSDate*)date format:(NSString*)format {
+    
+    [[LogicManager getInstance].cachedDateFormatter setDateFormat:format];
+    return [[LogicManager getInstance].cachedDateFormatter stringFromDate:date];
+}
+
++ (NSDate*)getDateByStr:(NSString*)str format:(NSString*)format {
+    
+    [[LogicManager getInstance].cachedDateFormatter setDateFormat:format];
+    return [[LogicManager getInstance].cachedDateFormatter dateFromString:str];
+}
+
+
 +(BOOL)isSameLiveChannelModel:(LiveChannelModel*)model1
                         other:(LiveChannelModel*)model2 {
     

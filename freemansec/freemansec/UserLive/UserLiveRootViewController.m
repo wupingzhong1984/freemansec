@@ -40,6 +40,8 @@
 @property (nonatomic,strong) LSMediaCapture *mediaCapture;
 @property (nonatomic, strong) UIView *localPreview;//相机预览视图
 
+@property (nonatomic,strong) ChatroomInfoModel *roomInfo;
+@property (nonatomic,strong) NSTimer *roomInfoRefreshTimer;
 @end
 
 @implementation UserLiveRootViewController
@@ -51,15 +53,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)IMSendMsg {
- 
-    //todo
-    
-    [_inputTF resignFirstResponder];
-}
-
 - (UIView*)inputView {
-    
     
     
     if (!_inputView) {
@@ -90,8 +84,7 @@
     
     _isLiving = NO;
     
-    //NSLocalizedString
-    [self presentViewController:[Utility createAlertWithTitle:@"错误" content:errMsg okBtnTitle:nil] animated:YES completion:nil];
+    [self presentViewController:[Utility createErrorAlertWithContent:error okBtnTitle:nil] animated:YES completion:nil];
 }
 
 - (void)unInitLiveStream{
@@ -108,6 +101,12 @@
 }
 
 - (void)IMAction {
+    
+    if (!self.roomInfo.roomId.length) {
+        //NSLocalizedString
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"聊天室异常" okBtnTitle:nil] animated:YES completion:nil];
+        return;
+    }
     
     [self.view addSubview:self.inputView];
     [_inputTF becomeFirstResponder];
@@ -183,8 +182,7 @@
     [userFace setImageWithURL:[NSURL URLWithString:@""]];//todo
     [self.view addSubview:userFace];
     
-    //todo
-    UILabel *nameLbl = [UILabel createLabelWithFrame:CGRectZero text:@"" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:14]];
+    UILabel *nameLbl = [UILabel createLabelWithFrame:CGRectZero text:[[MineManager sharedInstance] getMyInfo].nickName textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:14]];
     [nameLbl sizeToFit];
     nameLbl.width = 110;
     nameLbl.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -359,6 +357,19 @@
     [self requestLiveTitle:_updateUserLiveTitleView.titleTF.text];
 }
 
+- (void)updateRoomUserCount {
+    
+    UIView *v1 = [self.view viewWithTag:101];
+    UIView *v2 = [self.view viewWithTag:102];
+    _roomPCount.text = _roomInfo.onlineUserCount;
+    [_roomPCount sizeToFit];
+    
+    v1.width = _roomPCount.width + v2.width + 30;
+    v1.x = K_UIScreenWidth - 20 - v1.width;
+    v2.x = 10;
+    _roomPCount.x = v2.maxX + 10;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -433,10 +444,95 @@
             
             self.pushUrl = [[MineManager sharedInstance] getMyInfo].pushUrl;
             [self startPush];
+            
+            [self requestGetChatRoomWhenLiveStart];
         }
     }];
 }
 
+-(void)requestGetChatRoomWhenLiveStart {
+    
+    //get chatroom
+    [[UserLiveManager sharedInstance] getChatroomInfoNeedOnlineUserCount:[[MineManager sharedInstance] IMToken].accId completion:^(ChatroomInfoModel * _Nullable info, NSError * _Nullable error) {
+        
+        if (error) {
+            
+            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+            
+        } else {
+            
+            if (!info) {
+                
+                [self requestCreateChatRoom];
+                
+            } else {
+                
+                self.roomInfo = info;
+                [self updateRoomUserCount];
+                self.roomInfoRefreshTimer = [NSTimer scheduledTimerWithTimeInterval:10 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                    [self requestGetChatRoom];
+                }];
+            }
+        }
+    }];
+}
+
+-(void)requestCreateChatRoom {
+    
+    [[UserLiveManager sharedInstance] createChatroom:[[MineManager sharedInstance] getMyInfo].liveTitle
+                                        announcement:nil
+                                        broadCastUrl:[[MineManager sharedInstance] getMyInfo].rtmpPullUrl
+                                          completion:^(NSString * _Nullable roomId, NSError * _Nullable error) {
+        
+        if (error) {
+            
+            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+            
+        } else {
+            
+            self.roomInfo = [[ChatroomInfoModel alloc] init];
+            _roomInfo.roomId = roomId;
+            [self requestCreateChatRoom];
+            
+            self.roomInfoRefreshTimer = [NSTimer scheduledTimerWithTimeInterval:10 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                [self requestGetChatRoom];
+            }];
+        }
+    }];
+}
+
+-(void)requestGetChatRoom {
+    
+    [[UserLiveManager sharedInstance] getChatroomInfoNeedOnlineUserCount:@"true" completion:^(ChatroomInfoModel * _Nullable info, NSError * _Nullable error) {
+        
+        if (error) {
+            
+            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+            
+        } else {
+            
+            self.roomInfo = info;
+            [self updateRoomUserCount];
+        }
+    }];
+}
+
+- (void)requestSendChatroomMsg {
+    
+    [[UserLiveManager sharedInstance] sendChatroomMsg:_inputTF.text msgType:@"1" roomId:_roomInfo.roomId completion:^(NSError * _Nullable error) {
+        
+        if (error) {
+            
+            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+        }
+    }];
+}
+
+
+- (void)requestGetRecentChatroomMsg {
+    
+    //todo
+}
 
 #pragma mark -网络监听通知
 - (void)didNetworkConnectChanged:(NSNotification *)notify{
@@ -591,7 +687,13 @@
 
 - (BOOL)textFieldShouldReturn {
     
-    [self IMSendMsg];
+    if (_inputTF.text.length == 0) {
+        return NO;
+    }
+    
+    [self requestSendChatroomMsg];
+    
+    [_inputTF resignFirstResponder];
     return YES;
 }
 

@@ -171,4 +171,15 @@
     [alert addAction:[UIAlertAction actionWithTitle:(btnStr?btnStr:NSLocalizedString(@"OK", nil)) style:UIAlertActionStyleDefault handler:nil]];
     return alert;
 }
+
++ (UIAlertController *)createNoticeAlertWithContent:(NSString*)content okBtnTitle:(NSString*)btnStr {
+    //NSLocalizedString
+    return [self createAlertWithTitle:@"提示" content:content okBtnTitle:btnStr];
+}
+
++ (UIAlertController *)createErrorAlertWithContent:(NSString*)content okBtnTitle:(NSString*)btnStr {
+    //NSLocalizedString
+    return [self createAlertWithTitle:@"错误 " content:content okBtnTitle:btnStr];
+}
+
 @end

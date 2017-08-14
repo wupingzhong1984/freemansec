@@ -376,8 +376,7 @@
                 [self.navigationController pushViewController:vc animated:YES];
                 
             } else {
-                
-                [self presentViewController:[Utility createAlertWithTitle:@"提示" content:@"请先在我的账户中完成实名认证。" okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createNoticeAlertWithContent:@"请先在我的账户中完成实名认证。" okBtnTitle:nil] animated:YES completion:nil];
             }
         } else {
             

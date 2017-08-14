@@ -11,6 +11,7 @@
 
 static NSString* GetLiveBannerPath = @"Ajax/GetBanner.ashx";
 static NSString* GetLiveListByTypePath = @"Ajax/GetLive.ashx";
+static NSString* GetLiveSearchHotWordsPath = @"Ajax/GetLive.ashx"; //todo
 
 @implementation LiveHttpService
 
@@ -44,6 +45,29 @@ static NSString* GetLiveListByTypePath = @"Ajax/GetLive.ashx";
                        path:GetLiveListByTypePath
                      params:@{@"typeid":typeId
                               }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [LiveChannelModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
+}
+
+-(void)getLiveSearchHotWordsCompletion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetLiveSearchHotWordsPath
+                     params:nil
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      if(response == nil) {

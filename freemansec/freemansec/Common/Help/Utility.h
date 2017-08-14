@@ -18,4 +18,6 @@
 + (NSString*)convertToJSONData:(id)infoDict;
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 + (UIAlertController *)createAlertWithTitle:(NSString*)titleStr content:(NSString*)content okBtnTitle:(NSString*)btnStr;
++ (UIAlertController *)createNoticeAlertWithContent:(NSString*)content okBtnTitle:(NSString*)btnStr;
++ (UIAlertController *)createErrorAlertWithContent:(NSString*)content okBtnTitle:(NSString*)btnStr;
 @end

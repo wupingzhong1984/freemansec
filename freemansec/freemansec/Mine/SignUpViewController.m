@@ -48,9 +48,7 @@ SetTelCodeViewControllerDelegate>
     if (!_mobileSignView.mobileTF.text.length) {
         
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入手机号。" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"请输入手机号。" okBtnTitle:nil] animated:YES completion:nil];
         
     } else {
         
@@ -76,9 +74,7 @@ SetTelCodeViewControllerDelegate>
         [[MineManager sharedInstance] getPhoneVerifyCode:_mobileSignView.telCodeLbl.text phone:_mobileSignView.mobileTF.text completion:^(NSString * _Nullable verify, NSError * _Nullable error) {
             
             if(error) {
-                
-                //NSLocalizedString
-                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:@"获取验证码失败。" okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
                 
                 //test
@@ -125,13 +121,12 @@ SetTelCodeViewControllerDelegate>
          email:nil completion:^(MyInfoModel* _Nullable myInfo, NSError * _Nullable error) {
              
              if (error) {
-                 
-                 [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                 [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
              } else {
                  
                  [[MineManager sharedInstance]getIMToken:myInfo.userLoginId completion:^(IMTokenModel * _Nullable tokenInfo, NSError * _Nullable error) {
                      if (error) {
-                         [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                         [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
                      } else {
                          
                          [[MineManager sharedInstance] updateMyInfo:myInfo];
@@ -144,8 +139,7 @@ SetTelCodeViewControllerDelegate>
         
     } else {
         
-        //NSLocalizedString
-        [self presentViewController:[Utility createAlertWithTitle:@"提示" content:error okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:error okBtnTitle:nil] animated:YES completion:nil];
     }
 }
 
@@ -202,8 +196,7 @@ SetTelCodeViewControllerDelegate>
         
     } else {
         
-        //NSLocalizedString
-        [self presentViewController:[Utility createAlertWithTitle:@"提示" content:error okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:error okBtnTitle:nil] animated:YES completion:nil];
     }
 }
 

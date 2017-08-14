@@ -29,8 +29,6 @@
         _title.font = [UIFont systemFontOfSize:12];
         _title.textColor = [UIColor blackColor];
         _title.textAlignment = NSTextAlignmentCenter;
-        _title.lineBreakMode = NSLineBreakByTruncatingTail;
-        _title.textColor = [UIColor blackColor];
         [self addSubview:_title];
     }
     

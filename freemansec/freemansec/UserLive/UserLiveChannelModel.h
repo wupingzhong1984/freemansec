@@ -12,9 +12,12 @@
 @interface UserLiveChannelModel : JSONModel
 
 @property (nonatomic,strong) NSString<Optional>* cid;
+@property (nonatomic,strong) NSString<Optional>* anchorId;
+@property (nonatomic,strong) NSString<Optional>* nickName;
+@property (nonatomic,strong) NSString<Optional>* headImg;
 @property (nonatomic,strong) NSString<Optional>* ctime;
-@property (nonatomic,strong) NSString<Optional>* title;
-@property (nonatomic,strong) NSString<Optional>* image;
+@property (nonatomic,strong) NSString<Optional>* liveName;
+@property (nonatomic,strong) NSString<Optional>* liveImg;
 @property (nonatomic,strong) NSString<Optional>* pushUrl;
 @property (nonatomic,strong) NSString<Optional>* pullUrlHttp;
 @property (nonatomic,strong) NSString<Optional>* pullUrlHLS;

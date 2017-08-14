@@ -34,8 +34,7 @@
     
     if (!_uNameTF.text.length || !_pwdTF.text.length) {
         
-        [self presentViewController:[Utility createAlertWithTitle:@"提示" content:@"请正确数据用户名和密码。" okBtnTitle:nil] animated:YES completion:nil];
-        
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"请正确数据用户名和密码。" okBtnTitle:nil] animated:YES completion:nil];
         return;
     }
     
@@ -45,13 +44,13 @@
      {
          if (error) {
              
-             [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+             [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
          } else {
              
              [[MineManager sharedInstance] updateMyInfo:myInfo];
              [[MineManager sharedInstance]getIMToken:myInfo.userLoginId completion:^(IMTokenModel * _Nullable tokenInfo, NSError * _Nullable error) {
                  if (error) {
-                     [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                     [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
                  } else {
                      
                      [[MineManager sharedInstance] updateIMToken:tokenInfo];
@@ -70,7 +69,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)loginByQQ {
+- (void)loginByWeibo {
     
     //todo
 }
@@ -184,15 +183,15 @@
     wx.centerX = other.centerX;
     [_contentView addSubview:wx];
     
-    UIImage *qqImg = [UIImage imageNamed:@"login_qq.png"];
-    UIButton *qq = [UIButton buttonWithType:UIButtonTypeCustom];
-    qq.clipsToBounds = YES;
-    qq.size = wx.size;
-    [qq setImage:qqImg forState:UIControlStateNormal];
-    [qq addTarget:self action:@selector(loginByQQ) forControlEvents:UIControlEventTouchUpInside];
-    qq.y = wx.y;
-    qq.centerX = wx.centerX-100;
-    [_contentView addSubview:qq];
+    UIImage *weiboImg = [UIImage imageNamed:@"weibo.png"];
+    UIButton *weibo = [UIButton buttonWithType:UIButtonTypeCustom];
+    weibo.clipsToBounds = YES;
+    weibo.size = wx.size;
+    [weibo setImage:weiboImg forState:UIControlStateNormal];
+    [weibo addTarget:self action:@selector(loginByWeibo) forControlEvents:UIControlEventTouchUpInside];
+    weibo.y = wx.y;
+    weibo.centerX = wx.centerX-100;
+    [_contentView addSubview:weibo];
     
     UIImage *fbImg = [UIImage imageNamed:@"login_fb.png"];
     UIButton *fb = [UIButton buttonWithType:UIButtonTypeCustom];

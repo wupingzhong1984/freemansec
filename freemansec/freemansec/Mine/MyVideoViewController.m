@@ -161,20 +161,23 @@
         [self.tableView footerEndRefreshing];
         
         if (error) {
-            [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
         } else {
             
             if (self.pageNo == 1) {
                 [self.videoList removeAllObjects];
+                [self.tableView reloadData];
             };
             
-            [self.videoList addObjectsFromArray:videoList];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [self.tableView reloadData];
+            if (videoList.count > 0) {
+                [self.videoList addObjectsFromArray:videoList];
+                dispatch_async(dispatch_get_main_queue(), ^{
                     
-            });
+                    [self.tableView reloadData];
+                    
+                });
+            }
+            
         }
     }];
     

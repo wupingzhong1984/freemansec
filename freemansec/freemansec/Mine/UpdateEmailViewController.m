@@ -51,16 +51,13 @@
     if (![Utility validateEmail:_emailTF.text]) {
         
         //NSLocalizedString
-        [self presentViewController:[Utility createAlertWithTitle:@"提示" content:@"请正确输入邮箱。" okBtnTitle:nil] animated:YES completion:nil];
-        
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"请正确输入邮箱。" okBtnTitle:nil] animated:YES completion:nil];        
     } else {
         
         [[MineManager sharedInstance] getEmailVerifyCode:_emailTF.text completion:^(NSString * _Nullable verify, NSError * _Nullable error) {
             
             if(error) {
-                
-                //NSLocalizedString
-                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:@"获取验证码失败。" okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
                 
                 UpdateEmail2ViewController *vc = [[UpdateEmail2ViewController alloc] init];

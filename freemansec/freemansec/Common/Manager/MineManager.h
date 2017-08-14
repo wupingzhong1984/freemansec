@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "MyInfoModel.h"
 #import "IMTokenModel.h"
-#import "UserLiveChannelModel.h"
 
 typedef void(^MyVideoListCompletion)(NSArray* _Nullable videoList, NSError* _Nullable error);
 typedef void(^MyFavourListCompletion)(NSArray* _Nullable favourList, NSError* _Nullable error);
@@ -44,9 +43,6 @@ typedef void(^AreaListCompletion)(NSArray* _Nullable areaList, NSError* _Nullabl
 
 
 @interface MineManager : NSObject
-
-@property (nonatomic,strong) MyInfoModel *_Nullable userInfo;
-@property (nonatomic,strong) IMTokenModel *_Nullable userToken;
 
 + (MineManager* _Nonnull)sharedInstance;
 

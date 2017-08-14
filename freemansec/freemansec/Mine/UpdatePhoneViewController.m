@@ -62,9 +62,7 @@
     if (!_mobileTF.text.length) {
         
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入手机号。" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"请输入手机号。" okBtnTitle:nil] animated:YES completion:nil];
         
     } else {
         
@@ -90,9 +88,7 @@
         [[MineManager sharedInstance] getPhoneVerifyCode:_telCodeLbl.text phone:_mobileTF.text completion:^(NSString * _Nullable verify, NSError * _Nullable error) {
             
             if(error) {
-                
-                //NSLocalizedString
-                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:@"获取验证码失败。" okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
                 
                 //test
@@ -126,8 +122,7 @@
         [[MineManager sharedInstance] updatePhone:_mobileTF.text areaCode:_telCodeLbl.text verify:_verifyCodeTF.text completion:^(NSError * _Nullable error) {
             
             if (error) {
-                //NSLocalizedString
-                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
                 MyInfoModel *info = [[MineManager sharedInstance] getMyInfo];
                 info.phone = _mobileTF.text;
@@ -138,8 +133,7 @@
         
     } else {
         
-        //NSLocalizedString
-        [self presentViewController:[Utility createAlertWithTitle:@"提示" content:error okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:error okBtnTitle:nil] animated:YES completion:nil];
     }
 }
 

@@ -11,6 +11,11 @@
 
 static MineManager *instance;
 
+@interface MineManager ()
+@property (nonatomic,strong) MyInfoModel * userInfo;
+@property (nonatomic,strong) IMTokenModel * userToken;
+@end
+
 @implementation MineManager
 
 - (id)init
@@ -37,25 +42,21 @@ static MineManager *instance;
 - (MyInfoModel* _Nullable)getMyInfo {
     
     return _userInfo;
-//    return [[NSUserDefaults standardUserDefaults] objectForKey:@"MyInfoModel"];
 }
 
 - (void)updateMyInfo:(MyInfoModel* _Nullable)info {
     
     self.userInfo = info;
-//    [[NSUserDefaults standardUserDefaults] setObject:info forKey:@"MyInfoModel"];
 }
 
 - (IMTokenModel* _Nullable)IMToken {
     
     return _userToken;
-//    return [[NSUserDefaults standardUserDefaults] objectForKey:@"IMTokenModel"];
 }
 
 - (void)updateIMToken:(IMTokenModel* _Nullable)token {
     
     self.userToken = token;
-//    [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"IMTokenModel"];
 }
 
 - (void)logout {

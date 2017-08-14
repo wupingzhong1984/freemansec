@@ -11,6 +11,11 @@
 
 @interface LogicManager : NSObject
 
++ (LogicManager *)getInstance;
+
++ (NSString*)formatDate:(NSDate*)date format:(NSString*)format;
++ (NSDate*)getDateByStr:(NSString*)str format:(NSString*)format;
+
 +(BOOL)isSameLiveChannelModel:(LiveChannelModel*)model1
                         other:(LiveChannelModel*)model2;
 

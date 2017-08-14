@@ -50,15 +50,14 @@
     if (![Utility validateEmail:_verifyTF.text]) {
         
         //NSLocalizedString
-        [self presentViewController:[Utility createAlertWithTitle:@"提示" content:@"请输入验证码。" okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"请输入验证码。" okBtnTitle:nil] animated:YES completion:nil];
         
     } else {
         
         [[MineManager sharedInstance] updateEmail:_email verify:_verifyTF.text completion:^(NSError * _Nullable error) {
             
             if (error) {
-                //NSLocalizedString
-                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
                 MyInfoModel *info = [[MineManager sharedInstance] getMyInfo];
                 info.email = _email;

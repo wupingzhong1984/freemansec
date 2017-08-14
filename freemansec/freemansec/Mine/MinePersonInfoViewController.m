@@ -100,7 +100,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                                             area:(a.areaId.length > 0?a.areaId:@"")
                                       completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
         if (error) {
-            [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
         } else {
             
             [[MineManager sharedInstance] updateMyInfo:myInfo];
@@ -222,7 +222,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                 [[MineManager sharedInstance] updateSex:@"1" completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
                     if (error) {
                         
-                        [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                        [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
                         
                     } else {
                         
@@ -237,7 +237,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                 [[MineManager sharedInstance] updateSex:@"0" completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
                     if (error) {
                         
-                        [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                        [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
                         
                     } else {
                         
@@ -302,7 +302,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                 } else {
                     msg = @"我们正在审核您的认证申请，请耐心等待。";
                 }
-                [self presentViewController:[Utility createAlertWithTitle:@"提示" content:msg okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createNoticeAlertWithContent:msg okBtnTitle:nil] animated:YES completion:nil];
             }
             break;
         }
@@ -536,7 +536,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
         [[MineManager sharedInstance] updateHeadImg:editImage completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
             if (error) {
                 
-                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
                 
             } else {
                 

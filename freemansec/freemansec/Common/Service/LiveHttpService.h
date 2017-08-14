@@ -14,4 +14,6 @@
 
 -(void)getLiveListByLiveTypeId:(NSString*)typeId
                     completion:(HttpClientServiceObjectBlock)completion;
+
+-(void)getLiveSearchHotWordsCompletion:(HttpClientServiceObjectBlock)completion;
 @end

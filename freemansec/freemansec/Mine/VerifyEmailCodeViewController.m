@@ -50,7 +50,7 @@
              
              if (error) {
                  
-                 [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                 [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
              } else {
                  
                  [[MineManager sharedInstance] updateMyInfo:myInfo];
@@ -61,10 +61,7 @@
         
     } else {
         
-        //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:error preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:error okBtnTitle:nil] animated:YES completion:nil];
     }
 }
 
@@ -174,8 +171,7 @@
     [[MineManager sharedInstance] getEmailVerifyCode:_email completion:^(NSString * _Nullable verify, NSError * _Nullable error) {
         if(error) {
             
-            //NSLocalizedString
-            [self presentViewController:[Utility createAlertWithTitle:@"错误" content:@"获取验证码失败。" okBtnTitle:nil] animated:YES completion:nil];
+           [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
         } else {
             
             //test

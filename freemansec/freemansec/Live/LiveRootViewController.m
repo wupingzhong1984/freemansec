@@ -41,26 +41,21 @@
 - (void)tabBarCenterAction {
     
     
-    if (YES) { //实名验证
+    if ([[MineManager sharedInstance].userInfo.realNameVerifyState isEqualToString:@"1"]) { //实名验证
         
-        if (YES) { //申请主播
+        if ([MineManager sharedInstance].userInfo.cId.length > 0) { //申请主播
             
             UserLiveRootViewController *vc = [[UserLiveRootViewController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
             //   [self.navigationController presentViewController:vc animated:YES completion:nil];
         } else {
             //NSLocalizedString
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先完成主播申请。" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-            [self presentViewController:alert animated:YES completion:nil];
-            
+            [self presentViewController:[Utility createNoticeAlertWithContent:@"请先完成主播申请。" okBtnTitle:nil] animated:YES completion:nil];
         }
     } else {
         
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先完成实名认证并申请主播。" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"请先完成实名认证并申请主播。" okBtnTitle:nil] animated:YES completion:nil];
     }
     
 }
@@ -193,7 +188,7 @@
         [[LiveManager sharedInstance] getLiveBannerCompletion:^(NSArray * _Nullable channelList, NSError * _Nullable error) {
             
             if (error) {
-                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
                 
                 BOOL needUpdate = NO;

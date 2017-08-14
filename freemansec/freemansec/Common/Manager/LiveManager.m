@@ -12,6 +12,11 @@
 
 static LiveManager *instance;
 
+@interface LiveManager () {
+    
+    
+}
+@end
 @implementation LiveManager
 
 - (id)init
@@ -90,6 +95,89 @@ static LiveManager *instance;
     
     LiveHttpService* service = [[LiveHttpService alloc] init];
     [service getLiveListByLiveTypeId:typeId completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+    }];
+}
+
++ (NSMutableArray*)getLiveSearchHistory {
+    
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"LiveSearchHistory"];
+    //return [self decodeContentFromFile:[self pathForLiveSearchHistory]];
+}
+
++ (void)saveLiveSearchHistory:(NSMutableArray*)searchHistory {
+    
+    [[NSUserDefaults standardUserDefaults] setObject:searchHistory forKey:@"LiveSearchHistory"];
+    //[self encodeContent:searchHistory toFile:[self pathForLiveSearchHistory]];
+}
+
++ (id) decodeContentFromFile:(NSURL*)pFileName
+{
+    NSData* data = [[NSData alloc] initWithContentsOfURL:pFileName];
+    if ([data length] <= 0)
+    {
+        return nil;
+    }
+    NSKeyedUnarchiver* unArchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+    id content = [unArchiver decodeObjectForKey:@"Root"];
+    [unArchiver finishDecoding];
+    return content;
+}
+
++ (BOOL) encodeContent:(id)pContent toFile:(NSURL*)pFileName
+{
+    NSMutableData* data = [[NSMutableData alloc] init];
+    NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    
+    [archiver encodeObject:pContent forKey:@"Root"];
+    [archiver finishEncoding];
+    
+    [self createFolderIfNotExistForFile:pFileName];
+    return [data writeToURL:pFileName atomically:YES];
+}
+
++ (void) createFolderIfNotExistForFile:(NSURL*)pFileName
+{
+    NSURL* fileFolder = [pFileName URLByDeletingLastPathComponent];
+    NSFileManager* fileManager = [NSFileManager defaultManager];
+    
+    
+    [fileManager createDirectoryAtURL:fileFolder
+          withIntermediateDirectories:YES
+                           attributes:nil
+                                error:nil];
+}
+
++ (NSURL*)pathForLiveSearchHistory
+{
+    NSFileManager* sharedFM = [NSFileManager defaultManager];
+    NSArray* possibleURLs = [sharedFM URLsForDirectory:NSLibraryDirectory
+                                             inDomains:NSUserDomainMask];
+    NSURL* path = nil;
+    
+    
+    if ([possibleURLs count] >= 1) {
+        
+        path = [possibleURLs objectAtIndex:0];
+    }
+    
+    path = [path URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier] isDirectory:YES];
+    path = [path URLByAppendingPathComponent:@"LiveSearchHistory"];
+    return path;
+}
+
+-(void)getLiveSearchHotWordsCompletion:(LiveHotWordListCompletion _Nullable)completion {
+    
+    LiveHttpService* service = [[LiveHttpService alloc] init];
+    [service getLiveSearchHotWordsCompletion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);

@@ -70,7 +70,7 @@
         [[MineManager sharedInstance] resetPwd:_nPwdTF.text phone:_phone email:nil completion:^(NSError * _Nullable error) {
         
             if (error) {
-                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
                 
                 if (_resetPwdKind == RPKResetPwd) {
@@ -83,8 +83,7 @@
         
     } else {
         
-        //NSLocalizedString
-        [self presentViewController:[Utility createAlertWithTitle:@"提示" content:error okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:error okBtnTitle:nil] animated:YES completion:nil];
     }
 }
 

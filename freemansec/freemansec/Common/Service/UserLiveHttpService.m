@@ -8,9 +8,78 @@
 
 #import "UserLiveHttpService.h"
 
+static NSString* CreateChatRoomPath = @"Ajax/CreateChatroom.ashx";
+static NSString* GetChatRoomInfoPath = @"Ajax/GetChatroom.ashx";
+static NSString* SendMsgPath = @"Ajax/sendMsg.ashx";
 
 @implementation UserLiveHttpService
 
+- (void)createChatroom:(NSString* _Nullable)roomName announcement:(NSString* _Nullable)announcement broadCastUrl:(NSString*_Nullable)broadCasturl accId:(NSString*_Nullable)accId completion:(HttpClientServiceObjectBlock _Nullable)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:CreateChatRoomPath
+                     params:@{@"creator":accId,
+                              @"name":roomName,
+                              @"announcement":announcement,
+                              @"broadcasturl":broadCasturl
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSDictionary *entity = [(NSArray*)response.data objectAtIndex:0];
+                     NSString *roomId = [entity objectForKey:@"roomid"];
+                     if(roomId == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(roomId, nil); //success
+                     }
+                 }];
 
+}
 
+- (void)getChatroomInfoNeedOnlineUserCount:(NSString*_Nullable)need accId:(NSString*_Nullable)accId completion:(HttpClientServiceObjectBlock _Nullable)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetChatRoomInfoPath
+                     params:@{@"accid":accId,
+                              @"needOnlineUserCount":need
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     ChatroomInfoModel* model = [[ChatroomInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
+                     if(model == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(model, nil); //success
+                     }
+                 }];
+}
+
+- (void)sendChatroomMsg:(NSString*_Nullable)content msgType:(NSString*_Nullable)msgType roomId:(NSString*_Nullable)roomId msgId:(NSString*_Nullable)msgId accId:(NSString*_Nullable)accId completion:(HttpClientServiceObjectBlock _Nullable)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:SendMsgPath
+                     params:@{@"roomid":roomId,
+                              @"msgId":msgId,
+                              @"fromAccid":accId,
+                              @"msgType":msgType,
+                              @"attach":content
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     completion(response, err);
+                 }];
+}
 @end

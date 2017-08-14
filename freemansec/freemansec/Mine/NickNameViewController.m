@@ -53,14 +53,12 @@
     
     if (!_nickNameTF.text.length) {
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入昵称" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"请输入昵称。" okBtnTitle:nil] animated:YES completion:nil];
     } else {
         
         [[MineManager sharedInstance] updateNickName:_nickNameTF.text completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
             if (error) {
-                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
                 
                 [[MineManager sharedInstance] updateMyInfo:myInfo];

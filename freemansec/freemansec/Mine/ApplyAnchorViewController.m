@@ -89,8 +89,7 @@
         [[MineManager sharedInstance] createMyLiveWithLiveTitle:_titleTF.text liveType:tId completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error)  {
             
             if (error) {
-                //NSLocalizedString
-                [self presentViewController:[Utility createAlertWithTitle:@"错误" content:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
                 
                 [[MineManager sharedInstance] updateMyInfo:myInfo];
@@ -99,8 +98,7 @@
         }];
     } else {
         
-        //NSLocalizedString
-        [self presentViewController:[Utility createAlertWithTitle:@"提示" content:error okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:error okBtnTitle:nil] animated:YES completion:nil];
     }
 }
 
@@ -178,7 +176,7 @@
     
     [[MineManager sharedInstance] getUserLiveTypeCompletion:^(NSArray * _Nullable typeList, NSError * _Nullable error) {
         
-        if (!error) {
+        if (!error && typeList.count > 0) {
             [self.typeArray addObjectsFromArray:typeList];
         }
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(_typePlace.x+10, _typePlace.maxY, _typePlace.width+20, 150) style:UITableViewStylePlain];
