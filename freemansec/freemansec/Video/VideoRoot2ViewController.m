@@ -1,17 +1,17 @@
 //
-//  VideoKindViewController.m
+//  VideoRoot2ViewController.m
 //  freemansec
 //
-//  Created by adamwu on 2017/7/23.
+//  Created by adamwu on 2017/8/15.
 //  Copyright © 2017年 adamwu. All rights reserved.
 //
 
-#import "VideoKindViewController.h"
+#import "VideoRoot2ViewController.h"
 #import "MJRefresh.h"
 #import "VideoModel.h"
 #import "VideoListCell.h"
 
-@interface VideoKindViewController ()
+@interface VideoRoot2ViewController ()
 <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -19,7 +19,7 @@
 @property (nonatomic, assign) int pageNo;
 @end
 
-@implementation VideoKindViewController
+@implementation VideoRoot2ViewController
 
 - (NSMutableArray*)videoList {
     
@@ -30,9 +30,21 @@
     return _videoList;
 }
 
+- (UIView*)naviBarView {
+    
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, 64)];
+    v.backgroundColor = [UIColor blackColor];
+    
+    UIView *title = [self commNaviTitle:@"热门视频" color:[UIColor whiteColor]]; //NSLocalizedString
+    title.centerY = (v.height - 20)/2 + 20;
+    [v addSubview:title];
+    
+    return v;
+}
+
 - (void)createTableView{
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, K_UIScreenWidth, K_UIScreenHeight - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsHorizontalScrollIndicator = NO;
@@ -66,10 +78,10 @@
     
     self.pageNo = 1;
     // 2.2秒后刷新表格UI
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            [self requestGetVideo];
-//        });
+    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    
+    [self requestGetVideo];
+    //        });
 }
 
 #pragma mark 开始进入刷新状态
@@ -100,21 +112,71 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
+    UIView *naviBar = [self naviBarView];
+    [self.view addSubview:naviBar];
+    
     [self createTableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = YES;
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBar.hidden = NO;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)requestGetVideo {
     
-    //todo
+    [[VideoManager sharedInstance] getVideoListPageNum:_pageNo pageSize:20 completion:^(NSArray * _Nullable videoList, NSError * _Nullable error) {
+        
+        [self.tableView headerEndRefreshing];
+        [self.tableView footerEndRefreshing];
+        
+        if (error) {
+            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+        } else {
+            
+            if (self.pageNo == 1) {
+                [self.videoList removeAllObjects];
+                [self.tableView reloadData];
+            };
+            
+            if (videoList.count > 0) {
+                
+                [self.videoList addObjectsFromArray:videoList];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [self.tableView reloadData];
+                    
+                });
+            }
+        }
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
- 
+    
     return self.videoList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     return 90 + 20 + 10; //interface:120*90;
 }
 
@@ -141,10 +203,6 @@
     //todo
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 /*
 #pragma mark - Navigation

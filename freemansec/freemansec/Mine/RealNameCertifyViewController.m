@@ -172,7 +172,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 - (void)setupSubviews {
     
-    UIView *nameBg = [[UIView alloc] initWithFrame:CGRectMake(15, 60, K_UIScreenWidth-30, 44)];
+    UIView *nameBg = [[UIView alloc] initWithFrame:CGRectMake(15, 18, K_UIScreenWidth-30, 44)];
     nameBg.backgroundColor = [UIColor whiteColor];
     nameBg.layer.cornerRadius = 4;
     nameBg.layer.borderWidth = 1;

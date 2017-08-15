@@ -29,6 +29,7 @@
 #import "VideoManager.h"
 #import "MineManager.h"
 #import "UserLiveManager.h"
+#import "DataManager.h"
 
 #import "LSMediaCapture.h"
 #import "nMediaLiveStreamingDefs.h"

@@ -7,7 +7,42 @@
 //
 
 #import "VideoHttpService.h"
+#import "VideoModel.h"
+
+static NSString* GetVideoListPath = @"Ajax/queryVideo.ashx";
 
 @implementation VideoHttpService
-//todo
+- (void)getVideoListPageNum:(NSString*)pageNum pageSize:(NSString*)pageSize status:(NSString*)status type:(NSString*)type completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetVideoListPath
+                     params:@{@"currentPage":pageNum,
+                              @"pageSize":pageSize,
+                              @"status":status,
+                              @"type":type
+                                  }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *videoList = (NSArray*)[(NSDictionary*)response.data objectForKey:@"list"];
+                     if (!videoList || videoList.count == 0) {
+                         
+                         completion(nil,nil);
+                         return;
+                     }
+                     
+                     NSArray *list = [VideoModel arrayOfModelsFromDictionaries:videoList error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
+}
 @end

@@ -309,6 +309,8 @@
 		2FCBD7971F40AC8000F21A60 /* LiveSearchResultCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCBD7961F40AC8000F21A60 /* LiveSearchResultCollectionViewCell.m */; };
 		2FCBD79F1F419C9500F21A60 /* UserLivePlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCBD79E1F419C9500F21A60 /* UserLivePlayViewController.m */; };
 		2FCBD7A21F41ABD700F21A60 /* ChatroomInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCBD7A11F41ABD700F21A60 /* ChatroomInfoModel.m */; };
+		2FCBD7A51F429D7B00F21A60 /* VideoRoot2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCBD7A41F429D7B00F21A60 /* VideoRoot2ViewController.m */; };
+		2FCBD7A81F43454F00F21A60 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCBD7A71F43454F00F21A60 /* DataManager.m */; };
 		2FE7FF061F2CD7A0007DFCC0 /* NickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF051F2CD7A0007DFCC0 /* NickNameViewController.m */; };
 		2FE7FF091F2CEB4D007DFCC0 /* RealNameCertifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF081F2CEB4D007DFCC0 /* RealNameCertifyViewController.m */; };
 		2FE7FF0C1F2CFC54007DFCC0 /* DottedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF0B1F2CFC54007DFCC0 /* DottedLineView.m */; };
@@ -812,6 +814,10 @@
 		2FCBD79E1F419C9500F21A60 /* UserLivePlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLivePlayViewController.m; sourceTree = "<group>"; };
 		2FCBD7A01F41ABD700F21A60 /* ChatroomInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatroomInfoModel.h; sourceTree = "<group>"; };
 		2FCBD7A11F41ABD700F21A60 /* ChatroomInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatroomInfoModel.m; sourceTree = "<group>"; };
+		2FCBD7A31F429D7B00F21A60 /* VideoRoot2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoRoot2ViewController.h; sourceTree = "<group>"; };
+		2FCBD7A41F429D7B00F21A60 /* VideoRoot2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoRoot2ViewController.m; sourceTree = "<group>"; };
+		2FCBD7A61F43454F00F21A60 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		2FCBD7A71F43454F00F21A60 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		2FE7FF041F2CD7A0007DFCC0 /* NickNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NickNameViewController.h; sourceTree = "<group>"; };
 		2FE7FF051F2CD7A0007DFCC0 /* NickNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NickNameViewController.m; sourceTree = "<group>"; };
 		2FE7FF071F2CEB4D007DFCC0 /* RealNameCertifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealNameCertifyViewController.h; sourceTree = "<group>"; };
@@ -1061,6 +1067,8 @@
 				2FE7FF1B1F2DDC6A007DFCC0 /* MineManager.m */,
 				2F12E0061F30F5550064AD5A /* UserLiveManager.h */,
 				2F12E0071F30F5550064AD5A /* UserLiveManager.m */,
+				2FCBD7A61F43454F00F21A60 /* DataManager.h */,
+				2FCBD7A71F43454F00F21A60 /* DataManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1325,6 +1333,12 @@
 		2F9EEE6A1F24ED4400E161C3 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				2FAF31421F1605BD004329ED /* VideoRootViewController.h */,
+				2FAF31431F1605BD004329ED /* VideoRootViewController.m */,
+				2F9EEE671F24E2C800E161C3 /* VideoKindViewController.h */,
+				2F9EEE681F24E2C800E161C3 /* VideoKindViewController.m */,
+				2FCBD7A31F429D7B00F21A60 /* VideoRoot2ViewController.h */,
+				2FCBD7A41F429D7B00F21A60 /* VideoRoot2ViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -1670,10 +1684,6 @@
 				2F9EEE6E1F2514FA00E161C3 /* Model */,
 				2F9EEE8B1F25C60A00E161C3 /* View */,
 				2F9EEE6A1F24ED4400E161C3 /* ViewController */,
-				2FAF31421F1605BD004329ED /* VideoRootViewController.h */,
-				2FAF31431F1605BD004329ED /* VideoRootViewController.m */,
-				2F9EEE671F24E2C800E161C3 /* VideoKindViewController.h */,
-				2F9EEE681F24E2C800E161C3 /* VideoKindViewController.m */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -2218,9 +2228,11 @@
 				2FAF30BA1F1603F8004329ED /* ViewController.m in Sources */,
 				2F6981371F1CA1B40083E785 /* JSONModelError.m in Sources */,
 				2FAF30B71F1603F8004329ED /* AppDelegate.m in Sources */,
+				2FCBD7A51F429D7B00F21A60 /* VideoRoot2ViewController.m in Sources */,
 				2FAF31701F1605BD004329ED /* XBConst.m in Sources */,
 				2FAF31C41F167C32004329ED /* UIImage-Extensions.m in Sources */,
 				2F9EEE631F23BB2B00E161C3 /* ResetEmailPwd2ViewController.m in Sources */,
+				2FCBD7A81F43454F00F21A60 /* DataManager.m in Sources */,
 				2FAF316C1F1605BD004329ED /* XBScrollPageController.m in Sources */,
 				2FE7FF1F1F2DDE00007DFCC0 /* VideoHttpService.m in Sources */,
 				2FAF31631F1605BD004329ED /* AFAutoPurgingImageCache.m in Sources */,

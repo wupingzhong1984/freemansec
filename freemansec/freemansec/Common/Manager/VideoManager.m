@@ -50,24 +50,40 @@ static VideoManager *instance;
         [[NSUserDefaults standardUserDefaults] setObject:time forKey:@"videokindlastupdatetime"];
 }
 
-- (void)getVideoKindCompletion:(VideoKindListCompletion _Nullable)completion {
-    VideoHttpService* service = [[VideoHttpService alloc] init];
-    [service getVideoKindCompletion:^(id obj, NSError *err) {
-        if(err){
-            
-            completion(nil,err);
-            
-        } else {
-            
-            NSArray* list = obj;
-            completion(list,err);
-        }
-    }];
-}
-- (void)getVideoListByKindId:(NSString*_Nullable)kindId completion:(VideoListCompletion _Nullable)completion {
+//- (void)getVideoKindCompletion:(VideoKindListCompletion _Nullable)completion {
+//    VideoHttpService* service = [[VideoHttpService alloc] init];
+//    [service getVideoKindCompletion:^(id obj, NSError *err) {
+//        if(err){
+//            
+//            completion(nil,err);
+//            
+//        } else {
+//            
+//            NSArray* list = obj;
+//            completion(list,err);
+//        }
+//    }];
+//}
+//- (void)getVideoListByKindId:(NSString*_Nullable)kindId completion:(VideoListCompletion _Nullable)completion {
+//    
+//    VideoHttpService* service = [[VideoHttpService alloc] init];
+//    [service getVideoListByKindId:kindId completion:^(id obj, NSError *err) {
+//        if(err){
+//            
+//            completion(nil,err);
+//            
+//        } else {
+//            
+//            NSArray* list = obj;
+//            completion(list,err);
+//        }
+//    }];
+//}
+
+- (void)getVideoListPageNum:(NSInteger)pageNum pageSize:(NSInteger)pageSize completion:(VideoListCompletion _Nullable)completion {
     
     VideoHttpService* service = [[VideoHttpService alloc] init];
-    [service getVideoListByKindId:kindId completion:^(id obj, NSError *err) {
+    [service getVideoListPageNum:[NSString stringWithFormat:@"%d",(int)pageNum] pageSize:[NSString stringWithFormat:@"%d",(int)pageSize] status:@"40" type:@"0" completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);

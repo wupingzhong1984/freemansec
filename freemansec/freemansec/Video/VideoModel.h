@@ -11,8 +11,14 @@
 
 @interface VideoModel : JSONModel
 @property (nonatomic,strong) NSString<Optional>* videoId;
-@property (nonatomic,strong) NSString<Optional>* videoImg;
 @property (nonatomic,strong) NSString<Optional>* videoName;
+@property (nonatomic,strong) NSString<Optional>* desc;
+@property (nonatomic,strong) NSString<Optional>* duration; //秒
+@property (nonatomic,strong) NSString<Optional>* snapshotUrl;
+@property (nonatomic,strong) NSString<Optional>* videoUrl;
+@property (nonatomic,strong) NSString<Optional>* createTime; //时间戳 毫秒数
+
 @property (nonatomic,strong) NSString<Optional>* authorName;
+@property (nonatomic,strong) NSString<Optional>* headImg;
 @property (nonatomic,strong) NSString<Optional>* playCount;
 @end

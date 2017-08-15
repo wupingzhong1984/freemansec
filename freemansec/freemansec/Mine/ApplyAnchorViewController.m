@@ -79,7 +79,7 @@
         
         NSString *tId;
         if (_selectIndex < 0) { //没改
-            tId = [MineManager sharedInstance].userInfo.liveTypeId;
+            tId = [[MineManager sharedInstance] getMyInfo].liveTypeId;
         } else {
             
             UserLiveType *type = [self.typeArray objectAtIndex:_selectIndex];
@@ -152,11 +152,11 @@
     [self.view addSubview:submit];
 
     
-    if ([MineManager sharedInstance].userInfo.liveTitle.length > 0) {
+    if ([[MineManager sharedInstance] getMyInfo].liveTitle.length > 0) {
         
-        _titleTF.text = [MineManager sharedInstance].userInfo.liveTitle;
+        _titleTF.text = [[MineManager sharedInstance] getMyInfo].liveTitle;
         _typePlace.hidden = YES;
-        _typeLbl.text = [MineManager sharedInstance].userInfo.liveTypeName;
+        _typeLbl.text = [[MineManager sharedInstance] getMyInfo].liveTypeName;
     }
 }
 

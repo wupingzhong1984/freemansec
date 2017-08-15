@@ -12,8 +12,6 @@
 static MineManager *instance;
 
 @interface MineManager ()
-@property (nonatomic,strong) MyInfoModel * userInfo;
-@property (nonatomic,strong) IMTokenModel * userToken;
 @end
 
 @implementation MineManager
@@ -41,28 +39,37 @@ static MineManager *instance;
 
 - (MyInfoModel* _Nullable)getMyInfo {
     
-    return _userInfo;
+    return [[DataManager sharedInstance] getMyInfo];
 }
 
 - (void)updateMyInfo:(MyInfoModel* _Nullable)info {
     
-    self.userInfo = info;
+    [[DataManager sharedInstance] deleteMyInfo];
+    if (info) {
+        
+        [[DataManager sharedInstance] insertMyInfo:info];
+    }
 }
 
 - (IMTokenModel* _Nullable)IMToken {
     
-    return _userToken;
+    IMTokenModel *token = [[IMTokenModel alloc] init];
+    token.token = [[NSUserDefaults standardUserDefaults] objectForKey:@"IMToken"];
+    token.accId = [[NSUserDefaults standardUserDefaults] objectForKey:@"IMAccId"];
+    return token;
 }
 
 - (void)updateIMToken:(IMTokenModel* _Nullable)token {
     
-    self.userToken = token;
+    [[NSUserDefaults standardUserDefaults] setObject:token.token forKey:@"IMToken"];
+    [[NSUserDefaults standardUserDefaults] setObject:token.accId forKey:@"IMAccId"];
 }
 
 - (void)logout {
     
     [self updateMyInfo:nil];
-    [self updateIMToken:nil];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"IMToken"];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"IMAccId"];
 }
 
 - (void)registerUserAreaCode:(NSString* _Nullable)areaCode
@@ -173,7 +180,7 @@ static MineManager *instance;
 - (void)createMyLiveWithLiveTitle:(NSString* _Nonnull)title liveType:(NSString* _Nonnull)typeId completion:(CreateMyLiveCompletion _Nullable)completion
 {
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service createMyLiveWithLiveTitle:title liveType:typeId userId:_userInfo.userId completion:^(id obj, NSError *err) {
+    [service createMyLiveWithLiveTitle:title liveType:typeId userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
         
         if(err){
             
@@ -221,7 +228,7 @@ static MineManager *instance;
 - (void)getMyFavourListCompletion:(MyFavourListCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service getMyFavourListByUserId:_userInfo.userId completion:^(id obj, NSError *err) {
+    [service getMyFavourListByUserId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -237,7 +244,7 @@ static MineManager *instance;
 - (void)getMyAttentionListCompletion:(MyAttentionListCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service getMyAttentionListByUserId:_userInfo.userId completion:^(id obj, NSError *err) {
+    [service getMyAttentionListByUserId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -285,7 +292,7 @@ static MineManager *instance;
 - (void)updatePhone:(NSString* _Nullable)phone areaCode:(NSString* _Nullable)areaCode verify:(NSString* _Nullable)verify completion:(UpdatePhoneCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service updatePhone:phone areaCode:areaCode verify:verify userId:_userInfo.userId completion:^(id obj, NSError *err) {
+    [service updatePhone:phone areaCode:areaCode verify:verify userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
             
             completion(err);
     }];
@@ -294,7 +301,7 @@ static MineManager *instance;
 - (void)updateEmail:(NSString* _Nullable)email verify:(NSString* _Nullable)verify completion:(UpdateEmailCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service updateEmail:email verify:verify userId:_userInfo.userId completion:^(id obj, NSError *err) {
+    [service updateEmail:email verify:verify userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
         
         completion(err);
     }];
@@ -303,7 +310,7 @@ static MineManager *instance;
 - (void)realNameVerify:(NSString* _Nullable)name userType:(NSString* _Nullable)type cardPhoto:(UIImage* _Nullable)photo completion:(RealNameVerifyCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service realNameVerify:name userType:type cardPhoto:photo userId:_userInfo.userId completion:^(id obj, NSError *err) {
+    [service realNameVerify:name userType:type cardPhoto:photo userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
         
         completion(err);
     }];
@@ -312,7 +319,7 @@ static MineManager *instance;
 - (void)updateNickName:(NSString* _Nullable)nickName completion:(UpdateNickNameCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service updateNickName:nickName userId:_userInfo.userId completion:^(id obj, NSError *err) {
+    [service updateNickName:nickName userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -328,7 +335,7 @@ static MineManager *instance;
 - (void)updateHeadImg:(UIImage* _Nullable)photo completion:(UpdateHeadImgCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service updateHeadImg:photo userId:_userInfo.userId completion:^(id obj, NSError *err) {
+    [service updateHeadImg:photo userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -344,7 +351,7 @@ static MineManager *instance;
 - (void)updateSex:(NSString* _Nullable)sex completion:(UpdateSexCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service updateSex:sex userId:_userInfo.userId completion:^(id obj, NSError *err) {
+    [service updateSex:sex userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -360,7 +367,7 @@ static MineManager *instance;
 - (void)updateProvince:(NSString* _Nullable)provinceId city:(NSString* _Nullable)cityId area:(NSString* _Nullable)areaId completion:(UpdateLocationCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service updateProvince:provinceId city:cityId area:areaId userId:_userInfo.userId completion:^(id obj, NSError *err) {
+    [service updateProvince:provinceId city:cityId area:areaId userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -430,7 +437,7 @@ static MineManager *instance;
 - (void)updateMyLiveTitle:(NSString*_Nullable)title completion:(UpdateMyLiveCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service updateMyLiveTitle:title liveId:_userInfo.liveId completion:^(id obj, NSError *err) {
+    [service updateMyLiveTitle:title liveId:[self getMyInfo].liveId completion:^(id obj, NSError *err) {
         
         completion(err);
     }];
@@ -439,7 +446,7 @@ static MineManager *instance;
 - (void)updateMyLiveImg:(UIImage*_Nullable)photo completion:(UpdateMyLiveCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service updateMyLiveImg:photo liveId:_userInfo.liveId completion:^(id obj, NSError *err) {
+    [service updateMyLiveImg:photo liveId:[self getMyInfo].liveId completion:^(id obj, NSError *err) {
         
         completion(err);
     }];

@@ -14,9 +14,14 @@
     return [[JSONKeyMapper alloc]
             initWithModelToJSONDictionary:@{
                                             @"videoId": @"id",
-                                            @"videoImg": @"videoImg",
                                             @"videoName": @"videoName",
-                                            @"authorName": @"authorName",
-                                            @"playCount": @"playCount"}];
+                                            @"desc": @"description",
+                                            @"duration": @"duration",
+                                            @"snapshotUrl": @"snapshotUrl",
+                                            @"videoUrl": @"origUrl",
+                                            @"createTime": @"createTime",
+                                            @"authorName": @"userName",
+                                            @"headImg": @"headimg",
+                                            @"playCount": @"playcount"}];
 }
 @end

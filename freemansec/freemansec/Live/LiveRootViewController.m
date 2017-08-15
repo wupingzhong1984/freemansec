@@ -41,9 +41,9 @@
 - (void)tabBarCenterAction {
     
     
-    if ([[MineManager sharedInstance].userInfo.realNameVerifyState isEqualToString:@"1"]) { //实名验证
+    if ([[[MineManager sharedInstance] getMyInfo].realNameVerifyState isEqualToString:@"1"]) { //实名验证
         
-        if ([MineManager sharedInstance].userInfo.cId.length > 0) { //申请主播
+        if ([[MineManager sharedInstance] getMyInfo].cId.length > 0) { //申请主播
             
             UserLiveRootViewController *vc = [[UserLiveRootViewController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];

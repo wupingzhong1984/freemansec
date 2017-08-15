@@ -37,6 +37,8 @@
 #define TEST_LIVE_URL @"http://9654.liveplay.myqcloud.com/9654_freeman.m3u8"
 
 
+#define DBPATH [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"freemansec.sqlite"]
+
 #define kNotificationUpdateStatusBar @"kNotificationUpdateStatusBar"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]

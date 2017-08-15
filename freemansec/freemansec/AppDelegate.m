@@ -10,12 +10,41 @@
 #import "CustomTabBarController.h"
 #import "LoginViewController.h"
 #import "CustomNaviController.h"
+#import "FMDatabase.h"
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
+
+- (void)initDBIfNeed {
+    
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:DBPATH] == NO) {
+        // create it
+        FMDatabase * db = [FMDatabase databaseWithPath:DBPATH];
+        if ([db open]) {
+            NSString * sql =
+            @"CREATE TABLE 'myinfo' ('id' INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL, 'userloginid' VARCHAR(50), 'userid' VARCHAR(50), 'nickname' NVARCHAR, 'phone' VARCHAR(50), 'email' VARCHAR(50), 'realnameverifystate' VARCHAR(50), 'headimg' VARCHAR(50), 'sex' VARCHAR(50), 'registertype' VARCHAR(50), 'province' VARCHAR(50), 'city' VARCHAR(50), 'area' VARCHAR(50), 'cid' VARCHAR(50), 'liveid' VARCHAR(50), 'livetitle' NVARCHAR, 'liveimg' NVARCHAR, 'livetypeid' VARCHAR(50), 'livetypename' VARCHAR(50), 'pushurl' NVARCHAR, 'rtmppullurl' NVARCHAR, 'hlspullurl' NVARCHAR, 'httppullurl' NVARCHAR);";
+            
+            
+            BOOL res = [db executeStatements:sql withResultBlock:^int(NSDictionary *dictionary) {
+                
+                return 0;
+            }];
+            if (!res) {
+                NNSLog(@"error when creating db table");
+            } else {
+                NNSLog(@"succ to creating db table");
+            }
+            [db close];
+        } else {
+            NNSLog(@"error when open db");
+        }
+    }
+}
+
 
 - (void)configUSharePlatforms {
     

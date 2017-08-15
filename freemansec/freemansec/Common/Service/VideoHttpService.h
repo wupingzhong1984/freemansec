@@ -10,7 +10,9 @@
 
 @interface VideoHttpService : HttpClientService
 
-- (void)getVideoKindCompletion:(HttpClientServiceObjectBlock)completion;
+//- (void)getVideoKindCompletion:(HttpClientServiceObjectBlock)completion;
+//
+//- (void)getVideoListByKindId:(NSString*)kindId completion:(HttpClientServiceObjectBlock)completion;
 
-- (void)getVideoListByKindId:(NSString*)kindId completion:(HttpClientServiceObjectBlock)completion;
+- (void)getVideoListPageNum:(NSString*)pageNum pageSize:(NSString*)pageSize status:(NSString*)status type:(NSString*)type completion:(HttpClientServiceObjectBlock)completion;
 @end
