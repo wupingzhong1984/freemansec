@@ -23,6 +23,7 @@
 #import "UIFont+MyFont.h"
 #import "AFNetworking.h"
 #import "UIKit+AFNetworking.h"
+#import "MBProgressHUD+NJ.h"
 
 #import "LogicManager.h"
 #import "LiveManager.h"
@@ -34,5 +35,8 @@
 #import "LSMediaCapture.h"
 #import "nMediaLiveStreamingDefs.h"
 #import <UMSocialCore/UMSocialCore.h>
+#import <NIMSDK/NIMSDK.h>
+#import "NIMKit.h"
+#import <NIMAVChat/NIMAVChat.h>
 
 #define NTES_USE_CLEAR_BAR - (BOOL)useClearBar{return YES;}

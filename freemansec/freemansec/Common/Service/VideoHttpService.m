@@ -10,6 +10,7 @@
 #import "VideoModel.h"
 
 static NSString* GetVideoListPath = @"Ajax/queryVideo.ashx";
+static NSString* AddVideoPlayCountPath = @"Ajax/addvideocount.ashx";
 
 @implementation VideoHttpService
 - (void)getVideoListPageNum:(NSString*)pageNum pageSize:(NSString*)pageSize status:(NSString*)status type:(NSString*)type completion:(HttpClientServiceObjectBlock)completion {
@@ -43,6 +44,18 @@ static NSString* GetVideoListPath = @"Ajax/queryVideo.ashx";
                      }else{
                          completion(list, nil); //success
                      }
+                 }];
+}
+
+- (void)addVideoPlayCount:(NSString*)videoId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:AddVideoPlayCountPath
+                     params:@{@"vid":videoId
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     completion(response,err);
                  }];
 }
 @end

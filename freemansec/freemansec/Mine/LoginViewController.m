@@ -66,6 +66,7 @@
 - (void)forgetPwdAction {
     
     ForgetPwdViewController *vc = [[ForgetPwdViewController alloc] init];
+    vc.resetPwdKind = RPKForgetPwd;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -137,16 +138,16 @@
     sign.backgroundColor = [UIColor whiteColor];
     sign.layer.cornerRadius = 4;
     sign.layer.borderWidth = 1;
-    sign.layer.borderColor = UIColor_0a6ed2.CGColor;
+    sign.layer.borderColor = UIColor_82b432.CGColor;
     [sign setTitle:@"注册" forState:UIControlStateNormal];//NSLocalizedString
-    [sign setTitleColor:UIColor_0a6ed2 forState:UIControlStateNormal];
+    [sign setTitleColor:UIColor_82b432 forState:UIControlStateNormal];
     sign.titleLabel.font = [UIFont systemFontOfSize:16];
     [sign addTarget:self action:@selector(signUpAction) forControlEvents:UIControlEventTouchUpInside];
     [_contentView addSubview:sign];
     
     UIButton *login = [UIButton buttonWithType:UIButtonTypeCustom];
     login.frame = CGRectMake(tfBg.maxX - sign.width, sign.y, sign.width, sign.height);
-    login.backgroundColor = UIColor_0a6ed2;
+    login.backgroundColor = UIColor_82b432;
     login.layer.cornerRadius = 4;
     [login setTitle:@"登录" forState:UIControlStateNormal];//NSLocalizedString
     [login setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

@@ -175,7 +175,7 @@
     [self.view addSubview:mobileBg];
     
     self.verifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _verifyBtn.backgroundColor = UIColor_0a6ed2;
+    _verifyBtn.backgroundColor = UIColor_82b432;
     _verifyBtn.layer.cornerRadius = 4;
     _verifyBtn.size = (CGSize){70,32};
     _verifyBtn.centerY = mobileBg.centerY;
@@ -211,10 +211,10 @@
     
     UIButton *sumbit = [UIButton buttonWithType:UIButtonTypeCustom];
     sumbit.frame = CGRectMake(verifyCodeBg.x, verifyCodeBg.maxY + 25, verifyCodeBg.width, 40);
-    sumbit.backgroundColor = UIColor_0a6ed2;
+    sumbit.backgroundColor = UIColor_82b432;
     sumbit.layer.cornerRadius = 4;
     [sumbit setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
-    [sumbit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal]; //todo
+    [sumbit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     sumbit.titleLabel.font = [UIFont systemFontOfSize:16];
     [sumbit addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sumbit];

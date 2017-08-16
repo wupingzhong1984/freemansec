@@ -41,6 +41,8 @@
 
 #define kNotificationUpdateStatusBar @"kNotificationUpdateStatusBar"
 
+
+
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 
@@ -48,9 +50,24 @@
 #define UIColor_vc_bgcolor_lightgray (UIColorFromRGB(0xf2f2f2))
 #define UIColor_textfield_placecolor (UIColorFromRGB(0xc0c0c0)) //light gray
 #define UIColor_0a6ed2 (UIColorFromRGB(0x0a6ed2))
+#define UIColor_82b432 (UIColorFromRGB(0x82b432))
 #define UIColor_9f9f9f (UIColorFromRGB(0x9f9f9f))
 
 typedef enum {
     RPKForgetPwd,
     RPKResetPwd
 } ResetPwdKind;
+
+#define IOS8            ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 8.0)
+#define NTESNotificationLogout @"NTESNotificationLogout"
+#define UICommonTableBkgColor UIColorFromRGB(0xe4e7ec)
+#define Message_Font_Size   14        // 普通聊天文字大小
+#define Notification_Font_Size   10   // 通知文字大小
+#define Chatroom_Message_Font_Size 16 // 聊天室聊天文字大小
+#define SuppressPerformSelectorLeakWarning(Stuff) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+Stuff; \
+_Pragma("clang diagnostic pop") \
+} while (0)

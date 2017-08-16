@@ -15,4 +15,6 @@
 //- (void)getVideoListByKindId:(NSString*)kindId completion:(HttpClientServiceObjectBlock)completion;
 
 - (void)getVideoListPageNum:(NSString*)pageNum pageSize:(NSString*)pageSize status:(NSString*)status type:(NSString*)type completion:(HttpClientServiceObjectBlock)completion;
+
+- (void)addVideoPlayCount:(NSString*)videoId completion:(HttpClientServiceObjectBlock)completion;
 @end

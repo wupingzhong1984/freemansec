@@ -10,7 +10,7 @@
 
 @implementation VideoModel
 +(JSONKeyMapper*)keyMapper
-{   //todo
+{   
     return [[JSONKeyMapper alloc]
             initWithModelToJSONDictionary:@{
                                             @"videoId": @"id",
@@ -18,7 +18,7 @@
                                             @"desc": @"description",
                                             @"duration": @"duration",
                                             @"snapshotUrl": @"snapshotUrl",
-                                            @"videoUrl": @"origUrl",
+                                            @"videoOrigUrl": @"origUrl",
                                             @"createTime": @"createTime",
                                             @"authorName": @"userName",
                                             @"headImg": @"headimg",

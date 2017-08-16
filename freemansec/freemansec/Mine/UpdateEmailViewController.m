@@ -87,7 +87,7 @@
     
     UIButton *sumbit = [UIButton buttonWithType:UIButtonTypeCustom];
     sumbit.frame = CGRectMake(emailBg.x, emailBg.maxY + 25, emailBg.width, 40);
-    sumbit.backgroundColor = UIColor_0a6ed2;
+    sumbit.backgroundColor = UIColor_82b432;
     sumbit.layer.cornerRadius = 4;
     [sumbit setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
     [sumbit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];    sumbit.titleLabel.font = [UIFont systemFontOfSize:16];

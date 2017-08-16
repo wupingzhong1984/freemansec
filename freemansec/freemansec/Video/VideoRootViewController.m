@@ -120,56 +120,56 @@
     //test
     return;
     
-    if ([VideoManager videoKindNeedUpdate] || !self.kindNameArray.count) {
-        
-        [VideoManager updateVideoKindLastUpdateTime:[NSDate date]];
-        
-        [[VideoManager sharedInstance] getVideoKindCompletion:^(NSArray * _Nullable kindList, NSError * _Nullable error) {
-            
-            if (error) {
-                
-                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
-                
-            } else {
-                
-                BOOL needUpdate = NO;
-                if (kindList.count != self.kindNameArray.count) {
-                    needUpdate = YES;
-                } else {
-                    
-                    if (kindList.count != 0) {
-                        
-                        for (int i = 0; i < kindList.count; i++) {
-                            
-                            VideoKindModel *model = [kindList objectAtIndex:i];
-                            
-                            if (![model.kindId isEqualToString:[self.kindIdArray objectAtIndex:i]] ||
-                                  ![model.kindName isEqualToString:[self.kindNameArray objectAtIndex:i]]) {
-                                needUpdate = YES;
-                                break;
-                            }
-                        }
-                    }
-                }
-                
-                if (needUpdate) {
-                    
-                    [self.kindNameArray removeAllObjects];
-                    [self.kindIdArray removeAllObjects];
-                    [self.classNameArray removeAllObjects];
-                    
-                    for (VideoKindModel *model in kindList) {
-                        
-                        [self.kindNameArray addObject:model.kindName];
-                        [self.kindIdArray addObject:model.kindId];
-                        [self.classNameArray addObject:[VideoKindViewController class]];
-                    }
-                    
-                    [self reloadDataWith:self.kindNameArray andSubViewdisplayClasses:self.classNameArray withParams:self.kindIdArray];
-                }
-            }
-        }];
-    }
+//    if ([VideoManager videoKindNeedUpdate] || !self.kindNameArray.count) {
+//        
+//        [VideoManager updateVideoKindLastUpdateTime:[NSDate date]];
+//        
+//        [[VideoManager sharedInstance] getVideoKindCompletion:^(NSArray * _Nullable kindList, NSError * _Nullable error) {
+//            
+//            if (error) {
+//                
+//                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+//                
+//            } else {
+//                
+//                BOOL needUpdate = NO;
+//                if (kindList.count != self.kindNameArray.count) {
+//                    needUpdate = YES;
+//                } else {
+//                    
+//                    if (kindList.count != 0) {
+//                        
+//                        for (int i = 0; i < kindList.count; i++) {
+//                            
+//                            VideoKindModel *model = [kindList objectAtIndex:i];
+//                            
+//                            if (![model.kindId isEqualToString:[self.kindIdArray objectAtIndex:i]] ||
+//                                  ![model.kindName isEqualToString:[self.kindNameArray objectAtIndex:i]]) {
+//                                needUpdate = YES;
+//                                break;
+//                            }
+//                        }
+//                    }
+//                }
+//                
+//                if (needUpdate) {
+//                    
+//                    [self.kindNameArray removeAllObjects];
+//                    [self.kindIdArray removeAllObjects];
+//                    [self.classNameArray removeAllObjects];
+//                    
+//                    for (VideoKindModel *model in kindList) {
+//                        
+//                        [self.kindNameArray addObject:model.kindName];
+//                        [self.kindIdArray addObject:model.kindId];
+//                        [self.classNameArray addObject:[VideoKindViewController class]];
+//                    }
+//                    
+//                    [self reloadDataWith:self.kindNameArray andSubViewdisplayClasses:self.classNameArray withParams:self.kindIdArray];
+//                }
+//            }
+//        }];
+//    }
 
 }
 

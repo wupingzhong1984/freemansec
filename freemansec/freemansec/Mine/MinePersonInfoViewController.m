@@ -133,7 +133,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
         
         UIButton *cancel = [UIButton buttonWithType:UIButtonTypeCustom];
         [cancel setTitle:@"取消" forState:UIControlStateNormal];
-        [cancel setTitleColor:UIColor_0a6ed2 forState:UIControlStateNormal];
+        [cancel setTitleColor:UIColor_82b432 forState:UIControlStateNormal];
         cancel.titleLabel.font = [UIFont systemFontOfSize:16];
         cancel.size = CGSizeMake(60, 40);
         [cancel addTarget:self action:@selector(locationPickerViewCancel) forControlEvents:UIControlEventTouchUpInside];
@@ -141,7 +141,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
         
         UIButton *confirm = [UIButton buttonWithType:UIButtonTypeCustom];
         [confirm setTitle:@"确定" forState:UIControlStateNormal];
-        [confirm setTitleColor:UIColor_0a6ed2 forState:UIControlStateNormal];
+        [confirm setTitleColor:UIColor_82b432 forState:UIControlStateNormal];
         confirm.titleLabel.font = [UIFont systemFontOfSize:16];
         confirm.size = CGSizeMake(60, 40);
         confirm.x = _locationPickerView.width-confirm.width;
@@ -266,6 +266,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
         case 4: {
             //重设密码=密码找回
             ForgetPwdViewController *vc = [[ForgetPwdViewController alloc] init];
+            vc.resetPwdKind = RPKResetPwd;
             [self.navigationController pushViewController:vc animated:YES];
             break;
         }
@@ -334,10 +335,10 @@ UIPickerViewDelegate,UIPickerViewDataSource>
     
     UIButton *logout = [UIButton buttonWithType:UIButtonTypeCustom];
     logout.frame = CGRectMake(15, bg2.maxY + 40, _contentView.width-30, 44);
-    logout.backgroundColor = UIColor_0a6ed2;
+    logout.backgroundColor = UIColor_82b432;
     logout.layer.cornerRadius = 4;
     [logout setTitle:@"退出登录" forState:UIControlStateNormal];//NSLocalizedString
-    [logout setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal]; //todo
+    [logout setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     logout.titleLabel.font = [UIFont systemFontOfSize:16];
     [logout addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
     [_contentView addSubview:logout];
@@ -467,7 +468,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
     [self.view addSubview:naviBar];
     
     self.contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, naviBar.maxY, K_UIScreenWidth, K_UIScreenHeight - naviBar.maxY)];
-    _contentView.backgroundColor = [UIColor clearColor]; //todo
+    _contentView.backgroundColor = [UIColor clearColor];
     _contentView.showsVerticalScrollIndicator = NO;
     _contentView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:_contentView];
@@ -532,8 +533,10 @@ UIPickerViewDelegate,UIPickerViewDataSource>
         
         editImage = [Utility fixOrientation:editImage];
         //UIImageJPEGRepresentation(originImage,0.8);
-        
+        [MBProgressHUD showHUDAddedTo:self.view animated:NO];
         [[MineManager sharedInstance] updateHeadImg:editImage completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+            
+            [MBProgressHUD hideHUDForView:self.view];
             if (error) {
                 
                 [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
@@ -542,7 +545,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                 
                 [[MineManager sharedInstance] updateMyInfo:myInfo];
                 UIImageView *imgV = (UIImageView*)[_contentView viewWithTag:100];
-                [imgV setImageWithURL:[NSURL URLWithString:@""]];
+                [imgV setImageWithURL:[NSURL URLWithString:myInfo.headImg]];
                 
             }
         }];

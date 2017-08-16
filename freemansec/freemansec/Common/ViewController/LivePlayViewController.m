@@ -38,7 +38,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = [UIColor blackColor];
     
-    UIView *title = [self commNaviTitle:@"直播" color:[UIColor whiteColor]];//NSLocalizedString
+    UIView *title = [self commNaviTitle:_liveChannelModel.liveName color:[UIColor whiteColor]];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -169,20 +169,8 @@
     name.centerY = face.centerY;
     name.width = 200;
     [self.view addSubview:name];
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     [self.view addSubview:_playerView];
+    
     self.controlBar = [[UIView alloc] initWithFrame:CGRectMake(0, K_UIScreenHeight-40, K_UIScreenWidth, 40)];
     _controlBar.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:_controlBar];

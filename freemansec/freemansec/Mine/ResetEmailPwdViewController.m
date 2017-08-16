@@ -108,7 +108,7 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(emailBg.x, emailBg.maxY + 27, emailBg.width, 40);
-    btn.backgroundColor = UIColor_0a6ed2;
+    btn.backgroundColor = UIColor_82b432;
     btn.layer.cornerRadius = 4;
     [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

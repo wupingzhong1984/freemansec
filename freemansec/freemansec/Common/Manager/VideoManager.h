@@ -10,7 +10,7 @@
 
 typedef void(^VideoKindListCompletion)(NSArray* _Nullable kindList, NSError* _Nullable error);
 typedef void(^VideoListCompletion)(NSArray* _Nullable videoList, NSError* _Nullable error);
-
+typedef void(^AddVideoPlayCountCompletion)(NSError* _Nullable error);
 
 @interface VideoManager : NSObject
 
@@ -23,4 +23,8 @@ typedef void(^VideoListCompletion)(NSArray* _Nullable videoList, NSError* _Nulla
 //- (void)getVideoListByKindId:(NSString*_Nullable)kindId completion:(VideoListCompletion _Nullable)completion;
 
 - (void)getVideoListPageNum:(NSInteger)pageNum pageSize:(NSInteger)pageSize completion:(VideoListCompletion _Nullable)completion;
+
+
+- (void)addVideoPlayCount:(NSString*_Nullable)videoId completion:(AddVideoPlayCountCompletion _Nullable)completion;
+
 @end

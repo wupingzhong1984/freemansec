@@ -169,7 +169,7 @@
     self.localPreview.backgroundColor = [UIColor clearColor];
     [self.view insertSubview:_localPreview atIndex:0];
     
-    UIImageView *userBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
+    UIImageView *userBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"live_userhead_bg_gray.png"]];
     userBg.origin = CGPointMake(32, 35);
     [self.view addSubview:userBg];
     
@@ -179,7 +179,7 @@
     userFace.center = CGPointMake(userBg.x, userBg.centerY);
     userFace.clipsToBounds = YES;
     userFace.layer.cornerRadius = userFace.width/2;
-    [userFace setImageWithURL:[NSURL URLWithString:@""]];//todo
+    [userFace setImageWithURL:[NSURL URLWithString:[[MineManager sharedInstance] getMyInfo].headImg]];
     [self.view addSubview:userFace];
     
     UILabel *nameLbl = [UILabel createLabelWithFrame:CGRectZero text:[[MineManager sharedInstance] getMyInfo].nickName textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:14]];
@@ -192,10 +192,10 @@
     
     UIView *countBg = [[UIView alloc] init];
     countBg.tag = 101;
-    countBg.backgroundColor = UIColor_0a6ed2;
+    countBg.backgroundColor = UIColor_82b432;
     [self.view addSubview:countBg];
     
-    UIImageView *countIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
+    UIImageView *countIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"room_people_count_icon.png"]];
     countIcon.tag = 102;
     [countBg addSubview:countIcon];
     
@@ -218,7 +218,7 @@
     
     
     UIButton *imBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [imBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];//todo
+    [imBtn setImage:[UIImage imageNamed:@"live_im_icon.png"] forState:UIControlStateNormal];
     imBtn.size = [imBtn imageForState:UIControlStateNormal].size;
     imBtn.y = K_UIScreenHeight-48;
     imBtn.centerX = K_UIScreenWidth/2;
@@ -226,7 +226,7 @@
     [self.view addSubview:imBtn];
     
     UIButton *cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cameraBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];//todo
+    [cameraBtn setImage:[UIImage imageNamed:@"live_camera_icon.png"] forState:UIControlStateNormal];
     cameraBtn.size = imBtn.size;
     cameraBtn.y = imBtn.y;
     cameraBtn.x = imBtn.x - 44;
@@ -234,7 +234,7 @@
     [self.view addSubview:cameraBtn];
     
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];//todo
+    [closeBtn setImage:[UIImage imageNamed:@"live_close_icon.png"] forState:UIControlStateNormal];
     closeBtn.size = imBtn.size;
     closeBtn.y = imBtn.y;
     closeBtn.x = imBtn.x + 44;
@@ -387,11 +387,12 @@
     self.pushUrl = @"rtmp://pe25ff8be.live.126.net/live/52d6911fc91b417c84f2cc8e790fe689?wsSecret=02096929813efd8ebf4c01b7da1a8abb&wsTime=1501655352";
     [self startPush];
     
-//    self.updateUserLiveTitleView = [[UpdateUserLiveTitleView alloc] init];
-//    [_updateUserLiveTitleView.bgBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
-//    [_updateUserLiveTitleView.cancelBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
-//    [_updateUserLiveTitleView.startLiveBtn addTarget:self action:@selector(updateUserLiveTitleViewStartLive) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_updateUserLiveTitleView];
+    self.updateUserLiveTitleView = [[UpdateUserLiveTitleView alloc] init];
+    _updateUserLiveTitleView.roomIdLbl.text = [NSString stringWithFormat:@"房间号%@",[[MineManager sharedInstance] getMyInfo].liveId];
+    [_updateUserLiveTitleView.bgBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
+    [_updateUserLiveTitleView.cancelBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
+    [_updateUserLiveTitleView.startLiveBtn addTarget:self action:@selector(updateUserLiveTitleViewStartLive) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_updateUserLiveTitleView];
     
 }
 
@@ -664,14 +665,21 @@
     dispatch_async(dispatch_get_main_queue(), ^(void){
         _isLiving = YES;
         
-        
-        //当直播开始时，获取当前最新的一张图片，用户可以自由选择是否截图
-        //        __weak MediaCaptureViewController *weakSelf = self;
-        //        [weakSelf.mediaCapture snapShotWithCompletionBlock:^(UIImage *latestFrameImage) {
-        //
-        //            UIImageWriteToSavedPhotosAlbum(latestFrameImage, weakSelf, nil, nil);
-        //
-        //        }];
+        __weak UserLiveRootViewController *weakSelf = self;
+        [weakSelf.mediaCapture snapShotWithCompletionBlock:^(UIImage *latestFrameImage) {
+            
+            CGImageRef sourceImageRef = [latestFrameImage CGImage];
+            CGRect newImgRect = (CGRect){0,(latestFrameImage.size.height - latestFrameImage.size.width*3/4)/2,latestFrameImage.size.width,latestFrameImage.size.width*3/4};
+            CGImageRef newImageRef = CGImageCreateWithImageInRect(sourceImageRef, newImgRect);
+            UIImage *newImage = [UIImage imageWithCGImage:newImageRef];
+            
+            [[MineManager sharedInstance] updateMyLiveImg:newImage completion:^(NSError * _Nullable error) {
+                
+                if (error) {
+                    NNSLog(@"上传封面失败");
+                }
+            }];
+        }];
         //
     });
 }

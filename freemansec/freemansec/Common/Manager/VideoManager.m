@@ -95,4 +95,13 @@ static VideoManager *instance;
         }
     }];
 }
+
+- (void)addVideoPlayCount:(NSString*_Nullable)videoId completion:(AddVideoPlayCountCompletion _Nullable)completion {
+    
+    VideoHttpService* service = [[VideoHttpService alloc] init];
+    [service addVideoPlayCount:videoId completion:^(id obj, NSError *err) {
+        
+        completion(err);
+    }];
+}
 @end

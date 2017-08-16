@@ -79,7 +79,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
     v.backgroundColor = [UIColor blackColor];
     
-    UIImageView *logoIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"live_navi_logo.png"]];//todo
+    UIImageView *logoIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"live_navi_logo.png"]];
     logoIV.centerX = v.width/2;
     logoIV.centerY = (v.height - 20)/2 + 20;
     [v addSubview:logoIV];

@@ -84,8 +84,8 @@
     self.normalTitleFont = [UIFont systemFontOfSize:14];
     self.selectedTitleFont = [UIFont systemFontOfSize:14];
     self.normalTitleColor = [UIColor darkGrayColor];
-    self.selectedTitleColor = UIColor_0a6ed2;
-    self.selectedIndicatorColor = UIColor_0a6ed2;
+    self.selectedTitleColor = UIColor_82b432;
+    self.selectedIndicatorColor = UIColor_82b432;
 //    self.tagItemSize = (CGSize){XBScreenWidth/3,_tagViewHeight};
 //    self.tagItemGap = 10.f;
     self.selectedIndex = -1;

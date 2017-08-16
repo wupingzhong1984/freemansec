@@ -140,7 +140,7 @@
 
     UIButton *submit = [UIButton buttonWithType:UIButtonTypeCustom];
     submit.frame = CGRectMake(pwdBg.x, pwdBg.maxY + 50, pwdBg.width, 40);
-    submit.backgroundColor = UIColor_0a6ed2;
+    submit.backgroundColor = UIColor_82b432;
     submit.layer.cornerRadius = 4;
     [submit setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
     [submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

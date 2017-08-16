@@ -123,7 +123,7 @@
     btn.size = pwdBg2.size;
     btn.x = pwdBg2.x;
     btn.y = pwdBg2.maxY + 27;
-    btn.backgroundColor = UIColor_0a6ed2;
+    btn.backgroundColor = UIColor_82b432;
     btn.layer.cornerRadius = 4;
     [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

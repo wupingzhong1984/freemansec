@@ -30,7 +30,7 @@
 - (NSMutableArray*)imgArray {
     
     if (!_imgArray) {
-        //todo
+        
         _imgArray = [NSMutableArray arrayWithObjects:
                      @"mineroot_cell_img_0.png",
                      @"mineroot_cell_img_1.png",
@@ -199,7 +199,8 @@
         visualEffectView2.center = CGPointMake(con1.width/2, con1.width/2);
         [con1 addSubview:visualEffectView2];
         
-        face = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
+        face = [[UIImageView alloc] init];
+        face.clipsToBounds = YES;
         face.tag = 1;
         face.size = CGSizeMake(64, 64);
         face.layer.cornerRadius = face.width/2;
@@ -247,7 +248,7 @@
     }
     
     face = (UIImageView*)[cell.contentView viewWithTag:1];
-    [face setImageWithURL:[NSURL URLWithString:@""]]; //todo
+    [face setImageWithURL:[NSURL URLWithString:[[MineManager sharedInstance] getMyInfo].headImg]];
     
     name = (UILabel*)[cell.contentView viewWithTag:2];
     name.text = [[MineManager sharedInstance] getMyInfo].nickName;
@@ -379,7 +380,6 @@
                 [self presentViewController:[Utility createNoticeAlertWithContent:@"请先在我的账户中完成实名认证。" okBtnTitle:nil] animated:YES completion:nil];
             }
         } else {
-            
             
         }
     }

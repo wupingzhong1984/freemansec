@@ -322,7 +322,7 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
 
 - (void)updateNickName:(NSString*)nickName userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
     
-    [self httpRequestMethod:HttpReuqestMethodGet
+    [self httpRequestMethod:HttpReuqestMethodPost
                        path:UpdateUserInfoPath
                      params:@{@"userid":userId,
                               @"nickName":nickName
@@ -349,7 +349,7 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
     NSData *data = UIImageJPEGRepresentation(photo,1.0);
     NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
-    [self httpRequestMethod:HttpReuqestMethodGet
+    [self httpRequestMethod:HttpReuqestMethodPost
                        path:UpdateUserInfoPath
                      params:@{@"userid":userId,
                               @"headImg":encodedImageStr
@@ -373,7 +373,7 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
 
 - (void)updateSex:(NSString*)sex userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
     
-    [self httpRequestMethod:HttpReuqestMethodGet
+    [self httpRequestMethod:HttpReuqestMethodPost
                        path:UpdateUserInfoPath
                      params:@{@"userid":userId,
                               @"sex":sex
@@ -397,7 +397,7 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
 
 - (void)updateProvince:(NSString*)provinceId city:(NSString*)cityId area:(NSString*)areaId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
     
-    [self httpRequestMethod:HttpReuqestMethodGet
+    [self httpRequestMethod:HttpReuqestMethodPost
                        path:UpdateUserInfoPath
                      params:@{@"userid":userId,
                               @"province":provinceId,

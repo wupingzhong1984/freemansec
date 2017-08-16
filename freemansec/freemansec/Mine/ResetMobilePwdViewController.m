@@ -181,7 +181,7 @@ SetTelCodeViewControllerDelegate>
     [_contentView addSubview:mobileBg];
     
     self.verifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _verifyBtn.backgroundColor = UIColor_0a6ed2;
+    _verifyBtn.backgroundColor = UIColor_82b432;
     _verifyBtn.layer.cornerRadius = 4;
     _verifyBtn.size = (CGSize){70,32};
     _verifyBtn.centerY = mobileBg.centerY;
@@ -217,7 +217,7 @@ SetTelCodeViewControllerDelegate>
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(verifyCodeBg.x, verifyCodeBg.maxY + 27, verifyCodeBg.width, 40);
-    btn.backgroundColor = UIColor_0a6ed2;
+    btn.backgroundColor = UIColor_82b432;
     btn.layer.cornerRadius = 4;
     [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

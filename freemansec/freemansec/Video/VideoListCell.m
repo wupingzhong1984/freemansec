@@ -86,7 +86,7 @@
         
         _videoModel = videoModel;
         
-        [_imgV setImageWithURL:[NSURL URLWithString:_videoModel.videoImg]];
+        [_imgV setImageWithURL:[NSURL URLWithString:_videoModel.snapshotUrl]];
         
         _nameLbl.text = _videoModel.videoName;
         _authorLbl.text = _videoModel.authorName;

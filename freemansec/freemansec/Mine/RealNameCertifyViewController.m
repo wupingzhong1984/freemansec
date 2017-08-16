@@ -155,7 +155,12 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     }
     
     if (!error.length) {
+        
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [[MineManager sharedInstance] realNameVerify:_nameTF.text userType:userType cardPhoto:_frontImg completion:^(NSError * _Nullable error) {
+            
+            [MBProgressHUD hideHUDForView:self.view];
+            
             if (error) {
                 [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             } else {
@@ -235,7 +240,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(nameBg.x, samplePhoto1.maxY + 27, nameBg.width, 40);
-    btn.backgroundColor = UIColor_0a6ed2;
+    btn.backgroundColor = UIColor_82b432;
     btn.layer.cornerRadius = 4;
     [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

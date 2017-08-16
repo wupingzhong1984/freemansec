@@ -33,7 +33,7 @@ UIScrollViewDelegate>
         if (hotwords && hotwords.count > 0) {
             
             UIView *blue = [[UIView alloc] initWithFrame:CGRectMake(0, originY, 3, 18)];
-            blue.backgroundColor = UIColor_0a6ed2;
+            blue.backgroundColor = UIColor_82b432;
             [contentView addSubview:blue];
             
             //NSLocalizedString
@@ -54,7 +54,7 @@ UIScrollViewDelegate>
         if (history && history.count > 0) {
             
             UIView *blue = [[UIView alloc] initWithFrame:CGRectMake(0, originY, 3, 18)];
-            blue.backgroundColor = UIColor_0a6ed2;
+            blue.backgroundColor = UIColor_82b432;
             [contentView addSubview:blue];
             
             //NSLocalizedString

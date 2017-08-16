@@ -240,7 +240,7 @@ UICollectionViewDelegate,UICollectionViewDataSource>
     if (model.cid.length > 0 ) { //个人
         
         UserLivePlayViewController *vc = [[UserLivePlayViewController alloc] init];
-        vc.userLiveChannelModel = channel;
+        vc.userLiveChannelModel = model;
         [self.navigationController pushViewController:vc animated:YES];
         
     } else { //官方

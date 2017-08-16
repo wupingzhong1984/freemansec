@@ -16,7 +16,7 @@
         
         self.size = CGSizeMake(K_UIScreenWidth, K_UIScreenHeight);
         
-        UIImageView *bgImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
+        UIImageView *bgImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"live_prepare_bg.png"]];
         bgImg.center = self.center;
         [self addSubview:bgImg];
         
@@ -26,6 +26,7 @@
         [self addSubview:_bgBtn];
         
         UIView *grayBg = [[UIView alloc] init];
+        grayBg.backgroundColor = UIColor_vc_bgcolor_lightgray;
         grayBg.size = CGSizeMake(284,195);
         grayBg.center = self.center;
         grayBg.layer.cornerRadius = 4;
@@ -41,11 +42,13 @@
         
         //todo
         //get room num
-        UILabel *room = [UILabel createLabelWithFrame:CGRectZero text:[NSString stringWithFormat:@"房间号%@",@""] textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:17]];
-        [room sizeToFit];
-        room.centerX = grayBg.centerX;
-        room.centerY = grayBg.y + 30;
-        [self addSubview:room];
+        self.roomIdLbl = [UILabel createLabelWithFrame:CGRectZero text:[NSString stringWithFormat:@"房间号%@",@""] textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:17]];
+        [_roomIdLbl sizeToFit];
+        _roomIdLbl.textAlignment = NSTextAlignmentCenter;
+        _roomIdLbl.width = grayBg.width;
+        _roomIdLbl.centerX = grayBg.centerX;
+        _roomIdLbl.centerY = grayBg.y + 30;
+        [self addSubview:_roomIdLbl];
         
         UIView *tfBg = [[UIView alloc] initWithFrame:CGRectMake(grayBg.x+12, grayBg.y + 60, grayBg.width-24, 88)];
         tfBg.backgroundColor = [UIColor whiteColor];
@@ -63,10 +66,10 @@
         
         self.startLiveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _startLiveBtn.frame = CGRectMake(tfBg.x, tfBg.maxY + 37, tfBg.width, 40);
-        _startLiveBtn.backgroundColor = UIColor_0a6ed2;
+        _startLiveBtn.backgroundColor = UIColor_82b432;
         _startLiveBtn.layer.cornerRadius = 4;
         [_startLiveBtn setTitle:@"开始直播" forState:UIControlStateNormal];//NSLocalizedString
-        [_startLiveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal]; //todo
+        [_startLiveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _startLiveBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [self addSubview:_startLiveBtn];
     }

@@ -81,13 +81,13 @@
     _nickNameTF.frame = CGRectMake(nameBg.x + 10, (nameBg.height-20)/2 + nameBg.y, nameBg.width-20, 20);
     _nickNameTF.font = [UIFont systemFontOfSize:16];
     _nickNameTF.textColor = [UIColor darkGrayColor];
-    _nickNameTF.text = @"";//todos
+    _nickNameTF.text = [[MineManager sharedInstance] getMyInfo].nickName;
     _nickNameTF.placeholder = @"请输入昵称";//NSLocalizedString
     [_contentView addSubview:_nickNameTF];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(nameBg.x, nameBg.maxY + 27, nameBg.width, 40);
-    btn.backgroundColor = UIColor_0a6ed2;
+    btn.backgroundColor = UIColor_82b432;
     btn.layer.cornerRadius = 4;
     [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

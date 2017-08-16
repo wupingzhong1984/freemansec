@@ -10,6 +10,7 @@
 
 @interface UpdateUserLiveTitleView : UIView
 
+@property (nonatomic,strong) UILabel *roomIdLbl;
 @property (nonatomic,strong) UIButton *bgBtn;
 @property (nonatomic,strong) UIButton *cancelBtn;
 @property (nonatomic,strong) UIButton *startLiveBtn;
