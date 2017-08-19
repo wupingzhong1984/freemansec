@@ -11,10 +11,14 @@
 #import "NEMediaCaptureEntity.h"
 #import "NEAuthorizeManager.h"
 #import "NEReachability.h"
-
+#import "MyInfoModel.h"
+#import "NTESBundleSetting.h"
+#import "NTESChatroomManager.h"
+#import "FSChatroomViewController.h"
 
 @interface UserLiveRootViewController ()
-<UITextFieldDelegate>{
+<UITextFieldDelegate,
+NIMChatroomManagerDelegate>{
     
     LSVideoParaCtx paraCtx;
     BOOL _isLiving;//是否正在直播
@@ -25,6 +29,8 @@
     BOOL _isAccess;
     
     BOOL keyboardDidShow;
+    
+    BOOL isInChatroom;
 
 }
 @property (nonatomic,strong) UILabel *roomPCount;
@@ -42,6 +48,9 @@
 
 @property (nonatomic,strong) ChatroomInfoModel *roomInfo;
 @property (nonatomic,strong) NSTimer *roomInfoRefreshTimer;
+@property (nonatomic,strong) NIMChatroom *chatroom;
+@property (nonatomic,strong) NIMChatroomMember *roomMemberMe;
+@property (nonatomic,strong) FSChatroomViewController *chatroomViewController;
 @end
 
 @implementation UserLiveRootViewController
@@ -122,6 +131,7 @@
             __weak UserLiveRootViewController *weakSelf = self;
             [_mediaCapture stopLiveStream:^(NSError *error) {
                 [weakSelf unInitLiveStream];
+                [[[NIMSDK sharedSDK] chatroomManager] exitChatroom:_roomInfo.roomId completion:nil];
                 [weakSelf back];
             }];
         }]];
@@ -131,6 +141,7 @@
     } else {
        
         [self unInitLiveStream];
+        [[[NIMSDK sharedSDK] chatroomManager] exitChatroom:_roomInfo.roomId completion:nil];
         [self back];
     }
 }
@@ -146,7 +157,7 @@
     paraCtx.videoStreamingQuality = LS_VIDEO_QUALITY_HIGH;
     paraCtx.isCameraZoomPinchGestureOn = YES;
     paraCtx.isCameraFlashEnabled = YES;
-    paraCtx.isVideoFilterOn = YES;
+    paraCtx.isVideoFilterOn = NO;
     paraCtx.filterType = LS_GPUIMAGE_ZIRAN;
     paraCtx.isQosOn = YES;
     paraCtx.isFrontCameraMirroredPreView = YES;
@@ -348,12 +359,14 @@
 
 - (void)updateUserLiveTitleViewCancel {
     
+    [_updateUserLiveTitleView.titleTF resignFirstResponder];
     [_updateUserLiveTitleView removeFromSuperview];
     [self back];
 }
 
 - (void)updateUserLiveTitleViewStartLive {
     
+    [_updateUserLiveTitleView.titleTF resignFirstResponder];
     [self requestLiveTitle:_updateUserLiveTitleView.titleTF.text];
 }
 
@@ -383,9 +396,9 @@
     [self setupSubviews];
     
     
-    //test
-    self.pushUrl = @"rtmp://pe25ff8be.live.126.net/live/52d6911fc91b417c84f2cc8e790fe689?wsSecret=02096929813efd8ebf4c01b7da1a8abb&wsTime=1501655352";
-    [self startPush];
+//    //test
+//    self.pushUrl = @"rtmp://pe25ff8be.live.126.net/live/52d6911fc91b417c84f2cc8e790fe689?wsSecret=02096929813efd8ebf4c01b7da1a8abb&wsTime=1501655352";
+//    [self startPush];
     
     self.updateUserLiveTitleView = [[UpdateUserLiveTitleView alloc] init];
     _updateUserLiveTitleView.roomIdLbl.text = [NSString stringWithFormat:@"房间号%@",[[MineManager sharedInstance] getMyInfo].liveId];
@@ -437,11 +450,17 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [self updateUserLiveTitleViewCancel];
             }]];
+            [self presentViewController:alert animated:YES completion:nil];
+            
             
         } else {
             
             [_updateUserLiveTitleView removeFromSuperview];
             self.updateUserLiveTitleView = nil;
+            
+            MyInfoModel *myInfo = [[MineManager sharedInstance] getMyInfo];
+            myInfo.liveTitle = title;
+            [[MineManager sharedInstance] updateMyInfo:myInfo];
             
             self.pushUrl = [[MineManager sharedInstance] getMyInfo].pushUrl;
             [self startPush];
@@ -470,8 +489,15 @@
                 
                 self.roomInfo = info;
                 [self updateRoomUserCount];
+                
+                if (!isInChatroom) {
+                    
+                    [self enterChatRoom];
+                    isInChatroom = YES;
+                }
+                
                 self.roomInfoRefreshTimer = [NSTimer scheduledTimerWithTimeInterval:10 repeats:YES block:^(NSTimer * _Nonnull timer) {
-                    [self requestGetChatRoom];
+                    [self requestRefreshChatRoomInfo];
                 }];
             }
         }
@@ -481,7 +507,7 @@
 -(void)requestCreateChatRoom {
     
     [[UserLiveManager sharedInstance] createChatroom:[[MineManager sharedInstance] getMyInfo].liveTitle
-                                        announcement:nil
+                                        announcement:@""
                                         broadCastUrl:[[MineManager sharedInstance] getMyInfo].rtmpPullUrl
                                           completion:^(NSString * _Nullable roomId, NSError * _Nullable error) {
         
@@ -493,16 +519,17 @@
             
             self.roomInfo = [[ChatroomInfoModel alloc] init];
             _roomInfo.roomId = roomId;
-            [self requestCreateChatRoom];
+            [self requestRefreshChatRoomInfo];
+            [self enterChatRoom];
             
             self.roomInfoRefreshTimer = [NSTimer scheduledTimerWithTimeInterval:10 repeats:YES block:^(NSTimer * _Nonnull timer) {
-                [self requestGetChatRoom];
+                [self requestRefreshChatRoomInfo];
             }];
         }
     }];
 }
 
--(void)requestGetChatRoom {
+-(void)requestRefreshChatRoomInfo {
     
     [[UserLiveManager sharedInstance] getChatroomInfoNeedOnlineUserCount:@"true" completion:^(ChatroomInfoModel * _Nullable info, NSError * _Nullable error) {
         
@@ -518,15 +545,43 @@
     }];
 }
 
+- (void)enterChatRoom {
+    
+    MyInfoModel *myInfo = [[MineManager sharedInstance] getMyInfo];
+    
+    NIMChatroomEnterRequest *request = [[NIMChatroomEnterRequest alloc] init];
+    request.roomId = _roomInfo.roomId;
+    request.roomNickname = myInfo.nickName;
+    request.roomAvatar = myInfo.headImg;
+    request.retryCount = [[NTESBundleSetting sharedConfig] chatroomRetryCount];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    __weak typeof(self) wself = self;
+    [[[NIMSDK sharedSDK] chatroomManager] enterChatroom:request
+                                             completion:^(NSError *error,NIMChatroom *chatroom,NIMChatroomMember *me) {
+                                                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                                 
+                                                 if (error == nil)
+                                                 {
+                                                     self.chatroom = chatroom;
+                                                     self.roomMemberMe = me;
+                                                     [[NTESChatroomManager sharedInstance] cacheMyInfo:me roomId:chatroom.roomId];
+                                                     
+                                                     self.chatroomViewController = [[FSChatroomViewController alloc] initWithChatroom:chatroom];
+                                                     [self.view addSubview:_chatroomViewController.view];
+                                                 }
+                                                 else
+                                                 {
+                                                     NSString *toast = [NSString stringWithFormat:@"进入聊天室失败 code:%zd",error.code];
+                                                     [wself.view makeToast:toast duration:2.0 position:CSToastPositionCenter];
+                                                     NNSLog(@"enter room %@ failed %@",chatroom.roomId,error);
+                                                 }
+                                                 
+                                             }];
+}
+
 - (void)requestSendChatroomMsg {
     
-    [[UserLiveManager sharedInstance] sendChatroomMsg:_inputTF.text msgType:@"1" roomId:_roomInfo.roomId completion:^(NSError * _Nullable error) {
-        
-        if (error) {
-            
-            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
-        }
-    }];
+    //todo
 }
 
 
@@ -677,6 +732,15 @@
                 
                 if (error) {
                     NNSLog(@"上传封面失败");
+                } else {
+                    
+                    [[MineManager sharedInstance] refreshUserInfoCompletion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+                        
+                        if (myInfo) {
+                            
+                            [[MineManager sharedInstance] updateMyInfo:myInfo];
+                        }
+                    }];
                 }
             }];
         }];
@@ -749,6 +813,10 @@
     }
 }
 
+- (void)dealloc{
+    [[NIMSDK sharedSDK].chatroomManager exitChatroom:_roomInfo.roomId completion:nil];
+    [[NIMSDK sharedSDK].chatroomManager removeDelegate:self];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

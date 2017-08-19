@@ -21,13 +21,18 @@ static NSString* SendMsgPath = @"Ajax/sendMsg.ashx";
                      params:@{@"creator":accId,
                               @"name":roomName,
                               @"announcement":announcement,
-                              @"broadcasturl":broadCasturl
+                              @"broadcasturl":broadCasturl,
+                              @"ext":@"",
                               }
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      if(response == nil) {
                          completion(response, err);
                          return ;
+                     }
+                     
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
                      }
                      
                      NSDictionary *entity = [(NSArray*)response.data objectAtIndex:0];
@@ -56,6 +61,11 @@ static NSString* SendMsgPath = @"Ajax/sendMsg.ashx";
                          completion(response, err);
                          return ;
                      }
+                     
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
+                     }
+                     
                      ChatroomInfoModel* model = [[ChatroomInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
                      if(model == nil){
                          

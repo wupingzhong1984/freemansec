@@ -74,7 +74,7 @@ const static NSInteger MY_DB_VER = 0; //initversion:0
     
     BOOL success = NO;
     if ([_db open]) {
-        success = [_db executeUpdate:@"TRUNCATE TABLE myinfo"];
+        success = [_db executeUpdate:@"DELETE FROM myinfo WHERE userid = ?",model.userId];
         success = [_db executeUpdate:@"INSERT INTO myinfo (userloginid, userid, nickname, phone, email, realnameverifystate, headimg, sex, registertype, province, city, area, cid, liveid, livetitle, liveimg, livetypeid, livetypename, pushurl, rtmppullurl, hlspullurl, httppullurl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                    model.userLoginId,
                    model.userId,

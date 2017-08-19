@@ -10,6 +10,12 @@
 #import "MyInfoModel.h"
 #import "IMTokenModel.h"
 
+typedef enum : NSUInteger {
+    TLTSina,
+    TLTWeixin,
+    TLTFb,
+} ThirdLoginType;
+
 typedef void(^MyVideoListCompletion)(NSArray* _Nullable videoList, NSError* _Nullable error);
 typedef void(^MyFavourListCompletion)(NSArray* _Nullable favourList, NSError* _Nullable error);
 typedef void(^MyAttentionListCompletion)(NSArray* _Nullable attentionList, NSError* _Nullable error);
@@ -40,7 +46,8 @@ typedef void(^UpdateLocationCompletion)(MyInfoModel* _Nullable myInfo, NSError* 
 typedef void(^ProvinceListCompletion)(NSArray* _Nullable provinceList, NSError* _Nullable error);
 typedef void(^CityListCompletion)(NSArray* _Nullable cityList, NSError* _Nullable error);
 typedef void(^AreaListCompletion)(NSArray* _Nullable areaList, NSError* _Nullable error);
-
+typedef void(^ThirdLoginCompletion)(MyInfoModel* _Nullable myInfo, NSError* _Nullable error);
+typedef void(^RefreshUserInfoCompletion)(MyInfoModel* _Nullable myInfo, NSError* _Nullable error);
 
 @interface MineManager : NSObject
 
@@ -92,4 +99,6 @@ typedef void(^AreaListCompletion)(NSArray* _Nullable areaList, NSError* _Nullabl
 - (void)getMyFavourListCompletion:(MyFavourListCompletion _Nullable)completion;
 - (void)getMyAttentionListCompletion:(MyAttentionListCompletion _Nullable)completion;
 
+- (void)loginWithThird:(ThirdLoginType)type userCode:(NSString*_Nullable)code completion:(ThirdLoginCompletion _Nullable)completion;
+- (void)refreshUserInfoCompletion:(RefreshUserInfoCompletion _Nullable)completion;
 @end

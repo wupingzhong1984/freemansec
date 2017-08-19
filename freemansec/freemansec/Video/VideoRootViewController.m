@@ -82,7 +82,6 @@
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
     
-    //test
     NSArray *titleArray = @[
                             @"分类1",
                             @"分类2",

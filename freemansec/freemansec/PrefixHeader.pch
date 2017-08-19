@@ -24,6 +24,7 @@
 #import "AFNetworking.h"
 #import "UIKit+AFNetworking.h"
 #import "MBProgressHUD+NJ.h"
+#import "UIView+Toast.h"
 
 #import "LogicManager.h"
 #import "LiveManager.h"
@@ -38,5 +39,7 @@
 #import <NIMSDK/NIMSDK.h>
 #import "NIMKit.h"
 #import <NIMAVChat/NIMAVChat.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #define NTES_USE_CLEAR_BAR - (BOOL)useClearBar{return YES;}

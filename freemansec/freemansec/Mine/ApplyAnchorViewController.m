@@ -43,7 +43,7 @@
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
-    UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_white.png"]];
+    UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_gray.png"]];
     back.centerX = 25;
     back.centerY = (v.height - 20)/2 + 20;
     [v addSubview:back];
@@ -54,6 +54,7 @@
     btn.height = back.height + 20;
     btn.center = back.center;
     [v addSubview:btn];
+    
     
     return v;
 }
@@ -179,7 +180,7 @@
         if (!error && typeList.count > 0) {
             [self.typeArray addObjectsFromArray:typeList];
         }
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(_typePlace.x+10, _typePlace.maxY, _typePlace.width+20, 150) style:UITableViewStylePlain];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(_typePlace.x-10, _typePlace.maxY, _typePlace.width+20, 150) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;

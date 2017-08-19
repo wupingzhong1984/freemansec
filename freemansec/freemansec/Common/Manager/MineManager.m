@@ -437,7 +437,10 @@ static MineManager *instance;
 - (void)updateMyLiveTitle:(NSString*_Nullable)title completion:(UpdateMyLiveCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service updateMyLiveTitle:title liveId:[self getMyInfo].liveId completion:^(id obj, NSError *err) {
+    [service updateMyLiveTitle:title
+                        typeId:[self getMyInfo].liveTypeId
+                        liveId:[self getMyInfo].liveId
+                    completion:^(id obj, NSError *err) {
         
         completion(err);
     }];
@@ -446,10 +449,52 @@ static MineManager *instance;
 - (void)updateMyLiveImg:(UIImage*_Nullable)photo completion:(UpdateMyLiveCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service updateMyLiveImg:photo liveId:[self getMyInfo].liveId completion:^(id obj, NSError *err) {
+    [service updateMyLiveImg:photo
+                   liveTitle:[self getMyInfo].liveTitle
+                      typeId:[self getMyInfo].liveTypeId
+                      liveId:[self getMyInfo].liveId completion:^(id obj, NSError *err) {
         
         completion(err);
     }];
 }
 
+- (void)loginWithThird:(ThirdLoginType)type userCode:(NSString*_Nullable)code completion:(ThirdLoginCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    NSString *typeCode;
+    if (type == TLTSina) {
+        typeCode = @"5";
+    } else if (type == TLTWeixin) {
+        typeCode = @"3";
+    } else {
+        typeCode = @"4";
+    }
+    [service loginWithThird:typeCode userCode:code completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            MyInfoModel *model = obj;
+            completion(model,err);
+        }
+    }];
+}
+
+- (void)refreshUserInfoCompletion:(RefreshUserInfoCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service refreshUserInfo:[self getMyInfo].userLoginId completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            MyInfoModel *model = obj;
+            completion(model,err);
+        }
+    }];
+}
 @end

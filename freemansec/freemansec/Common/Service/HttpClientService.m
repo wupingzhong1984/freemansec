@@ -31,7 +31,6 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
-            //test
             NNSLog(@"result:%@", responseObject);
             
             NSError* error = nil;
@@ -64,7 +63,9 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
                 
             }
             
-            if(![res.code isEqualToString:@"0"] && ![res.code isEqualToString:@"200"]) {
+            if(![res.code isEqualToString:@"0"] &&
+               ![res.code isEqualToString:@"200"] &&
+               ![res.code isEqualToString:@"1"]) {
                 error = [NSError errorWithDomain:LogicErrorDomain
                                             code:[res.code intValue]
                                         userInfo:@{NSLocalizedDescriptionKey:res.message}];
@@ -86,7 +87,6 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
-            //test
             NSLog(@"result:%@", responseObject);
             
             NSError* error = nil;
@@ -99,11 +99,11 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
                 
                 if(errData){
                     NSString* strData = [[NSString alloc] initWithData:errData encoding:NSUTF8StringEncoding];
-                    NSLog(@"%@", strData);
-                    NSLog(@"%@", error.localizedDescription);
+                    NNSLog(@"%@", strData);
+                    NNSLog(@"%@", error.localizedDescription);
                 }
                 else{
-                    NSLog(@"%@", error);
+                    NNSLog(@"%@", error);
                 }
                 
                 completion(nil, error);
@@ -119,7 +119,9 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
                 
             }
             
-            if(![res.code isEqualToString:@"0"]) {
+            if(![res.code isEqualToString:@"0"] &&
+               ![res.code isEqualToString:@"200"] &&
+               ![res.code isEqualToString:@"1"]) {
                 error = [NSError errorWithDomain:LogicErrorDomain
                                             code:[res.code intValue]
                                         userInfo:@{NSLocalizedDescriptionKey:res.message}];
@@ -130,7 +132,7 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
             completion(res,nil);
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
+            NNSLog(@"%@", error);
             completion(nil, error);
         }];
         

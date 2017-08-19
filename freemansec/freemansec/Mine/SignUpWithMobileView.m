@@ -15,7 +15,7 @@
 - (void)agreeBtnAction {
     
     _agree = !_agree;
-    _agreeIV.image = [UIImage imageNamed:(_agree?@"":@"")]; //todo
+    _agreeIV.image = [UIImage imageNamed:(_agree?@"checkbox_1.png":@"checkbox_0.png")];
 }
 
 -(id)initWithFrame:(CGRect)frame {
@@ -43,7 +43,7 @@
         _telCodeLbl.text = ([languageName isEqualToString:@"zh-Hans"]?@"86":@"852");
         [self addSubview:_telCodeLbl];
         
-        UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
+        UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tel_code_downward.png"]];
         icon.centerX = (codeBg.maxX - _telCodeLbl.maxX)/2 + _telCodeLbl.maxX;
         icon.centerY = codeBg.centerY;
         [self addSubview:icon];
@@ -108,7 +108,7 @@
         _pwdTF.secureTextEntry = YES;
         [self addSubview:_pwdTF];
         
-        self.agreeIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
+        self.agreeIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkbox_1.png"]];
         _agreeIV.x = pwdBg.x;
         _agreeIV.y = pwdBg.maxY + 13;
         [self addSubview:_agreeIV];

@@ -109,14 +109,14 @@ static LiveManager *instance;
 
 + (NSMutableArray*)getLiveSearchHistory {
     
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"LiveSearchHistory"];
-    //return [self decodeContentFromFile:[self pathForLiveSearchHistory]];
+    //return [[NSUserDefaults standardUserDefaults] objectForKey:@"LiveSearchHistory"];
+    return [self decodeContentFromFile:[self pathForLiveSearchHistory]];
 }
 
 + (void)saveLiveSearchHistory:(NSMutableArray*)searchHistory {
     
-    [[NSUserDefaults standardUserDefaults] setObject:searchHistory forKey:@"LiveSearchHistory"];
-    //[self encodeContent:searchHistory toFile:[self pathForLiveSearchHistory]];
+    //[[NSUserDefaults standardUserDefaults] setObject:searchHistory forKey:@"LiveSearchHistory"];
+    [self encodeContent:searchHistory toFile:[self pathForLiveSearchHistory]];
 }
 
 + (id) decodeContentFromFile:(NSURL*)pFileName
@@ -178,6 +178,22 @@ static LiveManager *instance;
     
     LiveHttpService* service = [[LiveHttpService alloc] init];
     [service getLiveSearchHotWordsCompletion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+    }];
+}
+
+- (void)quaryLiveByWord:(NSString *)word pageNum:(NSInteger)num completion:(QuaryLiveListCompletion)completion {
+    
+    LiveHttpService* service = [[LiveHttpService alloc] init];
+    [service quaryLiveByWord:word pageNum:num completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);

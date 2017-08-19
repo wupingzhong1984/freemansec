@@ -48,7 +48,7 @@
          } else {
              
              [[MineManager sharedInstance] updateMyInfo:myInfo];
-             [[MineManager sharedInstance]getIMToken:myInfo.userLoginId completion:^(IMTokenModel * _Nullable tokenInfo, NSError * _Nullable error) {
+             [[MineManager sharedInstance] getIMToken:myInfo.userLoginId completion:^(IMTokenModel * _Nullable tokenInfo, NSError * _Nullable error) {
                  if (error) {
                      [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
                  } else {
@@ -72,17 +72,148 @@
 
 - (void)loginByWeibo {
     
-    //todo
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_Sina currentViewController:self completion:^(id result, NSError *error) {
+        
+        if (!result || error) {
+            //NSLocalizedString
+            [self presentViewController:[Utility createNoticeAlertWithContent:@"平台授权失败" okBtnTitle:nil] animated:YES completion:nil];
+            
+        } else {
+            
+            UMSocialUserInfoResponse *resp = result;
+            
+            // 第三方登录数据(为空表示平台未提供)
+            // 授权数据
+            NSLog(@" sina uid: %@", resp.uid);
+            
+            // 用户数据
+            NSLog(@" name: %@", resp.name);
+            NSLog(@" iconurl: %@", resp.iconurl);
+            NSLog(@" gender: %@", resp.unionGender);
+            
+            // 第三方平台SDK原始数据
+            NSLog(@" originalResponse: %@", resp.originalResponse);
+            
+            [[MineManager sharedInstance] loginWithThird:TLTSina userCode:resp.uid completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+                
+                if (error) {
+                    
+                    [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                } else {
+                    
+                    [[MineManager sharedInstance] updateMyInfo:myInfo];
+                    [[MineManager sharedInstance] getIMToken:myInfo.userLoginId completion:^(IMTokenModel * _Nullable tokenInfo, NSError * _Nullable error) {
+                        if (error) {
+                            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                        } else {
+                            
+                            [[MineManager sharedInstance] updateIMToken:tokenInfo];
+                            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                        }
+                    }];
+                    
+                }
+            }];
+        }
+    }];
+
 }
 
 - (void)loginByWX {
     
-    //todo
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatTimeLine currentViewController:self completion:^(id result, NSError *error) {
+        
+        if (!result || error) {
+            //NSLocalizedString
+            [self presentViewController:[Utility createNoticeAlertWithContent:@"平台授权失败" okBtnTitle:nil] animated:YES completion:nil];
+            
+        } else {
+            
+            UMSocialUserInfoResponse *resp = result;
+            
+            // 第三方登录数据(为空表示平台未提供)
+            // 授权数据
+            NSLog(@" unionId: %@", resp.unionId);
+            
+            // 用户数据
+            NSLog(@" name: %@", resp.name);
+            NSLog(@" iconurl: %@", resp.iconurl);
+            NSLog(@" gender: %@", resp.unionGender);
+            
+            // 第三方平台SDK原始数据
+            NSLog(@" originalResponse: %@", resp.originalResponse);
+            
+            [[MineManager sharedInstance] loginWithThird:TLTWeixin userCode:resp.unionId completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+                
+                if (error) {
+                    
+                    [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                } else {
+                    
+                    [[MineManager sharedInstance] updateMyInfo:myInfo];
+                    [[MineManager sharedInstance] getIMToken:myInfo.userLoginId completion:^(IMTokenModel * _Nullable tokenInfo, NSError * _Nullable error) {
+                        if (error) {
+                            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                        } else {
+                            
+                            [[MineManager sharedInstance] updateIMToken:tokenInfo];
+                            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                        }
+                    }];
+                    
+                }
+            }];
+        }
+    }];
 }
 
 - (void)loginByFB {
     
-    //todo
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_Facebook currentViewController:self completion:^(id result, NSError *error) {
+        
+        if (!result || error) {
+            //NSLocalizedString
+            [self presentViewController:[Utility createNoticeAlertWithContent:@"平台授权失败" okBtnTitle:nil] animated:YES completion:nil];
+            
+        } else {
+            
+            UMSocialUserInfoResponse *resp = result;
+            
+            // 第三方登录数据(为空表示平台未提供)
+            // 授权数据
+            NSLog(@" fb uid: %@", resp.uid);
+            
+            // 用户数据
+            NSLog(@" name: %@", resp.name);
+            NSLog(@" iconurl: %@", resp.iconurl);
+            NSLog(@" gender: %@", resp.unionGender);
+            
+            // 第三方平台SDK原始数据
+            NSLog(@" originalResponse: %@", resp.originalResponse);
+            
+            [[MineManager sharedInstance] loginWithThird:TLTFb userCode:resp.uid completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+                
+                if (error) {
+                    
+                    [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                } else {
+                    
+                    [[MineManager sharedInstance] updateMyInfo:myInfo];
+                    [[MineManager sharedInstance] getIMToken:myInfo.userLoginId completion:^(IMTokenModel * _Nullable tokenInfo, NSError * _Nullable error) {
+                        if (error) {
+                            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                        } else {
+                            
+                            [[MineManager sharedInstance] updateIMToken:tokenInfo];
+                            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                        }
+                    }];
+                    
+                }
+            }];
+        }
+    }];
+
 }
 
 - (UIView*)naviBarView {

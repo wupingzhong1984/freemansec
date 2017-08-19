@@ -35,7 +35,7 @@
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
-    UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_white.png"]];
+    UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_gray.png"]];
     back.centerX = 25;
     back.centerY = (v.height - 20)/2 + 20;
     [v addSubview:back];
@@ -157,7 +157,7 @@
     _telCodeLbl.text = ([languageName isEqualToString:@"zh-Hans"]?@"86":@"852");
     [self.view addSubview:_telCodeLbl];
     
-    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
+    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tel_code_downward.png"]];
     icon.centerX = (codeBg.maxX - _telCodeLbl.maxX)/2 + _telCodeLbl.maxX;
     icon.centerY = codeBg.centerY;
     [self.view addSubview:icon];

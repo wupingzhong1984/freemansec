@@ -8,10 +8,13 @@
 
 #import "LiveHttpService.h"
 #import "LiveChannelModel.h"
+#import "LiveSearchResultModel.h"
+#import "LiveHotWordModel.h"
 
 static NSString* GetLiveBannerPath = @"Ajax/GetBanner.ashx";
 static NSString* GetLiveListByTypePath = @"Ajax/GetLive.ashx";
 static NSString* GetLiveSearchHotWordsPath = @"Ajax/GetLive.ashx"; //todo
+static NSString* QuaryLivePath = @"Ajax/QueryLiveInfo.ashx";
 
 @implementation LiveHttpService
 
@@ -75,7 +78,31 @@ static NSString* GetLiveSearchHotWordsPath = @"Ajax/GetLive.ashx"; //todo
                          return ;
                      }
                      
-                     NSArray *list = [LiveChannelModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     NSArray *list = [LiveHotWordModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
+}
+
+- (void)quaryLiveByWord:(NSString *)word pageNum:(NSInteger)num completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:QuaryLivePath
+                     params:@{@"pnum":[NSString stringWithFormat:@"%d",(int)num],
+                              @"livename":word}
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [LiveSearchResultModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
                      if(list == nil){
                          
                          NSLog(@"%@", err);

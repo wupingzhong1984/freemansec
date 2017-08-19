@@ -60,15 +60,17 @@
     */
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxdc1e388c3822c80b" appSecret:@"3baf1193c85774b3fd9d18447d76cab0" redirectURL:nil];
     
+    //todo
     /*
      设置新浪的appKey和appSecret
      [新浪微博集成说明]http://dev.umeng.com/social/ios/%E8%BF%9B%E9%98%B6%E6%96%87%E6%A1%A3#1_2
      */
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"3921700954"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"https://sns.whalecloud.com/sina2/callback"];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"257024282"  appSecret:@"7cdee95d6d925c22452ff6b6640eba59" redirectURL:@"https://sns.whalecloud.com/sina2/callback"];
     
-    
+    //ok
     /* 设置Facebook的appKey和UrlString */
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"506027402887373"  appSecret:nil redirectURL:nil];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"222519288272132"  appSecret:nil redirectURL:nil];
+    //key 1a1463d837e9d2c6079ef3693e642c9b
 }
 
 - (void)configUShareSettings {
@@ -117,6 +119,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
+    
     [self initDBIfNeed];
     
     [LiveManager updateLiveBannerLastUpdateTime:nil];
@@ -169,6 +174,16 @@
         LoginViewController *vc = [[LoginViewController alloc] init];
         CustomNaviController *nav = [[CustomNaviController alloc] initWithRootViewController:vc];
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:nav animated:NO completion:nil];
+    }
+    else {
+        
+        [[MineManager sharedInstance] refreshUserInfoCompletion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+            
+            if (myInfo) {
+                
+                [[MineManager sharedInstance] updateMyInfo:myInfo];
+            }
+        }];
     }
     
 }

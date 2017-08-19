@@ -13,7 +13,7 @@
 - (void)agreeBtnAction {
     
     _agree = !_agree;
-    _agreeIV.image = [UIImage imageNamed:(_agree?@"":@"")]; //todo
+    _agreeIV.image = [UIImage imageNamed:(_agree?@"checkbox_1.png":@"checkbox_0.png")];
 }
 
 -(id)initWithFrame:(CGRect)frame {
@@ -37,7 +37,7 @@
         _emailTF.placeholder = @"请输入邮箱";//NSLocalizedString
         [self addSubview:_emailTF];
         
-        self.agreeIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
+        self.agreeIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkbox_1.png"]];
         _agreeIV.x = emailBg.x;
         _agreeIV.y = emailBg.maxY + 13;
         [self addSubview:_agreeIV];

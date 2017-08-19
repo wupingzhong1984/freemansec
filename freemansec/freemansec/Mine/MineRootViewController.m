@@ -176,7 +176,7 @@
         container.clipsToBounds = YES;
         [cell.contentView addSubview:container];
         
-        UIImageView *bgImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]]; //todo
+        UIImageView *bgImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mycenter_headbg.png"]];
         bgImg.size = container.size;
         [container addSubview:bgImg];
         

@@ -46,18 +46,20 @@ UICollectionViewDelegate,UICollectionViewDataSource>
     v.backgroundColor = [UIColor blackColor];
     
     UIView *whiteBg = [[UIView alloc] init];
-    whiteBg.size = CGSizeMake(K_UIScreenWidth-15-35, 27);
+    whiteBg.backgroundColor = [UIColor whiteColor];
+    whiteBg.size = CGSizeMake(K_UIScreenWidth-15-45, 32);
     whiteBg.x = 15;
     whiteBg.centerY = (v.height - 20)/2+20;
     whiteBg.layer.cornerRadius = whiteBg.height/2;
+    whiteBg.layer.borderColor = UIColor_line_d2d2d2.CGColor;
     [v addSubview:whiteBg];
     
-    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
+    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"searchbar_icon.png"]];
     icon.center = CGPointMake(whiteBg.x + 17, whiteBg.centerY);
     [v addSubview:icon];
     
     self.searchTF = [[UITextField alloc] initWithFrame:CGRectMake(icon.maxX + 10, whiteBg.y + (whiteBg.height - 17)/2, whiteBg.maxX - whiteBg.height/2 - (icon.maxX + 10), 17)];
-    _searchTF.font = [UIFont systemFontOfSize:14];
+    _searchTF.font = [UIFont systemFontOfSize:16];
     _searchTF.textColor = [UIColor darkGrayColor];
     _searchTF.placeholder = @"搜索频道栏目";
     _searchTF.returnKeyType = UIReturnKeySearch;
@@ -108,6 +110,7 @@ UICollectionViewDelegate,UICollectionViewDataSource>
         
         self.choiceView = [[LiveSearchQuickChoiceView alloc] initWithHeight:_collView.height hotwords:wordList history:[LiveManager getLiveSearchHistory]];
         _choiceView.y = navi.maxY;
+        _choiceView.delegate = self;
         [self.view addSubview:_choiceView];
     }];
 }
@@ -197,7 +200,28 @@ UICollectionViewDelegate,UICollectionViewDataSource>
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
     if (textField.text.length == 0) {
-        return NO;
+//        return NO;
+    }
+    
+    if (textField.text.length > 0) {
+        
+        //update history
+        NSMutableArray *historys = [LiveManager getLiveSearchHistory];
+        if (!historys) {
+            historys = [[NSMutableArray alloc] init];
+        } else if (historys.count > 0 && [[historys firstObject] isEqualToString:textField.text]) {
+            [historys removeObjectAtIndex:0];
+        }
+        if(historys.count > 0) {
+            [historys insertObject:textField.text atIndex:0];
+        } else {
+            [historys addObject:textField.text];
+        }
+        if (historys.count > 25){
+            
+            [historys removeLastObject];
+        }
+        [LiveManager saveLiveSearchHistory:historys];
     }
     
     _choiceView.hidden = YES;

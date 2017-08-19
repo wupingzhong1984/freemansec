@@ -22,7 +22,6 @@
         
         self.bgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _bgBtn.size = self.size;
-        _bgBtn.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self addSubview:_bgBtn];
         
         UIView *grayBg = [[UIView alloc] init];
@@ -32,7 +31,7 @@
         grayBg.layer.cornerRadius = 4;
         [self addSubview:grayBg];
         
-        UIImageView *cancel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];//todo
+        UIImageView *cancel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"live_title_dialog_close.png"]];
         cancel.center = CGPointMake(grayBg.maxX -16, grayBg.y + 16);
         [self addSubview:cancel];
         
@@ -40,7 +39,6 @@
         _cancelBtn.frame = CGRectMake(grayBg.maxX-32, grayBg.y, 32, 32);
         [self addSubview:_cancelBtn];
         
-        //todo
         //get room num
         self.roomIdLbl = [UILabel createLabelWithFrame:CGRectZero text:[NSString stringWithFormat:@"房间号%@",@""] textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:17]];
         [_roomIdLbl sizeToFit];
@@ -50,7 +48,7 @@
         _roomIdLbl.centerY = grayBg.y + 30;
         [self addSubview:_roomIdLbl];
         
-        UIView *tfBg = [[UIView alloc] initWithFrame:CGRectMake(grayBg.x+12, grayBg.y + 60, grayBg.width-24, 88)];
+        UIView *tfBg = [[UIView alloc] initWithFrame:CGRectMake(grayBg.x+12, grayBg.y + 60, grayBg.width-24, 44)];
         tfBg.backgroundColor = [UIColor whiteColor];
         tfBg.layer.cornerRadius = 4;
         tfBg.layer.borderWidth = 1;

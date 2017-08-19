@@ -31,6 +31,8 @@ static NSString* GetProvincePath = @"Ajax/getProvince.ashx";
 static NSString* GetCityPath = @"Ajax/getCitytoPid.ashx";
 static NSString* GetAreaPath = @"Ajax/getAreaToCid.ashx";
 static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
+static NSString* ThirdLoginPath = @"Ajax/registerLogin.ashx";
+static NSString* RefreshUserInfoPath = @"Ajax/getUser.ashx";
 
 @implementation MineHttpService
 
@@ -50,6 +52,11 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
                          completion(response, err);
                          return ;
                      }
+                     
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
+                     }
+                     
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
                      if(model == nil){
                          
@@ -77,6 +84,11 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
                          completion(response, err);
                          return ;
                      }
+                     
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
+                     }
+                     
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
                      
                      if(model == nil){
@@ -101,6 +113,10 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
                      if(response == nil) {
                          completion(response, err);
                          return ;
+                     }
+                     
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
                      }
                      
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
@@ -196,7 +212,8 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
                        path:CreateMyLivePath
                      params:@{@"userid":userId,
                               @"liveTypeId":typeId,
-                              @"liveName":title
+                              @"liveName":title,
+                              @"liveimg":@""
                               }
                  completion:^(JsonResponse* response, NSError *err) {
                      
@@ -333,6 +350,11 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
                          completion(response, err);
                          return ;
                      }
+                     
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
+                     }
+                     
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
                      if(model == nil){
                          
@@ -360,6 +382,11 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
                          completion(response, err);
                          return ;
                      }
+                     
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
+                     }
+                     
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
                      if(model == nil){
                          
@@ -384,6 +411,11 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
                          completion(response, err);
                          return ;
                      }
+                     
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
+                     }
+                     
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
                      if(model == nil){
                          
@@ -410,6 +442,11 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
                          completion(response, err);
                          return ;
                      }
+                     
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
+                     }
+                     
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
                      if(model == nil){
                          
@@ -513,11 +550,12 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
                  }];
 }
 
-- (void)updateMyLiveTitle:(NSString*)title liveId:(NSString*)liveId completion:(HttpClientServiceObjectBlock)completion {
+- (void)updateMyLiveTitle:(NSString*)title typeId:(NSString*)typeId liveId:(NSString*)liveId completion:(HttpClientServiceObjectBlock)completion {
     
-    [self httpRequestMethod:HttpReuqestMethodGet
+    [self httpRequestMethod:HttpReuqestMethodPost
                        path:UpdateMyLivePath
                      params:@{@"aid":liveId,
+                              @"liveType":typeId,
                               @"liveName":title
                               }
                  completion:^(JsonResponse* response, NSError *err) {
@@ -526,19 +564,77 @@ static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
                  }];
 }
 
-- (void)updateMyLiveImg:(UIImage*)photo liveId:(NSString*)liveId completion:(HttpClientServiceObjectBlock)completion {
+- (void)updateMyLiveImg:(UIImage*)photo liveTitle:(NSString*)title typeId:(NSString*)typeId liveId:(NSString*)liveId completion:(HttpClientServiceObjectBlock)completion {
     
     NSData *data = UIImageJPEGRepresentation(photo,1.0);
     NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
-    [self httpRequestMethod:HttpReuqestMethodGet
+    [self httpRequestMethod:HttpReuqestMethodPost
                        path:UpdateMyLivePath
                      params:@{@"aid":liveId,
-                              @"liveimg":encodedImageStr
-                              }
+                               @"liveType":typeId,
+                               @"liveName":title,
+                               @"liveimg":encodedImageStr
+                               }
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      completion(response, err);
+                 }];
+}
+
+- (void)loginWithThird:(NSString*)type userCode:(NSString*)code completion:(HttpClientServiceObjectBlock)completion {
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:ThirdLoginPath
+                     params:@{@"register":type,
+                              @"code":code
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
+                     }
+                     
+                     MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
+                     if(model == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(model, nil); //success
+                     }
+                 }];
+}
+
+- (void)refreshUserInfo:(NSString*)userLoginId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:RefreshUserInfoPath
+                     params:@{@"userid":userLoginId
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
+                     }
+                     
+                     MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
+                     if(model == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(model, nil); //success
+                     }
                  }];
 }
 @end

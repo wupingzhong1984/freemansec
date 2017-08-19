@@ -46,7 +46,7 @@
     OfficialLiveType *type = [[LiveManager getOfficialLiveTypeList] objectAtIndex:_typeIndex];
     [v addSubview:[self commNaviTitle:type.liveTypeName color:[UIColor whiteColor]]];
     
-    UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_white.png"]];
+    UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_gray.png"]];
     back.centerX = 25;
     back.centerY = (v.height - 20)/2 + 20;
     [v addSubview:back];

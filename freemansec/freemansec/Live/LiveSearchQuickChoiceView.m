@@ -44,7 +44,7 @@ UIScrollViewDelegate>
             [contentView addSubview:lbl];
             
             HotSearchWordsView *v = [[HotSearchWordsView alloc] initWithStrs:hotwords width:(contentView.width - 20)];
-            v.origin = CGPointMake(10, 60);
+            v.origin = CGPointMake(10, 65);
             v.delegate = self;
             [contentView addSubview:v];
             
@@ -72,7 +72,7 @@ UIScrollViewDelegate>
                 title = [UILabel createLabelWithFrame:CGRectZero text:[history objectAtIndex:i] textColor:[UIColor grayColor] font:[UIFont systemFontOfSize:16]];
                 [title sizeToFit];
                 title.x = 10;
-                title.centerY = blue.maxY + 20 + 40*i;
+                title.centerY = blue.maxY + 25 + 40*i;
                 [contentView addSubview:title];
                 
                 line = [[UIView alloc] initWithFrame:CGRectMake(0, title.centerY + 15-0.5, self.width, 0.5)];
@@ -83,6 +83,7 @@ UIScrollViewDelegate>
                 btn.tag = 2000+i;
                 btn.frame = CGRectMake(0, line.maxY - 40, self.width, 40);
                 [btn addTarget:self action:@selector(searchHistorySelected:) forControlEvents:UIControlEventTouchUpInside];
+                [contentView addSubview:btn];
             }
             
             contentView.contentSize = CGSizeMake(contentView.width, line.maxY);

@@ -40,6 +40,62 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
+		<key>sina.cn</key>
+		<dict>
+			<key>NSExceptionMinimumTLSVersion</key>
+			<string>TLSv1.0</string>
+			<key>NSIncludesSubdomains</key>
+			<true/>
+			<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+			<false/>
+		</dict>
+		<key>sina.com.cn</key>
+		<dict>
+			<key>NSIncludesSubdomains</key>
+			<true/>
+			<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+			<true/>
+			<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+			<false/>
+		</dict>
+		<key>sinaimg.cn</key>
+		<dict>
+			<key>NSIncludesSubdomains</key>
+			<true/>
+			<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+			<true/>
+			<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+			<false/>
+		</dict>
+		<key>sinajs.cn</key>
+		<dict>
+			<key>NSIncludesSubdomains</key>
+			<true/>
+			<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+			<true/>
+			<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+			<false/>
+		</dict>
+		<key>weibo.cn</key>
+		<dict>
+			<key>NSExceptionMinimumTLSVersion</key>
+			<string>TLSv1.0</string>
+			<key>NSIncludesSubdomains</key>
+			<true/>
+			<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+			<false/>
+		</dict>
+		<key>weibo.com</key>
+		<dict>
+			<key>NSExceptionMinimumTLSVersion</key>
+			<string>TLSv1.0</string>
+			<key>NSIncludesSubdomains</key>
+			<true/>
+			<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+			<true/>
+			<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string></string>
@@ -65,5 +121,18 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<string>YES</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb222519288272132</string>
+            </array>
+        </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>222519288272132</string>
+    <key>FacebookDisplayName</key>
+    <string>民众财经直播</string>
 </dict>
 </plist>
