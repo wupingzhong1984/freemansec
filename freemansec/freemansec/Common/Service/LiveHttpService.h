@@ -17,4 +17,5 @@
 
 -(void)getLiveSearchHotWordsCompletion:(HttpClientServiceObjectBlock)completion;
 - (void)quaryLiveByWord:(NSString *)word pageNum:(NSInteger)num completion:(HttpClientServiceObjectBlock)completion;
+- (void)quaryLiveByType:(NSString*)typeId pageNum:(NSInteger)num completion:(HttpClientServiceObjectBlock)completion;
 @end

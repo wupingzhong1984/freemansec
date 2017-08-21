@@ -11,24 +11,26 @@
 #import "UserLiveRootViewController.h"
 #import "CustomNaviController.h"
 #import "OfficialLiveViewController.h"
+#import "UserLiveViewController.h"
+#import "UserLiveType.h"
 
 @interface LiveRootViewController ()
 
-@property (nonatomic,strong)NSMutableArray *kindNameArray;
+@property (nonatomic,strong)NSMutableArray *typeNameArray;
 @property (nonatomic,strong)NSMutableArray *classNameArray;
-@property (nonatomic,strong)NSMutableArray *kindIdArray;
+@property (nonatomic,strong)NSMutableArray *typeIdArray;
 
 @end
 
 @implementation LiveRootViewController
 
-- (NSMutableArray*)kindNameArray {
+- (NSMutableArray*)typeNameArray {
     
-    if (!_kindNameArray) {
-        _kindNameArray = [[NSMutableArray alloc] init];
+    if (!_typeNameArray) {
+        _typeNameArray = [[NSMutableArray alloc] init];
     }
     
-    return _kindNameArray;
+    return _typeNameArray;
 }
 
 - (NSMutableArray*)classNameArray {
@@ -40,13 +42,13 @@
     return _classNameArray;
 }
 
-- (NSMutableArray*)kindIdArray {
+- (NSMutableArray*)typeIdArray {
     
-    if (!_kindIdArray) {
-        _kindIdArray = [[NSMutableArray alloc] init];
+    if (!_typeIdArray) {
+        _typeIdArray = [[NSMutableArray alloc] init];
     }
     
-    return _kindIdArray;
+    return _typeIdArray;
 }
 
 - (void)tabBarCenterAction {
@@ -127,23 +129,24 @@
     self.tabCollViewRect = CGRectMake(60, 20, K_UIScreenWidth-120, 44);
     
     NSArray *titleArray = @[
-                            @"分类1",
-                            @"分类2",
-                            @"分类3",
-                            @"分类4"
+                            @"民众财经频道",
+                            @"企业频道",
+                            @"分析师频道",
+                            @"名人频道",
+                            @"个人频道"
                             ];
     
     NSArray *classNames = @[
                             [OfficialLiveViewController class],
-                            [OfficialLiveViewController class],[OfficialLiveViewController class],
-                            [OfficialLiveViewController class]
+                            [UserLiveViewController class]
                             ];
     
     NSArray *params = @[
+                        @"5",
                         @"1",
                         @"2",
-                        @"2",
-                        @"3"
+                        @"3",
+                        @"4"
                         ];
     
     [self reloadDataWith:titleArray andSubViewdisplayClasses:classNames withParams:params];
@@ -171,6 +174,68 @@
     
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
+    if ([VideoManager videoKindNeedUpdate] || !self.typeNameArray.count) {
+
+        [VideoManager updateVideoKindLastUpdateTime:[NSDate date]];
+
+        [[MineManager sharedInstance] getUserLiveTypeCompletion:^(NSArray * _Nullable typeList, NSError * _Nullable error) {
+
+            if (error) {
+
+                if (!self.typeNameArray.count) {
+                    
+                    [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                }
+
+            } else {
+
+                BOOL needUpdate = NO;
+                if (typeList.count != self.typeNameArray.count) {
+                    needUpdate = YES;
+                } else {
+
+                    if (typeList.count != 0) {
+
+                        for (int i = 0; i < typeList.count; i++) {
+
+                            UserLiveType *model = [typeList objectAtIndex:i];
+
+                            if (![model.liveTypeId isEqualToString:[self.typeIdArray objectAtIndex:i]] ||
+                                  ![model.liveTypeName isEqualToString:[self.typeNameArray objectAtIndex:i]]) {
+                                needUpdate = YES;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (needUpdate) {
+
+                    [self.typeNameArray removeAllObjects];
+                    [self.typeIdArray removeAllObjects];
+                    [self.classNameArray removeAllObjects];
+                    [self reloadDataWith:self.typeNameArray andSubViewdisplayClasses:self.classNameArray withParams:self.typeIdArray];
+                    
+                    for (int i = 0; i < typeList.count; i++) {
+
+                        UserLiveType *model = [typeList objectAtIndex:i];
+                        [self.typeNameArray addObject:model.liveTypeName];
+                        [self.typeIdArray addObject:model.liveTypeId];
+                        
+                        if (i == 0) {
+                            
+                            [self.classNameArray addObject:[OfficialLiveViewController class]];
+                        } else {
+                            [self.classNameArray addObject:[UserLiveViewController class]];
+                        }
+                        
+                    }
+
+                    [self reloadDataWith:self.typeNameArray andSubViewdisplayClasses:self.classNameArray withParams:self.typeIdArray];
+                }
+            }
+        }];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

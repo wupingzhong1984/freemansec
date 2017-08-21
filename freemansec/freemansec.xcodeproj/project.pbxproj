@@ -537,6 +537,9 @@
 		2FE7FF2E1F2E399E007DFCC0 /* MyAttentionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF2D1F2E399E007DFCC0 /* MyAttentionModel.m */; };
 		2FE7FF311F2E56DD007DFCC0 /* MyFavourListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF301F2E56DD007DFCC0 /* MyFavourListCell.m */; };
 		2FE7FF341F2E56F3007DFCC0 /* MyAttentionListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF331F2E56F3007DFCC0 /* MyAttentionListCell.m */; };
+		2FFCB15C1F4B54C5004BC9FC /* navi_mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFCB15A1F4B54C5004BC9FC /* navi_mark@2x.png */; };
+		2FFCB15D1F4B54C5004BC9FC /* navi_mark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFCB15B1F4B54C5004BC9FC /* navi_mark@3x.png */; };
+		2FFCB1601F4B552F004BC9FC /* UserLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFCB15F1F4B552F004BC9FC /* UserLiveViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1450,6 +1453,10 @@
 		2FE7FF301F2E56DD007DFCC0 /* MyFavourListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFavourListCell.m; sourceTree = "<group>"; };
 		2FE7FF321F2E56F3007DFCC0 /* MyAttentionListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAttentionListCell.h; sourceTree = "<group>"; };
 		2FE7FF331F2E56F3007DFCC0 /* MyAttentionListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAttentionListCell.m; sourceTree = "<group>"; };
+		2FFCB15A1F4B54C5004BC9FC /* navi_mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_mark@2x.png"; sourceTree = "<group>"; };
+		2FFCB15B1F4B54C5004BC9FC /* navi_mark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_mark@3x.png"; sourceTree = "<group>"; };
+		2FFCB15E1F4B552F004BC9FC /* UserLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLiveViewController.h; sourceTree = "<group>"; };
+		2FFCB15F1F4B552F004BC9FC /* UserLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLiveViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2326,6 +2333,8 @@
 		2FAF31741F160FDF004329ED /* images */ = {
 			isa = PBXGroup;
 			children = (
+				2FFCB15A1F4B54C5004BC9FC /* navi_mark@2x.png */,
+				2FFCB15B1F4B54C5004BC9FC /* navi_mark@3x.png */,
 				2F9999381F46EB8300656DF0 /* checkbox_0@2x.png */,
 				2F9999391F46EB8300656DF0 /* checkbox_0@3x.png */,
 				2F99993A1F46EB8300656DF0 /* checkbox_1@2x.png */,
@@ -2496,6 +2505,8 @@
 				2FAF31861F1666C8004329ED /* OfficialLiveTypeViewController.m */,
 				2F9999671F4A8F6F00656DF0 /* OfficialLiveViewController.h */,
 				2F9999681F4A8F6F00656DF0 /* OfficialLiveViewController.m */,
+				2FFCB15E1F4B552F004BC9FC /* UserLiveViewController.h */,
+				2FFCB15F1F4B552F004BC9FC /* UserLiveViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -3410,6 +3421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F99992F1F45D09D00656DF0 /* live_mark_icon@2x.png in Resources */,
+				2FFCB15D1F4B54C5004BC9FC /* navi_mark@3x.png in Resources */,
 				2F99994A1F46EB8300656DF0 /* checkbox_1@2x.png in Resources */,
 				2F869BF81F35F29A005C8212 /* LICENSE.txt in Resources */,
 				2F869E2F1F374A27005C8212 /* emailverify_icon_notice@3x.png in Resources */,
@@ -3470,6 +3482,7 @@
 				2F869E1B1F371D62005C8212 /* common_cell_right@2x.png in Resources */,
 				2FAF31991F166DA8004329ED /* tab_img_2@3x.png in Resources */,
 				2F869E061F36F3D5005C8212 /* mineroot_cell_img_1@3x.png in Resources */,
+				2FFCB15C1F4B54C5004BC9FC /* navi_mark@2x.png in Resources */,
 				2F9999521F46EB8300656DF0 /* navi_back_gray@2x.png in Resources */,
 				2F869E0C1F36F3D5005C8212 /* mineroot_cell_img_4@3x.png in Resources */,
 				2F99996E1F4AA0A700656DF0 /* NIMDemoChartlet.bundle in Resources */,
@@ -3729,6 +3742,7 @@
 				2FCBD7CA1F442DA800F21A60 /* NTESCellLayoutConfig.m in Sources */,
 				2FCBD99F1F44378700F21A60 /* NTESChartletAttachment.m in Sources */,
 				2FCBD98F1F4435E900F21A60 /* NTESClientUtil.m in Sources */,
+				2FFCB1601F4B552F004BC9FC /* UserLiveViewController.m in Sources */,
 				2FCBD9551F4430BE00F21A60 /* NIMTeamCardOperationItem.m in Sources */,
 				2FE7FF161F2DCF86007DFCC0 /* MyVideoModel.m in Sources */,
 				2F869BFE1F35F29A005C8212 /* FMResultSet.m in Sources */,

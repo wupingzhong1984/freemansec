@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *videoList;
-@property (nonatomic, assign) int pageNo;
+@property (nonatomic, assign) int pageNum;
 @end
 
 @implementation VideoRoot2ViewController
@@ -80,7 +80,7 @@
     self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
     self.tableView.footerRefreshingText = @"正在拼命的加载中";
     
-    self.pageNo = 1;
+    self.pageNum = 1;
     // 2.2秒后刷新表格UI
     //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
     
@@ -91,7 +91,7 @@
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
-    self.pageNo = 1;
+    self.pageNum = 1;
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
@@ -101,7 +101,7 @@
 
 - (void)footerRereshing
 {
-    self.pageNo++;
+    self.pageNum++;
     
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -147,7 +147,7 @@
 
 - (void)requestGetVideo {
     
-    [[VideoManager sharedInstance] getVideoListPageNum:_pageNo pageSize:20 completion:^(NSArray * _Nullable videoList, NSError * _Nullable error) {
+    [[VideoManager sharedInstance] getVideoListPageNum:_pageNum pageSize:20 completion:^(NSArray * _Nullable videoList, NSError * _Nullable error) {
         
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
@@ -156,7 +156,7 @@
             [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
         } else {
             
-            if (self.pageNo == 1) {
+            if (self.pageNum == 1) {
                 [self.videoList removeAllObjects];
                 [self.tableView reloadData];
             };

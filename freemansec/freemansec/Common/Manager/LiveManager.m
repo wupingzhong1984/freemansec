@@ -205,4 +205,21 @@ static LiveManager *instance;
         }
     }];
 }
+
+-(void)quaryLiveByType:(NSString* _Nullable)typeId pageNum:(NSInteger)num completion:(QuaryLiveListCompletion _Nullable)completion {
+    
+    LiveHttpService* service = [[LiveHttpService alloc] init];
+    [service quaryLiveByType:typeId pageNum:num completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+    }];
+    
+}
 @end

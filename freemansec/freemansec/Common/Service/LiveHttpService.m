@@ -112,4 +112,28 @@ static NSString* QuaryLivePath = @"Ajax/QueryLiveInfo.ashx";
                      }
                  }];
 }
+- (void)quaryLiveByType:(NSString*)typeId pageNum:(NSInteger)num completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:QuaryLivePath
+                     params:@{@"pnum":[NSString stringWithFormat:@"%d",(int)num],
+                              @"livetypeid":typeId}
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [LiveSearchResultModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
+}
+
 @end

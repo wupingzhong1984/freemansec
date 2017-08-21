@@ -52,6 +52,7 @@ UICollectionViewDelegate,UICollectionViewDataSource>
     whiteBg.centerY = (v.height - 20)/2+20;
     whiteBg.layer.cornerRadius = whiteBg.height/2;
     whiteBg.layer.borderColor = UIColor_line_d2d2d2.CGColor;
+    whiteBg.layer.borderWidth = 0.5;
     [v addSubview:whiteBg];
     
     UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"searchbar_icon.png"]];
@@ -68,7 +69,7 @@ UICollectionViewDelegate,UICollectionViewDataSource>
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:@"取消" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:14];
     [btn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     btn.size = CGSizeMake(44, whiteBg.height);

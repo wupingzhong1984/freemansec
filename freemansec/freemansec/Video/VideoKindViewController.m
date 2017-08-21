@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *videoList;
-@property (nonatomic, assign) int pageNo;
+@property (nonatomic, assign) int pageNum;
 @end
 
 @implementation VideoKindViewController
@@ -64,7 +64,7 @@
     self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
     self.tableView.footerRefreshingText = @"正在拼命的加载中";
     
-    self.pageNo = 1;
+    self.pageNum = 1;
     // 2.2秒后刷新表格UI
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
@@ -75,7 +75,7 @@
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
-    self.pageNo = 1;
+    self.pageNum = 1;
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
@@ -85,7 +85,7 @@
 
 - (void)footerRereshing
 {
-    self.pageNo++;
+    self.pageNum++;
     
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

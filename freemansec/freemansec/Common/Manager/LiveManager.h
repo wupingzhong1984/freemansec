@@ -30,4 +30,5 @@ typedef void(^QuaryLiveListCompletion)(NSArray* _Nullable quaryResultList, NSErr
                     completion:(LiveChannelListCompletion _Nullable)completion;
 -(void)getLiveSearchHotWordsCompletion:(LiveHotWordListCompletion _Nullable)completion;
 -(void)quaryLiveByWord:(NSString*_Nullable)word pageNum:(NSInteger)num completion:(QuaryLiveListCompletion _Nullable)completion;
+-(void)quaryLiveByType:(NSString* _Nullable)typeId pageNum:(NSInteger)num completion:(QuaryLiveListCompletion _Nullable)completion;
 @end

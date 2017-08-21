@@ -11,6 +11,7 @@
 #import "XBTagTitleCell.h"
 #import "XBPageCell.h"
 #import "XBTagTitleModel.h"
+#import "UserLiveViewController.h"
 @interface XBScrollPageController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (nonatomic,assign) CGFloat tagViewHeight;   /**< 标签高度  */
 @property (nonatomic,strong) UICollectionViewFlowLayout *tagFlowLayout;
@@ -85,8 +86,7 @@
     self.normalTitleColor = [UIColor darkGrayColor];
     self.selectedTitleColor = UIColor_82b432;
     self.selectedIndicatorColor = UIColor_82b432;
-//    self.tagItemSize = (CGSize){XBScreenWidth/3,_tagViewHeight};
-//    self.tagItemGap = 10.f;
+    self.tagItemSize = (CGSize){100,_tagViewHeight};
     self.selectedIndex = -1;
 }
 
@@ -165,8 +165,8 @@
         [self saveCachedVC:cachedViewController ByIndexPath:indexPath];
         
         if (self.params.count != 0) {
-            if (![cachedViewController valueForKeyPath:@"kindId"]) {
-                [cachedViewController setValue:self.params[indexPath.item] forKeyPath:@"kindId"];
+            if ([cachedViewController isKindOfClass:[UserLiveViewController class]] && ![cachedViewController valueForKeyPath:@"typeId"]) {
+                [cachedViewController setValue:self.params[indexPath.item] forKeyPath:@"typeId"];
             }
         }
         [self addChildViewController:cachedViewController];
@@ -296,6 +296,7 @@
 #pragma - mark publicMethod
 - (void)reloadDataWith:(NSArray *)titleArray andSubViewdisplayClasses:(NSArray *)classes
 {
+    self.selectedIndex = -1;
     [self convertKeyValue2Model:titleArray];
     self.displayClasses = classes;
     [self.tagCollectionView reloadData];
@@ -306,13 +307,14 @@
 }
 - (void)reloadDataWith:(NSArray *)titleArray andSubViewdisplayClasses:(NSArray *)classes withParams:(NSArray *)params
 {
-    if (titleArray.count < 3) {
-        
-        self.tagItemSize = (CGSize){_tabCollViewRect.size.width/titleArray.count,_tagViewHeight};
-    } else {
-        self.tagItemSize = (CGSize){_tabCollViewRect.size.width/2.5,_tagViewHeight};
-    }
+//    if (titleArray.count < 3) {
+//        
+//        self.tagItemSize = (CGSize){_tabCollViewRect.size.width/titleArray.count,_tagViewHeight};
+//    } else {
+//        self.tagItemSize = (CGSize){_tabCollViewRect.size.width/2.5,_tagViewHeight};
+//    }
     
+    self.selectedIndex = -1;
     [self convertKeyValue2Model:titleArray];
     self.displayClasses = classes;
     [self.tagCollectionView reloadData];
@@ -485,10 +487,10 @@
             CGSize tagSize = [self sizeForTitle:tagTitleModel.tagTitle withFont:((tagTitleModel.normalTitleFont.pointSize >= tagTitleModel.selectedTitleFont.pointSize)?tagTitleModel.normalTitleFont:tagTitleModel.selectedTitleFont)];
             
             if ([self isZeroSize:self.selectedIndicatorSize]) { //如果未手动设定指示条宽高,则设置默认值
-                self.selectedIndicatorSize = CGSizeMake(tagSize.width, 8);
+                self.selectedIndicatorSize = CGSizeMake(40, 1);
             }
             
-            _selectionIndicator.frame = CGRectMake(0, self.tagViewHeight - self.selectedIndicatorSize.height, tagSize.width, self.selectedIndicatorSize.height);
+            _selectionIndicator.frame = CGRectMake((tagSize.width-_selectedIndicatorSize.width)/2, self.tagViewHeight - self.selectedIndicatorSize.height, _selectedIndicatorSize.width, self.selectedIndicatorSize.height);
         }
 
         UIView *sub = [[UIView alloc]init];
