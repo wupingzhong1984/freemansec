@@ -36,7 +36,7 @@
     // Do any additional setup after loading the view.
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 0;

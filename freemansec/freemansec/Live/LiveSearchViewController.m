@@ -88,7 +88,7 @@ UICollectionViewDelegate,UICollectionViewDataSource>
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
     UIView *navi = [self naviBarView];
     [self.view addSubview:navi];
