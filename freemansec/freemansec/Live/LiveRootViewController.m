@@ -9,33 +9,44 @@
 #import "LiveRootViewController.h"
 #import "LiveSearchViewController.h"
 #import "UserLiveRootViewController.h"
-#import "LiveTypeViewController.h"
-#import "LivePlayViewController.h"
 #import "CustomNaviController.h"
-#import "LiveManager.h"
-#import "LiveBannerCollectionViewCell.h"
-#import "Reachability.h"
-#import "OfficialLiveType.h"
+#import "OfficialLiveViewController.h"
 
 @interface LiveRootViewController ()
-<UICollectionViewDelegate,UICollectionViewDataSource>
 
-@property (nonatomic,strong) NSMutableArray *bannerList;
-@property (nonatomic,strong) UICollectionView *bannerView;
-@property (nonatomic,strong) UIScrollView *contentView;
+@property (nonatomic,strong)NSMutableArray *kindNameArray;
+@property (nonatomic,strong)NSMutableArray *classNameArray;
+@property (nonatomic,strong)NSMutableArray *kindIdArray;
 
 @end
 
 @implementation LiveRootViewController
 
-- (NSMutableArray*)bannerList {
+- (NSMutableArray*)kindNameArray {
     
-    if (!_bannerList) {
-        
-        _bannerList = [[NSMutableArray alloc] init];
+    if (!_kindNameArray) {
+        _kindNameArray = [[NSMutableArray alloc] init];
     }
     
-    return _bannerList;
+    return _kindNameArray;
+}
+
+- (NSMutableArray*)classNameArray {
+    
+    if (!_classNameArray) {
+        _classNameArray = [[NSMutableArray alloc] init];
+    }
+    
+    return _classNameArray;
+}
+
+- (NSMutableArray*)kindIdArray {
+    
+    if (!_kindIdArray) {
+        _kindIdArray = [[NSMutableArray alloc] init];
+    }
+    
+    return _kindIdArray;
 }
 
 - (void)tabBarCenterAction {
@@ -46,8 +57,8 @@
         if ([[MineManager sharedInstance] getMyInfo].cId.length > 0) { //申请主播
             
             UserLiveRootViewController *vc = [[UserLiveRootViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
-            //   [self.navigationController presentViewController:vc animated:YES completion:nil];
+            //[self.navigationController pushViewController:vc animated:YES];
+            [self.navigationController presentViewController:vc animated:YES completion:nil];
         } else {
             //NSLocalizedString
             [self presentViewController:[Utility createNoticeAlertWithContent:@"请先完成主播申请。" okBtnTitle:nil] animated:YES completion:nil];
@@ -72,37 +83,39 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)liveTypeClicked:(id)sender {
+- (void)naviBarView {
     
-    int type = (int)((UIButton*)sender).tag - 100;
-    LiveTypeViewController *vc = [[LiveTypeViewController alloc] init];
-    vc.typeIndex = type;
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (UIView*)naviBarView {
-    
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
-    v.backgroundColor = [UIColor blackColor];
     
     UIImageView *logoIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"live_navi_logo.png"]];
     logoIV.x = 15;
-    logoIV.centerY = (v.height - 20)/2 + 20;
-    [v addSubview:logoIV];
+    logoIV.centerY = (64 - 20)/2 + 20;
+    [self.view addSubview:logoIV];
     
     UIImageView *search = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navibar_search.png"]];
-    search.centerX = v.width - 25;
+    search.centerX = K_UIScreenWidth - 25;
     search.centerY = logoIV.centerY;
-    [v addSubview:search];
+    [self.view addSubview:search];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn addTarget:self action:@selector(loadSearchPage) forControlEvents:UIControlEventTouchUpInside];
     btn.width = search.width + 20;
     btn.height = search.height + 20;
     btn.center = search.center;
-    [v addSubview:btn];
-//
-    return v;
+    [self.view addSubview:btn];
+
+//    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 64-0.5, K_UIScreenWidth, 0.5)];
+//    line.backgroundColor = UIColor_line_d2d2d2;
+//    [self.view addSubview:line];
+    
+}
+
+- (instancetype)init
+{
+    if (self = [super initWithTagViewHeight:44])
+    {
+        
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -111,70 +124,36 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UIView *naviBar = [self naviBarView];
-    [self.view addSubview:naviBar];
+    self.tabCollViewRect = CGRectMake(60, 20, K_UIScreenWidth-120, 44);
     
-    self.contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.maxY, K_UIScreenWidth, K_UIScreenHeight - self.navigationController.navigationBar.maxY - self.tabBarController.tabBar.height)];
-    _contentView.showsVerticalScrollIndicator = NO;
-    _contentView.showsHorizontalScrollIndicator = NO;
-    [self.view addSubview:_contentView];
+    NSArray *titleArray = @[
+                            @"分类1",
+                            @"分类2",
+                            @"分类3",
+                            @"分类4"
+                            ];
     
-    UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(K_UIScreenWidth, K_UIScreenWidth*3/4);
-    layout.minimumInteritemSpacing = 0;
-    layout.minimumLineSpacing = 0;
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    self.bannerView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, K_UIScreenWidth*3/4) collectionViewLayout:layout];
-    _bannerView.backgroundColor = [UIColor whiteColor];
-    _bannerView.delegate = self;
-    _bannerView.dataSource = self;
-    _bannerView.showsHorizontalScrollIndicator = NO;
-    _bannerView.showsVerticalScrollIndicator = NO;
-    [_bannerView registerClass:[LiveBannerCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
-    [_contentView addSubview:_bannerView];
-    _bannerView.backgroundColor = [UIColor blackColor];
+    NSArray *classNames = @[
+                            [OfficialLiveViewController class],
+                            [OfficialLiveViewController class],[OfficialLiveViewController class],
+                            [OfficialLiveViewController class]
+                            ];
     
-    CGFloat centerX = 20 + (K_UIScreenWidth-40)/6;
-    CGFloat centerY = _bannerView.maxY + 53;
-    UIImageView *typeIV;
-    UILabel *title;
-    UIButton *btn;
-    for (int i = 0; i < 6; i++) {
-        
-        typeIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"live_type_%d.png",i]]];
-        typeIV.centerX = centerX;
-        typeIV.centerY = centerY;
-        [_contentView addSubview:typeIV];
-        
-        OfficialLiveType *type = [[LiveManager getOfficialLiveTypeList] objectAtIndex:i];
-        
-        title = [UILabel createLabelWithFrame:CGRectZero text:type.liveTypeName textColor:[UIColor grayColor] font:[UIFont systemFontOfSize:12]];
-        [title sizeToFit];
-        title.centerX = typeIV.centerX;
-        title.y = typeIV.centerY + 34;
-        [_contentView addSubview:title];
-        
-        btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn addTarget:self action:@selector(liveTypeClicked:) forControlEvents:UIControlEventTouchUpInside];
-        btn.frame = typeIV.frame;
-        btn.tag = i + 100;
-        [_contentView addSubview:btn];
-        
-        if ((i+1)%3==0) {
-            
-            centerX = 20 + (K_UIScreenWidth-40)/6;
-            centerY += 105;
-            
-        } else {
-            
-            centerX += (K_UIScreenWidth-40)/3;
-        }
-    }
+    NSArray *params = @[
+                        @"1",
+                        @"2",
+                        @"2",
+                        @"3"
+                        ];
     
-    _contentView.contentSize = CGSizeMake(_contentView.width, title.maxY + 20);
+    [self reloadDataWith:titleArray andSubViewdisplayClasses:classNames withParams:params];
     
-    //tabbar中间按钮相应
+    
+    
+    [self naviBarView];
+
+    
+        //tabbar中间按钮相应
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tabBarCenterAction) name:@"tabBarCenterAction" object:nil];
     
     //test facebook
@@ -190,47 +169,8 @@
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = YES;
     
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
-    if ([LiveManager liveBannerNeedUpdate] || !self.bannerList.count) {
-        
-        [LiveManager updateLiveBannerLastUpdateTime:[NSDate date]];
-        
-        [[LiveManager sharedInstance] getLiveBannerCompletion:^(NSArray * _Nullable channelList, NSError * _Nullable error) {
-            
-            if (error) {
-                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
-            } else {
-                
-                BOOL needUpdate = NO;
-                if (channelList.count != self.bannerList.count) {
-                    needUpdate = YES;
-                } else {
-                    
-                    if (channelList.count != 0) {
-                        
-                        for (int i = 0; i < channelList.count; i++) {
-                            
-                            if (![LogicManager isSameLiveChannelModel:[channelList objectAtIndex:i] other:[self.bannerList objectAtIndex:i]]) {
-                                needUpdate = YES;
-                                break;
-                            }
-                        }
-                    }
-                }
-                
-                if (needUpdate) {
-                    [self.bannerList removeAllObjects];
-                    [self.bannerList addObjectsFromArray:channelList];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        [self.bannerView reloadData];
-                        
-                    });
-                }
-            }
-        }];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -238,26 +178,6 @@
     [super viewWillDisappear:animated];
     
     self.navigationController.navigationBar.hidden = NO;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
-    return self.bannerList.count;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    LiveBannerCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.channelModel = [self.bannerList objectAtIndex:indexPath.row];
-    
-    return cell;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    LivePlayViewController *vc = [[LivePlayViewController alloc] init];
-    vc.liveChannelModel = [self.bannerList objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

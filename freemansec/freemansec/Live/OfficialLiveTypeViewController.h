@@ -1,5 +1,5 @@
 //
-//  LiveTypeViewController.h
+//  OfficialLiveTypeViewController.h
 //  freemansec
 //
 //  Created by adamwu on 2017/7/12.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LiveTypeViewController : UIViewController
+@interface OfficialLiveTypeViewController : UIViewController
 
 @property (nonatomic,assign) int typeIndex;
 @end

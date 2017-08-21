@@ -33,11 +33,15 @@
 - (UIView*)naviBarView {
     
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, 64)];
-    v.backgroundColor = [UIColor blackColor];
+    v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"热门视频" color:[UIColor whiteColor]]; //NSLocalizedString
+    UIView *title = [self commNaviTitle:@"热门视频" color:UIColor_navititle]; //NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, v.height-0.5, v.width, 0.5)];
+    line.backgroundColor = UIColor_line_d2d2d2;
+    [v addSubview:line];
     
     return v;
 }
@@ -125,7 +129,7 @@
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = YES;
     
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
 }
 

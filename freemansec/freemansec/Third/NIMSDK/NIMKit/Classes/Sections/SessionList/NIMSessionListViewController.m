@@ -184,7 +184,7 @@
              atIndexPath:(NSIndexPath *)indexPath{};
 
 - (void)onSelectedRecent:(NIMRecentSession *)recentSession atIndexPath:(NSIndexPath *)indexPath{
-    NIMSessionViewController *vc = [[NIMSessionViewController alloc] initWithSession:recentSession.session];
+    NIMSessionViewController *vc = [[NIMSessionViewController alloc] initWithSession:recentSession.session withRect:self.view.bounds];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

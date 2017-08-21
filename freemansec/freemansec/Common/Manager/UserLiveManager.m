@@ -52,10 +52,10 @@ static UserLiveManager *instance;
     }];
 }
 
-- (void)getChatroomInfoNeedOnlineUserCount:(NSString*_Nullable)need completion:(GetChatroomInfoCompletion _Nullable)completion {
+- (void)getChatroomInfoCompletion:(GetChatroomInfoCompletion _Nullable)completion {
     
     UserLiveHttpService *service = [[UserLiveHttpService alloc] init];
-    [service getChatroomInfoNeedOnlineUserCount:need accId:[MineManager sharedInstance].IMToken.accId completion:^(id obj, NSError *err) {
+    [service getChatroomInfoNeedOnlineUserCount:@"true" accId:[MineManager sharedInstance].IMToken.accId completion:^(id obj, NSError *err) {
         
         if (err) {
             

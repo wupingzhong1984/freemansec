@@ -21,9 +21,9 @@
 
 @implementation FSChatroomViewController
 
-- (instancetype)initWithChatroom:(NIMChatroom *)chatroom
+- (instancetype)initWithChatroom:(NIMChatroom *)chatroom  withRect:(CGRect)rect
 {
-    self = [super initWithSession:[NIMSession session:chatroom.roomId type:NIMSessionTypeChatroom]];
+    self = [super initWithSession:[NIMSession session:chatroom.roomId type:NIMSessionTypeChatroom] withRect:rect];
     if (self) {
         _chatroom = chatroom;
     }
@@ -37,6 +37,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+    self.tableView.backgroundColor = [UIColor clearColor];
     [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
 }
 
@@ -66,6 +68,7 @@
     NIMChatroomMember *member = [[NTESChatroomManager sharedInstance] myInfo:self.chatroom.roomId];
     message.remoteExt = @{@"type":@(member.type)};
     [super sendMessage:message];
+
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
@@ -103,7 +106,6 @@
     }
     return _config;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

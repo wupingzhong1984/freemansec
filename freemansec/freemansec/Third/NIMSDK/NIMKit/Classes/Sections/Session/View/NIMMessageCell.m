@@ -80,7 +80,7 @@
     _nameLabel.backgroundColor = [UIColor clearColor];
     _nameLabel.opaque = YES;
     _nameLabel.font = [UIFont systemFontOfSize:13.0];
-    [_nameLabel setTextColor:[UIColor darkGrayColor]];
+    [_nameLabel setTextColor:[UIColor whiteColor]];
     [_nameLabel setHidden:YES];
     [self.contentView addSubview:_nameLabel];
     
@@ -209,7 +209,7 @@
 - (void)layoutNameLabel
 {
     if ([self needShowNickName]) {
-        CGFloat otherBubbleOriginX  = self.cellPaddingToNick;
+        CGFloat otherBubbleOriginX  = [self needShowAvatar]?self.cellPaddingToNick:self.cellPaddingToProtrait;
         CGFloat otherBubbleOriginy  = -3.f;
         CGFloat otherNickNameWidth  = 200.f;
         CGFloat otherNickNameHeight = 20.f;

@@ -19,7 +19,7 @@ typedef void(^SendMsgCompletion)(NSError* _Nullable error);
 
 - (void)createChatroom:(NSString* _Nullable)roomName announcement:(NSString* _Nullable)announcement broadCastUrl:(NSString*_Nullable)broadCasturl completion:(CreateChatroomCompletion _Nullable)completion;
 
-- (void)getChatroomInfoNeedOnlineUserCount:(NSString*_Nullable)need completion:(GetChatroomInfoCompletion _Nullable)completion; //need: "true" or "false"
+- (void)getChatroomInfoCompletion:(GetChatroomInfoCompletion _Nullable)completion; //need: "true" or "false"
 
 - (void)sendChatroomMsg:(NSString*_Nullable)content msgType:(NSString*_Nullable)msgType roomId:(NSString*_Nullable)roomId completion:(SendMsgCompletion _Nullable)completion;
 @end

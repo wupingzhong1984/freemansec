@@ -13,6 +13,14 @@
 #import "NIMSessionConfigurateProtocol.h"
 #import "NIMInputView.h"
 
+
+@protocol NIMSessionViewControllerDelegate <NSObject>
+
+@optional
+-(void)NIMSessionViewControllerDelegateEndEditing;
+
+@end
+
 @interface NIMSessionViewController : UIViewController<NIMSessionInteractorDelegate,NIMInputActionDelegate,NIMMessageCellDelegate,NIMChatManagerDelegate,NIMConversationManagerDelegate>
 
 @property (nonatomic, strong)  UITableView *tableView;
@@ -21,7 +29,7 @@
 
 @property (nonatomic, strong)  NIMSession *session;
 
-
+@property (nonatomic,assign) id<NIMSessionViewControllerDelegate> delegate;
 
 
 /**
@@ -54,7 +62,7 @@
  *
  *  @return 会话页实例
  */
-- (instancetype)initWithSession:(NIMSession *)session;
+- (instancetype)initWithSession:(NIMSession *)session withRect:(CGRect)rect;
 
 
 #pragma mark - 界面

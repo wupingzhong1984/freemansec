@@ -53,7 +53,7 @@
 - (UIView*)naviBarView {
     
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, 20)];
-    v.backgroundColor = [UIColor blackColor];
+    v.backgroundColor = UIColor_navibg;
     
     return v;
 }
@@ -87,7 +87,7 @@
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = YES;
     
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
     [_tableView reloadData];
     

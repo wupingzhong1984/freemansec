@@ -7,7 +7,6 @@
 //
 
 #import "NIMInputToolBar.h"
-#import "NIMGrowingTextView.h"
 #import "UIView+NIM.h"
 #import "UIImage+NIMKit.h"
 #import "NIMInputBarItemType.h"
@@ -19,8 +18,6 @@
 @property (nonatomic,strong) UIView *sep;
 
 @property (nonatomic,copy)  NSDictionary *dict;
-
-@property (nonatomic,strong) NIMGrowingTextView *inputTextView;
 
 @property (nonatomic,assign) NIMInputStatus status;
 

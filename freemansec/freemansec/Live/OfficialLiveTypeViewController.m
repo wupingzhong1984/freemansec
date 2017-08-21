@@ -1,19 +1,19 @@
 //
-//  LiveTypeViewController.m
+//  OfficialLiveTypeViewController.m
 //  freemansec
 //
 //  Created by adamwu on 2017/7/12.
 //  Copyright © 2017年 adamwu. All rights reserved.
 //
 
-#import "LiveTypeViewController.h"
+#import "OfficialLiveTypeViewController.h"
 #import "CustomNaviController.h"
 #import "LivePlayViewController.h"
 #import "LiveTypeChannelCollectionViewCell.h"
 #import "LiveManager.h"
 #import "OfficialLiveType.h"
 
-@interface LiveTypeViewController ()
+@interface OfficialLiveTypeViewController ()
 <UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,strong) NSMutableArray *channelList;
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation LiveTypeViewController
+@implementation OfficialLiveTypeViewController
 
 - (NSMutableArray*)channelList {
     
@@ -41,10 +41,10 @@
 - (UIView*)naviBarView {
     
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
-    v.backgroundColor = [UIColor blackColor];
+    v.backgroundColor = UIColor_navibg;
     
     OfficialLiveType *type = [[LiveManager getOfficialLiveTypeList] objectAtIndex:_typeIndex];
-    [v addSubview:[self commNaviTitle:type.liveTypeName color:[UIColor whiteColor]]];
+    [v addSubview:[self commNaviTitle:type.liveTypeName color:UIColor_navititle]];
     
     UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_gray.png"]];
     back.centerX = 25;
@@ -57,6 +57,10 @@
     btn.height = back.height + 20;
     btn.center = back.center;
     [v addSubview:btn];
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, v.height-0.5, v.width, 0.5)];
+    line.backgroundColor = UIColor_line_d2d2d2;
+    [v addSubview:line];
     
     return v;
 }
@@ -116,7 +120,7 @@
     
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = YES;
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
 }
 

@@ -35,8 +35,7 @@ static NSString* SendMsgPath = @"Ajax/sendMsg.ashx";
                          completion(nil, nil);
                      }
                      
-                     NSDictionary *entity = [(NSArray*)response.data objectAtIndex:0];
-                     NSString *roomId = [entity objectForKey:@"roomid"];
+                     NSString *roomId = [(NSDictionary*)response.data objectForKey:@"roomid"];
                      if(roomId == nil){
                          
                          NSLog(@"%@", err);
@@ -66,7 +65,7 @@ static NSString* SendMsgPath = @"Ajax/sendMsg.ashx";
                          completion(nil, nil);
                      }
                      
-                     ChatroomInfoModel* model = [[ChatroomInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
+                     ChatroomInfoModel* model = [[ChatroomInfoModel alloc] initWithDictionary:(NSDictionary*)response.data error:&err];
                      if(model == nil){
                          
                          NSLog(@"%@", err);

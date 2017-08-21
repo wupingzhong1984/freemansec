@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface XBScrollPageController : UIViewController
+@property (nonatomic,assign) CGRect tabCollViewRect;
+@property (nonatomic,strong) UICollectionView *tagCollectionView; /**< 标签View */
 @property (nonatomic,strong) UIFont *normalTitleFont; /**< 正常(非选中)标签字体  default is 14*/
 @property (nonatomic,strong) UIFont *selectedTitleFont; /**< 选中状态标签字体  default is 16*/
 

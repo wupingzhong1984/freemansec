@@ -9,5 +9,5 @@
 #import "NIMSessionViewController.h"
 
 @interface FSChatroomViewController : NIMSessionViewController
-- (instancetype)initWithChatroom:(NIMChatroom *)chatroom;
+- (instancetype)initWithChatroom:(NIMChatroom *)chatroom withRect:(CGRect)rect;
 @end

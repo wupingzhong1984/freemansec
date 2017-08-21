@@ -33,9 +33,9 @@
 - (UIView*)naviBarView {
     
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
-    v.backgroundColor = [UIColor blackColor];
+    v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:_videoModel.videoName color:[UIColor whiteColor]];
+    UIView *title = [self commNaviTitle:_videoModel.videoName color:UIColor_navititle];
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -50,6 +50,13 @@
     btn.height = back.height + 20;
     btn.center = back.center;
     [v addSubview:btn];
+    
+    //todo
+    //收藏
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, v.height-0.5, v.width, 0.5)];
+    line.backgroundColor = UIColor_line_d2d2d2;
+    [v addSubview:line];
     
     return v;
 }
@@ -144,7 +151,7 @@
     
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = YES;
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
     [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
     [self.playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];// 监听loadedTimeRanges属性

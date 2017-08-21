@@ -34,9 +34,9 @@ SetTelCodeViewControllerDelegate>
 - (UIView*)naviBarView {
     
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
-    v.backgroundColor = [UIColor blackColor];
+    v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?@"重设密码":@"忘记密码") color:[UIColor whiteColor]];//NSLocalizedString
+    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?@"重设密码":@"忘记密码") color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -51,6 +51,10 @@ SetTelCodeViewControllerDelegate>
     btn.height = back.height + 20;
     btn.center = back.center;
     [v addSubview:btn];
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, v.height-0.5, v.width, 0.5)];
+    line.backgroundColor = UIColor_line_d2d2d2;
+    [v addSubview:line];
     
     return v;
 }
@@ -252,7 +256,7 @@ SetTelCodeViewControllerDelegate>
     
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = YES;
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
 }
 

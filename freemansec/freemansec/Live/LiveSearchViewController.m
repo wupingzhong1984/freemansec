@@ -43,7 +43,7 @@ UICollectionViewDelegate,UICollectionViewDataSource>
 - (UIView*)naviBarView {
     
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
-    v.backgroundColor = [UIColor blackColor];
+    v.backgroundColor = UIColor_navibg;
     
     UIView *whiteBg = [[UIView alloc] init];
     whiteBg.backgroundColor = [UIColor whiteColor];
@@ -75,6 +75,10 @@ UICollectionViewDelegate,UICollectionViewDataSource>
     btn.x = v.width - btn.width;
     btn.centerY = whiteBg.centerY;
     [v addSubview:btn];
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, v.height-0.5, v.width, 0.5)];
+    line.backgroundColor = UIColor_line_d2d2d2;
+    [v addSubview:line];
     
     return v;
 }

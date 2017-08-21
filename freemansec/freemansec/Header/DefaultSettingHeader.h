@@ -47,6 +47,8 @@
 
 
 #define UIColor_line_d2d2d2 (UIColorFromRGB(0xd2d2d2))
+#define UIColor_navibg [UIColor whiteColor]
+#define UIColor_navititle [UIColor blackColor]
 #define UIColor_vc_bgcolor_lightgray (UIColorFromRGB(0xf2f2f2))
 #define UIColor_textfield_placecolor (UIColorFromRGB(0xc0c0c0)) //light gray
 #define UIColor_0a6ed2 (UIColorFromRGB(0x0a6ed2))

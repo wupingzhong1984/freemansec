@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NIMGrowingTextView.h"
 
 typedef NS_ENUM(NSInteger,NIMInputStatus)
 {
@@ -55,6 +56,8 @@ typedef NS_ENUM(NSInteger,NIMInputStatus)
 @property (nonatomic,assign) BOOL showsKeyboard;
 
 @property (nonatomic,assign) NSArray *inputBarItemTypes;
+
+@property (nonatomic,strong) NIMGrowingTextView *inputTextView;
 
 - (void)update:(NIMInputStatus)status;
 

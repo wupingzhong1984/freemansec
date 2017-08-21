@@ -13,7 +13,6 @@
 #import "XBTagTitleModel.h"
 @interface XBScrollPageController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (nonatomic,assign) CGFloat tagViewHeight;   /**< 标签高度  */
-@property (nonatomic,strong) UICollectionView *tagCollectionView; /**< 标签View */
 @property (nonatomic,strong) UICollectionViewFlowLayout *tagFlowLayout;
 
 @property (nonatomic,strong) UICollectionView *pageCollectionView; /**< 页面展示View  */
@@ -66,7 +65,7 @@
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    self.tagCollectionView.frame = CGRectMake(0, 64, XBScreenWidth, self.tagViewHeight);
+    self.tagCollectionView.frame = _tabCollViewRect;
     self.pageCollectionView.frame = CGRectMake(0, self.tagCollectionView.maxY, XBScreenWidth, self.view.frame.size.height - self.tagCollectionView.maxY);
 }
 
@@ -307,11 +306,11 @@
 }
 - (void)reloadDataWith:(NSArray *)titleArray andSubViewdisplayClasses:(NSArray *)classes withParams:(NSArray *)params
 {
-    if (titleArray.count < 4) {
+    if (titleArray.count < 3) {
         
-        self.tagItemSize = (CGSize){XBScreenWidth/titleArray.count,_tagViewHeight};
+        self.tagItemSize = (CGSize){_tabCollViewRect.size.width/titleArray.count,_tagViewHeight};
     } else {
-        self.tagItemSize = (CGSize){XBScreenWidth/3.5,_tagViewHeight};
+        self.tagItemSize = (CGSize){_tabCollViewRect.size.width/2.5,_tagViewHeight};
     }
     
     [self convertKeyValue2Model:titleArray];

@@ -34,14 +34,16 @@
 
 @property (nonatomic,weak)    id<NIMSessionInteractor> interactor;
 
+
 @end
 
 @implementation NIMSessionViewController
 
-- (instancetype)initWithSession:(NIMSession *)session{
+- (instancetype)initWithSession:(NIMSession *)session withRect:(CGRect)rect{
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _session = session;
+        self.view.frame = rect;
     }
     return self;
 }
@@ -84,14 +86,12 @@
 
 - (void)setupTableView
 {
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    self.tableView.backgroundColor = NIMKit_UIColorFromRGB(0xe4e7ec);
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height) style:UITableViewStylePlain];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.tableView];
 }
-
 
 - (void)setupInputView
 {
@@ -143,8 +143,6 @@
     [self.interactor resetLayout];
 }
 
-
-
 #pragma mark - 消息收发接口
 - (void)sendMessage:(NIMMessage *)message
 {
@@ -157,6 +155,10 @@
 {
     [super touchesBegan:touches withEvent:event];
     [_sessionInputView endEditing:YES];
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(NIMSessionViewControllerDelegateEndEditing)]) {
+                [_delegate NIMSessionViewControllerDelegateEndEditing];
+            }
 }
 
 

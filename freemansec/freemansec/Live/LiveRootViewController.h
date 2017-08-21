@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XBScrollPageController.h"
 
-@interface LiveRootViewController : UIViewController
+@interface LiveRootViewController : XBScrollPageController
 
 @end

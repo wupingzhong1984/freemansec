@@ -210,6 +210,12 @@
 		2F9999601F48585800656DF0 /* FSChatroomConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F99995F1F48585800656DF0 /* FSChatroomConfig.m */; };
 		2F9999631F4858AB00656DF0 /* FSChatroomMessageDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9999621F4858AB00656DF0 /* FSChatroomMessageDataProvider.m */; };
 		2F9999661F485D5700656DF0 /* NTESSessionMsgConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9999651F485D5700656DF0 /* NTESSessionMsgConverter.m */; };
+		2F9999691F4A8F7000656DF0 /* OfficialLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9999681F4A8F6F00656DF0 /* OfficialLiveViewController.m */; };
+		2F99996E1F4AA0A700656DF0 /* NIMDemoChartlet.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2F99996A1F4AA0A700656DF0 /* NIMDemoChartlet.bundle */; };
+		2F99996F1F4AA0A700656DF0 /* NIMKitEmoticon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2F99996B1F4AA0A700656DF0 /* NIMKitEmoticon.bundle */; };
+		2F9999701F4AA0A700656DF0 /* NIMKitResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2F99996C1F4AA0A700656DF0 /* NIMKitResource.bundle */; };
+		2F9999711F4AA0A700656DF0 /* NIMKitSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2F99996D1F4AA0A700656DF0 /* NIMKitSettings.bundle */; };
+		2F9999741F4AA30900656DF0 /* NTESChatroomTextContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9999731F4AA30900656DF0 /* NTESChatroomTextContentView.m */; };
 		2F9EEE511F2348F000E161C3 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9EEE501F2348F000E161C3 /* Utility.m */; };
 		2F9EEE541F23521200E161C3 /* SetTelCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9EEE531F23521200E161C3 /* SetTelCodeViewController.m */; };
 		2F9EEE5A1F238F0300E161C3 /* ForgetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9EEE591F238F0300E161C3 /* ForgetPwdViewController.m */; };
@@ -274,7 +280,7 @@
 		2FAF317C1F16175E004329ED /* navibar_search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FAF317A1F16175E004329ED /* navibar_search@3x.png */; };
 		2FAF31831F162657004329ED /* banner_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FAF31811F162657004329ED /* banner_play@2x.png */; };
 		2FAF31841F162657004329ED /* banner_play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FAF31821F162657004329ED /* banner_play@3x.png */; };
-		2FAF31871F1666C8004329ED /* LiveTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF31861F1666C8004329ED /* LiveTypeViewController.m */; };
+		2FAF31871F1666C8004329ED /* OfficialLiveTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF31861F1666C8004329ED /* OfficialLiveTypeViewController.m */; };
 		2FAF31941F166DA8004329ED /* tab_img_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FAF318C1F166DA8004329ED /* tab_img_0@2x.png */; };
 		2FAF31951F166DA8004329ED /* tab_img_0@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FAF318D1F166DA8004329ED /* tab_img_0@3x.png */; };
 		2FAF31961F166DA8004329ED /* tab_img_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FAF318E1F166DA8004329ED /* tab_img_1@2x.png */; };
@@ -833,6 +839,14 @@
 		2F9999621F4858AB00656DF0 /* FSChatroomMessageDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSChatroomMessageDataProvider.m; sourceTree = "<group>"; };
 		2F9999641F485D5700656DF0 /* NTESSessionMsgConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESSessionMsgConverter.h; sourceTree = "<group>"; };
 		2F9999651F485D5700656DF0 /* NTESSessionMsgConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESSessionMsgConverter.m; sourceTree = "<group>"; };
+		2F9999671F4A8F6F00656DF0 /* OfficialLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficialLiveViewController.h; sourceTree = "<group>"; };
+		2F9999681F4A8F6F00656DF0 /* OfficialLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficialLiveViewController.m; sourceTree = "<group>"; };
+		2F99996A1F4AA0A700656DF0 /* NIMDemoChartlet.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NIMDemoChartlet.bundle; sourceTree = "<group>"; };
+		2F99996B1F4AA0A700656DF0 /* NIMKitEmoticon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NIMKitEmoticon.bundle; sourceTree = "<group>"; };
+		2F99996C1F4AA0A700656DF0 /* NIMKitResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NIMKitResource.bundle; sourceTree = "<group>"; };
+		2F99996D1F4AA0A700656DF0 /* NIMKitSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NIMKitSettings.bundle; sourceTree = "<group>"; };
+		2F9999721F4AA30900656DF0 /* NTESChatroomTextContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESChatroomTextContentView.h; sourceTree = "<group>"; };
+		2F9999731F4AA30900656DF0 /* NTESChatroomTextContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESChatroomTextContentView.m; sourceTree = "<group>"; };
 		2F9EEE4F1F2348F000E161C3 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		2F9EEE501F2348F000E161C3 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		2F9EEE521F23521200E161C3 /* SetTelCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTelCodeViewController.h; sourceTree = "<group>"; };
@@ -959,8 +973,8 @@
 		2FAF317A1F16175E004329ED /* navibar_search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navibar_search@3x.png"; sourceTree = "<group>"; };
 		2FAF31811F162657004329ED /* banner_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner_play@2x.png"; sourceTree = "<group>"; };
 		2FAF31821F162657004329ED /* banner_play@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner_play@3x.png"; sourceTree = "<group>"; };
-		2FAF31851F1666C8004329ED /* LiveTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveTypeViewController.h; sourceTree = "<group>"; };
-		2FAF31861F1666C8004329ED /* LiveTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveTypeViewController.m; sourceTree = "<group>"; };
+		2FAF31851F1666C8004329ED /* OfficialLiveTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficialLiveTypeViewController.h; sourceTree = "<group>"; };
+		2FAF31861F1666C8004329ED /* OfficialLiveTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficialLiveTypeViewController.m; sourceTree = "<group>"; };
 		2FAF318C1F166DA8004329ED /* tab_img_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_img_0@2x.png"; sourceTree = "<group>"; };
 		2FAF318D1F166DA8004329ED /* tab_img_0@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_img_0@3x.png"; sourceTree = "<group>"; };
 		2FAF318E1F166DA8004329ED /* tab_img_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_img_1@2x.png"; sourceTree = "<group>"; };
@@ -2478,8 +2492,10 @@
 				2FAF30DE1F1605BD004329ED /* LiveRootViewController.m */,
 				2FAF30DF1F1605BD004329ED /* LiveSearchViewController.h */,
 				2FAF30E01F1605BD004329ED /* LiveSearchViewController.m */,
-				2FAF31851F1666C8004329ED /* LiveTypeViewController.h */,
-				2FAF31861F1666C8004329ED /* LiveTypeViewController.m */,
+				2FAF31851F1666C8004329ED /* OfficialLiveTypeViewController.h */,
+				2FAF31861F1666C8004329ED /* OfficialLiveTypeViewController.m */,
+				2F9999671F4A8F6F00656DF0 /* OfficialLiveViewController.h */,
+				2F9999681F4A8F6F00656DF0 /* OfficialLiveViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -2645,6 +2661,8 @@
 		2FCBD7C11F44287A00F21A60 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				2F9999721F4AA30900656DF0 /* NTESChatroomTextContentView.h */,
+				2F9999731F4AA30900656DF0 /* NTESChatroomTextContentView.m */,
 				2F9999641F485D5700656DF0 /* NTESSessionMsgConverter.h */,
 				2F9999651F485D5700656DF0 /* NTESSessionMsgConverter.m */,
 				2FCBD9DD1F45A02500F21A60 /* NTESChatroomMaker.h */,
@@ -2699,6 +2717,10 @@
 		2FCBD7CE1F4430BE00F21A60 /* NIMKit */ = {
 			isa = PBXGroup;
 			children = (
+				2F99996A1F4AA0A700656DF0 /* NIMDemoChartlet.bundle */,
+				2F99996B1F4AA0A700656DF0 /* NIMKitEmoticon.bundle */,
+				2F99996C1F4AA0A700656DF0 /* NIMKitResource.bundle */,
+				2F99996D1F4AA0A700656DF0 /* NIMKitSettings.bundle */,
 				2FCBD7CF1F4430BE00F21A60 /* Classes */,
 				2FCBD8E61F4430BE00F21A60 /* Vendors */,
 			);
@@ -3393,6 +3415,7 @@
 				2F869E2F1F374A27005C8212 /* emailverify_icon_notice@3x.png in Resources */,
 				2FAF31961F166DA8004329ED /* tab_img_1@2x.png in Resources */,
 				2F869E311F374A27005C8212 /* emailverify_notice_bg@3x.png in Resources */,
+				2F9999711F4AA0A700656DF0 /* NIMKitSettings.bundle in Resources */,
 				2F22DF6C1F21D63F0039316B /* p3@2x.png in Resources */,
 				2FAF317C1F16175E004329ED /* navibar_search@3x.png in Resources */,
 				2F9999551F46EB8300656DF0 /* searchbar_icon@3x.png in Resources */,
@@ -3449,6 +3472,7 @@
 				2F869E061F36F3D5005C8212 /* mineroot_cell_img_1@3x.png in Resources */,
 				2F9999521F46EB8300656DF0 /* navi_back_gray@2x.png in Resources */,
 				2F869E0C1F36F3D5005C8212 /* mineroot_cell_img_4@3x.png in Resources */,
+				2F99996E1F4AA0A700656DF0 /* NIMDemoChartlet.bundle in Resources */,
 				2F22DF681F21D63F0039316B /* p1@2x.png in Resources */,
 				2F9999501F46EB8300656DF0 /* mycenter_headbg@2x.png in Resources */,
 				2F22DF541F20A4E00039316B /* live_type_5@3x.png in Resources */,
@@ -3511,6 +3535,7 @@
 				2FAF31951F166DA8004329ED /* tab_img_0@3x.png in Resources */,
 				2F9999561F46EB8300656DF0 /* tel_code_downward@2x.png in Resources */,
 				2F6980E01F1BA87F0083E785 /* play_bar_voice@3x.png in Resources */,
+				2F9999701F4AA0A700656DF0 /* NIMKitResource.bundle in Resources */,
 				2F6980E81F1BAED60083E785 /* play_bar_play@3x.png in Resources */,
 				2FC4CF791F3C18F3002DF8D8 /* realnameverify_icon_add@3x.png in Resources */,
 				2F99994E1F46EB8300656DF0 /* live_userhead_bg_gray@2x.png in Resources */,
@@ -3529,6 +3554,7 @@
 				2F22DF4F1F20A4E00039316B /* live_type_3@2x.png in Resources */,
 				2F22DF531F20A4E00039316B /* live_type_5@2x.png in Resources */,
 				2F869E381F37534B005C8212 /* forgetpwd_phone@2x.png in Resources */,
+				2F99996F1F4AA0A700656DF0 /* NIMKitEmoticon.bundle in Resources */,
 				2F22DF491F20A4E00039316B /* live_type_0@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3647,6 +3673,7 @@
 				2FCBD9501F4430BE00F21A60 /* NIMSessionViewController.m in Sources */,
 				2F869C161F35F29B005C8212 /* README.md in Sources */,
 				2FCBD9301F4430BE00F21A60 /* NIMNotificationContentConfig.m in Sources */,
+				2F9999691F4A8F7000656DF0 /* OfficialLiveViewController.m in Sources */,
 				2F869BF91F35F29A005C8212 /* README.markdown in Sources */,
 				2FCBD9451F4430BE00F21A60 /* NIMSessionFileTransContentView.m in Sources */,
 				2F869C031F35F29B005C8212 /* NSMutableAttributedString+M80.m in Sources */,
@@ -3773,6 +3800,7 @@
 				2FCBD9D81F443CC300F21A60 /* NSImage+WebCache.m in Sources */,
 				2FCBD9921F44363D00F21A60 /* NTESSessionUtil.m in Sources */,
 				2FE7FF061F2CD7A0007DFCC0 /* NickNameViewController.m in Sources */,
+				2F9999741F4AA30900656DF0 /* NTESChatroomTextContentView.m in Sources */,
 				2FCBD9181F4430BE00F21A60 /* NIMContactSelectViewController.m in Sources */,
 				2FCBD9571F4430BE00F21A60 /* NIMTeamInfoData.m in Sources */,
 				2F9999371F46CEF800656DF0 /* LiveHotWordModel.m in Sources */,
@@ -3832,7 +3860,7 @@
 				2FCBD90A1F4430BE00F21A60 /* NIMBadgeView.m in Sources */,
 				2FAF31721F1605BD004329ED /* VideoRootViewController.m in Sources */,
 				2FCBD90E1F4430BE00F21A60 /* NIMLoadProgressView.m in Sources */,
-				2FAF31871F1666C8004329ED /* LiveTypeViewController.m in Sources */,
+				2FAF31871F1666C8004329ED /* OfficialLiveTypeViewController.m in Sources */,
 				2F9EEE8A1F25C25A00E161C3 /* UIView+MJExtension.m in Sources */,
 				2FAF314B1F1605BD004329ED /* LiveSearchViewController.m in Sources */,
 				2FCBD92C1F4430BE00F21A60 /* NIMBaseSessionContentConfig.m in Sources */,
