@@ -13,6 +13,8 @@
 #import "PlayerView.h"
 #import "NTESBundleSetting.h"
 #import "NTESChatroomManager.h"
+#import "FSChatroomViewController.h"
+#import "NTESLoginManager.h"
 
 @interface UserLivePlayViewController ()
 {
@@ -30,12 +32,21 @@
 @property (nonatomic,strong) NSTimer *roomInfoRefreshTimer;
 @property (nonatomic,strong) NIMChatroom *chatroom;
 @property (nonatomic,strong) NIMChatroomMember *roomMemberMe;
+@property (nonatomic,strong) FSChatroomViewController *chatroomViewController;
+
+@property (nonatomic,strong) UIButton *imBtn;
+@property (nonatomic,strong) UIButton *markBtn;
+@property (nonatomic,strong) UIButton *closeBtn;
 @end
 
 @implementation UserLivePlayViewController
 
 - (void)back {
     
+    if (isInChatroom) {
+        [[[NIMSDK sharedSDK] chatroomManager] exitChatroom:_roomInfo.roomId completion:nil];
+    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -63,41 +74,22 @@
     
 }
 
-- (void)enterChatRoom {
+- (void)IMAction {
     
-    MyInfoModel *myInfo = [[MineManager sharedInstance] getMyInfo];
+    if (!isInChatroom) {
+        //NSLocalizedString
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"聊天室异常" okBtnTitle:nil] animated:YES completion:nil];
+        return;
+    }
     
-    NIMChatroomEnterRequest *request = [[NIMChatroomEnterRequest alloc] init];
-    request.roomId = _roomInfo.roomId;
-    request.roomNickname = myInfo.nickName;
-    request.roomAvatar = myInfo.headImg;
-    request.retryCount = [[NTESBundleSetting sharedConfig] chatroomRetryCount];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    __weak typeof(self) wself = self;
-    [[[NIMSDK sharedSDK] chatroomManager] enterChatroom:request
-                                             completion:^(NSError *error,NIMChatroom *chatroom,NIMChatroomMember *me) {
-                                                 [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                                 
-                                                 if (error == nil)
-                                                 {
-                                                     
-                                                     self.chatroom = chatroom;
-                                                     self.roomMemberMe = me;
-                                                     [[NTESChatroomManager sharedInstance] cacheMyInfo:me roomId:chatroom.roomId];
-                                                     isInChatroom = YES;
-                                                     
-                                                     //todo
-                                                     //load chatroom view
-                                                 }
-                                                 else
-                                                 {
-                                                     NSString *toast = [NSString stringWithFormat:@"进入失败 code:%zd",error.code];
-                                                     [wself.view makeToast:toast duration:2.0 position:CSToastPositionCenter];
-                                                     NNSLog(@"enter room %@ failed %@",chatroom.roomId,error);
-                                                 }
-                                                 
-                                             }];
+    [self.view sendSubviewToBack:_markBtn];
+    [self.view sendSubviewToBack:_imBtn];
+    [self.view sendSubviewToBack:_closeBtn];
+    
+    _chatroomViewController.sessionInputView.hidden = NO;
+    [_chatroomViewController.sessionInputView.toolBar.inputTextView becomeFirstResponder];
 }
+
 
 - (void)closeAction {
     
@@ -109,7 +101,6 @@
             
             [self.playerView.player pause];
             played = NO;
-            [[[NIMSDK sharedSDK] chatroomManager] exitChatroom:_roomInfo.roomId completion:nil];
             [self back];
         }]];
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
@@ -118,22 +109,20 @@
     } else {
         
         played = NO;
-        [[[NIMSDK sharedSDK] chatroomManager] exitChatroom:_roomInfo.roomId completion:nil];
         [self back];
     }
 }
 
-- (void)IMAction {
+- (void)markAction {
     
-    if (!isInChatroom) {
-        //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"聊天室异常，暂时无法聊天。" okBtnTitle:nil] animated:YES completion:nil];
-        return;
-    }
-    
-    //todo
-//    [self.view addSubview:self.inputView];
-//    [_inputTF becomeFirstResponder];
+    [[MineManager sharedInstance] addMyAttentionLiveId:_userLiveChannelModel.cid completion:^(NSError * _Nullable error) {
+        
+        if (error) {
+            [MBProgressHUD showError:@"关注失败！"];//NSLocalizedString
+        } else {
+            [MBProgressHUD showSuccess:@"关注成功！"];//NSLocalizedString
+        }
+    }];
 }
 
 - (void)setupSubViews {
@@ -188,21 +177,29 @@
     _roomPCount.x = countIcon.maxX + 10;
     _roomPCount.centerY = countIcon.centerY;
     
-    UIButton *imBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [imBtn setImage:[UIImage imageNamed:@"live_im_icon.png"] forState:UIControlStateNormal];
-    imBtn.size = [imBtn imageForState:UIControlStateNormal].size;
-    imBtn.y = K_UIScreenHeight-48;
-    imBtn.centerX = K_UIScreenWidth/2-44;
-    [imBtn addTarget:self action:@selector(IMAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:imBtn];
+    self.markBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_markBtn setImage:[UIImage imageNamed:@"live_mark_icon.png"] forState:UIControlStateNormal];
+    _markBtn.size = [_imBtn imageForState:UIControlStateNormal].size;
+    _markBtn.y = K_UIScreenHeight-48;
+    _markBtn.centerX = K_UIScreenWidth/2;
+    [_markBtn addTarget:self action:@selector(markAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_markBtn];
     
-    UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeBtn setImage:[UIImage imageNamed:@"live_close_icon.png"] forState:UIControlStateNormal];
-    closeBtn.size = imBtn.size;
-    closeBtn.y = imBtn.y;
-    closeBtn.centerX = K_UIScreenWidth/2 + 44;
-    [closeBtn addTarget:self action:@selector(closeAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:closeBtn];
+    self.imBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_imBtn setImage:[UIImage imageNamed:@"live_im_icon.png"] forState:UIControlStateNormal];
+    _imBtn.size = _markBtn.size;
+    _imBtn.y = _markBtn.y;
+    _imBtn.x = _markBtn.x - 44;
+    [_imBtn addTarget:self action:@selector(IMAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_imBtn];
+    
+    self.closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_closeBtn setImage:[UIImage imageNamed:@"live_close_icon.png"] forState:UIControlStateNormal];
+    _closeBtn.size = _imBtn.size;
+    _closeBtn.y = _markBtn.y;
+    _closeBtn.x = _markBtn.x + 44;
+    [_closeBtn addTarget:self action:@selector(closeAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_closeBtn];
 }
 
 - (void)viewDidLoad {
@@ -217,9 +214,7 @@
     
     [self setupSubViews];
     
-    //todo
-    //get roomid
-    [self enterChatRoom];
+    [self requestGetLiveRoomInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -264,6 +259,85 @@
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+}
+
+- (void)requestGetLiveRoomInfo {
+    
+    [[LiveManager sharedInstance] getChatroomByUserLiveId:_userLiveChannelModel.liveId completion:^(ChatroomInfoModel * _Nullable roomModel, NSError * _Nullable error) {
+        
+        if (error || !roomModel) {
+            
+            //NSLocalizedString
+            [self presentViewController:[Utility createErrorAlertWithContent:@"聊天室异常" okBtnTitle:nil] animated:YES completion:nil];
+            
+        } else {
+            
+            self.roomInfo = roomModel;
+            [self enterChatRoom];
+        }
+    }];
+}
+
+- (void)enterChatRoom {
+    
+    
+    [[[NIMSDK sharedSDK] loginManager] login:[[MineManager sharedInstance] IMToken].accId
+                                       token:[[MineManager sharedInstance] IMToken].token
+                                  completion:^(NSError *error) {
+                                      
+                                      if (error == nil)
+                                      {
+                                          LoginData *sdkData = [[LoginData alloc] init];
+                                          sdkData.account   = [[MineManager sharedInstance] IMToken].accId;
+                                          sdkData.token     = [[MineManager sharedInstance] IMToken].token;
+                                          [[NTESLoginManager sharedManager] setCurrentLoginData:sdkData];
+                                          
+                                          [[NTESServiceManager sharedManager] start];
+                                          
+                                          MyInfoModel *myInfo = [[MineManager sharedInstance] getMyInfo];
+                                          
+                                          NIMChatroomEnterRequest *request = [[NIMChatroomEnterRequest alloc] init];
+                                          request.roomId = _roomInfo.roomId;
+                                          request.roomNickname = myInfo.nickName;
+                                          request.roomAvatar = myInfo.headImg;
+                                          request.retryCount = [[NTESBundleSetting sharedConfig] chatroomRetryCount];
+                                          [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                                          __weak typeof(self) wself = self;
+                                          [[[NIMSDK sharedSDK] chatroomManager] enterChatroom:request
+                                                                                   completion:^(NSError *error,NIMChatroom *chatroom,NIMChatroomMember *me) {
+                                                                                       [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                                                                       
+                                                                                       if (error == nil)
+                                                                                       {
+                                                                                           self.chatroom = chatroom;
+                                                                                           self.roomMemberMe = me;
+                                                                                           [[NTESChatroomManager sharedInstance] cacheMyInfo:me roomId:chatroom.roomId];
+                                                                                           
+                                                                                           self.chatroomViewController = [[FSChatroomViewController alloc] initWithChatroom:chatroom withRect:CGRectMake(0,K_UIScreenHeight-(667/2+60), K_UIScreenWidth, 667/2+60)];
+                                                                                           _chatroomViewController.delegate = self;                                                                                               _chatroomViewController.sessionInputView.hidden = YES;                                 [self.view addSubview:_chatroomViewController.view];
+                                                                                           
+                                                                                           [self.view bringSubviewToFront:_imBtn];
+                                                                                           [self.view bringSubviewToFront:_markBtn];
+                                                                                           [self.view bringSubviewToFront:_closeBtn];
+                                                                                           
+                                                                                           isInChatroom = YES;
+                                                                                       }
+                                                                                       else
+                                                                                       {
+                                                                                           NSString *toast = [NSString stringWithFormat:@"进入聊天室失败 code:%zd",error.code];
+                                                                                           [wself.view makeToast:toast duration:2.0 position:CSToastPositionCenter];
+                                                                                           NNSLog(@"enter room %@ failed %@",chatroom.roomId,error);
+                                                                                       }
+                                                                                       
+                                                                                   }];
+                                          
+                                      }
+                                      else
+                                      {
+                                          NSString *toast = [NSString stringWithFormat:@"登录失败 code: %zd",error.code];
+                                          [self.view makeToast:toast duration:2.0 position:CSToastPositionCenter];
+                                      }
+                                  }];
 }
 
 // KVO方法
@@ -316,7 +390,7 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"该直播已停止。" preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-            [self back];
+          //  [self back];
             
         }]];
         [self presentViewController:alert animated:YES completion:nil];

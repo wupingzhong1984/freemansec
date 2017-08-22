@@ -15,8 +15,8 @@
 
 @interface LivePlayViewController ()
 {
-    BOOL _played;
-    BOOL _landed;
+    BOOL played;
+    BOOL landed;
 }
 @property (nonatomic ,strong) AVPlayer *player;
 @property (nonatomic ,strong) AVPlayerItem *playerItem;
@@ -31,6 +31,18 @@
 - (void)back {
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)attention {
+    
+    [[MineManager sharedInstance] addMyAttentionLiveId:_liveChannelModel.liveId completion:^(NSError * _Nullable error) {
+        
+        if (error) {
+            [MBProgressHUD showError:@"关注失败！"];//NSLocalizedString
+        } else {
+            [MBProgressHUD showSuccess:@"关注成功！"];//NSLocalizedString
+        }
+    }];
 }
 
 - (UIView*)naviBarView {
@@ -54,6 +66,18 @@
     btn.center = back.center;
     [v addSubview:btn];
     
+    UIImageView *attention = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_mark.png"]];
+    attention.centerX = v.width - 25;
+    attention.centerY = back.centerY;
+    [v addSubview:attention];
+    
+    UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn2 addTarget:self action:@selector(attention) forControlEvents:UIControlEventTouchUpInside];
+    btn2.width = attention.width + 20;
+    btn2.height = attention.height + 20;
+    btn2.center = attention.center;
+    [v addSubview:btn2];
+    
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, v.height-0.5, v.width, 0.5)];
     line.backgroundColor = UIColor_line_d2d2d2;
     [v addSubview:line];
@@ -63,7 +87,7 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    if (_landed) {
+    if (landed) {
         return YES;
     } else {
         return NO;
@@ -108,8 +132,8 @@
 
 - (void)changeOrientationChange {
     
-    _landed = !_landed;
-    if (_landed) {
+    landed = !landed;
+    if (landed) {
         [self transPlayViewToLandscape];
     } else {
         [self transPlayViewToPortrait];
@@ -118,7 +142,7 @@
 
 - (void)playAction {
     
-    if (!_played) {
+    if (!played) {
         
         if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWWAN) {
             
@@ -128,6 +152,7 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"继续观看" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 [self.playerView.player play];
+                played=YES;
                 [self.stateButton setImage:[UIImage imageNamed:@"play_bar_pause.png"] forState:UIControlStateNormal];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
@@ -135,13 +160,14 @@
         }
         
         [self.playerView.player play];
+        played = YES;
         [self.stateButton setImage:[UIImage imageNamed:@"play_bar_pause.png"] forState:UIControlStateNormal];
         
     } else {
         [self.playerView.player pause];
+        played = NO;
         [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
     }
-    _played = !_played;
 }
 
 - (void)viewDidLoad {
@@ -205,9 +231,9 @@
     [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
     [self.playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];// 监听loadedTimeRanges属性
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
-    
-    //todo
-    
+    if (!played && _stateButton.enabled) {
+        [self playAction];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -216,9 +242,12 @@
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
     
-    [self.playerView.player pause];
+    if (played) {
+        
+        [self.playerView.player pause];
+        played = NO;
+    }
     [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
-    _played = !_played;
     [self.playerItem removeObserver:self forKeyPath:@"status" context:nil];
     [self.playerItem removeObserver:self forKeyPath:@"loadedTimeRanges" context:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.playerItem];
@@ -235,6 +264,7 @@
             if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWiFi) {
                 
                 [self playAction];
+                played = YES;
             }
             
         } else if ([playerItem status] == AVPlayerStatusFailed) {
@@ -250,6 +280,7 @@
     __weak typeof(self) weakSelf = self;
     [self.playerView.player seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
         [weakSelf.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
+        played = NO;
     }];
 }
 

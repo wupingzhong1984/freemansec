@@ -8,6 +8,7 @@
 
 #import "UserLiveViewController.h"
 #import "UserLivePlayViewController.h"
+#import "LivePlayViewController.h"
 #import "MJRefresh.h"
 #import "LiveSearchResultModel.h"
 #import "LiveSearchResultCollectionViewCell.h"
@@ -38,6 +39,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
+    _pageNum = 1;
+    
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 20;
@@ -48,13 +51,16 @@
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     [layout setHeaderReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
     [layout setFooterReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
-    self.collView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, K_UIScreenHeight - 64 - self.tabBarController.tabBar.height) collectionViewLayout:layout];
+    self.collView = [[UICollectionView alloc] initWithFrame:CGRectMake(14, 0, K_UIScreenWidth-28, K_UIScreenHeight - 64 - self.tabBarController.tabBar.height) collectionViewLayout:layout];
     _collView.showsVerticalScrollIndicator = NO;
     _collView.showsHorizontalScrollIndicator = NO;
     _collView.delegate = self;
     _collView.dataSource = self;
+    _collView.backgroundColor = [UIColor clearColor];
+    [_collView registerClass:[LiveSearchResultCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
     [self.view addSubview:_collView];
 
+    [self requestSearch];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -76,7 +82,7 @@
 
 - (void)requestSearch {
     
-    [[LiveManager sharedInstance] quaryLiveByType:_typeId pageNum:_pageNum completion:^(NSArray * _Nullable quaryResultList, NSError * _Nullable error) {
+    [[LiveManager sharedInstance] queryLiveByType:_typeId pageNum:_pageNum completion:^(NSArray * _Nullable queryResultList, NSError * _Nullable error) {
         
         if (error) {
             [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
@@ -88,8 +94,8 @@
                 [_collView reloadData];
             }
             
-            if (quaryResultList.count > 0) {
-                [self.liveList addObjectsFromArray:quaryResultList];
+            if (queryResultList.count > 0) {
+                [self.liveList addObjectsFromArray:queryResultList];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [_collView reloadData];
@@ -102,7 +108,12 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if ([scrollView isEqual:_collView] && scrollView.contentOffset.y == roundf(scrollView.contentSize.height-scrollView.frame.size.height)) {
+    if (![scrollView isEqual:_collView]) {
+        
+        return;
+    }
+    
+    if (scrollView.contentOffset.y == roundf(scrollView.contentSize.height-scrollView.frame.size.height)) {
         
         [self.collView performBatchUpdates:^{
             
@@ -110,6 +121,8 @@
             [self requestSearch];
             
         } completion:nil];
+    } else {
+        
     }
 }
 
@@ -129,28 +142,28 @@
     
     LiveSearchResultModel *model = [_liveList objectAtIndex:indexPath.row];
     
-//    if (model.cid.length > 0 ) { //个人
+    if (model.cid.length > 0 ) { //个人
     
         UserLivePlayViewController *vc = [[UserLivePlayViewController alloc] init];
         vc.userLiveChannelModel = model;
         [self.navigationController pushViewController:vc animated:YES];
         
-//    } else { //官方
-//        
-//        LiveChannelModel *channel = [[LiveChannelModel alloc] init];
-//        channel.liveId = model.liveId;
-//        channel.liveName = model.liveName;
-//        channel.liveImg = model.liveImg;
-//        channel.liveIntroduce = model.liveIntroduce;
-//        channel.livelink = model.livelink;
-//        channel.anchorId = model.anchorId;
-//        channel.anchorName = model.nickName;
-//        channel.anchorImg = model.headImg;
-//        
-//        LivePlayViewController *vc = [[LivePlayViewController alloc] init];
-//        vc.liveChannelModel = channel;
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }
+    } else { //官方
+        
+        LiveChannelModel *channel = [[LiveChannelModel alloc] init];
+        channel.liveId = model.liveId;
+        channel.liveName = model.liveName;
+        channel.liveImg = model.liveImg;
+        channel.liveIntroduce = model.liveIntroduce;
+        channel.livelink = model.livelink;
+        channel.anchorId = model.anchorId;
+        channel.anchorName = model.nickName;
+        channel.anchorImg = model.headImg;
+        
+        LivePlayViewController *vc = [[LivePlayViewController alloc] init];
+        vc.liveChannelModel = channel;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -179,7 +179,7 @@
         } else {
             
             //test
-            _verifyCodeTF.text = verify;
+//            _verifyCodeTF.text = verify;
             
         }
     }];

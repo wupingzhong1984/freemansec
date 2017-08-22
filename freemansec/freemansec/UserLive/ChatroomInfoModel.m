@@ -10,12 +10,17 @@
 
 @implementation ChatroomInfoModel
 +(JSONKeyMapper*)keyMapper
-{   //todo
+{   
     return [[JSONKeyMapper alloc]
             initWithModelToJSONDictionary:@{
                                             @"roomId": @"roomid",
-                                            @"valid": @"Valid",
+                                            @"valid": @"valid",
                                             @"muted": @"muted",
-                                            @"onlineUserCount": @"onlineusercount"}];
+                                            @"onlineUserCount": @"onlineusercount",
+                                            @"announcement": @"announcement",
+                                            @"roomName": @"name",
+                                            @"broadcasturl": @"broadcasturl",
+                                            @"ext": @"ext",
+                                            @"creatorUserLoginId": @"creator"}];
 }
 @end

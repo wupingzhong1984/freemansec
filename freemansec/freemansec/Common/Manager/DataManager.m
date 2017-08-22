@@ -74,7 +74,6 @@ const static NSInteger MY_DB_VER = 0; //initversion:0
     
     BOOL success = NO;
     if ([_db open]) {
-        success = [_db executeUpdate:@"DELETE FROM myinfo WHERE userid = ?",model.userId];
         success = [_db executeUpdate:@"INSERT INTO myinfo (userloginid, userid, nickname, phone, email, realnameverifystate, headimg, sex, registertype, province, city, area, cid, liveid, livetitle, liveimg, livetypeid, livetypename, pushurl, rtmppullurl, hlspullurl, httppullurl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                    model.userLoginId,
                    model.userId,
@@ -104,13 +103,13 @@ const static NSInteger MY_DB_VER = 0; //initversion:0
     return success;
 }
 
-- (MyInfoModel*)getMyInfo {
+- (MyInfoModel*)getMyInfoByUserId:(NSString*)userId {
     
     MyInfoModel *model;
     
     if ([_db open]) {
         
-        FMResultSet *s = [_db executeQuery:@"SELECT * FROM myinfo"];
+        FMResultSet *s = [_db executeQuery:@"SELECT * FROM myinfo WHERE userid = ?",userId];
         
         if ([s next]) {
             
@@ -145,11 +144,11 @@ const static NSInteger MY_DB_VER = 0; //initversion:0
 }
 
 
-- (BOOL)deleteMyInfo {
+- (BOOL)deleteMyInfoByUserId:(NSString*)userId {
     
     BOOL success = NO;
     if ([_db open]) {
-        success = [_db executeUpdate:@"TRUNCATE TABLE myinfo"];
+        success = [_db executeUpdate:@"DELETE FROM myinfo WHERE userid = ?",userId];
     }
     [_db close];
     

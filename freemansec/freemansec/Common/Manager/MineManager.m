@@ -12,14 +12,17 @@
 static MineManager *instance;
 
 @interface MineManager ()
+@property (nonatomic,strong) NSString *currentUserId;
 @end
 
 @implementation MineManager
 
 - (id)init
 {
-    self = [super init];
-    
+    if(self = [super init]) {
+        
+        self.currentUserId = [[NSString alloc] init];
+    }
     return self;
 }
 
@@ -39,16 +42,15 @@ static MineManager *instance;
 
 - (MyInfoModel* _Nullable)getMyInfo {
     
-    return [[DataManager sharedInstance] getMyInfo];
+    return [[DataManager sharedInstance] getMyInfoByUserId:_currentUserId];
 }
 
 - (void)updateMyInfo:(MyInfoModel* _Nullable)info {
     
-    [[DataManager sharedInstance] deleteMyInfo];
-    if (info) {
-        
-        [[DataManager sharedInstance] insertMyInfo:info];
-    }
+    self.currentUserId = info.userId;
+    
+    [[DataManager sharedInstance] deleteMyInfoByUserId:_currentUserId];
+    [[DataManager sharedInstance] insertMyInfo:info];
 }
 
 - (IMTokenModel* _Nullable)IMToken {
@@ -67,7 +69,7 @@ static MineManager *instance;
 
 - (void)logout {
     
-    [self updateMyInfo:nil];
+    [[DataManager sharedInstance] deleteMyInfoByUserId:_currentUserId];
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"IMToken"];
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"IMAccId"];
 }
@@ -254,6 +256,15 @@ static MineManager *instance;
             NSArray* list = obj;
             completion(list,err);
         }
+    }];
+}
+
+- (void)addMyAttentionLiveId:(NSString* _Nullable)liveId completion:(AddMyAttentionCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service addMyAttentionLiveId:liveId userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
+        
+        completion(err);
     }];
 }
 

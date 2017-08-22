@@ -190,10 +190,10 @@ static LiveManager *instance;
     }];
 }
 
-- (void)quaryLiveByWord:(NSString *)word pageNum:(NSInteger)num completion:(QuaryLiveListCompletion)completion {
+- (void)queryLiveByWord:(NSString *)word pageNum:(NSInteger)num completion:(QueryLiveListCompletion)completion {
     
     LiveHttpService* service = [[LiveHttpService alloc] init];
-    [service quaryLiveByWord:word pageNum:num completion:^(id obj, NSError *err) {
+    [service queryLiveByWord:word pageNum:num completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -206,10 +206,10 @@ static LiveManager *instance;
     }];
 }
 
--(void)quaryLiveByType:(NSString* _Nullable)typeId pageNum:(NSInteger)num completion:(QuaryLiveListCompletion _Nullable)completion {
+-(void)queryLiveByType:(NSString* _Nullable)typeId pageNum:(NSInteger)num completion:(QueryLiveListCompletion _Nullable)completion {
     
     LiveHttpService* service = [[LiveHttpService alloc] init];
-    [service quaryLiveByType:typeId pageNum:num completion:^(id obj, NSError *err) {
+    [service queryLiveByType:typeId pageNum:num completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -221,5 +221,21 @@ static LiveManager *instance;
         }
     }];
     
+}
+
+-(void)getChatroomByUserLiveId:(NSString*_Nullable)liveId completion:(ChatroomByUserLiveIdCompletion _Nullable)completion {
+    
+    LiveHttpService *service = [[LiveHttpService alloc] init];
+    [service getChatroomByUserLiveId:liveId completion:^(id obj, NSError *err) {
+        
+        if (err) {
+            
+            completion(nil,err);
+        } else {
+            
+            ChatroomInfoModel *model = (ChatroomInfoModel*)obj;
+            completion(model,err);
+        }
+    }];
 }
 @end

@@ -11,6 +11,8 @@
 static NSString* CreateChatRoomPath = @"Ajax/CreateChatroom.ashx";
 static NSString* GetChatRoomInfoPath = @"Ajax/GetChatroom.ashx";
 static NSString* SendMsgPath = @"Ajax/sendMsg.ashx";
+static NSString* StartLivePath = @"Ajax/openLive.ashx";
+static NSString* CloseLivePath = @"Ajax/closeLive.ashx";
 
 @implementation UserLiveHttpService
 
@@ -85,6 +87,30 @@ static NSString* SendMsgPath = @"Ajax/sendMsg.ashx";
                               @"fromAccid":accId,
                               @"msgType":msgType,
                               @"attach":content
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     completion(response, err);
+                 }];
+}
+
+- (void)startLivePushByCid:(NSString*_Nullable)cid completion:(HttpClientServiceObjectBlock _Nullable)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:StartLivePath
+                     params:@{@"cid":cid
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     completion(response, err);
+                 }];
+}
+
+- (void)closeLivePushByCid:(NSString*_Nullable)cid completion:(HttpClientServiceObjectBlock _Nullable)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:CloseLivePath
+                     params:@{@"cid":cid
                               }
                  completion:^(JsonResponse* response, NSError *err) {
                      

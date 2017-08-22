@@ -42,6 +42,8 @@
 - (void)getMyFavourListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 - (void)getMyAttentionListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 
+- (void)addMyAttentionLiveId:(NSString*)liveId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
+
 - (void)getProvinceListCompletion:(HttpClientServiceObjectBlock)completion;
 - (void)getCityListByProvinceId:(NSString*)pId completion:(HttpClientServiceObjectBlock)completion;
 - (void)getAreaListByCityId:(NSString*)cId completion:(HttpClientServiceObjectBlock)completion;
@@ -51,4 +53,6 @@
 - (void)loginWithThird:(NSString*)type userCode:(NSString*)code completion:(HttpClientServiceObjectBlock)completion;
 
 - (void)refreshUserInfo:(NSString*)userLoginId completion:(HttpClientServiceObjectBlock)completion;
+
+
 @end

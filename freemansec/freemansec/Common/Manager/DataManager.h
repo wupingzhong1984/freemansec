@@ -19,7 +19,7 @@
 - (void)updateDB;
 
 - (BOOL)insertMyInfo:(MyInfoModel*)model;
-- (MyInfoModel*)getMyInfo;
-- (BOOL)deleteMyInfo;
+- (MyInfoModel*)getMyInfoByUserId:(NSString*)userId;
+- (BOOL)deleteMyInfoByUserId:(NSString*)userId;
 
 @end

@@ -78,7 +78,7 @@ SetTelCodeViewControllerDelegate>
             } else {
                 
                 //test
-                _mobileSignView.verifyCodeTF.text = verify;
+//                _mobileSignView.verifyCodeTF.text = verify;
 
             }
         }];

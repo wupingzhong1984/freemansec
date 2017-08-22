@@ -16,6 +16,7 @@
                     completion:(HttpClientServiceObjectBlock)completion;
 
 -(void)getLiveSearchHotWordsCompletion:(HttpClientServiceObjectBlock)completion;
-- (void)quaryLiveByWord:(NSString *)word pageNum:(NSInteger)num completion:(HttpClientServiceObjectBlock)completion;
-- (void)quaryLiveByType:(NSString*)typeId pageNum:(NSInteger)num completion:(HttpClientServiceObjectBlock)completion;
+- (void)queryLiveByWord:(NSString *)word pageNum:(NSInteger)num completion:(HttpClientServiceObjectBlock)completion;
+- (void)queryLiveByType:(NSString*)typeId pageNum:(NSInteger)num completion:(HttpClientServiceObjectBlock)completion;
+- (void)getChatroomByUserLiveId:(NSString*)liveId completion:(HttpClientServiceObjectBlock)completion;
 @end

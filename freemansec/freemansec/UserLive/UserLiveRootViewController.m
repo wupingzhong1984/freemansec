@@ -16,7 +16,6 @@
 #import "NTESChatroomManager.h"
 #import "FSChatroomViewController.h"
 #import "NTESLoginManager.h"
-#import "NIMMessageMaker.h"
 
 @interface UserLiveRootViewController ()
 <NIMChatroomManagerDelegate,
@@ -30,7 +29,7 @@ NIMSessionViewControllerDelegate>{
     
     BOOL _isAccess;
     
-    BOOL keyboardDidShow;
+//    BOOL keyboardDidShow;
     
     BOOL isInChatroom;
 
@@ -59,6 +58,10 @@ NIMSessionViewControllerDelegate>{
 @implementation UserLiveRootViewController
 
 - (void)back {
+    
+    if (isInChatroom) {
+        [[[NIMSDK sharedSDK] chatroomManager] exitChatroom:_roomInfo.roomId completion:nil];
+    }
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -96,15 +99,16 @@ NIMSessionViewControllerDelegate>{
 
 - (void)IMAction {
     
-    [self.view sendSubviewToBack:_cameraBtn];
-    [self.view sendSubviewToBack:_imBtn];
-    [self.view sendSubviewToBack:_closeBtn];
-    
-    if (!self.roomInfo.roomId.length) {
+    if (!isInChatroom) {
         //NSLocalizedString
         [self presentViewController:[Utility createNoticeAlertWithContent:@"聊天室异常" okBtnTitle:nil] animated:YES completion:nil];
         return;
     }
+    
+    [self.view sendSubviewToBack:_cameraBtn];
+    [self.view sendSubviewToBack:_imBtn];
+    [self.view sendSubviewToBack:_closeBtn];
+    
     _chatroomViewController.sessionInputView.hidden = NO;
     [_chatroomViewController.sessionInputView.toolBar.inputTextView becomeFirstResponder];
     
@@ -119,8 +123,8 @@ NIMSessionViewControllerDelegate>{
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             __weak UserLiveRootViewController *weakSelf = self;
             [_mediaCapture stopLiveStream:^(NSError *error) {
+                [[UserLiveManager sharedInstance] closeLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId completion:nil];
                 [weakSelf unInitLiveStream];
-                [[[NIMSDK sharedSDK] chatroomManager] exitChatroom:_roomInfo.roomId completion:nil];
                 [weakSelf back];
             }];
         }]];
@@ -130,7 +134,6 @@ NIMSessionViewControllerDelegate>{
     } else {
        
         [self unInitLiveStream];
-        [[[NIMSDK sharedSDK] chatroomManager] exitChatroom:_roomInfo.roomId completion:nil];
         [self back];
     }
 }
@@ -259,6 +262,7 @@ NIMSessionViewControllerDelegate>{
 -(void)LiveStreamErrorInterrup{
     [_mediaCapture stopLiveStream:^(NSError *error) {
         if (error == nil) {
+            [[UserLiveManager sharedInstance] closeLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId completion:nil];
             dispatch_async(dispatch_get_main_queue(), ^(void){[self showErrorAlert:error];});
         }
     }];
@@ -332,6 +336,14 @@ NIMSessionViewControllerDelegate>{
                     [weakSelf LiveStreamErrorInterrup];
                 }
             };
+            //调用统计数据回调
+//            _mediaCapture.onStatisticInfoGot = ^(LSStatistics* statistics){
+//                if (statistics != nil) {
+//                    LSStatistics statis;
+//                    memcpy(&statis, statistics, sizeof(LSStatistics));
+//                    dispatch_async(dispatch_get_main_queue(),^(void){[weakSelf showStatInfo:statis];});
+//                }
+//            };
             //开始直播
             NSError *__autoreleasing error = nil;
             [_mediaCapture startLiveStreamWithError:&error];
@@ -385,12 +397,10 @@ NIMSessionViewControllerDelegate>{
     [self setupSubviews];
     
     //test
-//    [self requestGetChatRoomWhenLiveStart];
-//    return;
-    
-    //test
-//    self.pushUrl = @"rtmp://pe25ff8be.live.126.net/live/52d6911fc91b417c84f2cc8e790fe689?wsSecret=02096929813efd8ebf4c01b7da1a8abb&wsTime=1501655352";
-//    [self startPush];
+    self.pushUrl = [[MineManager sharedInstance] getMyInfo].pushUrl;
+    [self startPush];
+    [self requestGetChatRoomWhenLiveStart];
+    return;
     
     self.updateUserLiveTitleView = [[UpdateUserLiveTitleView alloc] init];
     _updateUserLiveTitleView.titleTF.text = [[MineManager sharedInstance] getMyInfo].liveTitle;
@@ -486,7 +496,6 @@ NIMSessionViewControllerDelegate>{
                 if (!isInChatroom) {
                     
                     [self enterChatRoom];
-                    isInChatroom = YES;
                 }
                 
                 self.roomInfoRefreshTimer = [NSTimer scheduledTimerWithTimeInterval:10 repeats:YES block:^(NSTimer * _Nonnull timer) {
@@ -579,6 +588,8 @@ NIMSessionViewControllerDelegate>{
                                                                                                [self.view bringSubviewToFront:_imBtn];
                                                                                                [self.view bringSubviewToFront:_cameraBtn];
                                                                                                [self.view bringSubviewToFront:_closeBtn];
+                                                                
+                                                                                               isInChatroom = YES;
                                                                                            }
                                                                                            else
                                                                                            {
@@ -627,10 +638,11 @@ NIMSessionViewControllerDelegate>{
             }
         }]];
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            //开始直播
+            //取消直播
             __weak typeof(self) weakSelf = self;
             [_mediaCapture stopLiveStream:^(NSError *error) {
                 
+                [[UserLiveManager sharedInstance] closeLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId completion:nil];
                 [weakSelf unInitLiveStream];
                 [weakSelf back];
             }];
@@ -644,17 +656,14 @@ NIMSessionViewControllerDelegate>{
             [_mediaCapture stopLiveStream:^(NSError *error) {
                 if(error == nil)
                 {
+                    
+                    [[UserLiveManager sharedInstance] closeLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId completion:nil];
                     _isLiving = NO;
                     //NSLocalizedString
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络已断开" preferredStyle:UIAlertControllerStyleAlert];
                     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        //开始直播
-                        __weak typeof(self) weakSelf = self;
-                        [_mediaCapture stopLiveStream:^(NSError *error) {
-                            
-                            [weakSelf unInitLiveStream];
-                            [weakSelf back];
-                        }];
+                        [self unInitLiveStream];
+                        [self back];
                     }]];
                     [self presentViewController:alert animated:YES completion:nil];
                 }
@@ -700,6 +709,7 @@ NIMSessionViewControllerDelegate>{
             // 其他内存清理的代码也可以在此处完成
             [_mediaCapture stopLiveStream:^(NSError *error) {
                 if (error == nil) {
+                    [[UserLiveManager sharedInstance] closeLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId completion:nil];
                     NNSLog(@"退到后台的直播结束了");
                     _isLiving = NO;
                     _needStartLive = YES;
@@ -727,6 +737,8 @@ NIMSessionViewControllerDelegate>{
     NNSLog(@"on start live stream");//只有收到直播开始的 信号，才可以关闭直播
     dispatch_async(dispatch_get_main_queue(), ^(void){
         _isLiving = YES;
+        
+        [[UserLiveManager sharedInstance] startLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId completion:nil];
         
         __weak UserLiveRootViewController *weakSelf = self;
         [weakSelf.mediaCapture snapShotWithCompletionBlock:^(UIImage *latestFrameImage) {

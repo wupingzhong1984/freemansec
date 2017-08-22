@@ -13,6 +13,7 @@
 #import "CityModel.h"
 #import "AreaModel.h"
 #import "UserLiveType.h"
+#import "MyAttentionModel.h"
 
 static NSString* RegisterUserPath = @"Ajax/RegisterUser.ashx";
 static NSString* LoginUserPath = @"Ajax/LoginUser.ashx";
@@ -33,6 +34,8 @@ static NSString* GetAreaPath = @"Ajax/getAreaToCid.ashx";
 static NSString* GetUserLiveTypesPath = @"Ajax/GetLiveTypeByUser.ashx";
 static NSString* ThirdLoginPath = @"Ajax/registerLogin.ashx";
 static NSString* RefreshUserInfoPath = @"Ajax/getUser.ashx";
+static NSString* GetMyAttentionListPath = @"Ajax/getConcernsList.ashx";
+static NSString* AddMyAttentionPath = @"Ajax/addConcerns.ashx";
 
 @implementation MineHttpService
 
@@ -635,6 +638,52 @@ static NSString* RefreshUserInfoPath = @"Ajax/getUser.ashx";
                      }else{
                          completion(model, nil); //success
                      }
+                 }];
+}
+
+- (void)getMyVideoListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+    
+    //todo
+}
+
+- (void)getMyFavourListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+    
+    //todo
+}
+
+- (void)getMyAttentionListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetMyAttentionListPath
+                     params:nil
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [MyAttentionModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
+}
+
+- (void)addMyAttentionLiveId:(NSString*)liveId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:AddMyAttentionPath
+                     params:@{@"userid":userId,
+                              @"liveid":liveId
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     completion(response, err);
                  }];
 }
 @end

@@ -103,11 +103,13 @@ UICollectionViewDelegate,UICollectionViewDataSource>
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     [layout setHeaderReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
     [layout setFooterReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
-    self.collView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, navi.maxY, K_UIScreenWidth, K_UIScreenHeight - navi.maxY) collectionViewLayout:layout];
+    self.collView = [[UICollectionView alloc] initWithFrame:CGRectMake(14, navi.maxY, K_UIScreenWidth-28, K_UIScreenHeight - navi.maxY) collectionViewLayout:layout];
     _collView.showsVerticalScrollIndicator = NO;
     _collView.showsHorizontalScrollIndicator = NO;
     _collView.delegate = self;
     _collView.dataSource = self;
+    _collView.backgroundColor = [UIColor clearColor];
+    [_collView registerClass:[LiveSearchResultCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
     [self.view addSubview:_collView];
     
     
@@ -144,7 +146,7 @@ UICollectionViewDelegate,UICollectionViewDataSource>
 
 - (void)requestSearch {
     
-    [[LiveManager sharedInstance] quaryLiveByWord:_searchTF.text pageNum:_pageNum completion:^(NSArray * _Nullable quaryResultList, NSError * _Nullable error) {
+    [[LiveManager sharedInstance] queryLiveByWord:_searchTF.text pageNum:_pageNum completion:^(NSArray * _Nullable queryResultList, NSError * _Nullable error) {
         
         if (error) {
             [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
@@ -153,11 +155,11 @@ UICollectionViewDelegate,UICollectionViewDataSource>
             if (_pageNum == 1) {
                 
                 [self.resultArray removeAllObjects];
-                [_collView reloadData];
+//                [_collView reloadData];
             }
             
-            if (quaryResultList.count > 0) {
-                [self.resultArray addObjectsFromArray:quaryResultList];
+            if (queryResultList.count > 0) {
+                [self.resultArray addObjectsFromArray:queryResultList];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [_collView reloadData];
@@ -204,9 +206,9 @@ UICollectionViewDelegate,UICollectionViewDataSource>
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    if (textField.text.length == 0) {
+//    if (textField.text.length == 0) {
 //        return NO;
-    }
+//    }
     
     if (textField.text.length > 0) {
         

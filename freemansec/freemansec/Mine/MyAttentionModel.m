@@ -10,13 +10,17 @@
 
 @implementation MyAttentionModel
 +(JSONKeyMapper*)keyMapper
-{   //todo
+{
     return [[JSONKeyMapper alloc]
             initWithModelToJSONDictionary:@{
-                                            @"liveId": @"liveId",
-                                            @"img": @"img",
-                                            @"title": @"title",
-                                            @"liveType": @"liveType",
-                                            @"anchorName": @"anchorName"}];
+                                            @"cId": @"cid",
+                                            @"liveId": @"liveid",
+                                            @"liveTypeName": @"liveTypeName",
+                                            @"liveTypeId": @"liveTypeId",
+                                            @"liveTitle": @"liveName",
+                                            @"liveImg": @"liveImg",
+                                            @"introduce": @"liveIntroduce",
+                                            @"nickName": @"nickName",
+                                            @"headImg": @"headImg"}];
 }
 @end

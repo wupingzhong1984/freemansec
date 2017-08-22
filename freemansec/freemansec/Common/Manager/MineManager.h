@@ -48,6 +48,7 @@ typedef void(^CityListCompletion)(NSArray* _Nullable cityList, NSError* _Nullabl
 typedef void(^AreaListCompletion)(NSArray* _Nullable areaList, NSError* _Nullable error);
 typedef void(^ThirdLoginCompletion)(MyInfoModel* _Nullable myInfo, NSError* _Nullable error);
 typedef void(^RefreshUserInfoCompletion)(MyInfoModel* _Nullable myInfo, NSError* _Nullable error);
+typedef void(^AddMyAttentionCompletion)(NSError* _Nullable error);
 
 @interface MineManager : NSObject
 
@@ -98,6 +99,7 @@ typedef void(^RefreshUserInfoCompletion)(MyInfoModel* _Nullable myInfo, NSError*
 - (void)getMyVideoListCompletion:(MyVideoListCompletion _Nullable)completion;
 - (void)getMyFavourListCompletion:(MyFavourListCompletion _Nullable)completion;
 - (void)getMyAttentionListCompletion:(MyAttentionListCompletion _Nullable)completion;
+- (void)addMyAttentionLiveId:(NSString* _Nullable)liveId completion:(AddMyAttentionCompletion _Nullable)completion;
 
 - (void)loginWithThird:(ThirdLoginType)type userCode:(NSString*_Nullable)code completion:(ThirdLoginCompletion _Nullable)completion;
 - (void)refreshUserInfoCompletion:(RefreshUserInfoCompletion _Nullable)completion;

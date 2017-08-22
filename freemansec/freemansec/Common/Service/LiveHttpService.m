@@ -10,11 +10,13 @@
 #import "LiveChannelModel.h"
 #import "LiveSearchResultModel.h"
 #import "LiveHotWordModel.h"
+#import "ChatroomInfoModel.h"
 
 static NSString* GetLiveBannerPath = @"Ajax/GetBanner.ashx";
 static NSString* GetLiveListByTypePath = @"Ajax/GetLive.ashx";
 static NSString* GetLiveSearchHotWordsPath = @"Ajax/GetLive.ashx"; //todo
-static NSString* QuaryLivePath = @"Ajax/QueryLiveInfo.ashx";
+static NSString* QueryLivePath = @"Ajax/QueryLiveInfo.ashx";
+static NSString* GetChatroomByUserLiveIdPath = @"Ajax/getChatrommByUser.ashx";
 
 @implementation LiveHttpService
 
@@ -89,10 +91,10 @@ static NSString* QuaryLivePath = @"Ajax/QueryLiveInfo.ashx";
                  }];
 }
 
-- (void)quaryLiveByWord:(NSString *)word pageNum:(NSInteger)num completion:(HttpClientServiceObjectBlock)completion {
+- (void)queryLiveByWord:(NSString *)word pageNum:(NSInteger)num completion:(HttpClientServiceObjectBlock)completion {
     
     [self httpRequestMethod:HttpReuqestMethodGet
-                       path:QuaryLivePath
+                       path:QueryLivePath
                      params:@{@"pnum":[NSString stringWithFormat:@"%d",(int)num],
                               @"livename":word}
                  completion:^(JsonResponse* response, NSError *err) {
@@ -112,10 +114,10 @@ static NSString* QuaryLivePath = @"Ajax/QueryLiveInfo.ashx";
                      }
                  }];
 }
-- (void)quaryLiveByType:(NSString*)typeId pageNum:(NSInteger)num completion:(HttpClientServiceObjectBlock)completion {
+- (void)queryLiveByType:(NSString*)typeId pageNum:(NSInteger)num completion:(HttpClientServiceObjectBlock)completion {
     
     [self httpRequestMethod:HttpReuqestMethodGet
-                       path:QuaryLivePath
+                       path:QueryLivePath
                      params:@{@"pnum":[NSString stringWithFormat:@"%d",(int)num],
                               @"livetypeid":typeId}
                  completion:^(JsonResponse* response, NSError *err) {
@@ -136,4 +138,30 @@ static NSString* QuaryLivePath = @"Ajax/QueryLiveInfo.ashx";
                  }];
 }
 
+- (void)getChatroomByUserLiveId:(NSString*)liveId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetChatroomByUserLiveIdPath
+                     params:@{@"liveid":liveId}
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
+                     }
+                     
+                     ChatroomInfoModel* model = [[ChatroomInfoModel alloc] initWithDictionary:(NSDictionary*)response.data error:&err];
+                     if(model == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(model, nil); //success
+                     }
+                 }];
+}
 @end

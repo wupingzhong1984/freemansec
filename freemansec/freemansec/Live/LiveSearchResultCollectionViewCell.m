@@ -22,6 +22,8 @@
     
     if (self = [super initWithFrame:frame]) {
         
+        self.backgroundColor = [UIColor whiteColor];
+        
         self.coverIV = [[UIImageView alloc] init];
         _coverIV.size = CGSizeMake(self.width, self.width*3/4);
         [self addSubview:_coverIV];
@@ -34,14 +36,14 @@
         
         self.title = [[UILabel alloc] init];
         _title.font = [UIFont systemFontOfSize:12];
-        _title.textAlignment = NSTextAlignmentCenter;
+        _title.textAlignment = NSTextAlignmentLeft;
         _title.lineBreakMode = NSLineBreakByTruncatingTail;
         _title.textColor = [UIColor blackColor];
         [self addSubview:_title];
         
         self.archor = [[UILabel alloc] init];
         _archor.font = [UIFont systemFontOfSize:11];
-        _archor.textAlignment = NSTextAlignmentCenter;
+        _archor.textAlignment = NSTextAlignmentLeft;
         _archor.lineBreakMode = NSLineBreakByTruncatingTail;
         _archor.textColor = [UIColor lightGrayColor];
         [self addSubview:_archor];
