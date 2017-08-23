@@ -67,17 +67,17 @@
 {
     [super viewWillAppear:animated];
     
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = YES;
-    
-    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+//    self.tabBarController.tabBar.hidden = NO;
+//    self.navigationController.navigationBar.hidden = YES;
+//    
+//    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
     
-    self.navigationController.navigationBar.hidden = NO;
+//    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)requestSearch {

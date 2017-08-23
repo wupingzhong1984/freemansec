@@ -22,6 +22,7 @@
 @property (nonatomic ,strong) AVPlayerItem *playerItem;
 @property (nonatomic ,strong) PlayerView *playerView;
 @property (nonatomic, strong) UIView *controlBar;
+@property (nonatomic, strong) UIImageView *attentionIV;
 @property (nonatomic ,strong) UIButton *stateButton;
 @property (nonatomic ,strong) UIButton *oriBtn;
 @end
@@ -35,14 +36,32 @@
 
 - (void)attention {
     
-    [[MineManager sharedInstance] addMyAttentionLiveId:_liveChannelModel.liveId completion:^(NSError * _Nullable error) {
+    if (![_liveChannelModel.isAttent boolValue]) {
         
-        if (error) {
-            [MBProgressHUD showError:@"关注失败！"];//NSLocalizedString
-        } else {
-            [MBProgressHUD showSuccess:@"关注成功！"];//NSLocalizedString
-        }
-    }];
+        [[MineManager sharedInstance] addMyAttentionLiveId:_liveChannelModel.liveId completion:^(NSError * _Nullable error) {
+            
+            if (error) {
+                [MBProgressHUD showError:@"关注失败！"];//NSLocalizedString
+            } else {
+                [MBProgressHUD showSuccess:@"关注成功！"];//NSLocalizedString
+                _liveChannelModel.isAttent = @"1";
+                [_attentionIV setImage:[UIImage imageNamed:@"navi_mark_1.png"]];
+            }
+        }];
+    } else {
+        
+        [[MineManager sharedInstance] cancelMyAttentionLiveId:_liveChannelModel.liveId completion:^(NSError * _Nullable error) {
+            
+            if (error) {
+                [MBProgressHUD showError:@"取消关注失败！"];//NSLocalizedString
+            } else {
+                [MBProgressHUD showSuccess:@"取消关注成功！"];//NSLocalizedString
+                _liveChannelModel.isAttent = @"0";
+                [_attentionIV setImage:[UIImage imageNamed:@"navi_mark.png"]];
+            }
+        }];
+
+    }
 }
 
 - (UIView*)naviBarView {
@@ -66,16 +85,16 @@
     btn.center = back.center;
     [v addSubview:btn];
     
-    UIImageView *attention = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_mark.png"]];
-    attention.centerX = v.width - 25;
-    attention.centerY = back.centerY;
-    [v addSubview:attention];
+    self.attentionIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[_liveChannelModel.isAttent isEqualToString:@"0"]?@"navi_mark.png":@"navi_mark_1.png"]];
+    _attentionIV.centerX = v.width - 25;
+    _attentionIV.centerY = back.centerY;
+    [v addSubview:_attentionIV];
     
     UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn2 addTarget:self action:@selector(attention) forControlEvents:UIControlEventTouchUpInside];
-    btn2.width = attention.width + 20;
-    btn2.height = attention.height + 20;
-    btn2.center = attention.center;
+    btn2.width = _attentionIV.width + 20;
+    btn2.height = _attentionIV.height + 20;
+    btn2.center = _attentionIV.center;
     [v addSubview:btn2];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, v.height-0.5, v.width, 0.5)];
@@ -231,9 +250,9 @@
     [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
     [self.playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];// 监听loadedTimeRanges属性
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
-    if (!played && _stateButton.enabled) {
-        [self playAction];
-    }
+//    if (!played && _stateButton.enabled) {
+//        [self playAction];
+//    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -244,10 +263,11 @@
     
     if (played) {
         
+        [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
         [self.playerView.player pause];
         played = NO;
     }
-    [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
+    
     [self.playerItem removeObserver:self forKeyPath:@"status" context:nil];
     [self.playerItem removeObserver:self forKeyPath:@"loadedTimeRanges" context:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.playerItem];

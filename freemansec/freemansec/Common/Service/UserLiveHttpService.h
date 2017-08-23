@@ -16,6 +16,6 @@
 
 - (void)sendChatroomMsg:(NSString*_Nullable)content msgType:(NSString*_Nullable)msgType roomId:(NSString*_Nullable)roomId msgId:(NSString*_Nullable)msgId accId:(NSString*_Nullable)accId completion:(HttpClientServiceObjectBlock _Nullable)completion;
 
-- (void)startLivePushByCid:(NSString*_Nullable)cid completion:(HttpClientServiceObjectBlock _Nullable)completion;
+- (void)startLivePushByCid:(NSString*_Nullable)cid title:(NSString*_Nullable)title completion:(HttpClientServiceObjectBlock _Nullable)completion;
 - (void)closeLivePushByCid:(NSString*_Nullable)cid completion:(HttpClientServiceObjectBlock _Nullable)completion;
 @end

@@ -25,6 +25,6 @@ typedef void(^CloseLivePushCompletion)(NSError* _Nullable error);
 
 //- (void)sendChatroomMsg:(NSString*_Nullable)content msgType:(NSString*_Nullable)msgType roomId:(NSString*_Nullable)roomId completion:(SendMsgCompletion _Nullable)completion;
 
-- (void)startLivePushByCid:(NSString*_Nullable)cid completion:(StartLivePushCompletion _Nullable)completion;
-- (void)closeLivePushByCid:(NSString*_Nullable)cid completion:(CloseLivePushCompletion _Nullable)completion;
+- (void)startLivePushByTitle:(NSString* _Nullable)title completion:(StartLivePushCompletion _Nullable)completion;
+- (void)closeLivePushCompletion:(CloseLivePushCompletion _Nullable)completion;
 @end

@@ -12,7 +12,6 @@
 static MineManager *instance;
 
 @interface MineManager ()
-@property (nonatomic,strong) NSString *currentUserId;
 @end
 
 @implementation MineManager
@@ -21,7 +20,6 @@ static MineManager *instance;
 {
     if(self = [super init]) {
         
-        self.currentUserId = [[NSString alloc] init];
     }
     return self;
 }
@@ -42,14 +40,18 @@ static MineManager *instance;
 
 - (MyInfoModel* _Nullable)getMyInfo {
     
-    return [[DataManager sharedInstance] getMyInfoByUserId:_currentUserId];
+    NSString *curUser = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentUserId"];
+    if (!curUser) {
+        return nil;
+    }
+    return [[DataManager sharedInstance] getMyInfoByUserId:curUser];
 }
 
 - (void)updateMyInfo:(MyInfoModel* _Nullable)info {
     
-    self.currentUserId = info.userId;
+    [[NSUserDefaults standardUserDefaults] setObject:info.userId forKey:@"currentUserId"];
     
-    [[DataManager sharedInstance] deleteMyInfoByUserId:_currentUserId];
+    [[DataManager sharedInstance] deleteMyInfoByUserId:info.userId];
     [[DataManager sharedInstance] insertMyInfo:info];
 }
 
@@ -69,9 +71,12 @@ static MineManager *instance;
 
 - (void)logout {
     
-    [[DataManager sharedInstance] deleteMyInfoByUserId:_currentUserId];
+    [[DataManager sharedInstance] deleteMyInfoByUserId:[[NSUserDefaults standardUserDefaults] objectForKey:@"currentUserId"]];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"currentUserId"];
+    
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"IMToken"];
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"IMAccId"];
+    
 }
 
 - (void)registerUserAreaCode:(NSString* _Nullable)areaCode
@@ -268,6 +273,14 @@ static MineManager *instance;
     }];
 }
 
+- (void)cancelMyAttentionLiveId:(NSString* _Nullable)liveId completion:(CancelMyAttentionCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service cancelMyAttentionLiveId:liveId userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
+        
+        completion(err);
+    }];
+}
 - (void)checkVerifyCode:(NSString* _Nullable)verify phone:(NSString* _Nullable)phone areaCode:(NSString* _Nullable)areaCode email:(NSString* _Nullable)email completion:(CheckVerifyCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];

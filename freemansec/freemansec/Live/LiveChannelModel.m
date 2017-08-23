@@ -21,6 +21,7 @@
                                             @"anchorId": @"aid",
                                             @"anchorName": @"anchorName",
                                             @"anchorImg": @"anchorImg",
-                                            @"anchorIntroduce": @"anchorIntroduce"}];
+                                            @"anchorIntroduce": @"anchorIntroduce",
+                                            @"isAttent": @"isconcerns"}];
 }
 @end

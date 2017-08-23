@@ -66,11 +66,11 @@
         
         _attentionModel = attentionModel;
         
-        [_imgV setImageWithURL:[NSURL URLWithString:_attentionModel.img]];
+        [_imgV setImageWithURL:[NSURL URLWithString:_attentionModel.liveImg]];
         
-        _titleLbl.text = _attentionModel.title;
-        _typeLbl.text = _attentionModel.liveType;
-        _anchorLbl.text = _attentionModel.anchorName;
+        _titleLbl.text = _attentionModel.liveTitle;
+        _typeLbl.text = _attentionModel.liveTypeName;
+        _anchorLbl.text = _attentionModel.nickName;
     }
 }
 

@@ -43,6 +43,7 @@
 - (void)getMyAttentionListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 
 - (void)addMyAttentionLiveId:(NSString*)liveId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
+- (void)cancelMyAttentionLiveId:(NSString*)liveId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 
 - (void)getProvinceListCompletion:(HttpClientServiceObjectBlock)completion;
 - (void)getCityListByProvinceId:(NSString*)pId completion:(HttpClientServiceObjectBlock)completion;

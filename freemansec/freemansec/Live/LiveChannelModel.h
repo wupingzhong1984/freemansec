@@ -19,4 +19,5 @@
 @property (nonatomic, strong) NSString<Optional>* anchorName;
 @property (nonatomic, strong) NSString<Optional>* anchorImg;
 @property (nonatomic, strong) NSString<Optional>* anchorIntroduce;
+@property (nonatomic, strong) NSString<Optional>* isAttent;
 @end

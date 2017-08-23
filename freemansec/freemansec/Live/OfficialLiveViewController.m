@@ -45,6 +45,7 @@
     // Do any additional setup after loading the view.
     
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, K_UIScreenHeight - 64 - self.tabBarController.tabBar.height)];
     _contentView.showsVerticalScrollIndicator = NO;
@@ -113,12 +114,13 @@
 {
     [super viewWillAppear:animated];
     
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = YES;
+//    self.tabBarController.tabBar.hidden = NO;
+//    self.navigationController.navigationBar.hidden = YES;
+//    
+//    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
-    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
-    
-    if ([LiveManager liveBannerNeedUpdate] || !self.bannerList.count) {
+    if (([LiveManager liveBannerNeedUpdate] && [[MineManager sharedInstance] getMyInfo]) ||
+        (!self.bannerList.count && [[MineManager sharedInstance] getMyInfo])) {
         
         [LiveManager updateLiveBannerLastUpdateTime:[NSDate date]];
         
@@ -163,7 +165,7 @@
     
     [super viewWillDisappear:animated];
     
-    self.navigationController.navigationBar.hidden = NO;
+//    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

@@ -14,7 +14,7 @@
 
 @interface VideoPlayViewController ()
 {
-    BOOL _played;
+    BOOL played;
 }
 @property (nonatomic ,strong) AVPlayer *player;
 @property (nonatomic ,strong) AVPlayerItem *playerItem;
@@ -63,7 +63,7 @@
 
 - (void)playAction {
     
-    if (!_played) {
+    if (!played) {
         
         if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWWAN) {
             
@@ -73,6 +73,7 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"继续观看" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 [self.playerView.player play];
+                played = YES;
                 [[VideoManager sharedInstance] addVideoPlayCount:_videoModel.videoId completion:nil];
                 [self.stateButton setImage:[UIImage imageNamed:@"play_bar_pause.png"] forState:UIControlStateNormal];
             }]];
@@ -81,14 +82,15 @@
         }
         
         [self.playerView.player play];
+        played=YES;
         [[VideoManager sharedInstance] addVideoPlayCount:_videoModel.videoId completion:nil];
         [self.stateButton setImage:[UIImage imageNamed:@"play_bar_pause.png"] forState:UIControlStateNormal];
         
     } else {
         [self.playerView.player pause];
+        played=NO;
         [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
     }
-    _played = !_played;
 }
 
 - (void)viewDidLoad {
@@ -156,6 +158,7 @@
     [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
     [self.playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];// 监听loadedTimeRanges属性
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -164,9 +167,13 @@
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
     
-    [self.playerView.player pause];
-    [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
-    _played = !_played;
+    if (played) {
+        
+        [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
+        [self.playerView.player pause];
+        played = NO;
+    }
+    
     [self.playerItem removeObserver:self forKeyPath:@"status" context:nil];
     [self.playerItem removeObserver:self forKeyPath:@"loadedTimeRanges" context:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.playerItem];
@@ -183,6 +190,7 @@
             if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWiFi) {
                 
                 [self playAction];
+                played = YES;
             }
             
         } else if ([playerItem status] == AVPlayerStatusFailed) {
@@ -198,6 +206,7 @@
     __weak typeof(self) weakSelf = self;
     [self.playerView.player seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
         [weakSelf.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
+        played = NO;
     }];
 }
 

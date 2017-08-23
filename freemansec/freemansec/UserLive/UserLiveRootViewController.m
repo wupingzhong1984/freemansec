@@ -81,7 +81,7 @@ NIMSessionViewControllerDelegate>{
     
     _isLiving = NO;
     
-    [self presentViewController:[Utility createErrorAlertWithContent:error okBtnTitle:nil] animated:YES completion:nil];
+    [self presentViewController:[Utility createErrorAlertWithContent:errMsg okBtnTitle:nil] animated:YES completion:nil];
 }
 
 - (void)unInitLiveStream{
@@ -123,7 +123,7 @@ NIMSessionViewControllerDelegate>{
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             __weak UserLiveRootViewController *weakSelf = self;
             [_mediaCapture stopLiveStream:^(NSError *error) {
-                [[UserLiveManager sharedInstance] closeLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId completion:nil];
+                [[UserLiveManager sharedInstance] closeLivePushCompletion:nil];
                 [weakSelf unInitLiveStream];
                 [weakSelf back];
             }];
@@ -262,7 +262,7 @@ NIMSessionViewControllerDelegate>{
 -(void)LiveStreamErrorInterrup{
     [_mediaCapture stopLiveStream:^(NSError *error) {
         if (error == nil) {
-            [[UserLiveManager sharedInstance] closeLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId completion:nil];
+            [[UserLiveManager sharedInstance] closeLivePushCompletion:nil];
             dispatch_async(dispatch_get_main_queue(), ^(void){[self showErrorAlert:error];});
         }
     }];
@@ -642,7 +642,7 @@ NIMSessionViewControllerDelegate>{
             __weak typeof(self) weakSelf = self;
             [_mediaCapture stopLiveStream:^(NSError *error) {
                 
-                [[UserLiveManager sharedInstance] closeLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId completion:nil];
+                [[UserLiveManager sharedInstance] closeLivePushCompletion:nil];
                 [weakSelf unInitLiveStream];
                 [weakSelf back];
             }];
@@ -657,7 +657,7 @@ NIMSessionViewControllerDelegate>{
                 if(error == nil)
                 {
                     
-                    [[UserLiveManager sharedInstance] closeLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId completion:nil];
+                    [[UserLiveManager sharedInstance] closeLivePushCompletion:nil];
                     _isLiving = NO;
                     //NSLocalizedString
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络已断开" preferredStyle:UIAlertControllerStyleAlert];
@@ -709,7 +709,7 @@ NIMSessionViewControllerDelegate>{
             // 其他内存清理的代码也可以在此处完成
             [_mediaCapture stopLiveStream:^(NSError *error) {
                 if (error == nil) {
-                    [[UserLiveManager sharedInstance] closeLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId completion:nil];
+                    [[UserLiveManager sharedInstance] closeLivePushCompletion:nil];
                     NNSLog(@"退到后台的直播结束了");
                     _isLiving = NO;
                     _needStartLive = YES;
@@ -738,7 +738,7 @@ NIMSessionViewControllerDelegate>{
     dispatch_async(dispatch_get_main_queue(), ^(void){
         _isLiving = YES;
         
-        [[UserLiveManager sharedInstance] startLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId completion:nil];
+        [[UserLiveManager sharedInstance] startLivePushByTitle:[[MineManager sharedInstance] getMyInfo].liveTitle completion:nil];
         
         __weak UserLiveRootViewController *weakSelf = self;
         [weakSelf.mediaCapture snapShotWithCompletionBlock:^(UIImage *latestFrameImage) {

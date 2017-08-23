@@ -27,7 +27,8 @@
                                             @"rtmpPullUrl": @"rtmpPullUrl",
                                             @"pushUrl": @"pushUrl",
                                             @"addTime": @"addtime",
-                                            @"isDelete": @"isdel"}];
+                                            @"isDelete": @"isdel",
+                                            @"isAttent": @"isconcerns"}];
 }
 
 @end

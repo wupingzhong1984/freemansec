@@ -10,6 +10,8 @@
 #import "MJRefresh.h"
 #import "MyAttentionModel.h"
 #import "MyAttentionListCell.h"
+#import "LivePlayViewController.h"
+#import "UserLivePlayViewController.h"
 
 @interface MyAttentionViewController ()
 <UITableViewDelegate,UITableViewDataSource>
@@ -217,7 +219,25 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     MyAttentionModel * attenModel = [self.attenList objectAtIndex:indexPath.row];
-    //todo
+    if (attenModel.cId.length > 0) { //个人
+        LiveSearchResultModel *model = [[LiveSearchResultModel alloc] init];
+        model.isAttent = @"1";
+        //todo
+        
+        UserLivePlayViewController *vc = [[UserLivePlayViewController alloc] init];
+        vc.userLiveChannelModel = model;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    } else { //官方
+        LiveChannelModel *model = [[LiveChannelModel alloc] init];
+        model.isAttent = @"1";
+        //todo
+        
+        LivePlayViewController *vc = [[LivePlayViewController alloc] init];
+        vc.liveChannelModel = model;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {

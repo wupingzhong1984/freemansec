@@ -36,6 +36,7 @@ static NSString* ThirdLoginPath = @"Ajax/registerLogin.ashx";
 static NSString* RefreshUserInfoPath = @"Ajax/getUser.ashx";
 static NSString* GetMyAttentionListPath = @"Ajax/getConcernsList.ashx";
 static NSString* AddMyAttentionPath = @"Ajax/addConcerns.ashx";
+static NSString* CancelMyAttentionPath = @"Ajax/cancelConcerns.ashx";
 
 @implementation MineHttpService
 
@@ -655,7 +656,8 @@ static NSString* AddMyAttentionPath = @"Ajax/addConcerns.ashx";
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:GetMyAttentionListPath
-                     params:nil
+                     params:@{@"userid":userId
+                              }
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      if(response == nil) {
@@ -678,6 +680,19 @@ static NSString* AddMyAttentionPath = @"Ajax/addConcerns.ashx";
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:AddMyAttentionPath
+                     params:@{@"userid":userId,
+                              @"liveid":liveId
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     completion(response, err);
+                 }];
+}
+
+- (void)cancelMyAttentionLiveId:(NSString*)liveId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:CancelMyAttentionPath
                      params:@{@"userid":userId,
                               @"liveid":liveId
                               }

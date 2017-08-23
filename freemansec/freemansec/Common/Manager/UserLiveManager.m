@@ -85,4 +85,21 @@ static UserLiveManager *instance;
     
 }
 
+- (void)startLivePushByTitle:(NSString*)title completion:(StartLivePushCompletion _Nullable)completion {
+    
+    UserLiveHttpService *service = [[UserLiveHttpService alloc] init];
+    [service startLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId title:title completion:^(id obj, NSError *err) {
+        
+        completion(err);
+    }];
+}
+
+- (void)closeLivePushCompletion:(CloseLivePushCompletion _Nullable)completion {
+    UserLiveHttpService *service = [[UserLiveHttpService alloc] init];
+    [service closeLivePushByCid:[[MineManager sharedInstance] getMyInfo].cId completion:^(id obj, NSError *err) {
+        
+        completion(err);
+    }];
+}
+
 @end

@@ -15,6 +15,20 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
 
 @implementation HttpClientService
 
+-(void)suppleParams:(NSMutableDictionary*)params {
+    
+    MyInfoModel *info = [[MineManager sharedInstance] getMyInfo];
+    if(info) { //logined
+        
+        if (!params) {
+            params = [[NSMutableDictionary alloc] init];
+        }
+        
+        [params setObject:info.userId forKey:@"userid"];
+    }
+    
+}
+
 -(void) httpRequestMethod:(HttpReuqestMethod)method
                      path:(NSString*)path
                    params:(NSDictionary*)params
@@ -22,12 +36,18 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
 
     NSString* url = [NSString stringWithFormat:@"%@/%@", BASE_URL, path];
     
-    NNSLog(@"request:%@?%@", url,params);
+    NSMutableDictionary *paramDic;
+    if (params) {
+        paramDic = [[NSMutableDictionary alloc] initWithDictionary:params];
+    }
+    [self suppleParams:paramDic];
+    
+    NNSLog(@"request:%@?%@", url,paramDic);
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     if (method == HttpReuqestMethodGet) {
         
-        [manager GET:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        [manager GET:url parameters:paramDic progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
@@ -83,7 +103,7 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
         
     } else if (method == HttpReuqestMethodPost) {
         
-        [manager POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        [manager POST:url parameters:paramDic progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
@@ -138,7 +158,7 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
         
     } else if (method == HttpReuqestMethodPut) {
         
-        [manager PUT:url parameters:params
+        [manager PUT:url parameters:paramDic
         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -146,7 +166,7 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
         }];
         
     } else if (method == HttpReuqestMethodDelete) {
-        [manager DELETE:url parameters:params
+        [manager DELETE:url parameters:paramDic
         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

@@ -115,14 +115,31 @@
 
 - (void)markAction {
     
-    [[MineManager sharedInstance] addMyAttentionLiveId:_userLiveChannelModel.cid completion:^(NSError * _Nullable error) {
+    if (![_userLiveChannelModel.isAttent boolValue]) {
         
-        if (error) {
-            [MBProgressHUD showError:@"关注失败！"];//NSLocalizedString
-        } else {
-            [MBProgressHUD showSuccess:@"关注成功！"];//NSLocalizedString
-        }
-    }];
+        [[MineManager sharedInstance] addMyAttentionLiveId:_userLiveChannelModel.cid completion:^(NSError * _Nullable error) {
+            
+            if (error) {
+                [MBProgressHUD showError:@"关注失败！"];//NSLocalizedString
+            } else {
+                [MBProgressHUD showSuccess:@"关注成功！"];//NSLocalizedString
+                _userLiveChannelModel.isAttent = @"1";
+                [_markBtn setImage:[UIImage imageNamed:@"live_mark_icon_1.png"] forState:UIControlStateNormal];
+            }
+        }];
+    } else {
+        
+        [[MineManager sharedInstance] cancelMyAttentionLiveId:_userLiveChannelModel.cid completion:^(NSError * _Nullable error) {
+            
+            if (error) {
+                [MBProgressHUD showError:@"取消关注失败！"];//NSLocalizedString
+            } else {
+                [MBProgressHUD showSuccess:@"取消关注成功！"];//NSLocalizedString
+                _userLiveChannelModel.isAttent = @"0";
+                [_markBtn setImage:[UIImage imageNamed:@"live_mark_icon.png"] forState:UIControlStateNormal];
+            }
+        }];
+    }
 }
 
 - (void)setupSubViews {
@@ -178,7 +195,7 @@
     _roomPCount.centerY = countIcon.centerY;
     
     self.markBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_markBtn setImage:[UIImage imageNamed:@"live_mark_icon.png"] forState:UIControlStateNormal];
+    [_markBtn setImage:[UIImage imageNamed:[_userLiveChannelModel.isAttent isEqualToString:@"0"]?@"live_mark_icon.png":@"live_mark_icon_1.png"] forState:UIControlStateNormal];
     _markBtn.size = [_imBtn imageForState:UIControlStateNormal].size;
     _markBtn.y = K_UIScreenHeight-48;
     _markBtn.centerX = K_UIScreenWidth/2;

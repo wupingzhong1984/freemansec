@@ -94,11 +94,12 @@ static NSString* CloseLivePath = @"Ajax/closeLive.ashx";
                  }];
 }
 
-- (void)startLivePushByCid:(NSString*_Nullable)cid completion:(HttpClientServiceObjectBlock _Nullable)completion {
+- (void)startLivePushByCid:(NSString*_Nullable)cid title:(NSString*)title completion:(HttpClientServiceObjectBlock _Nullable)completion {
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:StartLivePath
-                     params:@{@"cid":cid
+                     params:@{@"cid":cid,
+                              @"title":title
                               }
                  completion:^(JsonResponse* response, NSError *err) {
                      
