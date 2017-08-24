@@ -75,7 +75,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
 }
 
 - (instancetype)init {
-    return [self initWithNamespace:@"default"];
+    return [self initWithNamespace:@"appimgcachedefault"];
 }
 
 - (nonnull instancetype)initWithNamespace:(nonnull NSString *)ns {

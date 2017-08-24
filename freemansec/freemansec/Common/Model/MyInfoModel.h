@@ -12,7 +12,7 @@
 
 //个人信息
 @property (nonatomic,strong) NSString<Optional>* userLoginId;//跨平台身份ID 用户获取IM的token
-@property (nonatomic,strong) NSString<Optional>* userId;
+@property (nonatomic,strong) NSString * userId;
 @property (nonatomic,strong) NSString<Optional>* nickName;
 @property (nonatomic,strong) NSString<Optional>* phone;
 @property (nonatomic,strong) NSString<Optional>* email;

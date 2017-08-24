@@ -11,6 +11,7 @@
 #import "SignUpWithEmailView.h"
 #import "SetTelCodeViewController.h"
 #import "VerifyEmailCodeViewController.h"
+#import "UserPolicyViewController.h"
 
 typedef enum {
     SignUpTypeMobile,
@@ -19,7 +20,8 @@ typedef enum {
 
 @interface SignUpViewController ()
 <UIScrollViewDelegate,
-SetTelCodeViewControllerDelegate>
+SetTelCodeViewControllerDelegate,
+UserPolicyViewControllerDelegate>
 
 @property (nonatomic,strong) UIScrollView *contentView;
 @property (nonatomic,assign) SignUpType signUpType;
@@ -34,6 +36,13 @@ SetTelCodeViewControllerDelegate>
 - (void)back {
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)agreementAction {
+    
+    UserPolicyViewController *vc = [[UserPolicyViewController alloc] init];
+    vc.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)mobileTelCodeBtnAction {
@@ -55,7 +64,7 @@ SetTelCodeViewControllerDelegate>
         _second = 60;
         _mobileSignView.verifyBtn.enabled = NO;
         [_mobileSignView.verifyBtn setTitle:[NSString stringWithFormat:@"%dS",_second] forState:UIControlStateDisabled];
-        self.timer = [NSTimer timerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
             
             _second--;
             NNSLog(@"%d",_second);
@@ -64,6 +73,7 @@ SetTelCodeViewControllerDelegate>
                 [_mobileSignView.verifyBtn setTitle:[NSString stringWithFormat:@"%dS",_second] forState:UIControlStateDisabled];
             } else {
                 
+                [self.timer invalidate];
                 self.timer = nil;
                 _mobileSignView.verifyBtn.enabled = YES;
                 [_mobileSignView.verifyBtn setTitle:@"验证码" forState:UIControlStateNormal];
@@ -75,11 +85,6 @@ SetTelCodeViewControllerDelegate>
             
             if(error) {
                 [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
-            } else {
-                
-                //test
-//                _mobileSignView.verifyCodeTF.text = verify;
-
             }
         }];
     }
@@ -167,6 +172,8 @@ SetTelCodeViewControllerDelegate>
         [_mobileSignView.signBtn addTarget:self action:@selector(mobileSignBtnAction) forControlEvents:UIControlEventTouchUpInside];
         
         [_mobileSignView.changeToEmailBtn addTarget:self action:@selector(mobileChangeToEmailBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_mobileSignView.agreementBtn addTarget:self action:@selector(agreementAction) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _mobileSignView;
@@ -182,7 +189,7 @@ SetTelCodeViewControllerDelegate>
         [error appendString:@"请正确输入邮箱。"];
     }
     
-    if (!_mobileSignView.agree) {
+    if (!_emailSignView.agree) {
         
         [error appendString:@"请阅读并同意条款。"];
     }
@@ -218,6 +225,8 @@ SetTelCodeViewControllerDelegate>
         [_emailSignView.signBtn addTarget:self action:@selector(emailSignBtnAction) forControlEvents:UIControlEventTouchUpInside];
         
         [_emailSignView.changeToMobileBtn addTarget:self action:@selector(emailChangeToMobileBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_emailSignView.agreementBtn addTarget:self action:@selector(agreementAction) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _emailSignView;
@@ -311,6 +320,14 @@ SetTelCodeViewControllerDelegate>
     if (_mobileSignView) {
         _mobileSignView.telCodeLbl.text = code;
     }
+}
+
+- (void)UserPolicyViewControllerDidAgree {
+    
+    _mobileSignView.agree = YES;
+    _emailSignView.agree = YES;
+    [_mobileSignView.agreeIV setImage:[UIImage imageNamed:@"checkbox_1.png"]];
+    [_emailSignView.agreeIV setImage:[UIImage imageNamed:@"checkbox_1.png"]];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -71,6 +71,7 @@
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = [UIColor clearColor];
+    [_tableView registerClass:[MyVideoListCell class] forCellReuseIdentifier:@"MyVideoListCell"];
     [self.view addSubview:_tableView];
     
     [self setupRefresh];

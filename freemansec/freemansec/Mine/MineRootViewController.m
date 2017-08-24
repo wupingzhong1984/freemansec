@@ -13,6 +13,7 @@
 #import "MyFavourViewController.h"
 #import "MyAttentionViewController.h"
 #import "ApplyAnchorViewController.h"
+#import "SettingViewController.h"
 
 @interface MineRootViewController ()
 <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
@@ -100,6 +101,7 @@
     _pLbl.centerY = _pointBg.centerY;
     _pointLbl.x = _pLbl.maxX + 13;
     _pointLbl.centerY = _pointBg.centerY;
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -381,6 +383,8 @@
             }
         } else {
             
+            SettingViewController *vc = [[SettingViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
     

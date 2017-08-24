@@ -77,7 +77,7 @@ SetTelCodeViewControllerDelegate>
         _second = 60;
         _verifyBtn.enabled = NO;
         [_verifyBtn setTitle:[NSString stringWithFormat:@"%dS",_second] forState:UIControlStateDisabled];
-        self.timer = [NSTimer timerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
             
             _second--;
             NNSLog(@"%d",_second);
@@ -86,6 +86,7 @@ SetTelCodeViewControllerDelegate>
                 [_verifyBtn setTitle:[NSString stringWithFormat:@"%dS",_second] forState:UIControlStateDisabled];
             } else {
                 
+                [self.timer invalidate];
                 self.timer = nil;
                 _verifyBtn.enabled = YES;
                 [_verifyBtn setTitle:@"验证码" forState:UIControlStateNormal];
@@ -97,11 +98,6 @@ SetTelCodeViewControllerDelegate>
             
             if(error) {
                 [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
-            } else {
-                
-                //test
-//                _verifyCodeTF.text = verify;
-                
             }
         }];
     }

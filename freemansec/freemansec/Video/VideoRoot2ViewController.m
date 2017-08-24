@@ -10,6 +10,7 @@
 #import "MJRefresh.h"
 #import "VideoModel.h"
 #import "VideoListCell.h"
+#import "VideoPlayViewController.h"
 
 @interface VideoRoot2ViewController ()
 <UITableViewDelegate,UITableViewDataSource>
@@ -55,6 +56,7 @@
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = [UIColor clearColor];
+    [_tableView registerClass:[VideoListCell class] forCellReuseIdentifier:@"VideoListCell"];
     [self.view addSubview:_tableView];
     
     [self setupRefresh];
@@ -204,7 +206,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     VideoModel * videoModel = [self.videoList objectAtIndex:indexPath.row];
-    //todo
+    VideoPlayViewController *vc = [[VideoPlayViewController alloc] init];
+    vc.videoModel = videoModel;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

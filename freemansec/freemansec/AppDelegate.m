@@ -54,11 +54,10 @@
 
 - (void)configUSharePlatforms {
     
-    //todo
     /*设置微信的appKey和appSecret
     [微信平台从U-Share 4/5升级说明]http://dev.umeng.com/social/ios/%E8%BF%9B%E9%98%B6%E6%96%87%E6%A1%A3#1_1
     */
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxdc1e388c3822c80b" appSecret:@"3baf1193c85774b3fd9d18447d76cab0" redirectURL:nil];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx8318243c316dae42" appSecret:@"46a4ed564bb756c1e8f31f513558c3b8" redirectURL:nil];
     
     //todo
     /*

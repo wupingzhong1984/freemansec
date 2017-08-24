@@ -35,6 +35,7 @@
         _emailTF.font = [UIFont systemFontOfSize:16];
         _emailTF.textColor = [UIColor darkGrayColor];
         _emailTF.placeholder = @"请输入邮箱";//NSLocalizedString
+        _emailTF.keyboardType = UIKeyboardTypeEmailAddress;
         [self addSubview:_emailTF];
         
         self.agreeIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkbox_1.png"]];
@@ -47,6 +48,11 @@
         agreem.x = _agreeIV.maxX + 5;
         agreem.centerY = _agreeIV.centerY;
         [self addSubview:agreem];
+        
+        self.agreementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _agreementBtn.size = (CGSize){agreem.width,agreem.height + 20};
+        _agreementBtn.center = agreem.center;
+        [self addSubview:_agreementBtn];
         
         UIButton *agreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         agreeBtn.size = (CGSize){_agreeIV.width + 20,_agreeIV.height + 20};
@@ -63,7 +69,7 @@
         _signBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [self addSubview:_signBtn];
         
-        UILabel *change = [UILabel createLabelWithFrame:CGRectZero text:@"用邮箱注册" textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:15]];
+        UILabel *change = [UILabel createLabelWithFrame:CGRectZero text:@"用手机注册" textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:15]];
         [change sizeToFit];//NSLocalizedString
         change.x = _signBtn.maxX - change.width;
         change.y = _signBtn.maxY + 15;

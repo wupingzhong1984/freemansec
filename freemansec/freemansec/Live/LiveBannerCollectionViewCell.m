@@ -32,7 +32,12 @@
     
     if (channelModel) {
         
-        [self.coverIV setImageWithURL:[NSURL URLWithString:channelModel.liveImg]];
+        [self.coverIV sd_setImageWithURL:[NSURL URLWithString:channelModel.liveImg]];
     }
+}
+
+- (void)setSelected:(BOOL)selected {
+    
+    
 }
 @end

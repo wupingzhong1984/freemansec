@@ -121,7 +121,7 @@
 
 - (void)loginByWX {
     
-    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatTimeLine currentViewController:self completion:^(id result, NSError *error) {
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:self completion:^(id result, NSError *error) {
         
         if (!result || error) {
             //NSLocalizedString
@@ -133,15 +133,15 @@
             
             // 第三方登录数据(为空表示平台未提供)
             // 授权数据
-            NSLog(@" unionId: %@", resp.unionId);
+            NNSLog(@" unionId: %@", resp.unionId);
             
             // 用户数据
-            NSLog(@" name: %@", resp.name);
-            NSLog(@" iconurl: %@", resp.iconurl);
-            NSLog(@" gender: %@", resp.unionGender);
+            NNSLog(@" name: %@", resp.name);
+            NNSLog(@" iconurl: %@", resp.iconurl);
+            NNSLog(@" gender: %@", resp.unionGender);
             
             // 第三方平台SDK原始数据
-            NSLog(@" originalResponse: %@", resp.originalResponse);
+            NNSLog(@" originalResponse: %@", resp.originalResponse);
             
             [[MineManager sharedInstance] loginWithThird:TLTWeixin userCode:resp.unionId completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
                 
@@ -319,25 +319,26 @@
     wx.centerX = other.centerX;
     [_contentView addSubview:wx];
     
-    UIImage *weiboImg = [UIImage imageNamed:@"weibo.png"];
-    UIButton *weibo = [UIButton buttonWithType:UIButtonTypeCustom];
-    weibo.clipsToBounds = YES;
-    weibo.size = wx.size;
-    [weibo setImage:weiboImg forState:UIControlStateNormal];
-    [weibo addTarget:self action:@selector(loginByWeibo) forControlEvents:UIControlEventTouchUpInside];
-    weibo.y = wx.y;
-    weibo.centerX = wx.centerX-100;
-    [_contentView addSubview:weibo];
-    
-    UIImage *fbImg = [UIImage imageNamed:@"login_fb.png"];
-    UIButton *fb = [UIButton buttonWithType:UIButtonTypeCustom];
-    fb.clipsToBounds = YES;
-    fb.size = wx.size;
-    [fb setImage:fbImg forState:UIControlStateNormal];
-    [fb addTarget:self action:@selector(loginByFB) forControlEvents:UIControlEventTouchUpInside];
-    fb.y = wx.y;
-    fb.centerX = wx.centerX+100;
-    [_contentView addSubview:fb];
+    //todo
+//    UIImage *weiboImg = [UIImage imageNamed:@"weibo.png"];
+//    UIButton *weibo = [UIButton buttonWithType:UIButtonTypeCustom];
+//    weibo.clipsToBounds = YES;
+//    weibo.size = wx.size;
+//    [weibo setImage:weiboImg forState:UIControlStateNormal];
+//    [weibo addTarget:self action:@selector(loginByWeibo) forControlEvents:UIControlEventTouchUpInside];
+//    weibo.y = wx.y;
+//    weibo.centerX = wx.centerX-100;
+//    [_contentView addSubview:weibo];
+//    
+//    UIImage *fbImg = [UIImage imageNamed:@"login_fb.png"];
+//    UIButton *fb = [UIButton buttonWithType:UIButtonTypeCustom];
+//    fb.clipsToBounds = YES;
+//    fb.size = wx.size;
+//    [fb setImage:fbImg forState:UIControlStateNormal];
+//    [fb addTarget:self action:@selector(loginByFB) forControlEvents:UIControlEventTouchUpInside];
+//    fb.y = wx.y;
+//    fb.centerX = wx.centerX+100;
+//    [_contentView addSubview:fb];
 }
 
 - (void)viewDidLoad {

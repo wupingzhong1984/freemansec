@@ -47,5 +47,8 @@
         _title.y = _coverIV.maxY + 5;
     }
 }
-
+- (void)setSelected:(BOOL)selected {
+    
+    
+}
 @end

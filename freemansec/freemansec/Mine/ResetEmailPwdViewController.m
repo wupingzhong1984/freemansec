@@ -107,6 +107,7 @@
     _emailTF.font = [UIFont systemFontOfSize:16];
     _emailTF.textColor = [UIColor darkGrayColor];
     _emailTF.placeholder = @"请输入邮箱";//NSLocalizedString
+    _emailTF.keyboardType = UIKeyboardTypeEmailAddress;
     [_contentView addSubview:_emailTF];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

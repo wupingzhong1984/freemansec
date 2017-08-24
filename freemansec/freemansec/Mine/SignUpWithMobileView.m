@@ -119,6 +119,11 @@
         agreem.centerY = _agreeIV.centerY;
         [self addSubview:agreem];
         
+        self.agreementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _agreementBtn.size = (CGSize){agreem.width,agreem.height + 20};
+        _agreementBtn.center = agreem.center;
+        [self addSubview:_agreementBtn];
+        
         UIButton *agreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         agreeBtn.size = (CGSize){_agreeIV.width + 20,_agreeIV.height + 20};
         agreeBtn.center = _agreeIV.center;

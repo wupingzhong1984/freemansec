@@ -252,6 +252,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                 }];
             }]];
             [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
             break;
         }
         case 3: {

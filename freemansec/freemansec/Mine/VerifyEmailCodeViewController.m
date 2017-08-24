@@ -176,11 +176,6 @@
         if(error) {
             
            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
-        } else {
-            
-            //test
-//            _verifyCodeTF.text = verify;
-            
         }
     }];
 }

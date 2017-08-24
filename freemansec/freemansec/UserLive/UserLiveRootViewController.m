@@ -397,10 +397,10 @@ NIMSessionViewControllerDelegate>{
     [self setupSubviews];
     
     //test
-    self.pushUrl = [[MineManager sharedInstance] getMyInfo].pushUrl;
-    [self startPush];
-    [self requestGetChatRoomWhenLiveStart];
-    return;
+//    self.pushUrl = [[MineManager sharedInstance] getMyInfo].pushUrl;
+//    [self startPush];
+//    [self requestGetChatRoomWhenLiveStart];
+//    return;
     
     self.updateUserLiveTitleView = [[UpdateUserLiveTitleView alloc] init];
     _updateUserLiveTitleView.titleTF.text = [[MineManager sharedInstance] getMyInfo].liveTitle;

@@ -52,6 +52,7 @@
 		2F22DF911F225ECF0039316B /* SignUpWithEmailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F22DF901F225ECF0039316B /* SignUpWithEmailView.m */; };
 		2F234DC71F39AE7A00862029 /* UserLiveType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F234DC61F39AE7A00862029 /* UserLiveType.m */; };
 		2F3102291F35E87600F9364D /* NEMediaCaptureEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3102281F35E87600F9364D /* NEMediaCaptureEntity.m */; };
+		2F318B511F4F3AA1003FC62B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F318B501F4F3AA1003FC62B /* SettingViewController.m */; };
 		2F6980D81F1B7B790083E785 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6980D71F1B7B790083E785 /* PlayerView.m */; };
 		2F6980DD1F1BA87F0083E785 /* play_bar_orientation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980D91F1BA87F0083E785 /* play_bar_orientation@2x.png */; };
 		2F6980DE1F1BA87F0083E785 /* play_bar_orientation@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980DA1F1BA87F0083E785 /* play_bar_orientation@3x.png */; };
@@ -176,6 +177,7 @@
 		2F869E3F1F37821E005C8212 /* OfficialLiveType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F869E3E1F37821E005C8212 /* OfficialLiveType.m */; };
 		2F869E421F3820EE005C8212 /* IMTokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F869E411F3820EE005C8212 /* IMTokenModel.m */; };
 		2F88AF061F29B056005E8383 /* MinePersonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88AF051F29B056005E8383 /* MinePersonInfoViewController.m */; };
+		2F945E9C1F4F4B6D00D48C70 /* MessageRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F945E9B1F4F4B6D00D48C70 /* MessageRootViewController.m */; };
 		2F9999291F45D09D00656DF0 /* live_camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F99991D1F45D09D00656DF0 /* live_camera_icon@2x.png */; };
 		2F99992A1F45D09D00656DF0 /* live_camera_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F99991E1F45D09D00656DF0 /* live_camera_icon@3x.png */; };
 		2F99992B1F45D09D00656DF0 /* live_close_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F99991F1F45D09D00656DF0 /* live_close_icon@2x.png */; };
@@ -249,7 +251,6 @@
 		2FAF31481F1605BD004329ED /* LivePlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF30D71F1605BD004329ED /* LivePlayViewController.m */; };
 		2FAF314A1F1605BD004329ED /* LiveRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF30DE1F1605BD004329ED /* LiveRootViewController.m */; };
 		2FAF314B1F1605BD004329ED /* LiveSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF30E01F1605BD004329ED /* LiveSearchViewController.m */; };
-		2FAF314C1F1605BD004329ED /* MessageRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF30E31F1605BD004329ED /* MessageRootViewController.m */; };
 		2FAF314D1F1605BD004329ED /* MineRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF30E61F1605BD004329ED /* MineRootViewController.m */; };
 		2FAF314E1F1605BD004329ED /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF30EA1F1605BD004329ED /* AFHTTPSessionManager.m */; };
 		2FAF314F1F1605BD004329ED /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF30ED1F1605BD004329ED /* AFNetworkReachabilityManager.m */; };
@@ -542,6 +543,13 @@
 		2FFE5DA61F4D7E1D00C6971D /* live_mark_icon_1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFE5DA21F4D7E1D00C6971D /* live_mark_icon_1@3x.png */; };
 		2FFE5DA71F4D7E1D00C6971D /* navi_mark_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFE5DA31F4D7E1D00C6971D /* navi_mark_1@2x.png */; };
 		2FFE5DA81F4D7E1D00C6971D /* navi_mark_1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFE5DA41F4D7E1D00C6971D /* navi_mark_1@3x.png */; };
+		2FFE5DAB1F4ECEC200C6971D /* UserPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE5DAA1F4ECEC200C6971D /* UserPolicyViewController.m */; };
+		2FFE5DB01F4F098500C6971D /* msg_cell_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFE5DAE1F4F098500C6971D /* msg_cell_icon@2x.png */; };
+		2FFE5DB11F4F098500C6971D /* msg_cell_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFE5DAF1F4F098500C6971D /* msg_cell_icon@3x.png */; };
+		2FFE5DB61F4F09E600C6971D /* MsgModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE5DB51F4F09E600C6971D /* MsgModel.m */; };
+		2FFE5DB91F4F09FF00C6971D /* MsgListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE5DB81F4F09FF00C6971D /* MsgListCell.m */; };
+		2FFE5DBC1F4F1E3A00C6971D /* MessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE5DBB1F4F1E3A00C6971D /* MessageManager.m */; };
+		2FFE5DBF1F4F1F2E00C6971D /* MessageHttpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE5DBE1F4F1F2E00C6971D /* MessageHttpService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -614,6 +622,8 @@
 		2F234DC61F39AE7A00862029 /* UserLiveType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLiveType.m; sourceTree = "<group>"; };
 		2F3102271F35E87600F9364D /* NEMediaCaptureEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEMediaCaptureEntity.h; sourceTree = "<group>"; };
 		2F3102281F35E87600F9364D /* NEMediaCaptureEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaCaptureEntity.m; sourceTree = "<group>"; };
+		2F318B4F1F4F3AA1003FC62B /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		2F318B501F4F3AA1003FC62B /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		2F6980D61F1B7B790083E785 /* PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
 		2F6980D71F1B7B790083E785 /* PlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
 		2F6980D91F1BA87F0083E785 /* play_bar_orientation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_orientation@2x.png"; sourceTree = "<group>"; };
@@ -804,6 +814,8 @@
 		2F869E411F3820EE005C8212 /* IMTokenModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMTokenModel.m; sourceTree = "<group>"; };
 		2F88AF041F29B056005E8383 /* MinePersonInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinePersonInfoViewController.h; sourceTree = "<group>"; };
 		2F88AF051F29B056005E8383 /* MinePersonInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MinePersonInfoViewController.m; sourceTree = "<group>"; };
+		2F945E9A1F4F4B6D00D48C70 /* MessageRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageRootViewController.h; sourceTree = "<group>"; };
+		2F945E9B1F4F4B6D00D48C70 /* MessageRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageRootViewController.m; sourceTree = "<group>"; };
 		2F99991D1F45D09D00656DF0 /* live_camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "live_camera_icon@2x.png"; sourceTree = "<group>"; };
 		2F99991E1F45D09D00656DF0 /* live_camera_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "live_camera_icon@3x.png"; sourceTree = "<group>"; };
 		2F99991F1F45D09D00656DF0 /* live_close_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "live_close_icon@2x.png"; sourceTree = "<group>"; };
@@ -919,8 +931,6 @@
 		2FAF30DE1F1605BD004329ED /* LiveRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveRootViewController.m; sourceTree = "<group>"; };
 		2FAF30DF1F1605BD004329ED /* LiveSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveSearchViewController.h; sourceTree = "<group>"; };
 		2FAF30E01F1605BD004329ED /* LiveSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveSearchViewController.m; sourceTree = "<group>"; };
-		2FAF30E21F1605BD004329ED /* MessageRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageRootViewController.h; sourceTree = "<group>"; };
-		2FAF30E31F1605BD004329ED /* MessageRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageRootViewController.m; sourceTree = "<group>"; };
 		2FAF30E51F1605BD004329ED /* MineRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineRootViewController.h; sourceTree = "<group>"; };
 		2FAF30E61F1605BD004329ED /* MineRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineRootViewController.m; sourceTree = "<group>"; };
 		2FAF30E91F1605BD004329ED /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -1459,6 +1469,18 @@
 		2FFE5DA21F4D7E1D00C6971D /* live_mark_icon_1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "live_mark_icon_1@3x.png"; sourceTree = "<group>"; };
 		2FFE5DA31F4D7E1D00C6971D /* navi_mark_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_mark_1@2x.png"; sourceTree = "<group>"; };
 		2FFE5DA41F4D7E1D00C6971D /* navi_mark_1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_mark_1@3x.png"; sourceTree = "<group>"; };
+		2FFE5DA91F4ECEC200C6971D /* UserPolicyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPolicyViewController.h; sourceTree = "<group>"; };
+		2FFE5DAA1F4ECEC200C6971D /* UserPolicyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPolicyViewController.m; sourceTree = "<group>"; };
+		2FFE5DAE1F4F098500C6971D /* msg_cell_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "msg_cell_icon@2x.png"; sourceTree = "<group>"; };
+		2FFE5DAF1F4F098500C6971D /* msg_cell_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "msg_cell_icon@3x.png"; sourceTree = "<group>"; };
+		2FFE5DB41F4F09E600C6971D /* MsgModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgModel.h; sourceTree = "<group>"; };
+		2FFE5DB51F4F09E600C6971D /* MsgModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgModel.m; sourceTree = "<group>"; };
+		2FFE5DB71F4F09FF00C6971D /* MsgListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgListCell.h; sourceTree = "<group>"; };
+		2FFE5DB81F4F09FF00C6971D /* MsgListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgListCell.m; sourceTree = "<group>"; };
+		2FFE5DBA1F4F1E3A00C6971D /* MessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageManager.h; sourceTree = "<group>"; };
+		2FFE5DBB1F4F1E3A00C6971D /* MessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageManager.m; sourceTree = "<group>"; };
+		2FFE5DBD1F4F1F2E00C6971D /* MessageHttpService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageHttpService.h; sourceTree = "<group>"; };
+		2FFE5DBE1F4F1F2E00C6971D /* MessageHttpService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageHttpService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1579,6 +1601,8 @@
 				2FE7FF271F2E38B3007DFCC0 /* MyAttentionViewController.m */,
 				2F12E00C1F30FB800064AD5A /* ApplyAnchorViewController.h */,
 				2F12E00D1F30FB800064AD5A /* ApplyAnchorViewController.m */,
+				2F318B4F1F4F3AA1003FC62B /* SettingViewController.h */,
+				2F318B501F4F3AA1003FC62B /* SettingViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -1622,6 +1646,8 @@
 				2FE7FF211F2DDFEC007DFCC0 /* MineHttpService.m */,
 				2F12E0091F30F5940064AD5A /* UserLiveHttpService.h */,
 				2F12E00A1F30F5940064AD5A /* UserLiveHttpService.m */,
+				2FFE5DBD1F4F1F2E00C6971D /* MessageHttpService.h */,
+				2FFE5DBE1F4F1F2E00C6971D /* MessageHttpService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1690,6 +1716,8 @@
 				2F12E0071F30F5550064AD5A /* UserLiveManager.m */,
 				2FCBD7A61F43454F00F21A60 /* DataManager.h */,
 				2FCBD7A71F43454F00F21A60 /* DataManager.m */,
+				2FFE5DBA1F4F1E3A00C6971D /* MessageManager.h */,
+				2FFE5DBB1F4F1E3A00C6971D /* MessageManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2156,8 +2184,9 @@
 		2FAF30E11F1605BD004329ED /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				2FAF30E21F1605BD004329ED /* MessageRootViewController.h */,
-				2FAF30E31F1605BD004329ED /* MessageRootViewController.m */,
+				2FFE5DB21F4F09AD00C6971D /* Model */,
+				2FFE5DB31F4F09BE00C6971D /* View */,
+				2FFE5DAD1F4F046600C6971D /* ViewController */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -2333,6 +2362,8 @@
 		2FAF31741F160FDF004329ED /* images */ = {
 			isa = PBXGroup;
 			children = (
+				2FFE5DAE1F4F098500C6971D /* msg_cell_icon@2x.png */,
+				2FFE5DAF1F4F098500C6971D /* msg_cell_icon@3x.png */,
 				2FFE5DA11F4D7E1D00C6971D /* live_mark_icon_1@2x.png */,
 				2FFE5DA21F4D7E1D00C6971D /* live_mark_icon_1@3x.png */,
 				2FFE5DA31F4D7E1D00C6971D /* navi_mark_1@2x.png */,
@@ -3346,6 +3377,8 @@
 				2FC4CF631F3A069D002DF8D8 /* UpdateEmailViewController.m */,
 				2FC4CF681F3A2340002DF8D8 /* UpdateEmail2ViewController.h */,
 				2FC4CF691F3A2340002DF8D8 /* UpdateEmail2ViewController.m */,
+				2FFE5DA91F4ECEC200C6971D /* UserPolicyViewController.h */,
+				2FFE5DAA1F4ECEC200C6971D /* UserPolicyViewController.m */,
 			);
 			name = MyAccount;
 			sourceTree = "<group>";
@@ -3359,6 +3392,33 @@
 				2FE7FF2A1F2E397B007DFCC0 /* MyFavourModel.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		2FFE5DAD1F4F046600C6971D /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2F945E9A1F4F4B6D00D48C70 /* MessageRootViewController.h */,
+				2F945E9B1F4F4B6D00D48C70 /* MessageRootViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		2FFE5DB21F4F09AD00C6971D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2FFE5DB41F4F09E600C6971D /* MsgModel.h */,
+				2FFE5DB51F4F09E600C6971D /* MsgModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		2FFE5DB31F4F09BE00C6971D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2FFE5DB71F4F09FF00C6971D /* MsgListCell.h */,
+				2FFE5DB81F4F09FF00C6971D /* MsgListCell.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3489,6 +3549,7 @@
 				2FFCB15C1F4B54C5004BC9FC /* navi_mark@2x.png in Resources */,
 				2F9999521F46EB8300656DF0 /* navi_back_gray@2x.png in Resources */,
 				2FFE5DA61F4D7E1D00C6971D /* live_mark_icon_1@3x.png in Resources */,
+				2FFE5DB01F4F098500C6971D /* msg_cell_icon@2x.png in Resources */,
 				2F869E0C1F36F3D5005C8212 /* mineroot_cell_img_4@3x.png in Resources */,
 				2F99996E1F4AA0A700656DF0 /* NIMDemoChartlet.bundle in Resources */,
 				2F22DF681F21D63F0039316B /* p1@2x.png in Resources */,
@@ -3542,6 +3603,7 @@
 				2F869E301F374A27005C8212 /* emailverify_notice_bg@2x.png in Resources */,
 				2F22DF791F21F4C40039316B /* Localizable.strings in Resources */,
 				2F99994B1F46EB8300656DF0 /* checkbox_1@3x.png in Resources */,
+				2FFE5DB11F4F098500C6971D /* msg_cell_icon@3x.png in Resources */,
 				2F22DF6A1F21D63F0039316B /* p2@2x.png in Resources */,
 				2FAF31771F160FDF004329ED /* live_navi_logo@2x.png in Resources */,
 				2F9999541F46EB8300656DF0 /* searchbar_icon@2x.png in Resources */,
@@ -3587,6 +3649,7 @@
 			files = (
 				2F9999631F4858AB00656DF0 /* FSChatroomMessageDataProvider.m in Sources */,
 				2F869C2C1F35F29B005C8212 /* TZProgressView.m in Sources */,
+				2FFE5DBF1F4F1F2E00C6971D /* MessageHttpService.m in Sources */,
 				2F9EEE541F23521200E161C3 /* SetTelCodeViewController.m in Sources */,
 				2F869BFC1F35F29A005C8212 /* FMDatabasePool.m in Sources */,
 				2F9999661F485D5700656DF0 /* NTESSessionMsgConverter.m in Sources */,
@@ -3615,6 +3678,7 @@
 				2FCBD9491F4430BE00F21A60 /* NIMSessionNetChatNotifyContentView.m in Sources */,
 				2FCBD9081F4430BE00F21A60 /* NIMKit.m in Sources */,
 				2FCBD8FC1F4430BE00F21A60 /* NSDictionary+NIMKit.m in Sources */,
+				2F318B511F4F3AA1003FC62B /* SettingViewController.m in Sources */,
 				2F869BFB1F35F29A005C8212 /* FMDatabaseAdditions.m in Sources */,
 				2FCBD95E1F4430BE00F21A60 /* NIMTeamMemberListViewController.m in Sources */,
 				2FCBD7AB1F44016D00F21A60 /* VideoPlayViewController.m in Sources */,
@@ -3740,6 +3804,7 @@
 				2F869C251F35F29B005C8212 /* TZImageCropManager.m in Sources */,
 				2FAF31C51F167C32004329ED /* UILabel+MyLabel.m in Sources */,
 				2FCBD9BF1F44380E00F21A60 /* UIImage+NTESColor.m in Sources */,
+				2FFE5DBC1F4F1E3A00C6971D /* MessageManager.m in Sources */,
 				2F6981391F1CA1B40083E785 /* JSONHTTPClient.m in Sources */,
 				2FE7FF1C1F2DDC6A007DFCC0 /* MineManager.m in Sources */,
 				2FCBD9441F4430BE00F21A60 /* NIMSessionAudioContentView.m in Sources */,
@@ -3780,12 +3845,14 @@
 				2F9EEE511F2348F000E161C3 /* Utility.m in Sources */,
 				2F9EEE6D1F24F72000E161C3 /* VideoManager.m in Sources */,
 				2FCBD9401F4430BE00F21A60 /* NIMSessionMsgDatasource.m in Sources */,
+				2F945E9C1F4F4B6D00D48C70 /* MessageRootViewController.m in Sources */,
 				2F9999601F48585800656DF0 /* FSChatroomConfig.m in Sources */,
 				2FCBD9531F4430BE00F21A60 /* NIMSessionListCell.m in Sources */,
 				2FCBD7B41F44143F00F21A60 /* MBProgressHUD.m in Sources */,
 				2FAF314A1F1605BD004329ED /* LiveRootViewController.m in Sources */,
 				2FCBD9C91F4439C700F21A60 /* NTESDevice.m in Sources */,
 				2FAF31C01F167C32004329ED /* NSString-MD5.m in Sources */,
+				2FFE5DB61F4F09E600C6971D /* MsgModel.m in Sources */,
 				2F12E0791F31E9800064AD5A /* NEAuthorizeManager.m in Sources */,
 				2FAF31531F1605BD004329ED /* AFURLSessionManager.m in Sources */,
 				2F869E3F1F37821E005C8212 /* OfficialLiveType.m in Sources */,
@@ -3819,6 +3886,7 @@
 				2FCBD9D81F443CC300F21A60 /* NSImage+WebCache.m in Sources */,
 				2FCBD9921F44363D00F21A60 /* NTESSessionUtil.m in Sources */,
 				2FE7FF061F2CD7A0007DFCC0 /* NickNameViewController.m in Sources */,
+				2FFE5DB91F4F09FF00C6971D /* MsgListCell.m in Sources */,
 				2F9999741F4AA30900656DF0 /* NTESChatroomTextContentView.m in Sources */,
 				2FCBD9181F4430BE00F21A60 /* NIMContactSelectViewController.m in Sources */,
 				2FCBD9571F4430BE00F21A60 /* NIMTeamInfoData.m in Sources */,
@@ -3879,6 +3947,7 @@
 				2FAF31721F1605BD004329ED /* VideoRootViewController.m in Sources */,
 				2FCBD90E1F4430BE00F21A60 /* NIMLoadProgressView.m in Sources */,
 				2FAF31871F1666C8004329ED /* OfficialLiveTypeViewController.m in Sources */,
+				2FFE5DAB1F4ECEC200C6971D /* UserPolicyViewController.m in Sources */,
 				2F9EEE8A1F25C25A00E161C3 /* UIView+MJExtension.m in Sources */,
 				2FAF314B1F1605BD004329ED /* LiveSearchViewController.m in Sources */,
 				2FCBD92C1F4430BE00F21A60 /* NIMBaseSessionContentConfig.m in Sources */,
@@ -3887,7 +3956,6 @@
 				2F99995A1F4851B800656DF0 /* FSChatroomViewController.m in Sources */,
 				2FAF31651F1605BD004329ED /* AFNetworkActivityIndicatorManager.m in Sources */,
 				2F6981361F1CA1B40083E785 /* JSONModelClassProperty.m in Sources */,
-				2FAF314C1F1605BD004329ED /* MessageRootViewController.m in Sources */,
 				2FCBD9D01F443A7800F21A60 /* NTESService.m in Sources */,
 				2FCBD78E1F3D709B00F21A60 /* HotSearchWordsView.m in Sources */,
 				2FCBD9271F4430BE00F21A60 /* NIMKitInfoFetchOption.m in Sources */,

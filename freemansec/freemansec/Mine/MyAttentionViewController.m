@@ -147,7 +147,7 @@
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     LiveSearchResultModel * model = [self.attenList objectAtIndex:indexPath.row];
     if (model.cid.length > 0) { //个人

@@ -18,6 +18,7 @@
 @property (nonatomic,strong) UITextField *pwdTF;
 @property (nonatomic,strong) UIImageView *agreeIV;
 @property (nonatomic,assign) BOOL agree;
+@property (nonatomic,strong) UIButton *agreementBtn;
 @property (nonatomic,strong) UIButton *signBtn;
 @property (nonatomic,strong) UIButton *changeToEmailBtn;
 @end

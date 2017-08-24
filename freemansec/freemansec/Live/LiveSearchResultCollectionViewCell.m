@@ -79,4 +79,9 @@
         _archor.width = _coverIV.maxY - _archor.x;
     }
 }
+
+- (void)setSelected:(BOOL)selected {
+    
+    
+}
 @end
