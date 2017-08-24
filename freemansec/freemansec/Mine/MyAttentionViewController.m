@@ -7,18 +7,16 @@
 //
 
 #import "MyAttentionViewController.h"
-#import "MJRefresh.h"
-#import "MyAttentionModel.h"
-#import "MyAttentionListCell.h"
+#import "LiveSearchResultModel.h"
+#import "LiveSearchResultCollectionViewCell.h"
 #import "LivePlayViewController.h"
 #import "UserLivePlayViewController.h"
 
 @interface MyAttentionViewController ()
-<UITableViewDelegate,UITableViewDataSource>
+<UICollectionViewDelegate,UICollectionViewDataSource>
 
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic,strong) UICollectionView *collView;
 @property (nonatomic, strong) NSMutableArray *attenList;
-@property (nonatomic, assign) int pageNum;
 @end
 
 @implementation MyAttentionViewController
@@ -64,70 +62,6 @@
     return v;
 }
 
-- (void)createTableViewWithOriginY:(CGFloat)originY{
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, originY, K_UIScreenWidth,K_UIScreenHeight - originY) style:UITableViewStylePlain];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.showsHorizontalScrollIndicator = NO;
-    _tableView.showsVerticalScrollIndicator = NO;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:_tableView];
-    
-    [self setupRefresh];
-}
-
-- (void)setupRefresh
-{
-    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
-    
-    [self.tableView addHeaderWithTarget:self action:@selector(headerRereshing)];
-    //    [self.tableView headerBeginRefreshing];
-    
-    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
-    [self.tableView addFooterWithTarget:self action:@selector(footerRereshing)];
-    
-    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
-    //NSLocalizedString
-    self.tableView.headerPullToRefreshText = @"下拉可以刷新了";
-    self.tableView.headerReleaseToRefreshText = @"松开马上刷新了";
-    self.tableView.headerRefreshingText = @"正在拼命的刷新数据中，请稍后!";
-    
-    self.tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
-    self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
-    self.tableView.footerRefreshingText = @"正在拼命的加载中";
-    
-    self.pageNum = 1;
-    // 2.2秒后刷新表格UI
-    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    
-    [self requestGetAttention];
-    //        });
-}
-
-#pragma mark 开始进入刷新状态
-- (void)headerRereshing
-{
-    self.pageNum = 1;
-    // 2.2秒后刷新表格UI
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self requestGetAttention];
-    });
-}
-
-- (void)footerRereshing
-{
-    self.pageNum++;
-    
-    // 2.2秒后刷新表格UI
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self requestGetAttention];
-    });
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -135,10 +69,28 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
-    UIView *naviBar = [self naviBarView];
-    [self.view addSubview:naviBar];
+    UIView *navi = [self naviBarView];
+    [self.view addSubview:navi];
     
-    [self createTableViewWithOriginY:naviBar.maxY];
+    UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 20;
+    layout.headerReferenceSize = CGSizeMake(0,0);
+    layout.footerReferenceSize = CGSizeMake(0,0);
+    CGFloat itemWidth = (K_UIScreenWidth-28-20)/2;
+    layout.itemSize = CGSizeMake(itemWidth, itemWidth*3/4 + 45);
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    [layout setHeaderReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
+    [layout setFooterReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
+    self.collView = [[UICollectionView alloc] initWithFrame:CGRectMake(14, navi.maxY, K_UIScreenWidth-28, K_UIScreenHeight - navi.maxY) collectionViewLayout:layout];
+    _collView.showsVerticalScrollIndicator = NO;
+    _collView.showsHorizontalScrollIndicator = NO;
+    _collView.delegate = self;
+    _collView.dataSource = self;
+    _collView.backgroundColor = [UIColor clearColor];
+    [_collView registerClass:[LiveSearchResultCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
+    [self.view addSubview:_collView];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -149,6 +101,7 @@
     self.navigationController.navigationBar.hidden = YES;
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
+    [self requestGetAttention];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -163,78 +116,61 @@
     
     [[MineManager sharedInstance] getMyAttentionListCompletion:^(NSArray * _Nullable attenList, NSError * _Nullable error) {
         
-        [self.tableView headerEndRefreshing];
-        [self.tableView footerEndRefreshing];
         
         if (error) {
             [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
         } else {
-            
-            if (self.pageNum == 1) {
-                [self.attenList removeAllObjects];
-                [self.tableView reloadData];
-            };
-            
+            [self.attenList removeAllObjects];
             if (attenList.count > 0) {
-                
                 [self.attenList addObjectsFromArray:attenList];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [self.tableView reloadData];
-                    
-                });
             }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.collView reloadData];
+                
+            });
         }
     }];
     
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     return self.attenList.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 90 + 20 + 10; //interface:120*90;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    MyAttentionListCell * cell = [tableView dequeueReusableCellWithIdentifier:@"MyAttentionListCell"];
-    if (!cell) {
-        cell = [[MyAttentionListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MyAttentionListCell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    
-    MyAttentionModel * attenModel = [self.attenList objectAtIndex:indexPath.row];
-    
-    cell.attentionModel = attenModel;
-    
+    LiveSearchResultCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.resultModel = [_attenList objectAtIndex:indexPath.row];
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
-    MyAttentionModel * attenModel = [self.attenList objectAtIndex:indexPath.row];
-    if (attenModel.cId.length > 0) { //个人
-        LiveSearchResultModel *model = [[LiveSearchResultModel alloc] init];
+    LiveSearchResultModel * model = [self.attenList objectAtIndex:indexPath.row];
+    if (model.cid.length > 0) { //个人
         model.isAttent = @"1";
-        //todo
         
         UserLivePlayViewController *vc = [[UserLivePlayViewController alloc] init];
         vc.userLiveChannelModel = model;
         [self.navigationController pushViewController:vc animated:YES];
         
     } else { //官方
-        LiveChannelModel *model = [[LiveChannelModel alloc] init];
-        model.isAttent = @"1";
-        //todo
+        LiveChannelModel *channel = [[LiveChannelModel alloc] init];
+        channel.liveId = model.liveId;
+        channel.liveName = model.liveName;
+        channel.liveImg = model.liveImg;
+        channel.liveIntroduce = model.liveIntroduce;
+        channel.livelink = model.livelink;
+        channel.anchorId = model.anchorId;
+        channel.anchorName = model.nickName;
+        channel.anchorImg = model.headImg;
+        channel.isAttent = @"1";
         
         LivePlayViewController *vc = [[LivePlayViewController alloc] init];
-        vc.liveChannelModel = model;
+        vc.liveChannelModel = channel;
         [self.navigationController pushViewController:vc animated:YES];
         
     }

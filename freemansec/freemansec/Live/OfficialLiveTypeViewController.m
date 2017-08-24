@@ -14,10 +14,12 @@
 #import "OfficialLiveType.h"
 
 @interface OfficialLiveTypeViewController ()
-<UICollectionViewDelegate,UICollectionViewDataSource>
+<UICollectionViewDelegate,UICollectionViewDataSource,
+LivePlayViewControllerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *channelList;
 @property (nonatomic,strong) UICollectionView *channelCollView;
+@property (nonatomic,assign) NSInteger lastSelectIndex;
 
 @end
 
@@ -69,7 +71,7 @@
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
+    _lastSelectIndex = -1;
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
     
@@ -138,7 +140,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    _lastSelectIndex = indexPath.row;
     LiveTypeChannelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     cell.channelModel = [_channelList objectAtIndex:indexPath.row];
     return cell;
@@ -148,7 +150,17 @@
     
     LivePlayViewController *vc = [[LivePlayViewController alloc] init];
     vc.liveChannelModel = [_channelList objectAtIndex:indexPath.row];
+    vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)didLiveAttent:(BOOL)attent {
+    
+    if (_lastSelectIndex > -1) {
+        
+        LiveChannelModel *model = [_channelList objectAtIndex:_lastSelectIndex];
+        model.isAttent = attent?@"1":@"0";
+    }
 }
 
 - (void)didReceiveMemoryWarning {

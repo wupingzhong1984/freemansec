@@ -125,6 +125,9 @@
                 [MBProgressHUD showSuccess:@"关注成功！"];//NSLocalizedString
                 _userLiveChannelModel.isAttent = @"1";
                 [_markBtn setImage:[UIImage imageNamed:@"live_mark_icon_1.png"] forState:UIControlStateNormal];
+                if (_delegate && [_delegate respondsToSelector:@selector(didLiveAttent:)]) {
+                    [_delegate didLiveAttent:YES];
+                }
             }
         }];
     } else {
@@ -137,6 +140,9 @@
                 [MBProgressHUD showSuccess:@"取消关注成功！"];//NSLocalizedString
                 _userLiveChannelModel.isAttent = @"0";
                 [_markBtn setImage:[UIImage imageNamed:@"live_mark_icon.png"] forState:UIControlStateNormal];
+                if (_delegate && [_delegate respondsToSelector:@selector(didLiveAttent:)]) {
+                    [_delegate didLiveAttent:NO];
+                }
             }
         }];
     }

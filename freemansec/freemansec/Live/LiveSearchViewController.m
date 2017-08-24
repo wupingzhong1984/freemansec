@@ -16,12 +16,15 @@
 @interface LiveSearchViewController ()
 <LiveSearchQuickChoiceViewDelegate,
 UITextFieldDelegate,
-UICollectionViewDelegate,UICollectionViewDataSource>
+UICollectionViewDelegate,UICollectionViewDataSource,
+UserLivePlayViewControllerDelegate,
+LivePlayViewControllerDelegate>
 @property (nonatomic,strong) UITextField *searchTF;
 @property (nonatomic,strong) UICollectionView *collView;
 @property (nonatomic,assign) NSInteger pageNum;
 @property (nonatomic,strong) NSMutableArray *resultArray;
 @property (nonatomic,strong) LiveSearchQuickChoiceView *choiceView;
+@property (nonatomic,assign) NSInteger lastSelectIndex;
 @end
 
 @implementation LiveSearchViewController
@@ -90,6 +93,7 @@ UICollectionViewDelegate,UICollectionViewDataSource>
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
+    _lastSelectIndex = -1;
     UIView *navi = [self naviBarView];
     [self.view addSubview:navi];
     
@@ -266,12 +270,15 @@ UICollectionViewDelegate,UICollectionViewDataSource>
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    _lastSelectIndex = indexPath.row;
+    
     LiveSearchResultModel *model = [_resultArray objectAtIndex:indexPath.row];
     
     if (model.cid.length > 0 ) { //个人
         
         UserLivePlayViewController *vc = [[UserLivePlayViewController alloc] init];
         vc.userLiveChannelModel = model;
+        vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
         
     } else { //官方
@@ -285,10 +292,21 @@ UICollectionViewDelegate,UICollectionViewDataSource>
         channel.anchorId = model.anchorId;
         channel.anchorName = model.nickName;
         channel.anchorImg = model.headImg;
+        channel.isAttent = model.isAttent;
         
         LivePlayViewController *vc = [[LivePlayViewController alloc] init];
         vc.liveChannelModel = channel;
+        vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+- (void)didLiveAttent:(BOOL)attent {
+    
+    if (_lastSelectIndex > -1) {
+        
+        LiveSearchResultModel *model = [_resultArray objectAtIndex:_lastSelectIndex];
+        model.isAttent = attent?@"1":@"0";
     }
 }
 

@@ -10,7 +10,7 @@
 
 @implementation MyInfoModel
 +(JSONKeyMapper*)keyMapper
-{   //todo
+{   
     return [[JSONKeyMapper alloc]
             initWithModelToJSONDictionary:@{
                                             @"userLoginId": @"userLoginId",

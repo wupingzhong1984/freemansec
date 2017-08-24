@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSString<Optional>* liveId;
 @property (nonatomic, strong) NSString<Optional>* liveTypeId;
+@property (nonatomic, strong) NSString<Optional>* liveTypeName;
 @property (nonatomic, strong) NSString<Optional>* liveName;
 @property (nonatomic, strong) NSString<Optional>* liveImg;
 @property (nonatomic, strong) NSString<Optional>* liveIntroduce;

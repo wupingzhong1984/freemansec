@@ -14,6 +14,7 @@
     return [[JSONKeyMapper alloc]
             initWithModelToJSONDictionary:@{@"liveId": @"id",
                                             @"liveTypeId": @"liveTypeId",
+                                            @"liveTypeName": @"liveTypeName",
                                             @"liveName": @"liveName",
                                             @"liveImg": @"liveImg",
                                             @"liveIntroduce": @"liveIntroduce",

@@ -14,11 +14,14 @@
 #import "LiveSearchResultCollectionViewCell.h"
 
 @interface UserLiveViewController ()
-<UICollectionViewDelegate,UICollectionViewDataSource>
+<UICollectionViewDelegate,UICollectionViewDataSource,
+UserLivePlayViewControllerDelegate,
+LivePlayViewControllerDelegate>
 
 @property (nonatomic,strong) UICollectionView *collView;
 @property (nonatomic,assign) NSInteger pageNum;
 @property (nonatomic,strong) NSMutableArray *liveList;
+@property (nonatomic,assign) NSInteger lastSelectIndex;
 @end
 
 @implementation UserLiveViewController
@@ -40,6 +43,7 @@
     self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
     _pageNum = 1;
+    _lastSelectIndex = -1;
     
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 0;
@@ -140,12 +144,14 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    _lastSelectIndex = indexPath.row;
     LiveSearchResultModel *model = [_liveList objectAtIndex:indexPath.row];
     
     if (model.cid.length > 0 ) { //个人
     
         UserLivePlayViewController *vc = [[UserLivePlayViewController alloc] init];
         vc.userLiveChannelModel = model;
+        vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
         
     } else { //官方
@@ -159,10 +165,21 @@
         channel.anchorId = model.anchorId;
         channel.anchorName = model.nickName;
         channel.anchorImg = model.headImg;
+        channel.isAttent = model.isAttent;
         
         LivePlayViewController *vc = [[LivePlayViewController alloc] init];
         vc.liveChannelModel = channel;
+        vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+- (void)didLiveAttent:(BOOL)attent {
+    
+    if (_lastSelectIndex > -1) {
+        
+        LiveSearchResultModel *model = [_liveList objectAtIndex:_lastSelectIndex];
+        model.isAttent = attent?@"1":@"0";
     }
 }
 

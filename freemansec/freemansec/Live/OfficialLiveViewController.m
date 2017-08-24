@@ -13,11 +13,13 @@
 #import "OfficialLiveType.h"
 
 @interface OfficialLiveViewController ()
-<UICollectionViewDelegate,UICollectionViewDataSource>
+<UICollectionViewDelegate,UICollectionViewDataSource,
+LivePlayViewControllerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *bannerList;
 @property (nonatomic,strong) UICollectionView *bannerView;
 @property (nonatomic,strong) UIScrollView *contentView;
+@property (nonatomic,assign) NSInteger lastSelectIndex;
 @end
 
 @implementation OfficialLiveViewController
@@ -46,7 +48,7 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    _lastSelectIndex = -1;
     self.contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, K_UIScreenHeight - 64 - self.tabBarController.tabBar.height)];
     _contentView.showsVerticalScrollIndicator = NO;
     _contentView.showsHorizontalScrollIndicator = NO;
@@ -182,10 +184,20 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    _lastSelectIndex = indexPath.row;
     LivePlayViewController *vc = [[LivePlayViewController alloc] init];
     vc.liveChannelModel = [self.bannerList objectAtIndex:indexPath.row];
+    vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)didLiveAttent:(BOOL)attent {
+    
+    if (_lastSelectIndex > -1) {
+        
+        LiveChannelModel *model = [_bannerList objectAtIndex:_lastSelectIndex];
+        model.isAttent = attent?@"1":@"0";
+    }
 }
 
 - (void)didReceiveMemoryWarning {

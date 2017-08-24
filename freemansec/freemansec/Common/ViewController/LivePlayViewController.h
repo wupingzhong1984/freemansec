@@ -9,8 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "LiveChannelModel.h"
 
+@protocol LivePlayViewControllerDelegate <NSObject>
+-(void)didLiveAttent:(BOOL)attent;
+
+@end
+
 @interface LivePlayViewController : UIViewController
 
 @property (nonatomic, strong) LiveChannelModel *liveChannelModel;
+@property (nonatomic, assign) id<LivePlayViewControllerDelegate> delegate;
 
 @end

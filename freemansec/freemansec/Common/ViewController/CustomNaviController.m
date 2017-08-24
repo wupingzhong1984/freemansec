@@ -7,7 +7,6 @@
 //
 
 #import "CustomNaviController.h"
-#import "LivePlayViewController.h"
 
 @interface CustomNaviController ()
 

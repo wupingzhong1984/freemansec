@@ -23,8 +23,9 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
         if (!params) {
             params = [[NSMutableDictionary alloc] init];
         }
-        
-        [params setObject:info.userId forKey:@"userid"];
+        if(![params objectForKey:@"userid"]) {
+            [params setObject:info.userId forKey:@"userid"];
+        }
     }
     
 }

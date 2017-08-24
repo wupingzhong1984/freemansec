@@ -534,9 +534,7 @@
 		2FE7FF251F2E387E007DFCC0 /* MyFavourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF241F2E387E007DFCC0 /* MyFavourViewController.m */; };
 		2FE7FF281F2E38B3007DFCC0 /* MyAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF271F2E38B3007DFCC0 /* MyAttentionViewController.m */; };
 		2FE7FF2B1F2E397B007DFCC0 /* MyFavourModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF2A1F2E397B007DFCC0 /* MyFavourModel.m */; };
-		2FE7FF2E1F2E399E007DFCC0 /* MyAttentionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF2D1F2E399E007DFCC0 /* MyAttentionModel.m */; };
 		2FE7FF311F2E56DD007DFCC0 /* MyFavourListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF301F2E56DD007DFCC0 /* MyFavourListCell.m */; };
-		2FE7FF341F2E56F3007DFCC0 /* MyAttentionListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF331F2E56F3007DFCC0 /* MyAttentionListCell.m */; };
 		2FFCB15C1F4B54C5004BC9FC /* navi_mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFCB15A1F4B54C5004BC9FC /* navi_mark@2x.png */; };
 		2FFCB15D1F4B54C5004BC9FC /* navi_mark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFCB15B1F4B54C5004BC9FC /* navi_mark@3x.png */; };
 		2FFCB1601F4B552F004BC9FC /* UserLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFCB15F1F4B552F004BC9FC /* UserLiveViewController.m */; };
@@ -1451,12 +1449,8 @@
 		2FE7FF271F2E38B3007DFCC0 /* MyAttentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAttentionViewController.m; sourceTree = "<group>"; };
 		2FE7FF291F2E397B007DFCC0 /* MyFavourModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFavourModel.h; sourceTree = "<group>"; };
 		2FE7FF2A1F2E397B007DFCC0 /* MyFavourModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFavourModel.m; sourceTree = "<group>"; };
-		2FE7FF2C1F2E399E007DFCC0 /* MyAttentionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAttentionModel.h; sourceTree = "<group>"; };
-		2FE7FF2D1F2E399E007DFCC0 /* MyAttentionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAttentionModel.m; sourceTree = "<group>"; };
 		2FE7FF2F1F2E56DD007DFCC0 /* MyFavourListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFavourListCell.h; sourceTree = "<group>"; };
 		2FE7FF301F2E56DD007DFCC0 /* MyFavourListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFavourListCell.m; sourceTree = "<group>"; };
-		2FE7FF321F2E56F3007DFCC0 /* MyAttentionListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAttentionListCell.h; sourceTree = "<group>"; };
-		2FE7FF331F2E56F3007DFCC0 /* MyAttentionListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAttentionListCell.m; sourceTree = "<group>"; };
 		2FFCB15A1F4B54C5004BC9FC /* navi_mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_mark@2x.png"; sourceTree = "<group>"; };
 		2FFCB15B1F4B54C5004BC9FC /* navi_mark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_mark@3x.png"; sourceTree = "<group>"; };
 		2FFCB15E1F4B552F004BC9FC /* UserLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLiveViewController.h; sourceTree = "<group>"; };
@@ -1600,8 +1594,6 @@
 				2FE7FF181F2DCFA2007DFCC0 /* MyVideoListCell.m */,
 				2FE7FF2F1F2E56DD007DFCC0 /* MyFavourListCell.h */,
 				2FE7FF301F2E56DD007DFCC0 /* MyFavourListCell.m */,
-				2FE7FF321F2E56F3007DFCC0 /* MyAttentionListCell.h */,
-				2FE7FF331F2E56F3007DFCC0 /* MyAttentionListCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -3365,8 +3357,6 @@
 				2FE7FF151F2DCF86007DFCC0 /* MyVideoModel.m */,
 				2FE7FF291F2E397B007DFCC0 /* MyFavourModel.h */,
 				2FE7FF2A1F2E397B007DFCC0 /* MyFavourModel.m */,
-				2FE7FF2C1F2E399E007DFCC0 /* MyAttentionModel.h */,
-				2FE7FF2D1F2E399E007DFCC0 /* MyAttentionModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -3616,7 +3606,6 @@
 				2FAF31481F1605BD004329ED /* LivePlayViewController.m in Sources */,
 				2FCBD9591F4430BE00F21A60 /* NIMAdvancedTeamCardViewController.m in Sources */,
 				2FCBD9141F4430BE00F21A60 /* NIMContactDataItem.m in Sources */,
-				2FE7FF2E1F2E399E007DFCC0 /* MyAttentionModel.m in Sources */,
 				2FCBD9031F4430BE00F21A60 /* NIMKitColorButtonCell.m in Sources */,
 				2FCBD91E1F4430BE00F21A60 /* NIMInputEmoticonContainerView.m in Sources */,
 				2FCBD9431F4430BE00F21A60 /* NIMSessionTimestampCell.m in Sources */,
@@ -3876,7 +3865,6 @@
 				2FCBD91F1F4430BE00F21A60 /* NIMInputEmoticonManager.m in Sources */,
 				2FC4CF6A1F3A2340002DF8D8 /* UpdateEmail2ViewController.m in Sources */,
 				2FAF31511F1605BD004329ED /* AFURLRequestSerialization.m in Sources */,
-				2FE7FF341F2E56F3007DFCC0 /* MyAttentionListCell.m in Sources */,
 				2FCBD9471F4430BE00F21A60 /* NIMSessionLocationContentView.m in Sources */,
 				2FAF31501F1605BD004329ED /* AFSecurityPolicy.m in Sources */,
 				2FCBD93B1F4430BE00F21A60 /* NIMKitAudioCenter.m in Sources */,
@@ -4118,7 +4106,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.liveplay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.live;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "843a9044-3a8f-4211-9ac0-5c7875de85c0";
 				PROVISIONING_PROFILE_SPECIFIER = live_dev;
@@ -4171,7 +4159,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.liveplay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.live;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d21217e1-580b-46bc-83f5-99d839c00763";
 				PROVISIONING_PROFILE_SPECIFIER = live_dis_inhouse;

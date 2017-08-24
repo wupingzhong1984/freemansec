@@ -46,6 +46,9 @@
                 [MBProgressHUD showSuccess:@"关注成功！"];//NSLocalizedString
                 _liveChannelModel.isAttent = @"1";
                 [_attentionIV setImage:[UIImage imageNamed:@"navi_mark_1.png"]];
+                if (_delegate && [_delegate respondsToSelector:@selector(didLiveAttent:)]) {
+                    [_delegate didLiveAttent:YES];
+                }
             }
         }];
     } else {
@@ -58,6 +61,9 @@
                 [MBProgressHUD showSuccess:@"取消关注成功！"];//NSLocalizedString
                 _liveChannelModel.isAttent = @"0";
                 [_attentionIV setImage:[UIImage imageNamed:@"navi_mark.png"]];
+                if (_delegate && [_delegate respondsToSelector:@selector(didLiveAttent:)]) {
+                    [_delegate didLiveAttent:NO];
+                }
             }
         }];
 

@@ -13,7 +13,7 @@
 #import "CityModel.h"
 #import "AreaModel.h"
 #import "UserLiveType.h"
-#import "MyAttentionModel.h"
+#import "LiveSearchResultModel.h"
 
 static NSString* RegisterUserPath = @"Ajax/RegisterUser.ashx";
 static NSString* LoginUserPath = @"Ajax/LoginUser.ashx";
@@ -618,7 +618,7 @@ static NSString* CancelMyAttentionPath = @"Ajax/cancelConcerns.ashx";
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:RefreshUserInfoPath
-                     params:@{@"userid":userLoginId
+                     params:@{@"userLoginId":userLoginId
                               }
                  completion:^(JsonResponse* response, NSError *err) {
                      
@@ -665,7 +665,7 @@ static NSString* CancelMyAttentionPath = @"Ajax/cancelConcerns.ashx";
                          return ;
                      }
                      
-                     NSArray *list = [MyAttentionModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     NSArray *list = [LiveSearchResultModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
                      if(list == nil){
                          
                          NSLog(@"%@", err);
