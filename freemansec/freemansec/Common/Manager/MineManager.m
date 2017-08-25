@@ -281,6 +281,26 @@ static MineManager *instance;
         completion(err);
     }];
 }
+
+- (void)addMyAttentionCId:(NSString* _Nullable)cid completion:(AddMyAttentionCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service addMyAttentionCId:cid userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
+        
+        completion(err);
+    }];
+}
+
+- (void)cancelMyAttentionCId:(NSString* _Nullable)cid completion:(CancelMyAttentionCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service cancelMyAttentionCId:cid userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
+        
+        completion(err);
+    }];
+}
+
+
 - (void)checkVerifyCode:(NSString* _Nullable)verify phone:(NSString* _Nullable)phone areaCode:(NSString* _Nullable)areaCode email:(NSString* _Nullable)email completion:(CheckVerifyCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
@@ -458,11 +478,11 @@ static MineManager *instance;
     }];
 }
 
-- (void)updateMyLiveTitle:(NSString*_Nullable)title completion:(UpdateMyLiveCompletion _Nullable)completion {
+- (void)updateMyLiveTitle:(NSString*_Nullable)title liveTypeId:(NSString*_Nullable)liveTypeId completion:(UpdateMyLiveCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
     [service updateMyLiveTitle:title
-                        typeId:[self getMyInfo].liveTypeId
+                        typeId:liveTypeId
                         liveId:[self getMyInfo].liveId
                     completion:^(id obj, NSError *err) {
         
@@ -482,7 +502,7 @@ static MineManager *instance;
     }];
 }
 
-- (void)loginWithThird:(ThirdLoginType)type userCode:(NSString*_Nullable)code completion:(ThirdLoginCompletion _Nullable)completion {
+- (void)loginWithThird:(ThirdLoginType)type userCode:(NSString*_Nullable)code nickName:(NSString*_Nullable)nickName headImg:(NSString*_Nullable)headImg completion:(ThirdLoginCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
     NSString *typeCode;
@@ -493,7 +513,7 @@ static MineManager *instance;
     } else {
         typeCode = @"4";
     }
-    [service loginWithThird:typeCode userCode:code completion:^(id obj, NSError *err) {
+    [service loginWithThird:typeCode userCode:code nickName:nickName headImg:headImg completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);

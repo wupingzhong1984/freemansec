@@ -45,13 +45,16 @@
 - (void)addMyAttentionLiveId:(NSString*)liveId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 - (void)cancelMyAttentionLiveId:(NSString*)liveId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 
+- (void)addMyAttentionCId:(NSString*)cId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
+- (void)cancelMyAttentionCId:(NSString*)cId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
+
 - (void)getProvinceListCompletion:(HttpClientServiceObjectBlock)completion;
 - (void)getCityListByProvinceId:(NSString*)pId completion:(HttpClientServiceObjectBlock)completion;
 - (void)getAreaListByCityId:(NSString*)cId completion:(HttpClientServiceObjectBlock)completion;
 
 - (void)getUserLiveTypeCompletion:(HttpClientServiceObjectBlock)completion;
 
-- (void)loginWithThird:(NSString*)type userCode:(NSString*)code completion:(HttpClientServiceObjectBlock)completion;
+- (void)loginWithThird:(NSString*)type userCode:(NSString*)code nickName:(NSString*)nickName headImg:(NSString*)headImg completion:(HttpClientServiceObjectBlock)completion;
 
 - (void)refreshUserInfo:(NSString*)userLoginId completion:(HttpClientServiceObjectBlock)completion;
 

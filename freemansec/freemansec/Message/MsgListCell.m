@@ -22,9 +22,16 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        UIView *imgBg = [[UIView alloc] init];
+        imgBg.backgroundColor = UIColor_82b432;
+        imgBg.size = (CGSize){50,50};
+        imgBg.x = 10;
+        imgBg.centerY = 72/2;
+        imgBg.layer.cornerRadius = imgBg.width/2;
+        [self.contentView addSubview:imgBg];
+        
         UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"msg_cell_icon.png"]];
-        imgV.x = 10;
-        imgV.centerY = 72;
+        imgV.center = imgBg.center;
         [self.contentView addSubview:imgV];
         
         self.nameLbl = [[UILabel alloc] init];
@@ -50,7 +57,7 @@
         _contentLbl.textColor = [UIColor lightGrayColor];
         _contentLbl.numberOfLines = 0;
         _contentLbl.x = _nameLbl.x;
-        _contentLbl.y = imgV.centerY;
+        _contentLbl.y = imgV.centerY+5;
         [self.contentView addSubview:_contentLbl];
         
         self.line = [[UIView alloc] initWithFrame:CGRectMake(10, 0, K_UIScreenWidth-20, 0.5)];

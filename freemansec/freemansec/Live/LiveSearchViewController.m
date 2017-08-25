@@ -159,7 +159,6 @@ LivePlayViewControllerDelegate>
             if (_pageNum == 1) {
                 
                 [self.resultArray removeAllObjects];
-//                [_collView reloadData];
             }
             
             if (queryResultList.count > 0) {

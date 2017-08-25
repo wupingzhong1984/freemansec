@@ -56,8 +56,8 @@
     
     if (resultModel) {
         
-        [self.coverIV setImageWithURL:[NSURL URLWithString:resultModel.liveImg]];
-        [self.headIV setImageWithURL:[NSURL URLWithString:resultModel.headImg]];
+        [self.coverIV sd_setImageWithURL:[NSURL URLWithString:resultModel.liveImg]];
+        [self.headIV sd_setImageWithURL:[NSURL URLWithString:resultModel.headImg]];
         _headIV.x = 5;
         _headIV.centerY = 45/2 + _coverIV.maxY;
         

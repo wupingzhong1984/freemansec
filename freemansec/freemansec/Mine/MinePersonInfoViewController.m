@@ -17,6 +17,8 @@
 #import "ProvinceModel.h"
 #import "CityModel.h"
 #import "AreaModel.h"
+#import "ResetMobilePwdViewController.h"
+#import "ResetEmailPwdViewController.h"
 
 @interface MinePersonInfoViewController ()
 <UIScrollViewDelegate,
@@ -270,9 +272,24 @@ UIPickerViewDelegate,UIPickerViewDataSource>
         }
         case 4: {
             //重设密码=密码找回
-            ForgetPwdViewController *vc = [[ForgetPwdViewController alloc] init];
-            vc.resetPwdKind = RPKResetPwd;
-            [self.navigationController pushViewController:vc animated:YES];
+            MyInfoModel *myInfo = [[MineManager sharedInstance] getMyInfo];
+            if (myInfo.phone.length > 0 && myInfo.email.length > 0) {
+                ForgetPwdViewController *vc = [[ForgetPwdViewController alloc] init];
+                vc.resetPwdKind = RPKResetPwd;
+                [self.navigationController pushViewController:vc animated:YES];
+            } else if (myInfo.phone.length > 0) {
+                ResetMobilePwdViewController *vc = [[ResetMobilePwdViewController alloc] init];
+                vc.resetPwdKind = RPKResetPwd;
+                [self.navigationController pushViewController:vc animated:YES];
+            } else if (myInfo.email.length > 0) {
+                ResetEmailPwdViewController *vc = [[ResetEmailPwdViewController alloc] init];
+                vc.resetPwdKind = RPKResetPwd;
+                [self.navigationController pushViewController:vc animated:YES];
+            } else {
+                //NSLocalizedString
+                [self presentViewController:[Utility createNoticeAlertWithContent:@"第三方平台账号登录无法修改密码。" okBtnTitle:nil] animated:YES completion:nil];
+            }
+            
             break;
         }
         case 5: {
@@ -415,7 +432,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
 - (void)loadInfos {
     
     UIImageView *imgV = (UIImageView*)[_contentView viewWithTag:100];
-    [imgV setImageWithURL:[NSURL URLWithString:[[MineManager sharedInstance] getMyInfo].headImg]];
+    [imgV sd_setImageWithURL:[NSURL URLWithString:[[MineManager sharedInstance] getMyInfo].headImg]];
     
     UILabel *nickNameLbl = (UILabel*)[_contentView viewWithTag:101];
     nickNameLbl.text = [[MineManager sharedInstance] getMyInfo].nickName;
@@ -506,9 +523,9 @@ UIPickerViewDelegate,UIPickerViewDataSource>
     }];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = YES;
@@ -550,7 +567,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                 
                 [[MineManager sharedInstance] updateMyInfo:myInfo];
                 UIImageView *imgV = (UIImageView*)[_contentView viewWithTag:100];
-                [imgV setImageWithURL:[NSURL URLWithString:myInfo.headImg]];
+                [imgV sd_setImageWithURL:[NSURL URLWithString:myInfo.headImg]];
                 
             }
         }];
@@ -603,7 +620,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
             if (cityList) {
                 [self.cityArray addObjectsFromArray:cityList];
                 [_locationPicker reloadComponent:1];
-                CityModel *c = [self.cityArray objectAtIndex:row];
+                CityModel *c = [self.cityArray objectAtIndex:0];
                 [[MineManager sharedInstance] getAreaListByCityId:c.cityId completion:^(NSArray * _Nullable areaList, NSError * _Nullable error) {
                     if (areaList) {
                         [self.areaArray addObjectsFromArray:areaList];

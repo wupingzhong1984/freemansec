@@ -140,7 +140,7 @@
 - (void)setupSubviews {
     
     //code
-    UIView *codeBg = [[UIView alloc] initWithFrame:CGRectMake(15, 60, 73, 44)];
+    UIView *codeBg = [[UIView alloc] initWithFrame:CGRectMake(15, 64+60, 73, 44)];
     codeBg.backgroundColor = [UIColor whiteColor];
     codeBg.layer.cornerRadius = 4;
     codeBg.layer.borderWidth = 1;
@@ -246,8 +246,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = NO;
     
 }
 

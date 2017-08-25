@@ -223,6 +223,22 @@ static LiveManager *instance;
     
 }
 
+-(void)queryLiveDetailByCId:(NSString* _Nullable)cid completion:(LiveDetailCompletion _Nullable)completion {
+    
+    LiveHttpService* service = [[LiveHttpService alloc] init];
+    [service queryLiveDetailByCId:cid completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            LiveDetailNTModel* model = obj;
+            completion(model,err);
+        }
+    }];
+}
+
 -(void)getChatroomByUserLiveId:(NSString*_Nullable)liveId completion:(ChatroomByUserLiveIdCompletion _Nullable)completion {
     
     LiveHttpService *service = [[LiveHttpService alloc] init];

@@ -54,28 +54,34 @@
 - (void)submit {
     
     [_emailTF resignFirstResponder];
-    
-    if ([Utility validateEmail:_emailTF.text]) {
-        
-        [[MineManager sharedInstance] getEmailVerifyCode:_emailTF.text completion:^(NSString * _Nullable verify, NSError * _Nullable error) {
-            
-            if(error) {
-                
-                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
-            } else {
-                
-                ResetEmailPwd2ViewController *vc = [[ResetEmailPwd2ViewController alloc] init];
-                vc.email = _emailTF.text;
-                [self.navigationController pushViewController:vc animated:YES];
-                
-            }
-        }];
-        
-        
-    } else {
+    if (![Utility validateEmail:_emailTF.text]) {
         //NSLocalizedString
         [self presentViewController:[Utility createNoticeAlertWithContent:@"请正确输入邮箱。" okBtnTitle:nil] animated:YES completion:nil];
+        return;
     }
+    
+    if (_resetPwdKind == RPKResetPwd && ![_emailTF.text isEqualToString:[[MineManager sharedInstance] getMyInfo].email]) {
+        
+        //NSLocalizedString
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"必须使用注册时使用的邮箱。" okBtnTitle:nil] animated:YES completion:nil];
+        
+        return;
+    }
+    
+    [[MineManager sharedInstance] getEmailVerifyCode:_emailTF.text completion:^(NSString * _Nullable verify, NSError * _Nullable error) {
+        
+        if(error) {
+            
+            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+        } else {
+            
+            ResetEmailPwd2ViewController *vc = [[ResetEmailPwd2ViewController alloc] init];
+            vc.email = _emailTF.text;
+            vc.resetPwdKind = _resetPwdKind;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        }
+    }];
 }
 
 - (void)viewDidLoad {
@@ -134,8 +140,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = NO;
     
 }
 

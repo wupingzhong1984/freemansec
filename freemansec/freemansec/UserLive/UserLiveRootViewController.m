@@ -59,6 +59,7 @@ NIMSessionViewControllerDelegate>{
 
 - (void)back {
     
+    [_roomInfoRefreshTimer invalidate];
     if (isInChatroom) {
         [[[NIMSDK sharedSDK] chatroomManager] exitChatroom:_roomInfo.roomId completion:nil];
     }
@@ -123,7 +124,9 @@ NIMSessionViewControllerDelegate>{
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             __weak UserLiveRootViewController *weakSelf = self;
             [_mediaCapture stopLiveStream:^(NSError *error) {
-                [[UserLiveManager sharedInstance] closeLivePushCompletion:nil];
+                [[UserLiveManager sharedInstance] closeLivePushCompletion:^(NSError * _Nullable error) {
+                    
+                }];
                 [weakSelf unInitLiveStream];
                 [weakSelf back];
             }];
@@ -182,7 +185,7 @@ NIMSessionViewControllerDelegate>{
     userFace.center = CGPointMake(userBg.x, userBg.centerY);
     userFace.clipsToBounds = YES;
     userFace.layer.cornerRadius = userFace.width/2;
-    [userFace setImageWithURL:[NSURL URLWithString:[[MineManager sharedInstance] getMyInfo].headImg]];
+    [userFace sd_setImageWithURL:[NSURL URLWithString:[[MineManager sharedInstance] getMyInfo].headImg]];
     [self.view addSubview:userFace];
     
     UILabel *nameLbl = [UILabel createLabelWithFrame:CGRectZero text:[[MineManager sharedInstance] getMyInfo].nickName textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:14]];
@@ -262,7 +265,9 @@ NIMSessionViewControllerDelegate>{
 -(void)LiveStreamErrorInterrup{
     [_mediaCapture stopLiveStream:^(NSError *error) {
         if (error == nil) {
-            [[UserLiveManager sharedInstance] closeLivePushCompletion:nil];
+            [[UserLiveManager sharedInstance] closeLivePushCompletion:^(NSError * _Nullable error) {
+                
+            }];
             dispatch_async(dispatch_get_main_queue(), ^(void){[self showErrorAlert:error];});
         }
     }];
@@ -442,7 +447,7 @@ NIMSessionViewControllerDelegate>{
 
 - (void)requestLiveTitle:(NSString*)title {
     
-    [[MineManager sharedInstance] updateMyLiveTitle:title completion:^(NSError * _Nullable error) {
+    [[MineManager sharedInstance] updateMyLiveTitle:title liveTypeId:[[MineManager sharedInstance] getMyInfo].liveTypeId completion:^(NSError * _Nullable error) {
         
         if (error) {
             
@@ -454,7 +459,7 @@ NIMSessionViewControllerDelegate>{
                 [self updateUserLiveTitleViewCancel];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
-            
+            return;
             
         } else {
             
@@ -535,7 +540,7 @@ NIMSessionViewControllerDelegate>{
     
     [[UserLiveManager sharedInstance] getChatroomInfoCompletion:^(ChatroomInfoModel * _Nullable info, NSError * _Nullable error) {
         
-        if (error) {
+        if (error || !info) {
             
 //            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
             
@@ -642,7 +647,9 @@ NIMSessionViewControllerDelegate>{
             __weak typeof(self) weakSelf = self;
             [_mediaCapture stopLiveStream:^(NSError *error) {
                 
-                [[UserLiveManager sharedInstance] closeLivePushCompletion:nil];
+                [[UserLiveManager sharedInstance] closeLivePushCompletion:^(NSError * _Nullable error) {
+                    
+                }];
                 [weakSelf unInitLiveStream];
                 [weakSelf back];
             }];
@@ -657,7 +664,9 @@ NIMSessionViewControllerDelegate>{
                 if(error == nil)
                 {
                     
-                    [[UserLiveManager sharedInstance] closeLivePushCompletion:nil];
+                    [[UserLiveManager sharedInstance] closeLivePushCompletion:^(NSError * _Nullable error) {
+                        
+                    }];
                     _isLiving = NO;
                     //NSLocalizedString
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络已断开" preferredStyle:UIAlertControllerStyleAlert];
@@ -709,7 +718,9 @@ NIMSessionViewControllerDelegate>{
             // 其他内存清理的代码也可以在此处完成
             [_mediaCapture stopLiveStream:^(NSError *error) {
                 if (error == nil) {
-                    [[UserLiveManager sharedInstance] closeLivePushCompletion:nil];
+                    [[UserLiveManager sharedInstance] closeLivePushCompletion:^(NSError * _Nullable error) {
+                        
+                    }];
                     NNSLog(@"退到后台的直播结束了");
                     _isLiving = NO;
                     _needStartLive = YES;
@@ -738,7 +749,9 @@ NIMSessionViewControllerDelegate>{
     dispatch_async(dispatch_get_main_queue(), ^(void){
         _isLiving = YES;
         
-        [[UserLiveManager sharedInstance] startLivePushByTitle:[[MineManager sharedInstance] getMyInfo].liveTitle completion:nil];
+        [[UserLiveManager sharedInstance] startLivePushByTitle:[[MineManager sharedInstance] getMyInfo].liveTitle completion:^(NSError * _Nullable error) {
+            
+        }];
         
         __weak UserLiveRootViewController *weakSelf = self;
         [weakSelf.mediaCapture snapShotWithCompletionBlock:^(UIImage *latestFrameImage) {

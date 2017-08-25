@@ -92,6 +92,11 @@ UserPolicyViewControllerDelegate>
 
 -(void)mobileSignBtnAction {
     
+    [_mobileSignView.mobileTF resignFirstResponder];
+    [_mobileSignView.verifyCodeTF resignFirstResponder];
+    [_mobileSignView.pwdTF resignFirstResponder];
+    
+    
     //NSLocalizedString
     NSMutableString *error = [NSMutableString string];
     
@@ -180,6 +185,8 @@ UserPolicyViewControllerDelegate>
 }
 
 - (void)emailSignBtnAction {
+    
+    [_emailSignView.emailTF resignFirstResponder];
     
     //NSLocalizedString
     NSMutableString *error = [NSMutableString string];

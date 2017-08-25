@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "ChatroomInfoModel.h"
+#import "LiveDetailNTModel.h"
 
 typedef void(^LiveChannelListCompletion)(NSArray* _Nullable channelList, NSError* _Nullable error);
 typedef void(^LiveHotWordListCompletion)(NSArray* _Nullable wordList, NSError* _Nullable error);
 typedef void(^QueryLiveListCompletion)(NSArray* _Nullable queryResultList, NSError* _Nullable error);
 typedef void(^ChatroomByUserLiveIdCompletion)(ChatroomInfoModel* _Nullable roomModel, NSError* _Nullable error);
-
+typedef void(^LiveDetailCompletion)(LiveDetailNTModel* _Nullable detailModel, NSError* _Nullable error);
 @interface LiveManager : NSObject
 
 + (LiveManager* _Nonnull)sharedInstance;
@@ -33,6 +34,7 @@ typedef void(^ChatroomByUserLiveIdCompletion)(ChatroomInfoModel* _Nullable roomM
 -(void)getLiveSearchHotWordsCompletion:(LiveHotWordListCompletion _Nullable)completion;
 -(void)queryLiveByWord:(NSString*_Nullable)word pageNum:(NSInteger)num completion:(QueryLiveListCompletion _Nullable)completion;
 -(void)queryLiveByType:(NSString* _Nullable)typeId pageNum:(NSInteger)num completion:(QueryLiveListCompletion _Nullable)completion;
+-(void)queryLiveDetailByCId:(NSString* _Nullable)cid completion:(LiveDetailCompletion _Nullable)completion;
 
 -(void)getChatroomByUserLiveId:(NSString*_Nullable)liveId completion:(ChatroomByUserLiveIdCompletion _Nullable)completion;
 @end

@@ -133,6 +133,7 @@
     
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
+    [self requestGetMsgWhenAppear];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -176,6 +177,42 @@
     }];
 }
 
+- (void)requestGetMsgWhenAppear {
+    
+    [[MessageManager sharedInstance] getMsgListPageNum:1 completion:^(NSArray * _Nullable msgList, NSError * _Nullable error) {
+        
+        [self.tableView headerEndRefreshing];
+        [self.tableView footerEndRefreshing];
+        
+        if (error) {
+            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+        } else {
+            
+            BOOL needUpdate = NO;
+            if (self.msgList.count < msgList.count) {
+                
+                needUpdate = YES;
+            } else if (self.msgList.count != 0 && msgList.count != 0) {
+                
+                MsgModel *old = [self.msgList objectAtIndex:0];
+                MsgModel *new = [msgList objectAtIndex:0];
+                if (![old.msgId isEqualToString:new.msgId]) {
+                    needUpdate = YES;
+                }
+            }
+            if (needUpdate) {
+                _pageNum = 1;
+                [self.msgList removeAllObjects];
+                [self.msgList addObjectsFromArray:msgList];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [self.tableView reloadData];
+                    
+                });
+            }
+        }
+    }];
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return self.msgList.count;
@@ -187,7 +224,7 @@
     
     UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"msg_cell_icon.png"]];
     
-    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(imgV.width + 20, 72, K_UIScreenWidth - 10 - (imgV.width + 20), 0)];
+    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(imgV.width + 20, 72/2+5, K_UIScreenWidth - 10 - (50 + 20), 0)];
     [Utility formatLabel:lbl text:model.content font:[UIFont systemFontOfSize:15] lineSpacing:5];
     
     return lbl.maxY + 10;

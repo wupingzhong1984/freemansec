@@ -250,7 +250,7 @@
     }
     
     face = (UIImageView*)[cell.contentView viewWithTag:1];
-    [face setImageWithURL:[NSURL URLWithString:[[MineManager sharedInstance] getMyInfo].headImg]];
+    [face sd_setImageWithURL:[NSURL URLWithString:[[MineManager sharedInstance] getMyInfo].headImg]];
     
     name = (UILabel*)[cell.contentView viewWithTag:2];
     name.text = [[MineManager sharedInstance] getMyInfo].nickName;

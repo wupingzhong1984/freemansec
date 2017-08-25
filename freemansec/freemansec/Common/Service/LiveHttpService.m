@@ -11,11 +11,13 @@
 #import "LiveSearchResultModel.h"
 #import "LiveHotWordModel.h"
 #import "ChatroomInfoModel.h"
+#import "LiveDetailNTModel.h"
 
 static NSString* GetLiveBannerPath = @"Ajax/GetBanner.ashx";
 static NSString* GetLiveListByTypePath = @"Ajax/GetLive.ashx";
 static NSString* GetLiveSearchHotWordsPath = @"Ajax/GetLive.ashx"; //todo
 static NSString* QueryLivePath = @"Ajax/QueryLiveInfo.ashx";
+static NSString* GetLiveDetailPath = @"Ajax/QueryLiveToCid.ashx";
 static NSString* GetChatroomByUserLiveIdPath = @"Ajax/getChatrommByUser.ashx";
 
 @implementation LiveHttpService
@@ -134,6 +136,33 @@ static NSString* GetChatroomByUserLiveIdPath = @"Ajax/getChatrommByUser.ashx";
                          completion(nil, err);
                      }else{
                          completion(list, nil); //success
+                     }
+                 }];
+}
+
+- (void)queryLiveDetailByCId:(NSString*)cid completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetLiveDetailPath
+                     params:@{@"cid":cid}
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
+                     }
+                     
+                     LiveDetailNTModel* model = [[LiveDetailNTModel alloc] initWithDictionary:(NSDictionary*)response.data error:&err];
+                     if(model == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(model, nil); //success
                      }
                  }];
 }

@@ -29,6 +29,7 @@
                                             @"pushUrl": @"pushUrl",
                                             @"addTime": @"addtime",
                                             @"isDelete": @"isdel",
+                                            @"state":@"state",
                                             @"isAttent": @"isconcerns"}];
 }
 

@@ -13,8 +13,9 @@
 {
     return [[JSONKeyMapper alloc]
             initWithModelToJSONDictionary:@{
-                                            @"senderUser": @"senduser",
-                                            @"content": @"msgtext",
-                                            @"time": @"create"}];
+                                            @"msgId": @"id",
+                                            @"senderUser": @"sendUser",
+                                            @"content": @"msgText",
+                                            @"time": @"createtime"}];
 }
 @end

@@ -28,4 +28,5 @@
 @property (nonatomic, strong) NSString<Optional>* addTime;//2017/7/28 18:21:48
 @property (nonatomic, strong) NSString<Optional>* isDelete;
 @property (nonatomic, strong) NSString<Optional>* isAttent;
+@property (nonatomic, strong) NSString<Optional>* state; //1,3 可播
 @end

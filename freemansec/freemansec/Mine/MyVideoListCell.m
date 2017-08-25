@@ -80,7 +80,7 @@
         
         _videoModel = videoModel;
         
-        [_imgV setImageWithURL:[NSURL URLWithString:_videoModel.img]];
+        [_imgV sd_setImageWithURL:[NSURL URLWithString:_videoModel.img]];
         
         _titleLbl.text = _videoModel.title;
         _dateLbl.text = _videoModel.date;

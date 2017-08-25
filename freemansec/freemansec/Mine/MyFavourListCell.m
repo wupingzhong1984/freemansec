@@ -79,7 +79,7 @@
         
         _favourModel = favourModel;
         
-        [_imgV setImageWithURL:[NSURL URLWithString:_favourModel.img]];
+        [_imgV sd_setImageWithURL:[NSURL URLWithString:_favourModel.img]];
         
         _titleLbl.text = _favourModel.title;
         _anchorLbl.text = _favourModel.anchorName;

@@ -10,7 +10,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMotion/CoreMotion.h>
 #import "Reachability.h"
-#import "PlayerView.h"
+#import "NELivePlayer.h"
+#import "NELivePlayerController.h"
+
 //#import "IMYWebView.h"
 
 @interface LivePlayViewController ()
@@ -18,9 +20,9 @@
     BOOL played;
     BOOL landed;
 }
-@property (nonatomic ,strong) AVPlayer *player;
-@property (nonatomic ,strong) AVPlayerItem *playerItem;
-@property (nonatomic ,strong) PlayerView *playerView;
+
+@property(nonatomic, strong) id<NELivePlayer> liveplayer;
+@property (nonatomic, strong) NSString *mediaType;
 @property (nonatomic, strong) UIView *controlBar;
 @property (nonatomic, strong) UIImageView *attentionIV;
 @property (nonatomic ,strong) UIButton *stateButton;
@@ -31,6 +33,9 @@
 
 - (void)back {
     
+    [self.liveplayer shutdown]; // 退出播放并释放相关资源
+    [self.liveplayer.view removeFromSuperview];
+    self.liveplayer = nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -123,8 +128,8 @@
     
     [UIView animateWithDuration:0.5 animations:^{
         
-        _playerView.transform = CGAffineTransformMakeRotation(0);
-        _playerView.frame = CGRectMake(0, (K_UIScreenHeight-K_UIScreenWidth*3/4)/2, K_UIScreenWidth, K_UIScreenWidth*3/4);
+        _liveplayer.view.transform = CGAffineTransformMakeRotation(0);
+        _liveplayer.view.frame = CGRectMake(0, (K_UIScreenHeight-K_UIScreenWidth*3/4)/2, K_UIScreenWidth, K_UIScreenWidth*3/4);
         
         _controlBar.transform = CGAffineTransformMakeRotation(0);
         _controlBar.frame = CGRectMake(0, K_UIScreenHeight-40,K_UIScreenWidth,40);
@@ -141,8 +146,8 @@
     
     [UIView animateWithDuration:0.5 animations:^{
         
-        _playerView.transform = CGAffineTransformMakeRotation(M_PI/2);
-        _playerView.frame = CGRectMake(40, 0, K_UIScreenWidth-40 ,K_UIScreenHeight);
+        _liveplayer.view.transform = CGAffineTransformMakeRotation(M_PI/2);
+        _liveplayer.view.frame = CGRectMake(40, 0, K_UIScreenWidth-40 ,K_UIScreenHeight);
         
         _controlBar.transform = CGAffineTransformMakeRotation(M_PI/2);
         _controlBar.frame = CGRectMake(0, 0, 40, K_UIScreenHeight);
@@ -176,7 +181,7 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"一会再说" style:UIAlertActionStyleCancel handler:nil]];
             [alert addAction:[UIAlertAction actionWithTitle:@"继续观看" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
-                [self.playerView.player play];
+                [self.liveplayer play];
                 played=YES;
                 [self.stateButton setImage:[UIImage imageNamed:@"play_bar_pause.png"] forState:UIControlStateNormal];
             }]];
@@ -184,12 +189,12 @@
             return;
         }
         
-        [self.playerView.player play];
+        [self.liveplayer play];
         played = YES;
         [self.stateButton setImage:[UIImage imageNamed:@"play_bar_pause.png"] forState:UIControlStateNormal];
         
     } else {
-        [self.playerView.player pause];
+        [self.liveplayer pause];
         played = NO;
         [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
     }
@@ -204,19 +209,19 @@
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
     
-    NSURL *videoUrl = [NSURL URLWithString:self.liveChannelModel.livelink];
-    self.playerItem = [AVPlayerItem playerItemWithURL:videoUrl];
-    self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
-    self.playerView = [[PlayerView alloc] init];
-    _playerView.backgroundColor = [UIColor blackColor];
-    self.playerView.player = _player;
-    self.playerView.frame = CGRectMake(0, (K_UIScreenHeight-K_UIScreenWidth*3/4)/2, K_UIScreenWidth, K_UIScreenWidth*3/4);
+    self.mediaType = @"livestream";
+    self.liveplayer = [[NELivePlayerController alloc] initWithContentURL:[NSURL URLWithString:self.liveChannelModel.livelink]];
+    if (self.liveplayer == nil) {
+        NSLog(@"player initilize failed, please tay again! url:%@",self.liveChannelModel.livelink);
+    }
+    self.liveplayer.view.frame = CGRectMake(0, (K_UIScreenHeight-K_UIScreenWidth*3/4)/2, K_UIScreenWidth, K_UIScreenWidth*3/4);
+    _liveplayer.view.backgroundColor = [UIColor blackColor];
     
-    UIImageView *face = [[UIImageView alloc] initWithFrame:CGRectMake(20, _playerView.maxY + 15, 40, 40)];
+    UIImageView *face = [[UIImageView alloc] initWithFrame:CGRectMake(20, self.liveplayer.view.maxY + 15, 40, 40)];
     face.clipsToBounds = YES;
     face.layer.cornerRadius = face.width/2;
     [self.view addSubview:face];
-    [face setImageWithURL:[NSURL URLWithString:_liveChannelModel.anchorImg]];
+    [face sd_setImageWithURL:[NSURL URLWithString:_liveChannelModel.anchorImg]];
     
     UILabel *name = [UILabel createLabelWithFrame:CGRectZero text:_liveChannelModel.anchorName textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:14]];
     [name sizeToFit];
@@ -224,7 +229,7 @@
     name.centerY = face.centerY;
     name.width = 200;
     [self.view addSubview:name];
-    [self.view addSubview:_playerView];
+    [self.view addSubview:_liveplayer.view];
     
     self.controlBar = [[UIView alloc] initWithFrame:CGRectMake(0, K_UIScreenHeight-40, K_UIScreenWidth, 40)];
     _controlBar.backgroundColor = [UIColor lightGrayColor];
@@ -243,6 +248,19 @@
     _oriBtn.frame = CGRectMake(K_UIScreenWidth-60, 0, 60, 40);
     [_oriBtn addTarget:self action:@selector(changeOrientationChange) forControlEvents:UIControlEventTouchUpInside];
     [_controlBar addSubview:_oriBtn];
+    
+    if ([self.mediaType isEqualToString:@"livestream"] ) {
+        [self.liveplayer setBufferStrategy:NELPLowDelay]; // 直播低延时模式
+    }
+    else {
+        [self.liveplayer setBufferStrategy:NELPAntiJitter]; // 点播抗抖动
+    }
+    [self.liveplayer setScalingMode:NELPMovieScalingModeNone]; // 设置画面显示模式，默认原始大小
+    [self.liveplayer setShouldAutoplay:([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWiFi)]; // 设置prepareToPlay完成后是否自动播放
+    [self.liveplayer setHardwareDecoder:YES]; // 设置解码模式，是否开启硬件解码
+    [self.liveplayer setPauseInBackground:NO]; // 设置切入后台时的状态，暂停还是继续播放
+    [self.liveplayer setPlaybackTimeout:15 *1000]; // 设置拉流超时时间
+    [self.liveplayer prepareToPlay];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -253,9 +271,51 @@
     self.navigationController.navigationBar.hidden = YES;
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
-    [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
-    [self.playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];// 监听loadedTimeRanges属性
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerDidPreparedToPlay:)
+                                                 name:NELivePlayerDidPreparedToPlayNotification
+                                               object:_liveplayer];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerPlaybackStateChanged:)
+                                                 name:NELivePlayerPlaybackStateChangedNotification
+                                               object:_liveplayer];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NeLivePlayerloadStateChanged:)
+                                                 name:NELivePlayerLoadStateChangedNotification
+                                               object:_liveplayer];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerPlayBackFinished:)
+                                                 name:NELivePlayerPlaybackFinishedNotification
+                                               object:_liveplayer];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerFirstVideoDisplayed:)
+                                                 name:NELivePlayerFirstVideoDisplayedNotification
+                                               object:_liveplayer];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerFirstAudioDisplayed:)
+                                                 name:NELivePlayerFirstAudioDisplayedNotification
+                                               object:_liveplayer];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerReleaseSuccess:)
+                                                 name:NELivePlayerReleaseSueecssNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerVideoParseError:)
+                                                 name:NELivePlayerVideoParseErrorNotification
+                                               object:_liveplayer];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerSeekComplete:)
+                                                 name:NELivePlayerMoviePlayerSeekCompletedNotification
+                                               object:_liveplayer];
+
 //    if (!played && _stateButton.enabled) {
 //        [self playAction];
 //    }
@@ -270,44 +330,117 @@
     if (played) {
         
         [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
-        [self.playerView.player pause];
+        [self.liveplayer pause];
         played = NO;
     }
     
-    [self.playerItem removeObserver:self forKeyPath:@"status" context:nil];
-    [self.playerItem removeObserver:self forKeyPath:@"loadedTimeRanges" context:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.playerItem];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NELivePlayerDidPreparedToPlayNotification object:_liveplayer];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NELivePlayerPlaybackStateChangedNotification object:_liveplayer];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NELivePlayerLoadStateChangedNotification object:_liveplayer];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NELivePlayerPlaybackFinishedNotification object:_liveplayer];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NELivePlayerFirstVideoDisplayedNotification object:_liveplayer];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NELivePlayerFirstAudioDisplayedNotification object:_liveplayer];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NELivePlayerReleaseSueecssNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NELivePlayerVideoParseErrorNotification object:_liveplayer];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NELivePlayerMoviePlayerSeekCompletedNotification object:_liveplayer];
 }
 
-// KVO方法
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    AVPlayerItem *playerItem = (AVPlayerItem *)object;
-    if ([keyPath isEqualToString:@"status"]) {
-        if ([playerItem status] == AVPlayerStatusReadyToPlay) {
-            NSLog(@"AVPlayerStatusReadyToPlay");
-            self.stateButton.enabled = YES;
+- (void)NELivePlayerDidPreparedToPlay:(NSNotification*)notification {
+    
+    NSLog(@"NELivePlayerDidPreparedToPlay");
+    
+    self.stateButton.enabled = YES;
+    
+    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWiFi) {
+        
+        [self playAction];
+        played = YES;
+    } else if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWWAN) {
+        
+        //NSLocalizedString
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您当前在非WIFI状态下，是否继续使用流量观看？" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"一会再说" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"继续观看" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-            if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWiFi) {
-                
-                [self playAction];
-                played = YES;
+            [self.liveplayer play];
+            played = YES;
+            
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+- (void)NELivePlayerPlaybackStateChanged:(NSNotification*)notification
+{
+    //    NSLog(@"NELivePlayerPlaybackStateChanged");
+}
+
+- (void)NeLivePlayerloadStateChanged:(NSNotification*)notification
+{
+    
+}
+
+- (void)NELivePlayerPlayBackFinished:(NSNotification*)notification
+{
+    UIAlertController *alertController = NULL;
+    UIAlertAction *action = NULL;
+    switch ([[[notification userInfo] valueForKey:NELivePlayerPlaybackDidFinishReasonUserInfoKey] intValue])
+    {
+        case NELPMovieFinishReasonPlaybackEnded:
+        {
+            if ([self.mediaType isEqualToString:@"livestream"]) {
+                alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"直播结束" preferredStyle:UIAlertControllerStyleAlert];
+                action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                        [self back];
+                    }];
+                [alertController addAction:action];
+                [self presentViewController:alertController animated:YES completion:nil];
             }
-            
-        } else if ([playerItem status] == AVPlayerStatusFailed) {
-            NSLog(@"AVPlayerStatusFailed");
+            break;
         }
-    } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
+        case NELPMovieFinishReasonPlaybackError:
+        {
+            alertController = [UIAlertController alertControllerWithTitle:@"注意" message:@"播放失败" preferredStyle:UIAlertControllerStyleAlert];
+            action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                [self back];
+            }];
+            [alertController addAction:action];
+            [self presentViewController:alertController animated:YES completion:nil];
+            break;
+        }
+            
+        case NELPMovieFinishReasonUserExited:
+            break;
+            
+        default:
+            break;
     }
 }
 
-- (void)moviePlayDidEnd:(NSNotification *)notification {
-    NSLog(@"Play end");
-    
-    __weak typeof(self) weakSelf = self;
-    [self.playerView.player seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
-        [weakSelf.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
-        played = NO;
-    }];
+- (void)NELivePlayerFirstVideoDisplayed:(NSNotification*)notification
+{
+    NSLog(@"first video frame rendered!");
+}
+
+- (void)NELivePlayerFirstAudioDisplayed:(NSNotification*)notification
+{
+    NSLog(@"first audio frame rendered!");
+}
+
+- (void)NELivePlayerVideoParseError:(NSNotification*)notification
+{
+    NSLog(@"video parse error!");
+}
+
+- (void)NELivePlayerSeekComplete:(NSNotification*)notification
+{
+    NSLog(@"seek complete!");
+}
+
+- (void)NELivePlayerReleaseSuccess:(NSNotification*)notification
+{
+
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:NELivePlayerReleaseSueecssNotification object:_liveplayer];
 }
 
 - (void)didReceiveMemoryWarning {

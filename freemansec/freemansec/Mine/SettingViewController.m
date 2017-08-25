@@ -129,7 +129,7 @@
         lb2.tag = 2;
         [cell.contentView addSubview:lb2];
         
-        line = [[UIView alloc] initWithFrame:CGRectMake(0, 40-0.5, tableView.width, 0.5)];
+        line = [[UIView alloc] initWithFrame:CGRectMake(0, 44-0.5, tableView.width, 0.5)];
         line.tag = 3;
         line.backgroundColor = UIColor_line_d2d2d2;
         [cell.contentView addSubview:line];

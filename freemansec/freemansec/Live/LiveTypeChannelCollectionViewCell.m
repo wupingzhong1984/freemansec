@@ -39,7 +39,7 @@
     
     if (channelModel) {
         
-    [self.coverIV setImageWithURL:[NSURL URLWithString:channelModel.liveImg]];
+    [self.coverIV sd_setImageWithURL:[NSURL URLWithString:channelModel.liveImg]];
         _title.text = channelModel.liveName;
         [_title sizeToFit];
         _title.width = _coverIV.width;

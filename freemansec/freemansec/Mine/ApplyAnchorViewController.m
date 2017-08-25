@@ -90,16 +90,43 @@
             tId = type.liveTypeId;
         }
         
-        [[MineManager sharedInstance] createMyLiveWithLiveTitle:_titleTF.text liveType:tId completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error)  {
+        if([[MineManager sharedInstance] getMyInfo].liveId.length > 0) {
             
-            if (error) {
-                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
-            } else {
+            [[MineManager sharedInstance] updateMyLiveTitle:_titleTF.text liveTypeId:tId completion:^(NSError * _Nullable error)  {
                 
-                [[MineManager sharedInstance] updateMyInfo:myInfo];
-                [self back];
-            }
-        }];
+                if (error) {
+                    [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                } else {
+                    
+                    MyInfoModel *myInfo = [[MineManager sharedInstance] getMyInfo];
+                    myInfo.liveTitle = _titleTF.text;
+                    myInfo.liveTypeId = tId;
+                    for (UserLiveType *type in _typeArray) {
+                        if ([type.liveTypeId isEqualToString:tId]) {
+                            
+                            myInfo.liveTypeName = type.liveTypeName;
+                            break;
+                        }
+                    }
+                    [[MineManager sharedInstance] updateMyInfo:myInfo];
+                    
+                    [self back];
+                }
+            }];
+            
+        } else {
+            [[MineManager sharedInstance] createMyLiveWithLiveTitle:_titleTF.text liveType:tId completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error)  {
+                
+                if (error) {
+                    [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                } else {
+                    
+                    [[MineManager sharedInstance] updateMyInfo:myInfo];
+                    [self back];
+                }
+            }];
+        }
+
     } else {
         
         [self presentViewController:[Utility createNoticeAlertWithContent:error okBtnTitle:nil] animated:YES completion:nil];
@@ -182,6 +209,14 @@
         
         if (!error && typeList.count > 0) {
             [self.typeArray addObjectsFromArray:typeList];
+            for(UserLiveType *type in _typeArray) {
+                
+                if ([type.liveTypeName isEqualToString:@"民众财经频道"]) {
+                    
+                    [_typeArray removeObject:type];
+                    break;
+                }
+            }
         }
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(_typePlace.x-10, _typePlace.maxY, _typePlace.width+20, 150) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor whiteColor];

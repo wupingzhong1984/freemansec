@@ -53,9 +53,16 @@
                  [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
              } else {
                  
-                 [[MineManager sharedInstance] updateMyInfo:myInfo];
-                 
-                 [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                 [[MineManager sharedInstance]getIMToken:myInfo.userLoginId completion:^(IMTokenModel * _Nullable tokenInfo, NSError * _Nullable error) {
+                     if (error) {
+                         [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+                     } else {
+                         
+                         [[MineManager sharedInstance] updateMyInfo:myInfo];
+                         [[MineManager sharedInstance] updateIMToken:tokenInfo];
+                         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                     }
+                 }];
              }
          }];
         
@@ -95,8 +102,8 @@
 
 - (void)setupSubviews {
     
-    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"emailverify_icon_notice.png"]];
-    bg.y = 64 + 15;
+    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"emailverify_notice_bg.png"]];
+    bg.y = 15;
     bg.x = (K_UIScreenWidth - bg.width)/2;
     [_contentView addSubview:bg];
     
@@ -193,8 +200,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = NO;
     
 }
 

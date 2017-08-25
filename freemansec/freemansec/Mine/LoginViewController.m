@@ -94,7 +94,7 @@
             // 第三方平台SDK原始数据
             NSLog(@" originalResponse: %@", resp.originalResponse);
             
-            [[MineManager sharedInstance] loginWithThird:TLTSina userCode:resp.uid completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+            [[MineManager sharedInstance] loginWithThird:TLTSina userCode:resp.uid nickName:resp.name headImg:resp.iconurl  completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
                 
                 if (error) {
                     
@@ -143,7 +143,7 @@
             // 第三方平台SDK原始数据
             NNSLog(@" originalResponse: %@", resp.originalResponse);
             
-            [[MineManager sharedInstance] loginWithThird:TLTWeixin userCode:resp.unionId completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+            [[MineManager sharedInstance] loginWithThird:TLTWeixin userCode:resp.unionId nickName:resp.name headImg:resp.iconurl completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
                 
                 if (error) {
                     
@@ -191,7 +191,7 @@
             // 第三方平台SDK原始数据
             NSLog(@" originalResponse: %@", resp.originalResponse);
             
-            [[MineManager sharedInstance] loginWithThird:TLTFb userCode:resp.uid completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
+            [[MineManager sharedInstance] loginWithThird:TLTFb userCode:resp.uid nickName:resp.name headImg:resp.iconurl completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
                 
                 if (error) {
                     

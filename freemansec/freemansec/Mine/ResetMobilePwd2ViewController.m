@@ -105,7 +105,7 @@
     _nPwdTF.font = [UIFont systemFontOfSize:16];
     _nPwdTF.textColor = [UIColor darkGrayColor];
     _nPwdTF.placeholder = @"请输入6-16位新密码";//NSLocalizedString
-    _nPwdTF.keyboardType = UIKeyboardTypeNumberPad;
+    _nPwdTF.secureTextEntry = YES;
     [_contentView addSubview:_nPwdTF];
     
     UIView *pwdBg2 = [[UIView alloc] initWithFrame:CGRectMake(pwdBg.x, pwdBg.maxY + 15, pwdBg.width, pwdBg.height)];
@@ -120,7 +120,6 @@
     _nPwdTF2.font = [UIFont systemFontOfSize:16];
     _nPwdTF2.textColor = [UIColor darkGrayColor];
     _nPwdTF2.placeholder = @"再输入一次密码";//NSLocalizedString
-    _nPwdTF2.keyboardType = UIKeyboardTypeNumberPad;
     [_contentView addSubview:_nPwdTF2];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -169,8 +168,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = NO;
     
 }
 

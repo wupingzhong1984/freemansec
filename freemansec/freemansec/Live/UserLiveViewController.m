@@ -19,7 +19,7 @@ UserLivePlayViewControllerDelegate,
 LivePlayViewControllerDelegate>
 
 @property (nonatomic,strong) UICollectionView *collView;
-@property (nonatomic,assign) NSInteger pageNum;
+@property (nonatomic,strong) NSString *pageNum;
 @property (nonatomic,strong) NSMutableArray *liveList;
 @property (nonatomic,assign) NSInteger lastSelectIndex;
 @end
@@ -42,7 +42,7 @@ LivePlayViewControllerDelegate>
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
-    _pageNum = 1;
+    self.pageNum = @"1";
     _lastSelectIndex = -1;
     
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
@@ -86,16 +86,15 @@ LivePlayViewControllerDelegate>
 
 - (void)requestSearch {
     
-    [[LiveManager sharedInstance] queryLiveByType:_typeId pageNum:_pageNum completion:^(NSArray * _Nullable queryResultList, NSError * _Nullable error) {
+    [[LiveManager sharedInstance] queryLiveByType:_typeId pageNum:_pageNum.integerValue completion:^(NSArray * _Nullable queryResultList, NSError * _Nullable error) {
         
         if (error) {
             [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
         } else {
             
-            if (_pageNum == 1) {
+            if (_pageNum.integerValue == 1) {
                 
                 [self.liveList removeAllObjects];
-                [_collView reloadData];
             }
             
             if (queryResultList.count > 0) {
@@ -121,7 +120,7 @@ LivePlayViewControllerDelegate>
         
         [self.collView performBatchUpdates:^{
             
-            _pageNum ++;
+            self.pageNum = [NSString stringWithFormat:@"%d",(int)(_pageNum.integerValue + 1)];
             [self requestSearch];
             
         } completion:nil];

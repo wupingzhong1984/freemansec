@@ -53,7 +53,6 @@
 		2F234DC71F39AE7A00862029 /* UserLiveType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F234DC61F39AE7A00862029 /* UserLiveType.m */; };
 		2F3102291F35E87600F9364D /* NEMediaCaptureEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3102281F35E87600F9364D /* NEMediaCaptureEntity.m */; };
 		2F318B511F4F3AA1003FC62B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F318B501F4F3AA1003FC62B /* SettingViewController.m */; };
-		2F6980D81F1B7B790083E785 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6980D71F1B7B790083E785 /* PlayerView.m */; };
 		2F6980DD1F1BA87F0083E785 /* play_bar_orientation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980D91F1BA87F0083E785 /* play_bar_orientation@2x.png */; };
 		2F6980DE1F1BA87F0083E785 /* play_bar_orientation@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980DA1F1BA87F0083E785 /* play_bar_orientation@3x.png */; };
 		2F6980DF1F1BA87F0083E785 /* play_bar_voice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980DB1F1BA87F0083E785 /* play_bar_voice@2x.png */; };
@@ -75,6 +74,7 @@
 		2F69813F1F1CA35F0083E785 /* Error.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F69813E1F1CA35F0083E785 /* Error.m */; };
 		2F6981421F1CA3E70083E785 /* LiveHttpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6981411F1CA3E70083E785 /* LiveHttpService.m */; };
 		2F6981461F1CA95C0083E785 /* LiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6981451F1CA95C0083E785 /* LiveManager.m */; };
+		2F7D1ED51F50AAD500FF37EB /* LiveDetailNTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7D1ED41F50AAD500FF37EB /* LiveDetailNTModel.m */; };
 		2F8368201F1B42EA000C4D9A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F83681F1F1B42EA000C4D9A /* CoreMotion.framework */; };
 		2F869BF81F35F29A005C8212 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2F869B7B1F35F29A005C8212 /* LICENSE.txt */; };
 		2F869BF91F35F29A005C8212 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = 2F869B7C1F35F29A005C8212 /* README.markdown */; };
@@ -178,6 +178,10 @@
 		2F869E421F3820EE005C8212 /* IMTokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F869E411F3820EE005C8212 /* IMTokenModel.m */; };
 		2F88AF061F29B056005E8383 /* MinePersonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88AF051F29B056005E8383 /* MinePersonInfoViewController.m */; };
 		2F945E9C1F4F4B6D00D48C70 /* MessageRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F945E9B1F4F4B6D00D48C70 /* MessageRootViewController.m */; };
+		2F945EA71F500E4D00D48C70 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F945EA31F500E4D00D48C70 /* libcrypto.a */; };
+		2F945EA81F500E4D00D48C70 /* libNELivePlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F945EA41F500E4D00D48C70 /* libNELivePlayer.a */; };
+		2F945EA91F500E4D00D48C70 /* libNMCBasicModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F945EA51F500E4D00D48C70 /* libNMCBasicModule.a */; };
+		2F945EAA1F500E4D00D48C70 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F945EA61F500E4D00D48C70 /* libssl.a */; };
 		2F9999291F45D09D00656DF0 /* live_camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F99991D1F45D09D00656DF0 /* live_camera_icon@2x.png */; };
 		2F99992A1F45D09D00656DF0 /* live_camera_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F99991E1F45D09D00656DF0 /* live_camera_icon@3x.png */; };
 		2F99992B1F45D09D00656DF0 /* live_close_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F99991F1F45D09D00656DF0 /* live_close_icon@2x.png */; };
@@ -624,8 +628,6 @@
 		2F3102281F35E87600F9364D /* NEMediaCaptureEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaCaptureEntity.m; sourceTree = "<group>"; };
 		2F318B4F1F4F3AA1003FC62B /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		2F318B501F4F3AA1003FC62B /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
-		2F6980D61F1B7B790083E785 /* PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
-		2F6980D71F1B7B790083E785 /* PlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
 		2F6980D91F1BA87F0083E785 /* play_bar_orientation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_orientation@2x.png"; sourceTree = "<group>"; };
 		2F6980DA1F1BA87F0083E785 /* play_bar_orientation@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_orientation@3x.png"; sourceTree = "<group>"; };
 		2F6980DB1F1BA87F0083E785 /* play_bar_voice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_voice@2x.png"; sourceTree = "<group>"; };
@@ -662,6 +664,8 @@
 		2F6981411F1CA3E70083E785 /* LiveHttpService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveHttpService.m; sourceTree = "<group>"; };
 		2F6981441F1CA95C0083E785 /* LiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveManager.h; sourceTree = "<group>"; };
 		2F6981451F1CA95C0083E785 /* LiveManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveManager.m; sourceTree = "<group>"; };
+		2F7D1ED31F50AAD500FF37EB /* LiveDetailNTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveDetailNTModel.h; sourceTree = "<group>"; };
+		2F7D1ED41F50AAD500FF37EB /* LiveDetailNTModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveDetailNTModel.m; sourceTree = "<group>"; };
 		2F83681F1F1B42EA000C4D9A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		2F869B7B1F35F29A005C8212 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		2F869B7C1F35F29A005C8212 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
@@ -816,6 +820,12 @@
 		2F88AF051F29B056005E8383 /* MinePersonInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MinePersonInfoViewController.m; sourceTree = "<group>"; };
 		2F945E9A1F4F4B6D00D48C70 /* MessageRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageRootViewController.h; sourceTree = "<group>"; };
 		2F945E9B1F4F4B6D00D48C70 /* MessageRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageRootViewController.m; sourceTree = "<group>"; };
+		2F945EA01F500E4D00D48C70 /* NELivePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELivePlayer.h; sourceTree = "<group>"; };
+		2F945EA11F500E4D00D48C70 /* NELivePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELivePlayerController.h; sourceTree = "<group>"; };
+		2F945EA31F500E4D00D48C70 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		2F945EA41F500E4D00D48C70 /* libNELivePlayer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNELivePlayer.a; sourceTree = "<group>"; };
+		2F945EA51F500E4D00D48C70 /* libNMCBasicModule.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNMCBasicModule.a; sourceTree = "<group>"; };
+		2F945EA61F500E4D00D48C70 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		2F99991D1F45D09D00656DF0 /* live_camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "live_camera_icon@2x.png"; sourceTree = "<group>"; };
 		2F99991E1F45D09D00656DF0 /* live_camera_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "live_camera_icon@3x.png"; sourceTree = "<group>"; };
 		2F99991F1F45D09D00656DF0 /* live_close_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "live_close_icon@2x.png"; sourceTree = "<group>"; };
@@ -1491,6 +1501,7 @@
 				2F869DF41F36EE08005C8212 /* libssl.a in Frameworks */,
 				2FCBD77C1F3CB7A500F21A60 /* libSocialFacebook.a in Frameworks */,
 				2FCBD9751F4430BE00F21A60 /* libopus.a in Frameworks */,
+				2F945EA81F500E4D00D48C70 /* libNELivePlayer.a in Frameworks */,
 				2F12E06A1F31B7320064AD5A /* libresolv.tbd in Frameworks */,
 				2FCBD7791F3CB7A500F21A60 /* FBSDKLoginKit.framework in Frameworks */,
 				2F869DF21F36EE08005C8212 /* libopenh264.a in Frameworks */,
@@ -1515,6 +1526,7 @@
 				2F869DEE1F36EE08005C8212 /* libfdk-aac.a in Frameworks */,
 				2FCBD9711F4430BE00F21A60 /* libNMCVideoModule.a in Frameworks */,
 				2FCBD97A1F4430BE00F21A60 /* libevent.a in Frameworks */,
+				2F945EA71F500E4D00D48C70 /* libcrypto.a in Frameworks */,
 				2F869DEF1F36EE08005C8212 /* libGPUImage.a in Frameworks */,
 				2F869DF11F36EE08005C8212 /* libNMCVideoModule.a in Frameworks */,
 				2F869DF51F36EE08005C8212 /* libyuv.a in Frameworks */,
@@ -1524,8 +1536,10 @@
 				2FCBD97B1F4430BE00F21A60 /* libssl.a in Frameworks */,
 				2FCBD77F1F3CB7A500F21A60 /* UMSocialCore.framework in Frameworks */,
 				2FCBD7771F3CB7A500F21A60 /* Bolts.framework in Frameworks */,
+				2F945EAA1F500E4D00D48C70 /* libssl.a in Frameworks */,
 				2FCBD7821F3CB7A500F21A60 /* libUMSocialLog.a in Frameworks */,
 				2FCBD9701F4430BE00F21A60 /* libnio.a in Frameworks */,
+				2F945EA91F500E4D00D48C70 /* libNMCBasicModule.a in Frameworks */,
 				2FAF32011F191D2C004329ED /* WebKit.framework in Frameworks */,
 				2FCBD96F1F4430BE00F21A60 /* libGPUImage.a in Frameworks */,
 				2F869DED1F36EE08005C8212 /* libcrypto.a in Frameworks */,
@@ -1625,8 +1639,6 @@
 		2F6980D51F1B7B790083E785 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2F6980D61F1B7B790083E785 /* PlayerView.h */,
-				2F6980D71F1B7B790083E785 /* PlayerView.m */,
 				2FE7FF0A1F2CFC54007DFCC0 /* DottedLineView.h */,
 				2FE7FF0B1F2CFC54007DFCC0 /* DottedLineView.m */,
 			);
@@ -1976,6 +1988,43 @@
 			path = libs;
 			sourceTree = "<group>";
 		};
+		2F945E9D1F500E4D00D48C70 /* NELivePlayer */ = {
+			isa = PBXGroup;
+			children = (
+				2F945E9E1F500E4D00D48C70 /* include */,
+				2F945EA21F500E4D00D48C70 /* libs */,
+			);
+			path = NELivePlayer;
+			sourceTree = "<group>";
+		};
+		2F945E9E1F500E4D00D48C70 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				2F945E9F1F500E4D00D48C70 /* NELivePlayer */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		2F945E9F1F500E4D00D48C70 /* NELivePlayer */ = {
+			isa = PBXGroup;
+			children = (
+				2F945EA01F500E4D00D48C70 /* NELivePlayer.h */,
+				2F945EA11F500E4D00D48C70 /* NELivePlayerController.h */,
+			);
+			path = NELivePlayer;
+			sourceTree = "<group>";
+		};
+		2F945EA21F500E4D00D48C70 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				2F945EA31F500E4D00D48C70 /* libcrypto.a */,
+				2F945EA41F500E4D00D48C70 /* libNELivePlayer.a */,
+				2F945EA51F500E4D00D48C70 /* libNMCBasicModule.a */,
+				2F945EA61F500E4D00D48C70 /* libssl.a */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
 		2F9EEE4E1F2348DA00E161C3 /* Help */ = {
 			isa = PBXGroup;
 			children = (
@@ -2204,6 +2253,7 @@
 		2FAF30E71F1605BD004329ED /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				2F945E9D1F500E4D00D48C70 /* NELivePlayer */,
 				2FCBD7B51F44239800F21A60 /* NIMSDK */,
 				2FCBD7AC1F44143F00F21A60 /* MBProgressHUD */,
 				2FCBD75D1F3CB7A500F21A60 /* UMSocial */,
@@ -2572,6 +2622,8 @@
 				2FCBD7931F40AC5E00F21A60 /* LiveSearchResultModel.m */,
 				2F9999351F46CEF800656DF0 /* LiveHotWordModel.h */,
 				2F9999361F46CEF800656DF0 /* LiveHotWordModel.m */,
+				2F7D1ED31F50AAD500FF37EB /* LiveDetailNTModel.h */,
+				2F7D1ED41F50AAD500FF37EB /* LiveDetailNTModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -3843,6 +3895,7 @@
 				2FCBD9261F4430BE00F21A60 /* NIMKitInfo.m in Sources */,
 				2FCBD9BC1F44380E00F21A60 /* UIActionSheet+NTESBlock.m in Sources */,
 				2F9EEE511F2348F000E161C3 /* Utility.m in Sources */,
+				2F7D1ED51F50AAD500FF37EB /* LiveDetailNTModel.m in Sources */,
 				2F9EEE6D1F24F72000E161C3 /* VideoManager.m in Sources */,
 				2FCBD9401F4430BE00F21A60 /* NIMSessionMsgDatasource.m in Sources */,
 				2F945E9C1F4F4B6D00D48C70 /* MessageRootViewController.m in Sources */,
@@ -3921,7 +3974,6 @@
 				2F12E06D1F31B7F70064AD5A /* UserLiveChannelModel.m in Sources */,
 				2FAF31541F1605BD004329ED /* Reachability.m in Sources */,
 				2FCBD9151F4430BE00F21A60 /* NIMContactPickedView.m in Sources */,
-				2F6980D81F1B7B790083E785 /* PlayerView.m in Sources */,
 				2FCBD9A01F44378700F21A60 /* NTESJanKenPonAttachment.m in Sources */,
 				2FCBD9051F4430BE00F21A60 /* NIMKitProgressHUD.m in Sources */,
 				2FCBD9B91F44380E00F21A60 /* NSData+NTES.m in Sources */,
@@ -4169,12 +4221,13 @@
 					"$(PROJECT_DIR)/freemansec/Third/NIMSDK/Libs",
 					"$(PROJECT_DIR)/freemansec/Third/NIMSDK/NIMKit/Vendors/NIMAVChat/Libs",
 					"$(PROJECT_DIR)/freemansec/Third/NIMSDK/NIMKit/Vendors/NIMSDK/Libs",
+					"$(PROJECT_DIR)/freemansec/Third/NELivePlayer/libs",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.live;
+				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.liveplay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "843a9044-3a8f-4211-9ac0-5c7875de85c0";
 				PROVISIONING_PROFILE_SPECIFIER = live_dev;
@@ -4222,12 +4275,13 @@
 					"$(PROJECT_DIR)/freemansec/Third/NIMSDK/Libs",
 					"$(PROJECT_DIR)/freemansec/Third/NIMSDK/NIMKit/Vendors/NIMAVChat/Libs",
 					"$(PROJECT_DIR)/freemansec/Third/NIMSDK/NIMKit/Vendors/NIMSDK/Libs",
+					"$(PROJECT_DIR)/freemansec/Third/NELivePlayer/libs",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.live;
+				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.liveplay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d21217e1-580b-46bc-83f5-99d839c00763";
 				PROVISIONING_PROFILE_SPECIFIER = live_dis_inhouse;

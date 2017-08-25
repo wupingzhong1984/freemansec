@@ -71,36 +71,45 @@ SetTelCodeViewControllerDelegate>
     if (!_mobileTF.text.length) {
         
         //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"请输入手机号。" okBtnTitle:nil] animated:YES completion:nil];        
-    } else {
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"请输入手机号。" okBtnTitle:nil] animated:YES completion:nil];
         
-        _second = 60;
-        _verifyBtn.enabled = NO;
-        [_verifyBtn setTitle:[NSString stringWithFormat:@"%dS",_second] forState:UIControlStateDisabled];
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-            
-            _second--;
-            NNSLog(@"%d",_second);
-            if (_second > 0) {
-                
-                [_verifyBtn setTitle:[NSString stringWithFormat:@"%dS",_second] forState:UIControlStateDisabled];
-            } else {
-                
-                [self.timer invalidate];
-                self.timer = nil;
-                _verifyBtn.enabled = YES;
-                [_verifyBtn setTitle:@"验证码" forState:UIControlStateNormal];
-            }
-            
-        }];
-        
-        [[MineManager sharedInstance] getPhoneVerifyCode:_telCodeLbl.text phone:_mobileTF.text completion:^(NSString * _Nullable verify, NSError * _Nullable error) {
-            
-            if(error) {
-                [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
-            }
-        }];
+        return;
     }
+    
+    if (_resetPwdKind == RPKResetPwd && ![_mobileTF.text isEqualToString:[[MineManager sharedInstance] getMyInfo].phone]) {
+        
+        //NSLocalizedString
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"必须使用注册时使用的手机号。" okBtnTitle:nil] animated:YES completion:nil];
+        
+        return;
+    }
+    
+    _second = 60;
+    _verifyBtn.enabled = NO;
+    [_verifyBtn setTitle:[NSString stringWithFormat:@"%dS",_second] forState:UIControlStateDisabled];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        
+        _second--;
+        NNSLog(@"%d",_second);
+        if (_second > 0) {
+            
+            [_verifyBtn setTitle:[NSString stringWithFormat:@"%dS",_second] forState:UIControlStateDisabled];
+        } else {
+            
+            [self.timer invalidate];
+            self.timer = nil;
+            _verifyBtn.enabled = YES;
+            [_verifyBtn setTitle:@"验证码" forState:UIControlStateNormal];
+        }
+        
+    }];
+    
+    [[MineManager sharedInstance] getPhoneVerifyCode:_telCodeLbl.text phone:_mobileTF.text completion:^(NSString * _Nullable verify, NSError * _Nullable error) {
+        
+        if(error) {
+            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+        }
+    }];
 
 }
 
@@ -120,6 +129,13 @@ SetTelCodeViewControllerDelegate>
     if (!_verifyCodeTF.text.length) {
         
         [error appendString:@"请输入验证码。"];
+    }
+    
+    if (_resetPwdKind == RPKResetPwd && ![_mobileTF.text isEqualToString:[[MineManager sharedInstance] getMyInfo].phone]) {
+        
+        //NSLocalizedString
+        [error appendString:@"必须使用注册时使用的手机号。"];
+        
     }
     
     if (!error.length) {
@@ -259,8 +275,6 @@ SetTelCodeViewControllerDelegate>
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = NO;
     
 }
 
