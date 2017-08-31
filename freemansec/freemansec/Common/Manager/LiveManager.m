@@ -254,4 +254,36 @@ static LiveManager *instance;
         }
     }];
 }
+
+- (void)getLiveProgramListCompletion:(LiveProgramListCompletion)completion {
+    
+    LiveHttpService* service = [[LiveHttpService alloc] init];
+    [service getLiveProgramListCompletion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+    }];
+}
+- (void)getLivePlayBackListByTypeId:(NSString*_Nullable)typId completion:(LivePlayBackListCompletion)completion {
+    
+    LiveHttpService* service = [[LiveHttpService alloc] init];
+    [service getLivePlayBackListByTypeId:typId completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+    }];
+}
+
 @end

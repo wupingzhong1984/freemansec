@@ -96,6 +96,7 @@
     btn.center = back.center;
     [v addSubview:btn];
     
+    if (_liveChannelModel.liveId.length > 0) {
     self.attentionIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[_liveChannelModel.isAttent isEqualToString:@"0"]?@"navi_mark.png":@"navi_mark_1.png"]];
     _attentionIV.centerX = v.width - 25;
     _attentionIV.centerY = back.centerY;
@@ -107,6 +108,7 @@
     btn2.height = _attentionIV.height + 20;
     btn2.center = _attentionIV.center;
     [v addSubview:btn2];
+    }
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, v.height-0.5, v.width, 0.5)];
     line.backgroundColor = UIColor_line_d2d2d2;
@@ -221,7 +223,7 @@
     face.clipsToBounds = YES;
     face.layer.cornerRadius = face.width/2;
     [self.view addSubview:face];
-    [face sd_setImageWithURL:[NSURL URLWithString:_liveChannelModel.anchorImg]];
+    [face sd_setImageWithURL:[NSURL URLWithString:_liveChannelModel.anchorImg] placeholderImage:[UIImage imageNamed:@"officiallive_headImg_default.png"]];
     
     UILabel *name = [UILabel createLabelWithFrame:CGRectZero text:_liveChannelModel.anchorName textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:14]];
     [name sizeToFit];

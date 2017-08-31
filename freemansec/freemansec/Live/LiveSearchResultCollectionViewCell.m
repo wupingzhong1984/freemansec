@@ -12,7 +12,7 @@
 
 @property (nonatomic,strong) UIImageView *coverIV;
 @property (nonatomic,strong) UIImageView *headIV;
-@property (nonatomic,strong) UILabel *archor;
+@property (nonatomic,strong) UILabel *anchor;
 @property (nonatomic,strong) UILabel *title;
 @property (nonatomic,strong) UIView *living;
 
@@ -37,12 +37,12 @@
         _headIV.layer.cornerRadius = _headIV.width/2;
         [self addSubview:_headIV];
         
-        self.archor = [[UILabel alloc] init];
-        _archor.font = [UIFont systemFontOfSize:14];
-        _archor.textAlignment = NSTextAlignmentLeft;
-        _archor.lineBreakMode = NSLineBreakByTruncatingTail;
-        _archor.textColor = [UIColor blackColor];
-        [self addSubview:_archor];
+        self.anchor = [[UILabel alloc] init];
+        _anchor.font = [UIFont systemFontOfSize:14];
+        _anchor.textAlignment = NSTextAlignmentLeft;
+        _anchor.lineBreakMode = NSLineBreakByTruncatingTail;
+        _anchor.textColor = [UIColor blackColor];
+        [self addSubview:_anchor];
         
         self.title = [[UILabel alloc] init];
         _title.font = [UIFont systemFontOfSize:14];
@@ -91,17 +91,17 @@
         _headIV.centerY = 50/2 + _coverIV.maxY;
         _headIV.hidden = YES;
         
-        _archor.text = resultModel.nickName;
-        [_archor sizeToFit];
-        _archor.x = 10;
-        _archor.centerY = _headIV.centerY - 9;
-        _archor.width = _coverIV.maxX - _archor.x*2;
+        _anchor.text = resultModel.nickName;
+        [_anchor sizeToFit];
+        _anchor.x = 10;
+        _anchor.centerY = _headIV.centerY - 9;
+        _anchor.width = _coverIV.maxX - _anchor.x*2;
         
         _title.text = resultModel.liveName;
         [_title sizeToFit];
         _title.x = 10;
         _title.centerY = _headIV.centerY + 9;
-        _title.width = _archor.width;
+        _title.width = _anchor.width;
         
         _living.hidden = !([resultModel.state isEqualToString:@"1"] || [resultModel.state isEqualToString:@"3"]);
     }

@@ -21,6 +21,6 @@
 - (void)queryLiveDetailByCId:(NSString*)cid completion:(HttpClientServiceObjectBlock)completion;
 - (void)getChatroomByUserLiveId:(NSString*)liveId completion:(HttpClientServiceObjectBlock)completion;
 
-
-
+- (void)getLiveProgramListCompletion:(HttpClientServiceObjectBlock)completion;
+- (void)getLivePlayBackListByTypeId:(NSString*)typId completion:(HttpClientServiceObjectBlock)completion;
 @end

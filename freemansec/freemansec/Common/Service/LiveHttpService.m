@@ -12,6 +12,8 @@
 #import "LiveHotWordModel.h"
 #import "ChatroomInfoModel.h"
 #import "LiveDetailNTModel.h"
+#import "LiveProgramModel.h"
+#import "LivePlayBackModel.h"
 
 static NSString* GetLiveBannerPath = @"Ajax/GetBanner.ashx";
 static NSString* GetLiveListByTypePath = @"Ajax/GetLive.ashx";
@@ -19,6 +21,8 @@ static NSString* GetLiveSearchHotWordsPath = @"Ajax/GetLive.ashx"; //todo
 static NSString* QueryLivePath = @"Ajax/QueryLiveInfo.ashx";
 static NSString* GetLiveDetailPath = @"Ajax/QueryLiveToCid.ashx";
 static NSString* GetChatroomByUserLiveIdPath = @"Ajax/getChatrommByUser.ashx";
+static NSString* GetLiveProgramPath = @"Ajax/GetProgram.ashx";
+static NSString* GetLivePlayBackPath = @"Ajax/GetPlayBack.ashx";
 
 @implementation LiveHttpService
 
@@ -193,4 +197,51 @@ static NSString* GetChatroomByUserLiveIdPath = @"Ajax/getChatrommByUser.ashx";
                      }
                  }];
 }
+
+- (void)getLiveProgramListCompletion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetLiveProgramPath
+                     params:nil
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [LiveProgramModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
+}
+
+- (void)getLivePlayBackListByTypeId:(NSString*)typId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetLivePlayBackPath
+                     params:@{@"type":typId}
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [LivePlayBackModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
+}
+
 @end

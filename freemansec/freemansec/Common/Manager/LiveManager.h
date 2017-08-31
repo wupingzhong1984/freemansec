@@ -15,6 +15,9 @@ typedef void(^LiveHotWordListCompletion)(NSArray* _Nullable wordList, NSError* _
 typedef void(^QueryLiveListCompletion)(NSArray* _Nullable queryResultList, NSError* _Nullable error);
 typedef void(^ChatroomByUserLiveIdCompletion)(ChatroomInfoModel* _Nullable roomModel, NSError* _Nullable error);
 typedef void(^LiveDetailCompletion)(LiveDetailNTModel* _Nullable detailModel, NSError* _Nullable error);
+typedef void(^LiveProgramListCompletion)(NSArray* _Nullable programlList, NSError* _Nullable error);
+typedef void(^LivePlayBackListCompletion)(NSArray* _Nullable playList, NSError* _Nullable error);
+
 @interface LiveManager : NSObject
 
 + (LiveManager* _Nonnull)sharedInstance;
@@ -37,4 +40,7 @@ typedef void(^LiveDetailCompletion)(LiveDetailNTModel* _Nullable detailModel, NS
 -(void)queryLiveDetailByCId:(NSString* _Nullable)cid completion:(LiveDetailCompletion _Nullable)completion;
 
 -(void)getChatroomByUserLiveId:(NSString*_Nullable)liveId completion:(ChatroomByUserLiveIdCompletion _Nullable)completion;
+
+- (void)getLiveProgramListCompletion:(LiveProgramListCompletion)completion;
+- (void)getLivePlayBackListByTypeId:(NSString*_Nullable)typId completion:(LivePlayBackListCompletion)completion;
 @end
