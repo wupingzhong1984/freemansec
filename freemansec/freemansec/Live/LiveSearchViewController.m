@@ -12,6 +12,7 @@
 #import "LiveSearchResultCollectionViewCell.h"
 #import "LivePlayViewController.h"
 #import "UserLivePlayViewController.h"
+#import "MJRefresh.h"
 
 @interface LiveSearchViewController ()
 <LiveSearchQuickChoiceViewDelegate,
@@ -25,6 +26,7 @@ LivePlayViewControllerDelegate>
 @property (nonatomic,strong) NSMutableArray *resultArray;
 @property (nonatomic,strong) LiveSearchQuickChoiceView *choiceView;
 @property (nonatomic,assign) NSInteger lastSelectIndex;
+@property (nonatomic,strong) NodataView *nodataView;
 @end
 
 @implementation LiveSearchViewController
@@ -41,6 +43,16 @@ LivePlayViewControllerDelegate>
         _resultArray = [[NSMutableArray alloc] init];
     }
     return _resultArray;
+}
+
+- (UIView*)nodataView {
+    
+    if (!_nodataView) {
+        _nodataView = [[NodataView alloc] initWithTitle:@"未搜索到数据"];
+        _nodataView.center = _collView.center;
+    }
+    
+    return _nodataView;
 }
 
 - (UIView*)naviBarView {
@@ -99,15 +111,15 @@ LivePlayViewControllerDelegate>
     
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 0;
-    layout.minimumLineSpacing = 20;
+    layout.minimumLineSpacing = 0;
     layout.headerReferenceSize = CGSizeMake(0,0);
     layout.footerReferenceSize = CGSizeMake(0,0);
-    CGFloat itemWidth = (K_UIScreenWidth-28-20)/2;
-    layout.itemSize = CGSizeMake(itemWidth, itemWidth*3/4 + 45);
+    CGFloat itemWidth = K_UIScreenWidth/2;
+    layout.itemSize = CGSizeMake(itemWidth, itemWidth + 50);
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    [layout setHeaderReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
-    [layout setFooterReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
-    self.collView = [[UICollectionView alloc] initWithFrame:CGRectMake(14, navi.maxY, K_UIScreenWidth-28, K_UIScreenHeight - navi.maxY) collectionViewLayout:layout];
+    [layout setHeaderReferenceSize:CGSizeMake(K_UIScreenWidth, 0)];
+    [layout setFooterReferenceSize:CGSizeMake(K_UIScreenWidth, 0)];
+    self.collView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, navi.maxY, K_UIScreenWidth, K_UIScreenHeight - navi.maxY) collectionViewLayout:layout];
     _collView.showsVerticalScrollIndicator = NO;
     _collView.showsHorizontalScrollIndicator = NO;
     _collView.delegate = self;
@@ -116,6 +128,7 @@ LivePlayViewControllerDelegate>
     [_collView registerClass:[LiveSearchResultCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
     [self.view addSubview:_collView];
     
+    [self setupRefresh];
     
     [[LiveManager sharedInstance] getLiveSearchHotWordsCompletion:^(NSArray * _Nullable wordList, NSError * _Nullable error) {
         
@@ -124,6 +137,56 @@ LivePlayViewControllerDelegate>
         _choiceView.delegate = self;
         [self.view addSubview:_choiceView];
     }];
+}
+
+- (void)setupRefresh
+{
+    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
+    
+    [self.collView addHeaderWithTarget:self action:@selector(headerRereshing)];
+    //    [self.tableView headerBeginRefreshing];
+    
+    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+    [self.collView addFooterWithTarget:self action:@selector(footerRereshing)];
+    
+    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
+    //NSLocalizedString
+    self.collView.headerPullToRefreshText = @"下拉可以刷新了";
+    self.collView.headerReleaseToRefreshText = @"松开马上刷新了";
+    self.collView.headerRefreshingText = @"正在拼命的刷新数据中，请稍后!";
+    
+    self.collView.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    self.collView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    self.collView.footerRefreshingText = @"正在拼命的加载中";
+    
+    //    self.pageNum = @"1";
+    // 2.2秒后刷新表格UI
+    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    
+    //    [self requestSearch];
+    //        });
+}
+
+#pragma mark 开始进入刷新状态
+- (void)headerRereshing
+{
+    self.pageNum = 1;
+    // 2.2秒后刷新表格UI
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self requestSearch];
+    });
+}
+
+- (void)footerRereshing
+{
+    self.pageNum ++;
+    
+    // 2.2秒后刷新表格UI
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self requestSearch];
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -150,8 +213,12 @@ LivePlayViewControllerDelegate>
 
 - (void)requestSearch {
     
+    [self.nodataView removeFromSuperview];
+    
     [[LiveManager sharedInstance] queryLiveByWord:_searchTF.text pageNum:_pageNum completion:^(NSArray * _Nullable queryResultList, NSError * _Nullable error) {
         
+        [self.collView headerEndRefreshing];
+        [self.collView footerEndRefreshing];
         if (error) {
             [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
         } else {
@@ -162,13 +229,27 @@ LivePlayViewControllerDelegate>
             }
             
             if (queryResultList.count > 0) {
+                
                 [self.resultArray addObjectsFromArray:queryResultList];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [_collView reloadData];
-                    
-                });
             }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [_collView reloadData];
+                
+                if (_pageNum == 1) {
+                    
+                    if (queryResultList.count > 0) {
+                        
+                        [_collView scrollRectToVisible:CGRectMake(0, 0, _collView.width, _collView.height) animated:NO];
+                    }
+                }
+                
+                if (_resultArray.count == 0) {
+                    
+                    [self.view addSubview:self.nodataView];
+                }
+            });
         }
     }];
 }

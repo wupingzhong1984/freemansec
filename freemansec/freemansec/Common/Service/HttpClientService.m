@@ -17,15 +17,30 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
 
 -(void)suppleParams:(NSMutableDictionary*)params {
     
+    if (!params) {
+        params = [[NSMutableDictionary alloc] init];
+    }
+    
     MyInfoModel *info = [[MineManager sharedInstance] getMyInfo];
     if(info) { //logined
         
-        if (!params) {
-            params = [[NSMutableDictionary alloc] init];
-        }
         if(![params objectForKey:@"userid"]) {
             [params setObject:info.userId forKey:@"userid"];
         }
+    }
+    
+    NSArray *languages = [NSLocale preferredLanguages];
+    NSString *currentLanguage = [languages objectAtIndex:0];
+    if ([currentLanguage containsString:@"zh-Hans"])
+    {
+        [params setObject:@"0" forKey:@"lang"];
+    } else if ([currentLanguage containsString:@"zh-Hant"] ||
+               [currentLanguage containsString:@"zh-HK"] ||
+               [currentLanguage containsString:@"zh-TW"])
+    {
+        [params setObject:@"1" forKey:@"lang"];
+    } else {
+        [params setObject:@"0" forKey:@"lang"];
     }
     
 }

@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *videoList;
 @property (nonatomic, assign) int pageNum;
+@property (nonatomic,strong) NodataView *nodataView;
 @end
 
 @implementation VideoRoot2ViewController
@@ -29,6 +30,16 @@
     }
     
     return _videoList;
+}
+
+- (UIView*)nodataView {
+    
+    if (!_nodataView) {
+        _nodataView = [[NodataView alloc] initWithTitle:@"暂无数据"];
+        _nodataView.center = _tableView.center;
+    }
+    
+    return _nodataView;
 }
 
 - (UIView*)naviBarView {
@@ -82,12 +93,6 @@
     self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
     self.tableView.footerRefreshingText = @"正在拼命的加载中";
     
-    self.pageNum = 1;
-    // 2.2秒后刷新表格UI
-    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    
-    [self requestGetVideo];
-    //        });
 }
 
 #pragma mark 开始进入刷新状态
@@ -133,6 +138,8 @@
     
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
+    self.pageNum = 1;
+    [self requestGetVideo];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -149,6 +156,8 @@
 
 - (void)requestGetVideo {
     
+    [self.nodataView removeFromSuperview];
+    
     [[VideoManager sharedInstance] getVideoListPageNum:_pageNum pageSize:20 completion:^(NSArray * _Nullable videoList, NSError * _Nullable error) {
         
         [self.tableView headerEndRefreshing];
@@ -160,18 +169,28 @@
             
             if (self.pageNum == 1) {
                 [self.videoList removeAllObjects];
-                [self.tableView reloadData];
-            };
+            }
             
             if (videoList.count > 0) {
                 
                 [self.videoList addObjectsFromArray:videoList];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [self.tableView reloadData];
-                    
-                });
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.tableView reloadData];
+                
+                if (self.pageNum == 1) {
+                    if (videoList.count > 0) {
+                        
+                        [self.tableView scrollRectToVisible:CGRectMake(0, 0, _tableView.width, _tableView.height) animated:NO];
+                    }
+                }
+                
+                if (self.videoList.count == 0) {
+                    
+                    [self.view addSubview:self.nodataView];
+                }
+            });
         }
     }];
 }

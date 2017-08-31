@@ -123,7 +123,7 @@ NIMSessionViewControllerDelegate>
     
     if (![_userLiveChannelModel.isAttent boolValue]) {
         
-        [[MineManager sharedInstance] addMyAttentionCId:_userLiveChannelModel.cid completion:^(NSError * _Nullable error) {
+        [[MineManager sharedInstance] addMyAttentionLiveId:_userLiveChannelModel.liveId completion:^(NSError * _Nullable error) {
             
             if (error) {
                 [MBProgressHUD showError:@"关注失败！"];//NSLocalizedString
@@ -138,7 +138,7 @@ NIMSessionViewControllerDelegate>
         }];
     } else {
         
-        [[MineManager sharedInstance] cancelMyAttentionCId:_userLiveChannelModel.cid completion:^(NSError * _Nullable error) {
+        [[MineManager sharedInstance] cancelMyAttentionLiveId:_userLiveChannelModel.liveId completion:^(NSError * _Nullable error) {
             
             if (error) {
                 [MBProgressHUD showError:@"取消关注失败！"];//NSLocalizedString
@@ -233,11 +233,11 @@ NIMSessionViewControllerDelegate>
     [_closeBtn addTarget:self action:@selector(closeAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_closeBtn];
     
-    if(!liveStreamOK) {
-        
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"频道地址异常。" okBtnTitle:nil] animated:YES completion:nil];
-        return;
-    }
+//    if(!liveStreamOK) {
+//
+//        [self presentViewController:[Utility createNoticeAlertWithContent:@"此频道暂时无法播放。" okBtnTitle:nil] animated:YES completion:nil];
+//        return;
+//    }
     
     [[LiveManager sharedInstance] queryLiveDetailByCId:_userLiveChannelModel.cid completion:^(LiveDetailNTModel * _Nullable detailModel, NSError * _Nullable error) {
         

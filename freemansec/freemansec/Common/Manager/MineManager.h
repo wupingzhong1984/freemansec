@@ -102,8 +102,6 @@ typedef void(^CancelMyAttentionCompletion)(NSError* _Nullable error);
 - (void)getMyAttentionListCompletion:(MyAttentionListCompletion _Nullable)completion;
 - (void)addMyAttentionLiveId:(NSString* _Nullable)liveId completion:(AddMyAttentionCompletion _Nullable)completion;
 - (void)cancelMyAttentionLiveId:(NSString* _Nullable)liveId completion:(CancelMyAttentionCompletion _Nullable)completion;
-- (void)addMyAttentionCId:(NSString* _Nullable)cid completion:(AddMyAttentionCompletion _Nullable)completion;
-- (void)cancelMyAttentionCId:(NSString* _Nullable)cid completion:(CancelMyAttentionCompletion _Nullable)completion;
 
 - (void)loginWithThird:(ThirdLoginType)type userCode:(NSString*_Nullable)code nickName:(NSString*_Nullable)nickName headImg:(NSString*_Nullable)headImg completion:(ThirdLoginCompletion _Nullable)completion;
 - (void)refreshUserInfoCompletion:(RefreshUserInfoCompletion _Nullable)completion;

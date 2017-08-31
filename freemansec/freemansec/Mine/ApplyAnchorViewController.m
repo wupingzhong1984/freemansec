@@ -32,7 +32,12 @@
 
 - (void)back {
     
-    [self.navigationController popViewControllerAnimated:YES];
+    if (_vcLoadStyle == VCLSPresent) {
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (UIView*)naviBarView {
@@ -211,7 +216,7 @@
             [self.typeArray addObjectsFromArray:typeList];
             for(UserLiveType *type in _typeArray) {
                 
-                if ([type.liveTypeName isEqualToString:@"民众财经频道"]) {
+                if ([type.liveTypeId isEqualToString:@"5"]) {
                     
                     [_typeArray removeObject:type];
                     break;
@@ -243,8 +248,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = NO;
     
 }
 

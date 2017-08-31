@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "FMDatabase.h"
 #import "MyInfoModel.h"
+#import "MsgModel.h"
 
 @interface DataManager : NSObject
 
@@ -22,4 +23,8 @@
 - (MyInfoModel*)getMyInfoByUserId:(NSString*)userId;
 - (BOOL)deleteMyInfoByUserId:(NSString*)userId;
 
+
+- (BOOL)insertMsg:(MsgModel*)model;
+- (NSMutableArray*)getMsgListOrderByMsgIdDESC;
+- (BOOL)updateAllMsgReaded;
 @end

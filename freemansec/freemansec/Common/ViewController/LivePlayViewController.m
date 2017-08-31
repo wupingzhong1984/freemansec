@@ -80,7 +80,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:_liveChannelModel.liveName color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:_liveChannelModel.liveName color:UIColor_navititle];
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -400,7 +400,7 @@
         }
         case NELPMovieFinishReasonPlaybackError:
         {
-            alertController = [UIAlertController alertControllerWithTitle:@"注意" message:@"播放失败" preferredStyle:UIAlertControllerStyleAlert];
+            alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"播放失败" preferredStyle:UIAlertControllerStyleAlert];
             action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
                 [self back];
             }];

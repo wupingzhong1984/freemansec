@@ -54,6 +54,7 @@
     
     // 利用KVC 修改系统的tabbar
     [self setValue:tabbar forKeyPath:@"tabBar"];
+ 
     
 }
 

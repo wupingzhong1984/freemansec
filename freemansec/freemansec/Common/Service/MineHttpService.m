@@ -588,12 +588,12 @@ static NSString* CancelMyAttentionPath = @"Ajax/cancelConcerns.ashx";
 }
 
 - (void)loginWithThird:(NSString*)type userCode:(NSString*)code nickName:(NSString*)nickName headImg:(NSString*)headImg completion:(HttpClientServiceObjectBlock)completion {
-    [self httpRequestMethod:HttpReuqestMethodGet
+    [self httpRequestMethod:HttpReuqestMethodPost
                        path:ThirdLoginPath
                      params:@{@"register":type,
                               @"code":code,
                               @"nickName":nickName,
-                              @"headImg":headImg
+                              @"headimg":headImg
                               }
                  completion:^(JsonResponse* response, NSError *err) {
                      
@@ -705,28 +705,4 @@ static NSString* CancelMyAttentionPath = @"Ajax/cancelConcerns.ashx";
                  }];
 }
 
-- (void)addMyAttentionCId:(NSString*)cId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
-    
-    [self httpRequestMethod:HttpReuqestMethodGet
-                       path:AddMyAttentionPath
-                     params:@{@"userid":userId,
-                              @"cid":cId
-                              }
-                 completion:^(JsonResponse* response, NSError *err) {
-                     
-                     completion(response, err);
-                 }];
-}
-- (void)cancelMyAttentionCId:(NSString*)cId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
-    
-    [self httpRequestMethod:HttpReuqestMethodGet
-                       path:CancelMyAttentionPath
-                     params:@{@"userid":userId,
-                              @"cid":cId
-                              }
-                 completion:^(JsonResponse* response, NSError *err) {
-                     
-                     completion(response, err);
-                 }];
-}
 @end

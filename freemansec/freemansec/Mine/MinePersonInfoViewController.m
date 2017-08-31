@@ -323,7 +323,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                 } else if ([state isEqualToString:@"2"]) {
                     msg = @"对不起，您的身份已冻结，无法再提交实名认证。";
                 } else {
-                    msg = @"我们正在审核您的认证申请，请耐心等待。";
+                    msg = @"我们正在审核您的实名认证申请，请耐心等待。";
                 }
                 [self presentViewController:[Utility createNoticeAlertWithContent:msg okBtnTitle:nil] animated:YES completion:nil];
             }
@@ -537,8 +537,6 @@ UIPickerViewDelegate,UIPickerViewDataSource>
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = NO;
     
 }
 

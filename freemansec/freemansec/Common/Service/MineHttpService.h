@@ -45,8 +45,6 @@
 - (void)addMyAttentionLiveId:(NSString*)liveId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 - (void)cancelMyAttentionLiveId:(NSString*)liveId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 
-- (void)addMyAttentionCId:(NSString*)cId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
-- (void)cancelMyAttentionCId:(NSString*)cId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 
 - (void)getProvinceListCompletion:(HttpClientServiceObjectBlock)completion;
 - (void)getCityListByProvinceId:(NSString*)pId completion:(HttpClientServiceObjectBlock)completion;

@@ -14,6 +14,7 @@
 #import "MyAttentionViewController.h"
 #import "ApplyAnchorViewController.h"
 #import "SettingViewController.h"
+#import "RealNameCertifyViewController.h"
 
 @interface MineRootViewController ()
 <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
@@ -155,7 +156,7 @@
     
     if (indexPath.section == 0 && indexPath.row == 0) {
         
-        return 150;
+        return 190;
     }
     
     return 50;
@@ -174,7 +175,7 @@
         cell.contentView.backgroundColor = [UIColor blackColor];
         
         UIView *container = [[UIView alloc] init];
-        container.size = CGSizeMake(tableView.width, 150);
+        container.size = CGSizeMake(tableView.width, 190);
         container.clipsToBounds = YES;
         [cell.contentView addSubview:container];
         
@@ -209,33 +210,33 @@
         face.center = visualEffectView2.center;
         [con1 addSubview:face];
         
-        name = [UILabel createLabelWithFrame:CGRectZero text:@"未登录" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:12]];
+        name = [UILabel createLabelWithFrame:CGRectZero text:@"未登录" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:16]];
         name.tag = 2;
         [name sizeToFit];
         name.width = tableView.width;
         name.textAlignment = NSTextAlignmentCenter;
         name.centerX = con1.centerX;
-        name.centerY = 107;
+        name.centerY = 117;
         [container addSubview:name];
         
         self.pointBg = [[UIView alloc]init];
         _pointBg.clipsToBounds = YES;
-        _pointBg.y = 121;
-        _pointBg.height = 21;
+        _pointBg.y = 140;
+        _pointBg.height = 28;
         _pointBg.layer.cornerRadius = _pointBg.height/2;
         [container addSubview:_pointBg];
         
         UIVisualEffectView *visualEffectView3 = [[UIVisualEffectView alloc]initWithEffect:blurEffrct];
         visualEffectView3.width = K_UIScreenWidth;
-        visualEffectView3.height = 21;
+        visualEffectView3.height = _pointBg.height;
         visualEffectView3.alpha = 0.5;
         [_pointBg addSubview:visualEffectView3];
         
-        self.pLbl = [UILabel createLabelWithFrame:CGRectZero text:@"金币数" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:12]];
+        self.pLbl = [UILabel createLabelWithFrame:CGRectZero text:@"金币数" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:14]];
         [_pLbl sizeToFit];
         [container addSubview:_pLbl];
         
-        self.pointLbl = [UILabel createLabelWithFrame:CGRectZero text:@"0" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:12]];
+        self.pointLbl = [UILabel createLabelWithFrame:CGRectZero text:@"0" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:16]];
         [_pointLbl sizeToFit];
         [container addSubview:_pointLbl];
         
@@ -378,8 +379,30 @@
                 ApplyAnchorViewController *vc = [[ApplyAnchorViewController alloc] init];
                 [self.navigationController pushViewController:vc animated:YES];
                 
+            } else if (state && [state isEqualToString:@"4"]) {
+                
+                [self presentViewController:[Utility createNoticeAlertWithContent:@"我们正在审核您的实名认证申请，请耐心等待。" okBtnTitle:nil] animated:YES completion:nil];
+                
             } else {
-                [self presentViewController:[Utility createNoticeAlertWithContent:@"请先在我的账户中完成实名认证。" okBtnTitle:nil] animated:YES completion:nil];
+                
+                NSString *msg;
+                if ([state isEqualToString:@"3"]) {
+                    //NSLocalizedString
+                    msg = @"您的实名认证未通过审核，请重新提交实名认证并申请主播。";
+                } else {
+                    //NSLocalizedString
+                    msg = @"请先完成实名认证并申请主播。";
+                }
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:
+                                            msg preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+                [alert addAction:[UIAlertAction actionWithTitle:@"去验证" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    RealNameCertifyViewController *vc = [[RealNameCertifyViewController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }]];
+                [self presentViewController:alert animated:YES completion:nil];
             }
         } else {
             

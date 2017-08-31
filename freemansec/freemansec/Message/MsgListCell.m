@@ -14,6 +14,7 @@
 @property (nonatomic,strong) UILabel *dateLbl;
 @property (nonatomic,strong) UILabel *contentLbl;
 @property (nonatomic,strong) UIView *line;
+@property (nonatomic,strong) UIView *isReadIcon;
 @end
 
 @implementation MsgListCell
@@ -25,7 +26,7 @@
         UIView *imgBg = [[UIView alloc] init];
         imgBg.backgroundColor = UIColor_82b432;
         imgBg.size = (CGSize){50,50};
-        imgBg.x = 10;
+        imgBg.x = 20;
         imgBg.centerY = 72/2;
         imgBg.layer.cornerRadius = imgBg.width/2;
         [self.contentView addSubview:imgBg];
@@ -48,7 +49,7 @@
         _dateLbl.textColor = [UIColor lightGrayColor];
         _dateLbl.text = @"1";
         [_dateLbl sizeToFit];
-        _dateLbl.x = K_UIScreenWidth - 10 - _dateLbl.width;
+        _dateLbl.x = K_UIScreenWidth - 20 - _dateLbl.width;
         _dateLbl.centerY = _nameLbl.centerY;
         [self.contentView addSubview:_dateLbl];
         
@@ -64,6 +65,14 @@
         _line.backgroundColor = UIColor_line_d2d2d2;
         [self.contentView addSubview:_line];
         
+        self.isReadIcon = [[UIView alloc] init];
+        _isReadIcon.size = CGSizeMake(8, 8);
+        _isReadIcon.backgroundColor = [UIColor redColor];
+        _isReadIcon.layer.cornerRadius = _isReadIcon.width/2;
+        _isReadIcon.centerX = 20/2;
+        _isReadIcon.centerY = imgBg.centerY;
+        [self.contentView addSubview:_isReadIcon];
+        
     }
     return self;
 }
@@ -76,7 +85,7 @@
         
         _dateLbl.text = _msgModel.time;
         [_dateLbl sizeToFit];
-        _dateLbl.x = K_UIScreenWidth - 10 - _dateLbl.width;
+        _dateLbl.x = K_UIScreenWidth - 20 - _dateLbl.width;
         
         _nameLbl.text = _msgModel.senderUser;
         _nameLbl.width = _dateLbl.x - 10 - _nameLbl.x;
@@ -85,6 +94,8 @@
         [Utility formatLabel:_contentLbl text:_msgModel.content font:_contentLbl.font lineSpacing:5];
         
         _line.y = _contentLbl.maxY + 10 - 0.5;
+        
+        _isReadIcon.hidden = ![_msgModel.isRead isEqualToString:@"0"];
     }
 }
 

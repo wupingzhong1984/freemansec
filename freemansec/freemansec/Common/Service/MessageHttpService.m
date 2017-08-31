@@ -10,14 +10,15 @@
 #import "MsgModel.h"
 
 static NSString* GetMsgListPath = @"Ajax/getMsg.ashx";
+static NSString* GetNewMsgCountPath = @"Ajax/getNewMsgCount.ashx";
 
 @implementation MessageHttpService
-- (void)getMsgListPageNum:(NSInteger)pageNum userId:(NSString*_Nullable)userId completion:(HttpClientServiceObjectBlock _Nullable)completion {
+- (void)getMsgListLastMsgId:(NSString* _Nonnull)msgId userId:(NSString*_Nullable)userId completion:(HttpClientServiceObjectBlock _Nullable)completion {
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:GetMsgListPath
                      params:@{@"userid":userId,
-                              @"pnum":[NSString stringWithFormat:@"%d",(int)pageNum]
+                              @"lastmsgid":msgId
                               }
                  completion:^(JsonResponse* response, NSError *err) {
                      
@@ -35,5 +36,53 @@ static NSString* GetMsgListPath = @"Ajax/getMsg.ashx";
                          completion(list, nil); //success
                      }
                  }];
+}
+
+- (void)getNewMsgCountUserId:(NSString*_Nullable)userId completion:(HttpClientServiceObjectBlock _Nullable)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetNewMsgCountPath
+                     params:@{@"userid":userId}
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     if ([response.code integerValue] == 1 || !response.data || ![(NSDictionary*)response.data objectForKey:@"msgcount"]) {
+                         
+                         completion(0,err);
+                         return;
+                     }
+                     
+                     NSInteger count = [[(NSDictionary*)response.data objectForKey:@"msgcount"] integerValue];
+                     completion([NSNumber numberWithInteger:count], nil); //success
+                 }];
+}
+
+- (void)getNewMsgListUserId:(NSString*_Nullable)userId completion:(HttpClientServiceObjectBlock _Nullable)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetMsgListPath
+                     params:@{@"userid":userId
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [MsgModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
+     
 }
 @end

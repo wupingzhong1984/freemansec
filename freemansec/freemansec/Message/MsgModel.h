@@ -12,5 +12,6 @@
 @property (nonatomic,strong) NSString<Optional>* msgId;
 @property (nonatomic,strong) NSString<Optional>* senderUser;
 @property (nonatomic,strong) NSString<Optional>* content;
-@property (nonatomic,strong) NSString<Optional>* time;
+@property (nonatomic,strong) NSString<Optional>* time; //2017/8/25 12:20:52
+@property (nonatomic,strong) NSString<Optional>* isRead;
 @end

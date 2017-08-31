@@ -10,7 +10,7 @@
 
 
 static DataManager *instance;
-const static NSInteger MY_DB_VER = 0; //initversion:0
+const static NSInteger MY_DB_VER = 1; //initversion:0
 #define DB_VERSION_KEY @"dbversionkey"
 
 @implementation DataManager
@@ -58,7 +58,7 @@ const static NSInteger MY_DB_VER = 0; //initversion:0
     }
     switch (oldVersion) {
         case 0:
-//            [self upgradeFrom0To1];
+            [self upgradeFrom0To1];
             break;
         default:
             break;
@@ -69,6 +69,25 @@ const static NSInteger MY_DB_VER = 0; //initversion:0
     [self upgradeDB:oldVersion];
 }
 
+- (void)upgradeFrom0To1 {
+    
+    if ([_db open]) {
+        
+        NSString *sql =
+        @"CREATE TEMP TABLE 'msg_center_table' ('id' INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL, 'msgid' INTEGER, 'senderuser' VARCHAR(100), 'content' NVARCHAR, 'time' DATETIME, 'isread' VARCHAR(50));";
+        BOOL res = [_db executeStatements:sql withResultBlock:^int(NSDictionary *dictionary) {
+            
+            return 0;
+        }];
+        if (!res) {
+            NNSLog(@"error when dbupdate upgradeFrom0To1");
+        } else {
+            NNSLog(@"succ to dbupdate upgradeFrom0To1");
+        }
+        
+        [_db close];
+    }
+}
 
 - (BOOL)insertMyInfo:(MyInfoModel*)model {
     
@@ -155,4 +174,55 @@ const static NSInteger MY_DB_VER = 0; //initversion:0
     return success;
 }
 
+- (BOOL)insertMsg:(MsgModel*)model {
+    
+    BOOL success = NO;
+    if ([_db open]) {
+        success = [_db executeUpdate:@"INSERT INTO msg_center_table (msgid, senderuser, content, time, isread) VALUES (?, ?, ?, ?, ?)",
+                   [NSNumber numberWithInteger:[model.msgId integerValue]],
+                   model.senderUser,
+                   model.content,
+                   [LogicManager getDateByStr:model.time format:@"yyyy/M/d H:m:s"], //todo
+                   model.isRead];
+    }
+    [_db close];
+    
+    return success;
+}
+
+- (NSMutableArray*)getMsgListOrderByMsgIdDESC {
+    
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:1];
+    
+    if ([_db open]) {
+        
+        FMResultSet *s = [_db executeQuery:@"SELECT * FROM ideal ORDER BY msgid DESC"];
+        
+        while ([s next]) {
+            
+            MsgModel * model = [[MsgModel alloc] init];
+            model.msgId = [NSString stringWithFormat:@"%d",[s intForColumn:@"msgid"]];
+            model.senderUser = [s stringForColumn:@"senderuser"];
+            model.content = [s stringForColumn:@"content"];
+            model.time = [LogicManager formatDate:[s dateForColumn:@"time"] format:@"yyyy/M/d H:m:s"]; //todo
+            model.isRead = [s stringForColumn:@"isread"];
+            [array addObject:model];
+        }
+    }
+    [_db close];
+    
+    return array;
+}
+
+- (BOOL)updateAllMsgReaded {
+    
+    BOOL success = NO;
+    if ([_db open]) {
+        success = [_db executeUpdate:@"UPDATE msg_center_table SET isread = ? WHERE isread = ?",
+                   @"1",@"0"];
+    }
+    [_db close];
+    
+    return success;
+}
 @end

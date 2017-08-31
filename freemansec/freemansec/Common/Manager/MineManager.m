@@ -282,24 +282,6 @@ static MineManager *instance;
     }];
 }
 
-- (void)addMyAttentionCId:(NSString* _Nullable)cid completion:(AddMyAttentionCompletion _Nullable)completion {
-    
-    MineHttpService* service = [[MineHttpService alloc] init];
-    [service addMyAttentionCId:cid userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
-        
-        completion(err);
-    }];
-}
-
-- (void)cancelMyAttentionCId:(NSString* _Nullable)cid completion:(CancelMyAttentionCompletion _Nullable)completion {
-    
-    MineHttpService* service = [[MineHttpService alloc] init];
-    [service cancelMyAttentionCId:cid userId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
-        
-        completion(err);
-    }];
-}
-
 
 - (void)checkVerifyCode:(NSString* _Nullable)verify phone:(NSString* _Nullable)phone areaCode:(NSString* _Nullable)areaCode email:(NSString* _Nullable)email completion:(CheckVerifyCompletion _Nullable)completion {
     

@@ -17,6 +17,7 @@
 
 @property (nonatomic,strong) UICollectionView *collView;
 @property (nonatomic, strong) NSMutableArray *attenList;
+@property (nonatomic,strong) NodataView *nodataView;
 @end
 
 @implementation MyAttentionViewController
@@ -33,6 +34,16 @@
 - (void)back {
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (UIView*)nodataView {
+    
+    if (!_nodataView) {
+        _nodataView = [[NodataView alloc] initWithTitle:@"暂无数据"];
+        _nodataView.center = _collView.center;
+    }
+    
+    return _nodataView;
 }
 
 - (UIView*)naviBarView {
@@ -74,15 +85,15 @@
     
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 0;
-    layout.minimumLineSpacing = 20;
+    layout.minimumLineSpacing = 0;
     layout.headerReferenceSize = CGSizeMake(0,0);
     layout.footerReferenceSize = CGSizeMake(0,0);
-    CGFloat itemWidth = (K_UIScreenWidth-28-20)/2;
-    layout.itemSize = CGSizeMake(itemWidth, itemWidth*3/4 + 45);
+    CGFloat itemWidth = K_UIScreenWidth/2;
+    layout.itemSize = CGSizeMake(itemWidth, itemWidth + 50);
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    [layout setHeaderReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
-    [layout setFooterReferenceSize:CGSizeMake(K_UIScreenWidth, 14)];
-    self.collView = [[UICollectionView alloc] initWithFrame:CGRectMake(14, navi.maxY, K_UIScreenWidth-28, K_UIScreenHeight - navi.maxY) collectionViewLayout:layout];
+    [layout setHeaderReferenceSize:CGSizeMake(K_UIScreenWidth, 0)];
+    [layout setFooterReferenceSize:CGSizeMake(K_UIScreenWidth, 0)];
+    self.collView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, navi.maxY, K_UIScreenWidth, K_UIScreenHeight - navi.maxY) collectionViewLayout:layout];
     _collView.showsVerticalScrollIndicator = NO;
     _collView.showsHorizontalScrollIndicator = NO;
     _collView.delegate = self;
@@ -114,6 +125,8 @@
 
 - (void)requestGetAttention {
     
+    [self.nodataView removeFromSuperview];
+    
     [[MineManager sharedInstance] getMyAttentionListCompletion:^(NSArray * _Nullable attenList, NSError * _Nullable error) {
         
         
@@ -130,6 +143,11 @@
                 [self.collView reloadData];
                 
             });
+            
+            if (self.attenList.count == 0) {
+                
+                [self.view addSubview:self.nodataView];
+            }
         }
     }];
     

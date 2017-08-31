@@ -620,7 +620,7 @@ NIMSessionViewControllerDelegate>{
     NENetworkStatus status = [reachability ne_currentReachabilityStatus];
     
     if (status == ReachableViaWiFi) {
-        NSLog(@"切换为WiFi网络");
+        NNSLog(@"切换为WiFi网络");
         //开始直播
         __weak typeof(self) weakSelf = self;
         NSError *error = nil;
@@ -629,7 +629,7 @@ NIMSessionViewControllerDelegate>{
             [weakSelf showErrorAlert:error ];
         }
     } else if (status == ReachableViaWWAN) {
-        NSLog(@"切换为移动网络");
+        NNSLog(@"切换为移动网络");
         //提醒用户当前网络为移动网络，是否开启直播
         //NSLocalizedString
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"当前网络为移动网络，是否开启直播？" preferredStyle:UIAlertControllerStyleAlert];

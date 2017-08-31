@@ -35,6 +35,8 @@
 #import "DataManager.h"
 #import "MessageManager.h"
 
+#import "NodataView.h"
+
 #import "LSMediaCapture.h"
 #import "nMediaLiveStreamingDefs.h"
 #import <UMSocialCore/UMSocialCore.h>

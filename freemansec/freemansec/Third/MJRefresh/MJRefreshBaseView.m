@@ -41,7 +41,7 @@
         [self addSubview:_statusLabel = statusLabel];
     }
     
-    _statusLabel.hidden = YES;
+    _statusLabel.hidden = NO;
     return _statusLabel;
 }
 

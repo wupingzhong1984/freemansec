@@ -15,6 +15,7 @@
 #import "UIView+MJExtension.h"
 #import "UIScrollView+MJExtension.h"
 
+
 @interface MJRefreshFooterView()
 @property (assign, nonatomic) int lastRefreshCount;
 @end

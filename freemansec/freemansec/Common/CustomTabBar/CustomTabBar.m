@@ -11,6 +11,7 @@
 @interface CustomTabBar ()
 // 中间按钮
 @property (nonatomic, strong) UIButton *centerBtn;
+@property (nonatomic, strong) UIView *msgCenterRedPoint;
 @end
 
 @implementation CustomTabBar
@@ -27,8 +28,27 @@
         
         // 加载子视图
         [self setUpChildrenViews];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMsgCenterRedPoint) name:kNotificationShowMsgCenterTabRedPoint object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideMsgCenterRedPoint) name:kNotificationHideMsgCenterTabRedPoint object:nil];
     }
     return self;
+}
+
+-(void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationShowMsgCenterTabRedPoint object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationHideMsgCenterTabRedPoint object:nil];
+}
+
+- (void)showMsgCenterRedPoint {
+    
+    _msgCenterRedPoint.hidden = NO;
+}
+
+- (void)hideMsgCenterRedPoint {
+    
+    _msgCenterRedPoint.hidden = YES;
 }
 
 // 创建子视图
@@ -48,6 +68,11 @@
     
     [self addSubview:_centerBtn];
     
+    self.msgCenterRedPoint = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 6, 6)];
+    _msgCenterRedPoint.backgroundColor = [UIColor redColor];
+    _msgCenterRedPoint.layer.cornerRadius = _msgCenterRedPoint.width/2;
+    _msgCenterRedPoint.hidden = YES; //test
+    [self addSubview:_msgCenterRedPoint];
 }
 
 - (void)layoutSubviews {
@@ -74,11 +99,16 @@
                 btn.x = btn.width * btnIndex + self.centerBtn.width + 18;
             }
             
+            if (btnIndex == 2) {
+                _msgCenterRedPoint.center = CGPointMake(btn.maxX - 22, btn.y + 10);
+            }
+            
             btnIndex++;
             //如果是索引是0(从0开始的)，直接让索引++，目的就是让消息按钮的位置向右移动，空出来中间按钮的位置
             if (btnIndex == 0) {
                 btnIndex++;
             }
+            
         }
     }
     

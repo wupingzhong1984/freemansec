@@ -19,7 +19,7 @@
 @interface AppDelegate ()
 <NIMLoginManagerDelegate>
 @property (nonatomic,strong) NTESSDKConfigDelegate *sdkConfigDelegate;
-
+@property (nonatomic,strong) NSTimer *msgCenterRefreshTimer;
 @end
 
 @implementation AppDelegate
@@ -68,7 +68,7 @@
     
     //ok
     /* 设置Facebook的appKey和UrlString */
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"222519288272132"  appSecret:nil redirectURL:nil];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"222519288272132"  appSecret:@"1a1463d837e9d2c6079ef3693e642c9b" redirectURL:nil];
     //key 1a1463d837e9d2c6079ef3693e642c9b
 }
 
@@ -149,6 +149,8 @@
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     
+    [_msgCenterRefreshTimer invalidate];
+    self.msgCenterRefreshTimer = nil;
 }
 
 
@@ -165,6 +167,18 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    self.msgCenterRefreshTimer = [NSTimer scheduledTimerWithTimeInterval:10 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        
+        if ([[MineManager sharedInstance] getMyInfo]) {
+            
+            [[MessageManager sharedInstance] getNewMsgCountCompletion:^(NSInteger count, NSError * _Nullable error) {
+                if (count > 0) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationShowMsgCenterTabRedPoint object:nil userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d",(int)count] forKey:@"msgcenternewmsgcount"]];
+                }
+            }];
+        }
+    }];
     
     [[DataManager sharedInstance] updateDB];
     

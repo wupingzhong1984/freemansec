@@ -13,6 +13,8 @@
 #import "OfficialLiveViewController.h"
 #import "UserLiveViewController.h"
 #import "UserLiveType.h"
+#import "ApplyAnchorViewController.h"
+#import "RealNameCertifyViewController.h"
 
 @interface LiveRootViewController ()
 
@@ -63,18 +65,40 @@
             [self.navigationController presentViewController:vc animated:YES completion:nil];
         } else {
             //NSLocalizedString
-            [self presentViewController:[Utility createNoticeAlertWithContent:@"请先完成主播申请。" okBtnTitle:nil] animated:YES completion:nil];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请先完成主播申请。" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"去申请" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                ApplyAnchorViewController *vc = [[ApplyAnchorViewController alloc]init];
+                vc.vcLoadStyle = VCLSPresent;
+                [self.navigationController presentViewController:vc animated:YES completion:nil];
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
         }
+    } else if ([state isEqualToString:@"4"]) {
+        
+        [self presentViewController:[Utility createNoticeAlertWithContent:@"我们正在审核您的实名认证申请，请耐心等待。" okBtnTitle:nil] animated:YES completion:nil];
+        
     } else {
         
+        NSString *msg;
         if ([state isEqualToString:@"3"]) {
             //NSLocalizedString
-            [self presentViewController:[Utility createNoticeAlertWithContent:@"您的实名认证未通过审核，请重新提交实名的并申请主播。" okBtnTitle:nil] animated:YES completion:nil];
+            msg = @"您的实名认证未通过审核，请重新提交实名认证并申请主播。";
         } else {
-        
             //NSLocalizedString
-            [self presentViewController:[Utility createNoticeAlertWithContent:@"请先完成实名认证并申请主播。" okBtnTitle:nil] animated:YES completion:nil];
+            msg = @"请先完成实名认证并申请主播。";
         }
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:msg preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"去验证" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            RealNameCertifyViewController *vc = [[RealNameCertifyViewController alloc]init];
+            vc.vcLoadStyle = VCLSPresent;
+            [self.navigationController presentViewController:vc animated:YES completion:nil];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     
 }
@@ -128,41 +152,12 @@
     
     self.tabCollViewRect = CGRectMake(60, 20, K_UIScreenWidth-120, 44);
     
-    NSArray *titleArray = @[
-                            @"民众财经频道",
-                            @"企业频道",
-                            @"分析师频道",
-                            @"名人频道",
-                            @"个人频道"
-                            ];
-    
-    NSArray *classNames = @[
-                            [OfficialLiveViewController class],
-                            [UserLiveViewController class]
-                            ];
-    
-    NSArray *params = @[
-                        @"5",
-                        @"1",
-                        @"2",
-                        @"3",
-                        @"4"
-                        ];
-    
-    [self reloadDataWith:titleArray andSubViewdisplayClasses:classNames withParams:params];
-    
-    
-    
     [self naviBarView];
 
     
         //tabbar中间按钮相应
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tabBarCenterAction) name:@"tabBarCenterAction" object:nil];
     
-    //test facebook
-//    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-//    loginButton.center = self.view.center;
-//    [self.view addSubview:loginButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated

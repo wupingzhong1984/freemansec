@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *favourList;
 @property (nonatomic, assign) int pageNum;
+@property (nonatomic,strong) NodataView *nodataView;
 @end
 
 @implementation MyFavourViewController
@@ -33,6 +34,16 @@
 - (void)back {
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (UIView*)nodataView {
+    
+    if (!_nodataView) {
+        _nodataView = [[NodataView alloc] initWithTitle:@"暂无数据"];
+        _nodataView.center = _tableView.center;
+    }
+    
+    return _nodataView;
 }
 
 - (UIView*)naviBarView {
@@ -138,6 +149,9 @@
     [self.view addSubview:naviBar];
     
     [self createTableViewWithOriginY:naviBar.maxY];
+    
+    //todo
+    [self.view addSubview:self.nodataView];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -159,6 +173,8 @@
 
 - (void)requestGetFavour {
     
+    [self.nodataView removeFromSuperview];
+    
     [[MineManager sharedInstance] getMyFavourListCompletion:^(NSArray * _Nullable favourList, NSError * _Nullable error) {
         
         [self.tableView headerEndRefreshing];
@@ -170,18 +186,22 @@
             
             if (self.pageNum == 1) {
                 [self.favourList removeAllObjects];
-                [self.tableView reloadData];
-            };
+            }
             
             if (favourList.count > 0) {
                 
                 [self.favourList addObjectsFromArray:favourList];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [self.tableView reloadData];
-                    
-                });
+                [self.tableView reloadData];
+                
+            });
+            
+            if (self.favourList.count == 0) {
+                
+                [self.view addSubview:self.nodataView];
             }
         }
     }];

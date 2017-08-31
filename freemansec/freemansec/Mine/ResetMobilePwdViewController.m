@@ -176,7 +176,7 @@ SetTelCodeViewControllerDelegate>
     _telCodeLbl.font = [UIFont systemFontOfSize:16];
     NSArray *appLanguages = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"];
     NSString *languageName = [appLanguages objectAtIndex:0];
-    _telCodeLbl.text = ([languageName isEqualToString:@"zh-Hans"]?@"86":@"852");
+    _telCodeLbl.text = ([languageName containsString:@"zh-Hans"]?@"86":@"852");
     [_contentView addSubview:_telCodeLbl];
     
     UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tel_code_downward.png"]];

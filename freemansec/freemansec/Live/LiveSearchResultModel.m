@@ -30,6 +30,7 @@
                                             @"addTime": @"addtime",
                                             @"isDelete": @"isdel",
                                             @"state":@"state",
+                                            @"onlineusercount":@"onlineusercount",
                                             @"isAttent": @"isconcerns"}];
 }
 

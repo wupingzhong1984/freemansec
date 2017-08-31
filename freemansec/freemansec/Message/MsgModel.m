@@ -16,6 +16,7 @@
                                             @"msgId": @"id",
                                             @"senderUser": @"sendUser",
                                             @"content": @"msgText",
-                                            @"time": @"createtime"}];
+                                            @"time": @"createtime",
+                                            @"isRead": @"isRead"}];
 }
 @end

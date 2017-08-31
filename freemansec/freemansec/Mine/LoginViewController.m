@@ -330,15 +330,20 @@
 //    weibo.centerX = wx.centerX-100;
 //    [_contentView addSubview:weibo];
 //    
-//    UIImage *fbImg = [UIImage imageNamed:@"login_fb.png"];
-//    UIButton *fb = [UIButton buttonWithType:UIButtonTypeCustom];
-//    fb.clipsToBounds = YES;
-//    fb.size = wx.size;
-//    [fb setImage:fbImg forState:UIControlStateNormal];
-//    [fb addTarget:self action:@selector(loginByFB) forControlEvents:UIControlEventTouchUpInside];
-//    fb.y = wx.y;
-//    fb.centerX = wx.centerX+100;
-//    [_contentView addSubview:fb];
+    UIImage *fbImg = [UIImage imageNamed:@"login_fb.png"];
+    UIButton *fb = [UIButton buttonWithType:UIButtonTypeCustom];
+    fb.clipsToBounds = YES;
+    fb.size = wx.size;
+    [fb setImage:fbImg forState:UIControlStateNormal];
+    [fb addTarget:self action:@selector(loginByFB) forControlEvents:UIControlEventTouchUpInside];
+    fb.y = wx.y;
+    fb.centerX = wx.centerX+100;
+    [_contentView addSubview:fb];
+    
+    //test faceboo
+//    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+//    loginButton.center = self.view.center;
+//    [_contentView addSubview:loginButton];
 }
 
 - (void)viewDidLoad {

@@ -25,7 +25,12 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 - (void)back {
     
-    [self.navigationController popViewControllerAnimated:YES];
+    if (_vcLoadStyle == VCLSPresent) {
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (UIView*)frontPlaceV {
@@ -132,7 +137,6 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     [_nameTF resignFirstResponder];
     
     //NSLocalizedString
-    //NSLocalizedString
     NSMutableString *error = [NSMutableString string];
     if (!_nameTF.text.length) {
         
@@ -150,9 +154,9 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     }
     
     NSString *userType;
-    if ([_userTypeLbl.text isEqualToString:@"大陆用户"]) {
+    if ([_userTypeLbl.text isEqualToString:@"大陆用户"]) {//NSLocalizedString
         userType = @"0";
-    } else if ([_userTypeLbl.text isEqualToString:@"香港用户"]) {
+    } else if ([_userTypeLbl.text isEqualToString:@"香港用户"]) {//NSLocalizedString
         userType = @"1";
     } else {
         userType = @"2";

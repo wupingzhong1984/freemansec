@@ -9,8 +9,15 @@
 #import <Foundation/Foundation.h>
 
 typedef void(^MsgListCompletion)(NSArray* _Nullable msgList, NSError* _Nullable error);
+typedef void(^NewMsgCountCompletion)(NSInteger count, NSError* _Nullable error);
 
 @interface MessageManager : NSObject
 + (MessageManager* _Nonnull)sharedInstance;
-- (void)getMsgListPageNum:(NSInteger)pageNum completion:(MsgListCompletion _Nullable)completion;
+- (void)getMsgListLastMsgId:(NSString* _Nonnull)msgId completion:(MsgListCompletion _Nullable)completion;
+- (void)getNewMsgCountCompletion:(NewMsgCountCompletion _Nullable)completion;
+- (void)getNewMsgListCompletion:(MsgListCompletion _Nullable)completion;
+
+- (void)insertMsgList:(NSArray*_Nullable)msgList;
+- (NSMutableArray*_Nullable)getLocalMsgListOrderByMsgIdDESC;
+- (BOOL)updateAllLocalMsgReaded;
 @end

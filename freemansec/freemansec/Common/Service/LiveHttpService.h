@@ -20,4 +20,7 @@
 - (void)queryLiveByType:(NSString*)typeId pageNum:(NSInteger)num completion:(HttpClientServiceObjectBlock)completion;
 - (void)queryLiveDetailByCId:(NSString*)cid completion:(HttpClientServiceObjectBlock)completion;
 - (void)getChatroomByUserLiveId:(NSString*)liveId completion:(HttpClientServiceObjectBlock)completion;
+
+
+
 @end

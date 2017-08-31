@@ -10,4 +10,6 @@
 
 @interface ApplyAnchorViewController : UIViewController
 
+@property (nonatomic, assign) VCLoadStyle vcLoadStyle;
+
 @end

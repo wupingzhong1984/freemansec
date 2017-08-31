@@ -10,4 +10,6 @@
 
 
 @interface RealNameCertifyViewController : UIViewController
+
+@property (nonatomic, assign) VCLoadStyle vcLoadStyle;
 @end

@@ -17,7 +17,7 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *msgList;
-@property (nonatomic, assign) int pageNum;
+@property (nonatomic,strong) NodataView *nodataView;
 @end
 
 @implementation MessageRootViewController
@@ -29,6 +29,16 @@
     }
     
     return _msgList;
+}
+
+- (UIView*)nodataView {
+    
+    if (!_nodataView) {
+        _nodataView = [[NodataView alloc] initWithTitle:@"暂无数据"];
+        _nodataView.center = _tableView.center;
+    }
+    
+    return _nodataView;
 }
 
 - (UIView*)naviBarView {
@@ -82,33 +92,35 @@
     self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
     self.tableView.footerRefreshingText = @"正在拼命的加载中";
     
-    self.pageNum = 1;
-    // 2.2秒后刷新表格UI
-    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    
-    [self requestGetMsg];
-    //        });
+    [self.msgList addObjectsFromArray:[[MessageManager sharedInstance] getLocalMsgListOrderByMsgIdDESC]];
+    [self.tableView reloadData];
 }
 
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
-    self.pageNum = 1;
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self requestGetMsg];
+        [self requestGetUnReadMsg];
     });
 }
 
 - (void)footerRereshing
 {
-    self.pageNum++;
     
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self requestGetMsg];
+        if (self.msgList.count == 0) {
+           
+            [self requestGetUnReadMsg];
+            
+        } else {
+            
+            MsgModel *last = [self.msgList lastObject];
+            [self requestGetMoreMsg:last.msgId];
+        }
     });
 }
 
@@ -133,7 +145,7 @@
     
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
-    [self requestGetMsgWhenAppear];
+    [self requestGetUnReadMsg];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -141,6 +153,13 @@
     [super viewWillDisappear:animated];
     
     self.navigationController.navigationBar.hidden = NO;
+    
+    [[MessageManager sharedInstance] updateAllLocalMsgReaded];
+    
+    for (MsgModel *model in self.msgList) {
+        model.isRead = @"1";
+    }
+    [_tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -148,9 +167,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)requestGetMsg {
+- (void)requestGetUnReadMsg {
     
-    [[MessageManager sharedInstance] getMsgListPageNum:_pageNum completion:^(NSArray * _Nullable msgList, NSError * _Nullable error) {
+    [self.nodataView removeFromSuperview];
+    
+    [[MessageManager sharedInstance] getNewMsgListCompletion:^(NSArray * _Nullable msgList, NSError * _Nullable error) {
         
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
@@ -159,27 +180,36 @@
             [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
         } else {
             
-            if (self.pageNum == 1) {
-                [self.msgList removeAllObjects];
-                [self.tableView reloadData];
-            };
-            
-            if (msgList.count > 0) {
+            if (msgList && msgList.count > 0) {
                 
-                [self.msgList addObjectsFromArray:msgList];
+                [[MessageManager sharedInstance] insertMsgList:msgList];
+                for (int i = msgList.count; i > 0; i--) {
+                    
+                    [self.msgList insertObject:[msgList objectAtIndex:(i-1)] atIndex:0];
+                }
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationHideMsgCenterTabRedPoint object:nil];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [self.tableView reloadData];
-                    
+                    [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
                 });
             }
+            
+            if (_msgList.count == 0) {
+                
+                [self.view addSubview:self.nodataView];
+            }
+            
         }
     }];
 }
 
-- (void)requestGetMsgWhenAppear {
+- (void)requestGetMoreMsg:(NSString*)lastMsgId {
     
-    [[MessageManager sharedInstance] getMsgListPageNum:1 completion:^(NSArray * _Nullable msgList, NSError * _Nullable error) {
+    [self.nodataView removeFromSuperview];
+    
+    [[MessageManager sharedInstance] getMsgListLastMsgId:lastMsgId completion:^(NSArray * _Nullable msgList, NSError * _Nullable error) {
         
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
@@ -188,31 +218,24 @@
             [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
         } else {
             
-            BOOL needUpdate = NO;
-            if (self.msgList.count < msgList.count) {
+            
+            if (msgList && msgList.count > 0) {
                 
-                needUpdate = YES;
-            } else if (self.msgList.count != 0 && msgList.count != 0) {
+                [[MessageManager sharedInstance] insertMsgList:msgList];
                 
-                MsgModel *old = [self.msgList objectAtIndex:0];
-                MsgModel *new = [msgList objectAtIndex:0];
-                if (![old.msgId isEqualToString:new.msgId]) {
-                    needUpdate = YES;
-                }
-            }
-            if (needUpdate) {
-                _pageNum = 1;
-                [self.msgList removeAllObjects];
                 [self.msgList addObjectsFromArray:msgList];
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [self.tableView reloadData];
                     
                 });
             }
+            
         }
     }];
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return self.msgList.count;
