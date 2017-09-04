@@ -239,7 +239,7 @@ LivePlayViewControllerDelegate>
         [whiteBg addSubview:cb1];
         
         if (self.wonderfulPlayBackList.count > 1) {
-            LiveWonderPlayBackCellView *cell2 = [[LiveWonderPlayBackCellView alloc] initWithPlayBack:[self.wonderfulPlayBackList objectAtIndex:0] width:itemWidth];
+            LiveWonderPlayBackCellView *cell2 = [[LiveWonderPlayBackCellView alloc] initWithPlayBack:[self.wonderfulPlayBackList objectAtIndex:1] width:itemWidth];
             cell2.x = cell.maxX + 15;
             cell2.y = 38;
             [whiteBg addSubview:cell2];
