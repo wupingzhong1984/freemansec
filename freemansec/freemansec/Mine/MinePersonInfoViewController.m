@@ -335,10 +335,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
 - (void)logout {
     
     [[MineManager sharedInstance] logout];
-    
-    LoginViewController *vc = [[LoginViewController alloc] init];
-    CustomNaviController *nav = [[CustomNaviController alloc] initWithRootViewController:vc];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:nav animated:NO completion:nil];
+    [self back];
 }
 
 - (void)setupSubviews {

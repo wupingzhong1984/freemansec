@@ -240,21 +240,27 @@
         [_pointLbl sizeToFit];
         [container addSubview:_pointLbl];
         
-        
-        _pointBg.width = _pLbl.width + _pointLbl.width + 13*3;
-        _pointBg.centerX = container.width/2;
-        _pLbl.x = _pointBg.x + 13;
-        _pLbl.centerY = _pointBg.centerY;
-        _pointLbl.x = _pLbl.maxX + 13;
-        _pointLbl.centerY = _pointBg.centerY;
-        
     }
     
     face = (UIImageView*)[cell.contentView viewWithTag:1];
-    [face sd_setImageWithURL:[NSURL URLWithString:[[MineManager sharedInstance] getMyInfo].headImg]];
+    [face sd_setImageWithURL:[NSURL URLWithString:[[MineManager sharedInstance] getMyInfo].headImg] placeholderImage:[UIImage imageNamed:@"user_headimg_default.png"]];
     
     name = (UILabel*)[cell.contentView viewWithTag:2];
-    name.text = [[MineManager sharedInstance] getMyInfo].nickName;
+    if ([[MineManager sharedInstance] getMyInfo]) {
+        name.text = [[MineManager sharedInstance] getMyInfo].nickName;
+    } else {
+        name.text = @"未登录";
+    }
+    
+    
+    _pointLbl.text = @"0";//todo
+    [_pointLbl sizeToFit];
+    _pointBg.width = _pLbl.width + _pointLbl.width + 13*3;
+    _pointBg.centerX = K_UIScreenWidth/2;
+    _pLbl.x = _pointBg.x + 13;
+    _pLbl.centerY = _pointBg.centerY;
+    _pointLbl.x = _pLbl.maxX + 13;
+    _pointLbl.centerY = _pointBg.centerY;
     
     return cell;
 }
@@ -353,6 +359,12 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+    if (![[MineManager sharedInstance] getMyInfo] && !(indexPath.section == 1 && indexPath.row == 2)) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoadUserLogin object:nil];
+        return;
+    }
+    
+    
     if (indexPath.section == 0) {
         
         if (indexPath.row == 0||indexPath.row == 1) {
@@ -396,7 +408,7 @@
                 
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:
                                             msg preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+                [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
                 [alert addAction:[UIAlertAction actionWithTitle:@"去验证" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     
                     RealNameCertifyViewController *vc = [[RealNameCertifyViewController alloc]init];

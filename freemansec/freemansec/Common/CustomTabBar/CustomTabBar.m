@@ -118,7 +118,7 @@
 #pragma mark - 中间按钮点击事件
 - (void)centerBtnAction:(UIButton *)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"tabBarCenterAction" object:self userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoadUserLive object:self userInfo:nil];
 }
 
 //重写hitTest方法，去监听中间按钮的点击，目的是为了让凸出的部分点击也有反应

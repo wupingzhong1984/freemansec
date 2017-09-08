@@ -9,9 +9,9 @@
 #import "HttpClientService.h"
 
 @interface MessageHttpService : HttpClientService
-- (void)getMsgListLastMsgId:(NSString* _Nonnull)msgId userId:(NSString*_Nullable)userId completion:(HttpClientServiceObjectBlock _Nullable)completion;
+- (void)getMsgListLastMsgId:(NSString* _Nonnull)msgId completion:(HttpClientServiceObjectBlock _Nullable)completion;
 
-- (void)getNewMsgCountUserId:(NSString* _Nullable)userId completion:(HttpClientServiceObjectBlock _Nullable)completion;
+- (void)getNewMsgCountCompletion:(HttpClientServiceObjectBlock _Nullable)completion;
 
-- (void)getNewMsgListUserId:(NSString*_Nullable)userId completion:(HttpClientServiceObjectBlock _Nullable)completion;
+- (void)getNewMsgListCompletion:(HttpClientServiceObjectBlock _Nullable)completion;
 @end

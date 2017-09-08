@@ -37,7 +37,7 @@ static MessageManager *instance;
 - (void)getMsgListLastMsgId:(NSString*)msgId completion:(MsgListCompletion _Nullable)completion {
     
     MessageHttpService* service = [[MessageHttpService alloc] init];
-    [service getMsgListLastMsgId:msgId userId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
+    [service getMsgListLastMsgId:msgId completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -54,7 +54,7 @@ static MessageManager *instance;
 - (void)getNewMsgCountCompletion:(NewMsgCountCompletion _Nullable)completion {
     
     MessageHttpService* service = [[MessageHttpService alloc] init];
-    [service getNewMsgCountUserId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
+    [service getNewMsgCountCompletion:^(id obj, NSError *err) {
         if(err || !obj){
             
             completion(0,err);
@@ -69,7 +69,7 @@ static MessageManager *instance;
 - (void)getNewMsgListCompletion:(MsgListCompletion _Nullable)completion {
     
     MessageHttpService* service = [[MessageHttpService alloc] init];
-    [service getNewMsgListUserId:[[MineManager sharedInstance] getMyInfo].userId completion:^(id obj, NSError *err) {
+    [service getNewMsgListCompletion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);

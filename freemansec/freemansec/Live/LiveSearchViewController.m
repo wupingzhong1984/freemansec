@@ -356,6 +356,12 @@ LivePlayViewControllerDelegate>
     
     if (model.cid.length > 0 ) { //个人
         
+        if (![[MineManager sharedInstance] getMyInfo]) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoadUserLogin object:nil];
+            return;
+        }
+        
         UserLivePlayViewController *vc = [[UserLivePlayViewController alloc] init];
         vc.userLiveChannelModel = model;
         vc.delegate = self;

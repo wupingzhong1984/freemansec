@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *msgList;
 @property (nonatomic,strong) NodataView *nodataView;
+@property (nonatomic, assign) BOOL didLoginAppear;
 @end
 
 @implementation MessageRootViewController
@@ -92,8 +93,6 @@
     self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
     self.tableView.footerRefreshingText = @"正在拼命的加载中";
     
-    [self.msgList addObjectsFromArray:[[MessageManager sharedInstance] getLocalMsgListOrderByMsgIdDESC]];
-    [self.tableView reloadData];
 }
 
 #pragma mark 开始进入刷新状态
@@ -145,7 +144,39 @@
     
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
-    [self requestGetUnReadMsg];
+    if (![[MineManager sharedInstance] getMyInfo]) {
+        [self.msgList removeAllObjects];
+        [self.tableView reloadData];
+        [self.nodataView removeFromSuperview]; //clear
+        [self.view addSubview:self.nodataView];
+        if (!_didLoginAppear) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"您还未登录" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"一会再说" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                [self.nodataView removeFromSuperview]; //clear
+                [self.view addSubview:self.nodataView];
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                _didLoginAppear = YES;
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoadUserLogin object:nil];
+                
+            }]];
+            [self presentViewController:alert animated:alert completion:nil];
+        } else {
+            _didLoginAppear = NO;
+        }
+        
+    } else {
+    
+        if (self.msgList.count == 0) {
+            
+            [self.msgList addObjectsFromArray:[[MessageManager sharedInstance] getLocalMsgListOrderByMsgIdDESC]];
+            [self.tableView reloadData];
+        }
+    
+        [self requestGetUnReadMsg];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

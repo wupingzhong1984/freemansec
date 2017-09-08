@@ -149,6 +149,8 @@
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationLoadUserLogin object:nil];
+    
     [_msgCenterRefreshTimer invalidate];
     self.msgCenterRefreshTimer = nil;
 }
@@ -164,9 +166,18 @@
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
 }
 
+- (void)appearLogin {
+    
+    LoginViewController *vc = [[LoginViewController alloc] init];
+    CustomNaviController *nav = [[CustomNaviController alloc] initWithRootViewController:vc];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:nav animated:YES completion:nil];
+}
+
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(appearLogin) name:kNotificationLoadUserLogin object:nil];
     
     self.msgCenterRefreshTimer = [NSTimer scheduledTimerWithTimeInterval:10 repeats:YES block:^(NSTimer * _Nonnull timer) {
         
@@ -182,13 +193,7 @@
     
     [[DataManager sharedInstance] updateDB];
     
-    if(![[MineManager sharedInstance] getMyInfo]) {
-        
-        LoginViewController *vc = [[LoginViewController alloc] init];
-        CustomNaviController *nav = [[CustomNaviController alloc] initWithRootViewController:vc];
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:nav animated:NO completion:nil];
-    }
-    else {
+    if([[MineManager sharedInstance] getMyInfo]) {
         
         [[MineManager sharedInstance] refreshUserInfoCompletion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
             

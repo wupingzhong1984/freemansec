@@ -224,6 +224,12 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+    if (![[MineManager sharedInstance] getMyInfo]) {
+     
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoadUserLogin object:nil];
+        return;
+    }
+    
     VideoModel * videoModel = [self.videoList objectAtIndex:indexPath.row];
     VideoPlayViewController *vc = [[VideoPlayViewController alloc] init];
     vc.videoModel = videoModel;

@@ -374,8 +374,7 @@ LivePlayViewControllerDelegate>
 //    
 //    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
-    if (([LiveManager liveBannerNeedUpdate] && [[MineManager sharedInstance] getMyInfo]) ||
-        (!self.bannerList.count && [[MineManager sharedInstance] getMyInfo])) {
+    if ([LiveManager liveBannerNeedUpdate] || !self.bannerList.count) {
         
         [LiveManager updateLiveBannerLastUpdateTime:[NSDate date]];
         

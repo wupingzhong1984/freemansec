@@ -195,7 +195,7 @@
         
         //NSLocalizedString
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"是否清除所有缓存？" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{

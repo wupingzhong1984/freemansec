@@ -15,6 +15,7 @@
 #import "UserLiveType.h"
 #import "ApplyAnchorViewController.h"
 #import "RealNameCertifyViewController.h"
+#import "LoginViewController.h"
 
 @interface LiveRootViewController ()
 
@@ -55,6 +56,12 @@
 
 - (void)tabBarCenterAction {
     
+    if (![[MineManager sharedInstance] getMyInfo]) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoadUserLogin object:nil];
+        return;
+    }
+    
     NSString *state = [[MineManager sharedInstance] getMyInfo].realNameVerifyState;
     if (state && [state isEqualToString:@"1"]) { //已实名认证
         
@@ -66,7 +73,7 @@
         } else {
             //NSLocalizedString
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请先完成主播申请。" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
             [alert addAction:[UIAlertAction actionWithTitle:@"去申请" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 ApplyAnchorViewController *vc = [[ApplyAnchorViewController alloc]init];
@@ -91,7 +98,7 @@
         }
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:msg preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
         [alert addAction:[UIAlertAction actionWithTitle:@"去验证" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             RealNameCertifyViewController *vc = [[RealNameCertifyViewController alloc]init];
@@ -156,7 +163,7 @@
 
     
         //tabbar中间按钮相应
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tabBarCenterAction) name:@"tabBarCenterAction" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tabBarCenterAction) name:kNotificationLoadUserLive object:nil];
     
 }
 

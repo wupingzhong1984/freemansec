@@ -73,6 +73,8 @@
 		2F5E8F481F58905B00249C3A /* MoreWonderPlayBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5E8F471F58905B00249C3A /* MoreWonderPlayBackViewController.m */; };
 		2F5E8F4B1F58924A00249C3A /* WonderPlayBackCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5E8F4A1F58924A00249C3A /* WonderPlayBackCollectionViewCell.m */; };
 		2F5E8F4D1F589BCC00249C3A /* officiallive_headImg_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5E8F4C1F589BCC00249C3A /* officiallive_headImg_default.png */; };
+		2F5E8F501F5EE95300249C3A /* user_headimg_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5E8F4E1F5EE95300249C3A /* user_headimg_default@2x.png */; };
+		2F5E8F511F5EE95300249C3A /* user_headimg_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5E8F4F1F5EE95300249C3A /* user_headimg_default@3x.png */; };
 		2F6980DD1F1BA87F0083E785 /* play_bar_orientation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980D91F1BA87F0083E785 /* play_bar_orientation@2x.png */; };
 		2F6980DE1F1BA87F0083E785 /* play_bar_orientation@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980DA1F1BA87F0083E785 /* play_bar_orientation@3x.png */; };
 		2F6980DF1F1BA87F0083E785 /* play_bar_voice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6980DB1F1BA87F0083E785 /* play_bar_voice@2x.png */; };
@@ -677,6 +679,8 @@
 		2F5E8F491F58924A00249C3A /* WonderPlayBackCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WonderPlayBackCollectionViewCell.h; sourceTree = "<group>"; };
 		2F5E8F4A1F58924A00249C3A /* WonderPlayBackCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WonderPlayBackCollectionViewCell.m; sourceTree = "<group>"; };
 		2F5E8F4C1F589BCC00249C3A /* officiallive_headImg_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = officiallive_headImg_default.png; sourceTree = "<group>"; };
+		2F5E8F4E1F5EE95300249C3A /* user_headimg_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_headimg_default@2x.png"; sourceTree = "<group>"; };
+		2F5E8F4F1F5EE95300249C3A /* user_headimg_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_headimg_default@3x.png"; sourceTree = "<group>"; };
 		2F6980D91F1BA87F0083E785 /* play_bar_orientation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_orientation@2x.png"; sourceTree = "<group>"; };
 		2F6980DA1F1BA87F0083E785 /* play_bar_orientation@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_orientation@3x.png"; sourceTree = "<group>"; };
 		2F6980DB1F1BA87F0083E785 /* play_bar_voice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_bar_voice@2x.png"; sourceTree = "<group>"; };
@@ -2463,6 +2467,8 @@
 		2FAF31741F160FDF004329ED /* images */ = {
 			isa = PBXGroup;
 			children = (
+				2F5E8F4E1F5EE95300249C3A /* user_headimg_default@2x.png */,
+				2F5E8F4F1F5EE95300249C3A /* user_headimg_default@3x.png */,
 				2F5E8F4C1F589BCC00249C3A /* officiallive_headImg_default.png */,
 				2F5E8F3C1F587DF100249C3A /* cover_place@2x.png */,
 				2F5E8F3D1F587DF100249C3A /* cover_place@3x.png */,
@@ -3582,6 +3588,7 @@
 				TargetAttributes = {
 					2FAF30AE1F1603F8004329ED = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = Q47BYSSVCD;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Manual;
 					};
@@ -3638,6 +3645,7 @@
 				2FCBD7811F3CB7A500F21A60 /* UMSocialSDKPromptResources.bundle in Resources */,
 				2F869E1E1F371D62005C8212 /* login_fb@3x.png in Resources */,
 				2F9999491F46EB8300656DF0 /* checkbox_0@3x.png in Resources */,
+				2F5E8F511F5EE95300249C3A /* user_headimg_default@3x.png in Resources */,
 				2F6980DD1F1BA87F0083E785 /* play_bar_orientation@2x.png in Resources */,
 				2FAF31841F162657004329ED /* banner_play@3x.png in Resources */,
 				2FFE5DA51F4D7E1D00C6971D /* live_mark_icon_1@2x.png in Resources */,
@@ -3712,6 +3720,7 @@
 				2F869E0D1F36F3D5005C8212 /* mineroot_cell_img_5@2x.png in Resources */,
 				2F869E361F37534A005C8212 /* forgetpwd_email@2x.png in Resources */,
 				2F99992C1F45D09D00656DF0 /* live_close_icon@3x.png in Resources */,
+				2F5E8F501F5EE95300249C3A /* user_headimg_default@2x.png in Resources */,
 				2F99992B1F45D09D00656DF0 /* live_close_icon@2x.png in Resources */,
 				2FAF30BD1F1603F8004329ED /* Main.storyboard in Resources */,
 				2F869C151F35F29B005C8212 /* LICENSE.txt in Resources */,

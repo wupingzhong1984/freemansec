@@ -131,7 +131,7 @@ NIMSessionViewControllerDelegate>{
                 [weakSelf back];
             }];
         }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         
     } else {
@@ -642,7 +642,7 @@ NIMSessionViewControllerDelegate>{
                 [weakSelf showErrorAlert:error ];
             }
         }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             //取消直播
             __weak typeof(self) weakSelf = self;
             [_mediaCapture stopLiveStream:^(NSError *error) {

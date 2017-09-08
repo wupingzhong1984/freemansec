@@ -13,12 +13,11 @@ static NSString* GetMsgListPath = @"Ajax/getMsg.ashx";
 static NSString* GetNewMsgCountPath = @"Ajax/getNewMsgCount.ashx";
 
 @implementation MessageHttpService
-- (void)getMsgListLastMsgId:(NSString* _Nonnull)msgId userId:(NSString*_Nullable)userId completion:(HttpClientServiceObjectBlock _Nullable)completion {
+- (void)getMsgListLastMsgId:(NSString* _Nonnull)msgId completion:(HttpClientServiceObjectBlock _Nullable)completion {
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:GetMsgListPath
-                     params:@{@"userid":userId,
-                              @"lastmsgid":msgId
+                     params:@{@"lastmsgid":msgId
                               }
                  completion:^(JsonResponse* response, NSError *err) {
                      
@@ -38,11 +37,11 @@ static NSString* GetNewMsgCountPath = @"Ajax/getNewMsgCount.ashx";
                  }];
 }
 
-- (void)getNewMsgCountUserId:(NSString*_Nullable)userId completion:(HttpClientServiceObjectBlock _Nullable)completion {
+- (void)getNewMsgCountCompletion:(HttpClientServiceObjectBlock _Nullable)completion {
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:GetNewMsgCountPath
-                     params:@{@"userid":userId}
+                     params:nil
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      if(response == nil) {
@@ -61,12 +60,11 @@ static NSString* GetNewMsgCountPath = @"Ajax/getNewMsgCount.ashx";
                  }];
 }
 
-- (void)getNewMsgListUserId:(NSString*_Nullable)userId completion:(HttpClientServiceObjectBlock _Nullable)completion {
+- (void)getNewMsgListCompletion:(HttpClientServiceObjectBlock _Nullable)completion {
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:GetMsgListPath
-                     params:@{@"userid":userId
-                              }
+                     params:nil
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      if(response == nil) {

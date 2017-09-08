@@ -21,6 +21,11 @@
 
 @implementation LoginViewController
 
+- (void)back {
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)signUpAction {
     
     SignUpViewController *vc = [[SignUpViewController alloc] init];
@@ -229,6 +234,18 @@
     line.backgroundColor = UIColor_line_d2d2d2;
     [v addSubview:line];
     
+    UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"live_title_dialog_close.png"]];
+    back.centerX = 25;
+    back.centerY = (v.height - 20)/2 + 20;
+    [v addSubview:back];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    btn.width = back.width + 20;
+    btn.height = back.height + 20;
+    btn.center = back.center;
+    [v addSubview:btn];
+    
     return v;
 }
 
@@ -365,9 +382,9 @@
     [self setupSubviews];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = YES;
