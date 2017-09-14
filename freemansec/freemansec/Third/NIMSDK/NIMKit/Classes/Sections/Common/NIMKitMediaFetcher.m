@@ -82,7 +82,7 @@
                 [[[UIAlertView alloc] initWithTitle:nil
                                             message:@"相册权限受限"
                                            delegate:nil
-                                  cancelButtonTitle:@"确定"
+                                  cancelButtonTitle:NSLocalizedString(@"alert OK", nil)
                                   otherButtonTitles:nil] show];
                 if(handler) handler(nil);
             }
@@ -295,7 +295,7 @@
         [[[UIAlertView alloc] initWithTitle:nil
                                     message:@"检测不到相机设备"
                                    delegate:nil
-                          cancelButtonTitle:@"确定"
+                          cancelButtonTitle:NSLocalizedString(@"alert OK", nil)
                           otherButtonTitles:nil] show];
         return NO;
     }
@@ -305,7 +305,7 @@
         [[[UIAlertView alloc] initWithTitle:nil
                                     message:@"相机权限受限"
                                    delegate:nil
-                          cancelButtonTitle:@"确定"
+                          cancelButtonTitle:NSLocalizedString(@"alert OK", nil)
                           otherButtonTitles:nil] show];
         return NO;
         

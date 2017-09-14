@@ -24,7 +24,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"绑定邮箱" color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:NSLocalizedString(@"bind mail", nil) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -54,7 +54,7 @@
     if (![Utility validateEmail:_verifyTF.text]) {
         
         //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"请输入验证码。" okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"please input verify code", nil) okBtnTitle:nil] animated:YES completion:nil];
         
     } else {
         
@@ -85,7 +85,7 @@
     _verifyTF.frame = CGRectMake(verifyBg.x + 10, (verifyBg.height-20)/2 + verifyBg.y, verifyBg.width-20, 20);
     _verifyTF.font = [UIFont systemFontOfSize:16];
     _verifyTF.textColor = [UIColor darkGrayColor];
-    _verifyTF.placeholder = @"请输入验证码";//NSLocalizedString
+    _verifyTF.placeholder = NSLocalizedString(@"please input verify code", nil);//NSLocalizedString
     _verifyTF.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:_verifyTF];
     
@@ -93,7 +93,7 @@
     sumbit.frame = CGRectMake(verifyBg.x, verifyBg.maxY + 25, verifyBg.width, 40);
     sumbit.backgroundColor = UIColor_82b432;
     sumbit.layer.cornerRadius = 4;
-    [sumbit setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
+    [sumbit setTitle:NSLocalizedString(@"submit", nil) forState:UIControlStateNormal];//NSLocalizedString
     [sumbit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];    sumbit.titleLabel.font = [UIFont systemFontOfSize:16];
     [sumbit addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sumbit];

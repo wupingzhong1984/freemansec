@@ -23,7 +23,7 @@
         UIImage *doneButtonHighlighted = [UIImage nim_imageInKit:@"contact_select_pressed"];
         [_doneButton setBackgroundImage:doneButtonNormal forState:UIControlStateNormal];
         [_doneButton setBackgroundImage:doneButtonHighlighted forState:UIControlStateHighlighted];
-        [_doneButton setTitle:@"确定" forState:UIControlStateNormal];
+        [_doneButton setTitle:NSLocalizedString(@"alert OK", nil) forState:UIControlStateNormal];
         _doneButton.nim_size = doneButtonNormal.size;
         [self addSubview:_doneButton];
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage nim_imageInKit:@"contact_bg.png"]];

@@ -25,7 +25,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"绑定邮箱" color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:NSLocalizedString(@"bind mail", nil) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -55,7 +55,7 @@
     if (![Utility validateEmail:_emailTF.text]) {
         
         //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"请正确输入邮箱。" okBtnTitle:nil] animated:YES completion:nil];        
+        [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"please input correct email", nil) okBtnTitle:nil] animated:YES completion:nil];        
     } else {
         
         [[MineManager sharedInstance] getEmailVerifyCode:_emailTF.text completion:^(NSString * _Nullable verify, NSError * _Nullable error) {
@@ -85,7 +85,7 @@
     _emailTF.frame = CGRectMake(emailBg.x + 10, (emailBg.height-20)/2 + emailBg.y, emailBg.width-20, 20);
     _emailTF.font = [UIFont systemFontOfSize:16];
     _emailTF.textColor = [UIColor darkGrayColor];
-    _emailTF.placeholder = @"请输入邮箱";//NSLocalizedString
+    _emailTF.placeholder = NSLocalizedString(@"please input email", nil);//NSLocalizedString
     _emailTF.keyboardType = UIKeyboardTypeEmailAddress;
     [self.view addSubview:_emailTF];
     
@@ -93,7 +93,7 @@
     sumbit.frame = CGRectMake(emailBg.x, emailBg.maxY + 25, emailBg.width, 40);
     sumbit.backgroundColor = UIColor_82b432;
     sumbit.layer.cornerRadius = 4;
-    [sumbit setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
+    [sumbit setTitle:NSLocalizedString(@"submit", nil) forState:UIControlStateNormal];//NSLocalizedString
     [sumbit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];    sumbit.titleLabel.font = [UIFont systemFontOfSize:16];
     [sumbit addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sumbit];

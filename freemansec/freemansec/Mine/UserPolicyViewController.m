@@ -34,7 +34,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UILabel *title = [self commNaviTitle:@"用户条例" color:UIColor_navititle];//NSLocalizedString
+    UILabel *title = [self commNaviTitle:NSLocalizedString(@"user policy", nil) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -51,7 +51,7 @@
     [v addSubview:btn];
     
     //NSLocalizedString
-    UILabel *agree = [UILabel createLabelWithFrame:CGRectZero text:@"同意" textColor:title.textColor font:title.font];
+    UILabel *agree = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"agree", nil) textColor:title.textColor font:title.font];
     [agree sizeToFit];
     agree.centerY = title.centerY;
     agree.x = v.width - 15 - agree.width;

@@ -80,9 +80,9 @@
         if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWWAN) {
             
             //NSLocalizedString
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您当前在非WIFI状态下，是否继续使用流量观看？" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"一会再说" style:UIAlertActionStyleDefault handler:nil]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"继续观看" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"continue playing in 4g", nil) preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"wait moment", nil) style:UIAlertActionStyleDefault handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"continue watching", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 [self.liveplayer play];
                 played=YES;
@@ -261,9 +261,9 @@
     } else if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWWAN) {
         
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您当前在非WIFI状态下，是否继续使用流量观看？" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"一会再说" style:UIAlertActionStyleDefault handler:nil]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"继续观看" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"continue playing in 4g", nil) preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"wait moment", nil) style:UIAlertActionStyleDefault handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"continue watching", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             [self.liveplayer play];
             played = YES;
@@ -294,8 +294,8 @@
             [self.liveplayer pause];
             played=NO;
             [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
-            alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"视频结束" preferredStyle:UIAlertControllerStyleAlert];
-            action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:@"视频结束" preferredStyle:UIAlertControllerStyleAlert];
+            action = [UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style:UIAlertActionStyleDefault handler:nil];
             [alertController addAction:action];
             [self presentViewController:alertController animated:YES completion:nil];
             break;
@@ -305,8 +305,8 @@
             [self.liveplayer pause];
             played=NO;
             [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
-            alertController = [UIAlertController alertControllerWithTitle:@"注意" message:@"播放失败" preferredStyle:UIAlertControllerStyleAlert];
-            action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            alertController = [UIAlertController alertControllerWithTitle:@"注意" message:NSLocalizedString(@"play failed", nil) preferredStyle:UIAlertControllerStyleAlert];
+            action = [UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style:UIAlertActionStyleDefault handler:nil];
             [alertController addAction:action];
             [self presentViewController:alertController animated:YES completion:nil];
             break;

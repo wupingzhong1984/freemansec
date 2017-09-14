@@ -50,7 +50,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"我的关注" color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:NSLocalizedString(@"my attentions", nil) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     

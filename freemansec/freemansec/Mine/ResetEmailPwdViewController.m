@@ -29,7 +29,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?@"重设密码":@"忘记密码") color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?NSLocalizedString(@"reset pwd", nil):NSLocalizedString(@"forget pwd", nil)) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -56,14 +56,14 @@
     [_emailTF resignFirstResponder];
     if (![Utility validateEmail:_emailTF.text]) {
         //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"请正确输入邮箱。" okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"please input correct email", nil) okBtnTitle:nil] animated:YES completion:nil];
         return;
     }
     
     if (_resetPwdKind == RPKResetPwd && ![_emailTF.text isEqualToString:[[MineManager sharedInstance] getMyInfo].email]) {
         
         //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"必须使用注册时使用的邮箱。" okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"must use signup mail", nil) okBtnTitle:nil] animated:YES completion:nil];
         
         return;
     }
@@ -112,7 +112,7 @@
     _emailTF.frame = CGRectMake(emailBg.x + 10, (emailBg.height-20)/2 + emailBg.y, emailBg.width-20, 20);
     _emailTF.font = [UIFont systemFontOfSize:16];
     _emailTF.textColor = [UIColor darkGrayColor];
-    _emailTF.placeholder = @"请输入邮箱";//NSLocalizedString
+    _emailTF.placeholder = NSLocalizedString(@"please input email", nil);//NSLocalizedString
     _emailTF.keyboardType = UIKeyboardTypeEmailAddress;
     [_contentView addSubview:_emailTF];
     
@@ -120,7 +120,7 @@
     btn.frame = CGRectMake(emailBg.x, emailBg.maxY + 27, emailBg.width, 40);
     btn.backgroundColor = UIColor_82b432;
     btn.layer.cornerRadius = 4;
-    [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
+    [btn setTitle:NSLocalizedString(@"submit", nil) forState:UIControlStateNormal];//NSLocalizedString
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:16];
     [btn addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];

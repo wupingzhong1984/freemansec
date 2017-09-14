@@ -81,7 +81,7 @@
         
         if (!result || error) {
             //NSLocalizedString
-            [self presentViewController:[Utility createNoticeAlertWithContent:@"平台授权失败" okBtnTitle:nil] animated:YES completion:nil];
+            [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"third authorize failed", nil) okBtnTitle:nil] animated:YES completion:nil];
             
         } else {
             
@@ -130,7 +130,7 @@
         
         if (!result || error) {
             //NSLocalizedString
-            [self presentViewController:[Utility createNoticeAlertWithContent:@"平台授权失败" okBtnTitle:nil] animated:YES completion:nil];
+            [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"third authorize failed", nil) okBtnTitle:nil] animated:YES completion:nil];
             
         } else {
             
@@ -178,7 +178,7 @@
         
         if (!result || error) {
             //NSLocalizedString
-            [self presentViewController:[Utility createNoticeAlertWithContent:@"平台授权失败" okBtnTitle:nil] animated:YES completion:nil];
+            [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"third authorize failed", nil) okBtnTitle:nil] animated:YES completion:nil];
             
         } else {
             
@@ -226,7 +226,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"登录" color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:NSLocalizedString(@"login", nil) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -274,14 +274,14 @@
     _uNameTF.frame = CGRectMake(uNameImg.centerX + 22, (tfBg.height/2-20)/2+tfBg.y, tfBg.maxX - 20 - (uNameImg.centerX + 22), 20);
     _uNameTF.font = [UIFont systemFontOfSize:16];
     _uNameTF.textColor = [UIColor darkGrayColor];
-    _uNameTF.placeholder = @"请输入手机号或电子邮箱";//NSLocalizedString
+    _uNameTF.placeholder = NSLocalizedString(@"please input phone num or email", nil);//NSLocalizedString
     [_contentView addSubview:_uNameTF];
     
     self.pwdTF = [[UITextField alloc] init];
     _pwdTF.frame = CGRectMake(pwdImg.centerX + 22, (tfBg.height/2-20)/2+tfBg.y+tfBg.height/2, tfBg.maxX - 20 - (pwdImg.centerX + 22), 20);
     _pwdTF.font = [UIFont systemFontOfSize:16];
     _pwdTF.textColor = [UIColor darkGrayColor];
-    _pwdTF.placeholder = @"请输入登录密码";//NSLocalizedString
+    _pwdTF.placeholder = NSLocalizedString(@"please input pwd", nil);//NSLocalizedString
     _pwdTF.secureTextEntry = YES;
     [_contentView addSubview:_pwdTF];
     
@@ -291,7 +291,7 @@
     sign.layer.cornerRadius = 4;
     sign.layer.borderWidth = 1;
     sign.layer.borderColor = UIColor_82b432.CGColor;
-    [sign setTitle:@"注册" forState:UIControlStateNormal];//NSLocalizedString
+    [sign setTitle:NSLocalizedString(@"sign", nil) forState:UIControlStateNormal];//NSLocalizedString
     [sign setTitleColor:UIColor_82b432 forState:UIControlStateNormal];
     sign.titleLabel.font = [UIFont systemFontOfSize:16];
     [sign addTarget:self action:@selector(signUpAction) forControlEvents:UIControlEventTouchUpInside];
@@ -301,13 +301,13 @@
     login.frame = CGRectMake(tfBg.maxX - sign.width, sign.y, sign.width, sign.height);
     login.backgroundColor = UIColor_82b432;
     login.layer.cornerRadius = 4;
-    [login setTitle:@"登录" forState:UIControlStateNormal];//NSLocalizedString
+    [login setTitle:NSLocalizedString(@"login", nil) forState:UIControlStateNormal];//NSLocalizedString
     [login setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     login.titleLabel.font = [UIFont systemFontOfSize:16];
     [login addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
     [_contentView addSubview:login];
     
-    UILabel *forget = [UILabel createLabelWithFrame:CGRectZero text:@"忘记密码？" textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:16]];
+    UILabel *forget = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"do you forget pwd", nil) textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:16]];
     [forget sizeToFit];
     forget.x = tfBg.maxX - forget.width;
     forget.y = login.maxY + 25;
@@ -320,7 +320,7 @@
     [forgetBtn addTarget:self action:@selector(forgetPwdAction) forControlEvents:UIControlEventTouchUpInside];
     [_contentView addSubview:forgetBtn];
     
-    UILabel *other = [UILabel createLabelWithFrame:CGRectZero text:@"您还可以通过以下方式登录" textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:14]]; //NSLocalizedString
+    UILabel *other = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"login by other way", nil) textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:14]]; //NSLocalizedString
     [other sizeToFit];
     other.centerX = _contentView.width/2;
     other.y = forget.maxY + 44;
@@ -333,7 +333,7 @@
     [wx setImage:wxImg forState:UIControlStateNormal];
     [wx addTarget:self action:@selector(loginByWX) forControlEvents:UIControlEventTouchUpInside];
     wx.y = other.maxY + 17;
-    wx.centerX = other.centerX;
+    wx.centerX = other.centerX - 60;
     [_contentView addSubview:wx];
     
     //todo
@@ -347,15 +347,15 @@
 //    weibo.centerX = wx.centerX-100;
 //    [_contentView addSubview:weibo];
 //    
-//    UIImage *fbImg = [UIImage imageNamed:@"login_fb.png"];
-//    UIButton *fb = [UIButton buttonWithType:UIButtonTypeCustom];
-//    fb.clipsToBounds = YES;
-//    fb.size = wx.size;
-//    [fb setImage:fbImg forState:UIControlStateNormal];
-//    [fb addTarget:self action:@selector(loginByFB) forControlEvents:UIControlEventTouchUpInside];
-//    fb.y = wx.y;
-//    fb.centerX = wx.centerX+100;
-//    [_contentView addSubview:fb];
+    UIImage *fbImg = [UIImage imageNamed:@"login_fb.png"];
+    UIButton *fb = [UIButton buttonWithType:UIButtonTypeCustom];
+    fb.clipsToBounds = YES;
+    fb.size = wx.size;
+    [fb setImage:fbImg forState:UIControlStateNormal];
+    [fb addTarget:self action:@selector(loginByFB) forControlEvents:UIControlEventTouchUpInside];
+    fb.y = wx.y;
+    fb.centerX = other.centerX + 60;
+    [_contentView addSubview:fb];
     
     //test faceboo
 //    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];

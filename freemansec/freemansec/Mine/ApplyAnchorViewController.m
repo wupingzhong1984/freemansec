@@ -44,7 +44,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"申请主播" color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:NSLocalizedString(@"apply anchor", nil) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -76,12 +76,12 @@
     
     if (!_titleTF.text.length) {
         
-        [error appendString:@"请输入标题。"];
+        [error appendString:NSLocalizedString(@"please input title point", nil)];
     }
     
     if (!_typeLbl.text.length) {
         
-        [error appendString:@"请设置分类。"];
+        [error appendString:NSLocalizedString(@"please set category", nil)];
     }
     
     if (!error.length) {
@@ -156,7 +156,7 @@
     _titleTF.frame = CGRectMake(titleBg.x + 10, (titleBg.height-20)/2 + titleBg.y, titleBg.width-20, 20);
     _titleTF.font = [UIFont systemFontOfSize:16];
     _titleTF.textColor = [UIColor darkGrayColor];
-    _titleTF.placeholder = @"请输入标题";//NSLocalizedString
+    _titleTF.placeholder = NSLocalizedString(@"please input title", nil);//NSLocalizedString
     [self.view addSubview:_titleTF];
     
     UIView *typeBg = [[UIView alloc] initWithFrame:CGRectMake(titleBg.x, titleBg.maxY + 10, titleBg.width, titleBg.height)];
@@ -166,7 +166,7 @@
     typeBg.layer.borderColor = [UIColor lightGrayColor].CGColor;
     [self.view addSubview:typeBg];
     
-    self.typePlace = [UILabel createLabelWithFrame:CGRectMake(typeBg.x + 10, typeBg.y, typeBg.width-20, typeBg.height) text:@"分类" textColor:UIColor_textfield_placecolor font:[UIFont systemFontOfSize:16]];
+    self.typePlace = [UILabel createLabelWithFrame:CGRectMake(typeBg.x + 10, typeBg.y, typeBg.width-20, typeBg.height) text:NSLocalizedString(@"category", nil) textColor:UIColor_textfield_placecolor font:[UIFont systemFontOfSize:16]];
     [self.view addSubview:_typePlace];
     
     self.typeLbl = [UILabel createLabelWithFrame:CGRectMake(_typePlace.x, _typePlace.y + (_typePlace.height-20)/2, _typePlace.width, 20) text:@"" textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];
@@ -181,7 +181,7 @@
     submit.frame = CGRectMake(typeBg.x, typeBg.maxY + 50, typeBg.width, 40);
     submit.backgroundColor = UIColor_82b432;
     submit.layer.cornerRadius = 4;
-    [submit setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
+    [submit setTitle:NSLocalizedString(@"submit", nil) forState:UIControlStateNormal];//NSLocalizedString
     [submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     submit.titleLabel.font = [UIFont systemFontOfSize:16];
     [submit addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];

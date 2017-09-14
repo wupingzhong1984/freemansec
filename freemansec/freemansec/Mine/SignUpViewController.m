@@ -57,7 +57,7 @@ UserPolicyViewControllerDelegate>
     if (!_mobileSignView.mobileTF.text.length) {
         
         //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"请输入手机号。" okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"please input phone num", nil) okBtnTitle:nil] animated:YES completion:nil];
         
     } else {
         
@@ -102,22 +102,22 @@ UserPolicyViewControllerDelegate>
     
     if (!_mobileSignView.mobileTF.text.length) {
         
-        [error appendString:@"请输入手机号。"];
+        [error appendString:NSLocalizedString(@"please input phone num point", nil)];
     }
     
     if (!_mobileSignView.verifyCodeTF.text.length) {
         
-        [error appendString:@"请输入验证码。"];
+        [error appendString:NSLocalizedString(@"please input verify code point", nil)];
     }
     
     if (_mobileSignView.pwdTF.text.length < 6 || _mobileSignView.pwdTF.text.length > 16) {
         
-        [error appendString:@"请正确输入密码。"];
+        [error appendString:NSLocalizedString(@"please input correct pwd", nil)];
     }
     
     if (!_mobileSignView.agree) {
         
-        [error appendString:@"请阅读并同意条款。"];
+        [error appendString:NSLocalizedString(@"please read policy", nil)];
     }
     
     
@@ -193,12 +193,12 @@ UserPolicyViewControllerDelegate>
     
     if (![Utility validateEmail:_emailSignView.emailTF.text]) {
         
-        [error appendString:@"请正确输入邮箱。"];
+        [error appendString:NSLocalizedString(@"please input correct email", nil)];
     }
     
     if (!_emailSignView.agree) {
         
-        [error appendString:@"请阅读并同意条款。"];
+        [error appendString:NSLocalizedString(@"please read policy", nil)];
     }
     
     if (!error.length) {
@@ -244,7 +244,7 @@ UserPolicyViewControllerDelegate>
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"注册" color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:NSLocalizedString(@"sign", nil) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     

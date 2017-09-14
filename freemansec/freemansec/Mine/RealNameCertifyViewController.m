@@ -44,7 +44,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
         [_frontPlaceV addSubview:add];
         
         //NSLocalizedString
-        UILabel *title = [UILabel createLabelWithFrame:CGRectZero text:@"上传手持身份证" textColor:UIColor_textfield_placecolor font:[UIFont systemFontOfSize:14]];
+        UILabel *title = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"upload holding id card", nil) textColor:UIColor_textfield_placecolor font:[UIFont systemFontOfSize:14]];
         [title sizeToFit];
         title.center = CGPointMake(add.centerX, 98);
         [_frontPlaceV addSubview:title];
@@ -58,7 +58,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"实名认证" color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:NSLocalizedString(@"identity verify", nil) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -86,20 +86,20 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     [_nameTF resignFirstResponder];
     
     //NSLocalizedString
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"用户类型" preferredStyle:UIAlertControllerStyleActionSheet];
-    [alert addAction:[UIAlertAction actionWithTitle:@"大陆用户" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _userTypeLbl.text = @"大陆用户";
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"user type", nil) preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"inland user", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _userTypeLbl.text = NSLocalizedString(@"inland user", nil);
         _userTypeLbl.textColor = [UIColor darkGrayColor];
     }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"香港用户" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _userTypeLbl.text = @"香港用户";
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"hk user", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _userTypeLbl.text = NSLocalizedString(@"hk user", nil);
         _userTypeLbl.textColor = [UIColor darkGrayColor];
     }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"其他用户" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        _userTypeLbl.text = @"其他用户";
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"other user", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _userTypeLbl.text = NSLocalizedString(@"other user", nil);
         _userTypeLbl.textColor = [UIColor darkGrayColor];
     }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -110,7 +110,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         
-        [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"take photo", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             UIImagePickerController *controller = [[UIImagePickerController alloc] init];
             controller.delegate = self;
@@ -120,7 +120,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
                                animated:YES completion:nil];
         }]];
     }
-    [alert addAction:[UIAlertAction actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"select from album", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
         controller.delegate = self;
@@ -128,7 +128,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
         controller.allowsEditing = NO;
         [self presentViewController:controller animated:YES completion:nil];
     }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -140,23 +140,23 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     NSMutableString *error = [NSMutableString string];
     if (!_nameTF.text.length) {
         
-        [error appendString:@"请输入真实姓名。"];
+        [error appendString:NSLocalizedString(@"please input real name point", nil)];
     }
     
     if (!_userTypeLbl.text.length) {
         
-        [error appendString:@"请选择用户类型。"];
+        [error appendString:NSLocalizedString(@"please select user type", nil)];
     }
     
     if (!_frontImg) {
         
-        [error appendString:@"请设置手持身份证正面照。"];
+        [error appendString:NSLocalizedString(@"please set front photo", nil)];
     }
     
     NSString *userType;
-    if ([_userTypeLbl.text isEqualToString:@"大陆用户"]) {//NSLocalizedString
+    if ([_userTypeLbl.text isEqualToString:NSLocalizedString(@"inland user", nil)]) {//NSLocalizedString
         userType = @"0";
-    } else if ([_userTypeLbl.text isEqualToString:@"香港用户"]) {//NSLocalizedString
+    } else if ([_userTypeLbl.text isEqualToString:NSLocalizedString(@"hk user", nil)]) {//NSLocalizedString
         userType = @"1";
     } else {
         userType = @"2";
@@ -196,7 +196,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     _nameTF.frame = CGRectMake(nameBg.x + 10, (nameBg.height-20)/2 + nameBg.y, nameBg.width-20, 20);
     _nameTF.font = [UIFont systemFontOfSize:16];
     _nameTF.textColor = [UIColor darkGrayColor];
-    _nameTF.placeholder = @"请输入真实姓名";//NSLocalizedString
+    _nameTF.placeholder = NSLocalizedString(@"please input real name", nil);//NSLocalizedString
     [_contentView addSubview:_nameTF];
     
     UIView *userTypeBg = [[UIView alloc] initWithFrame:CGRectMake(nameBg.x, nameBg.maxY + 10, nameBg.width, nameBg.height)];
@@ -209,7 +209,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     self.userTypeLbl = [[UILabel alloc] initWithFrame:CGRectMake(userTypeBg.x + 10, (userTypeBg.height-20)/2 + userTypeBg.y, userTypeBg.width-20, 20)];
     _userTypeLbl.font = [UIFont systemFontOfSize:16];
     _userTypeLbl.textColor = UIColor_textfield_placecolor;
-    _userTypeLbl.text = @"请选择用户类型（大陆，香港，其它）";//NSLocalizedString
+    _userTypeLbl.text = NSLocalizedString(@"please select user type china hk other", nil);//NSLocalizedString
     [_contentView addSubview:_userTypeLbl];
     
     UIButton *setUserTypeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -243,14 +243,14 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     
     UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(samplePhoto1.maxX + 10, samplePhoto1.y, whiteBg1.maxX - (samplePhoto1.maxX + 10), 0)];
     text.textColor = [UIColor lightGrayColor];
-    [Utility formatLabel:text text:@"●  拍摄清晰的本人身份证正面照\n●  请确保手持的身份证与填写的身份证信息一致" font:[UIFont systemFontOfSize:12] lineSpacing:9];
+    [Utility formatLabel:text text:[NSString stringWithFormat:@"●  %@\n●  %@",NSLocalizedString(@"have a photo with your front", nil),NSLocalizedString(@"confirm id same with photo", nil)] font:[UIFont systemFontOfSize:12] lineSpacing:9];
     [_contentView addSubview:text];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(nameBg.x, samplePhoto1.maxY + 27, nameBg.width, 40);
     btn.backgroundColor = UIColor_82b432;
     btn.layer.cornerRadius = 4;
-    [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
+    [btn setTitle:NSLocalizedString(@"submit", nil) forState:UIControlStateNormal];//NSLocalizedString
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:16];
     [btn addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];

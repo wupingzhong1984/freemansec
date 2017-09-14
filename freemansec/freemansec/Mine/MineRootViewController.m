@@ -47,7 +47,13 @@
 - (NSMutableArray*)titleArray {
     
     if (!_titleArray) {
-        _titleArray = [NSMutableArray arrayWithObjects:@"我的账户",@"我的视频",@"视频收藏",@"我的关注",@"主播申请",@"设置", nil];
+        _titleArray = [NSMutableArray arrayWithObjects:
+                       NSLocalizedString(@"my account", nil),
+                       NSLocalizedString(@"my videos", nil),
+                       NSLocalizedString(@"video favour", nil),
+                       NSLocalizedString(@"my attentions", nil),
+                       NSLocalizedString(@"anchor apply", nil),
+                       NSLocalizedString(@"setting", nil), nil];
     }
     return _titleArray;
 }
@@ -393,23 +399,23 @@
                 
             } else if (state && [state isEqualToString:@"4"]) {
                 
-                [self presentViewController:[Utility createNoticeAlertWithContent:@"我们正在审核您的实名认证申请，请耐心等待。" okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"we are verifying your apply please wait", nil) okBtnTitle:nil] animated:YES completion:nil];
                 
             } else {
                 
                 NSString *msg;
                 if ([state isEqualToString:@"3"]) {
                     //NSLocalizedString
-                    msg = @"您的实名认证未通过审核，请重新提交实名认证并申请主播。";
+                    msg = NSLocalizedString(@"identity verify failed submit again", nil);
                 } else {
                     //NSLocalizedString
-                    msg = @"请先完成实名认证并申请主播。";
+                    msg = NSLocalizedString(@"please finish identity verify then apply anchor", nil);
                 }
                 
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:
                                             msg preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
-                [alert addAction:[UIAlertAction actionWithTitle:@"去验证" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert cancel", nil) style:UIAlertActionStyleDefault handler:nil]];
+                [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"go to verify", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     
                     RealNameCertifyViewController *vc = [[RealNameCertifyViewController alloc]init];
                     [self.navigationController pushViewController:vc animated:YES];

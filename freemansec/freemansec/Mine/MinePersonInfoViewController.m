@@ -38,7 +38,15 @@ UIPickerViewDelegate,UIPickerViewDataSource>
 - (NSMutableArray*)titleArray {
     
     //NSLocalizedString
-    return [NSMutableArray arrayWithObjects:@"头像",@"昵称",@"性别",@"所在地",@"密码",@"手机",@"邮箱绑定",@"实名认证", nil];
+    return [NSMutableArray arrayWithObjects:
+            NSLocalizedString(@"face img", nil),
+            NSLocalizedString(@"nickname", nil),
+            NSLocalizedString(@"gender", nil),
+            NSLocalizedString(@"live citys", nil),
+            NSLocalizedString(@"password", nil),
+            NSLocalizedString(@"phone", nil),
+            NSLocalizedString(@"mail bind", nil),
+            NSLocalizedString(@"identity verify", nil), nil];
 }
 
 - (NSMutableArray*)provinceArray {
@@ -134,7 +142,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
         _locationPicker.y = 40;
         
         UIButton *cancel = [UIButton buttonWithType:UIButtonTypeCustom];
-        [cancel setTitle:@"取消" forState:UIControlStateNormal];
+        [cancel setTitle:NSLocalizedString(@"alert cancel", nil) forState:UIControlStateNormal];
         [cancel setTitleColor:UIColor_82b432 forState:UIControlStateNormal];
         cancel.titleLabel.font = [UIFont systemFontOfSize:16];
         cancel.size = CGSizeMake(60, 40);
@@ -142,7 +150,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
         [_locationPickerView addSubview:cancel];
         
         UIButton *confirm = [UIButton buttonWithType:UIButtonTypeCustom];
-        [confirm setTitle:@"确定" forState:UIControlStateNormal];
+        [confirm setTitle:NSLocalizedString(@"alert OK", nil) forState:UIControlStateNormal];
         [confirm setTitleColor:UIColor_82b432 forState:UIControlStateNormal];
         confirm.titleLabel.font = [UIFont systemFontOfSize:16];
         confirm.size = CGSizeMake(60, 40);
@@ -159,7 +167,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"个人信息" color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:NSLocalizedString(@"personal info", nil) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -191,7 +199,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                 
-                [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"take photo", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     
                     UIImagePickerController *controller = [[UIImagePickerController alloc] init];
                     controller.delegate = self;
@@ -201,7 +209,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                                        animated:YES completion:nil];
                 }]];
             }
-            [alert addAction:[UIAlertAction actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"select from album", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 UIImagePickerController *controller = [[UIImagePickerController alloc] init];
                 controller.delegate = self;
@@ -209,7 +217,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                 controller.allowsEditing = YES;
                 [self presentViewController:controller animated:YES completion:nil];
             }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
             
             break;
@@ -222,8 +230,8 @@ UIPickerViewDelegate,UIPickerViewDataSource>
         }
         case 2: {
             //NSLocalizedString
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请选择性别" preferredStyle:UIAlertControllerStyleActionSheet];
-            [alert addAction:[UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"please select gender", nil) preferredStyle:UIAlertControllerStyleActionSheet];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"female", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 [[MineManager sharedInstance] updateSex:@"1" completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
                     if (error) {
@@ -234,12 +242,12 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                         
                         [[MineManager sharedInstance] updateMyInfo:myInfo];
                         UILabel *genderLbl = (UILabel*)[_contentView viewWithTag:102];
-                        genderLbl.text = @"女";
+                        genderLbl.text = NSLocalizedString(@"female", nil);
                     }
                 }];
                 
             }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"male", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [[MineManager sharedInstance] updateSex:@"0" completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
                     if (error) {
                         
@@ -249,11 +257,11 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                         
                         [[MineManager sharedInstance] updateMyInfo:myInfo];
                         UILabel *genderLbl = (UILabel*)[_contentView viewWithTag:102];
-                        genderLbl.text = @"男";
+                        genderLbl.text = NSLocalizedString(@"male", nil);
                     }
                 }];
             }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
             break;
         }
@@ -287,7 +295,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                 [self.navigationController pushViewController:vc animated:YES];
             } else {
                 //NSLocalizedString
-                [self presentViewController:[Utility createNoticeAlertWithContent:@"第三方平台账号登录无法修改密码。" okBtnTitle:nil] animated:YES completion:nil];
+                [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"cant modify pwd when login with third", nil) okBtnTitle:nil] animated:YES completion:nil];
             }
             
             break;
@@ -319,11 +327,11 @@ UIPickerViewDelegate,UIPickerViewDataSource>
                 //NSLocalizedString
                 NSString *msg;
                 if ([state isEqualToString:@"1"]) {
-                    msg = @"对不起，您的实名认证已通过，无法重复提交。";
+                    msg = NSLocalizedString(@"sorry your identity verify is passed", nil);
                 } else if ([state isEqualToString:@"2"]) {
-                    msg = @"对不起，您的身份已冻结，无法再提交实名认证。";
+                    msg = NSLocalizedString(@"sorry your identity is locked", nil);
                 } else {
-                    msg = @"我们正在审核您的实名认证申请，请耐心等待。";
+                    msg = NSLocalizedString(@"we are verifying your apply please wait", nil);
                 }
                 [self presentViewController:[Utility createNoticeAlertWithContent:msg okBtnTitle:nil] animated:YES completion:nil];
             }
@@ -356,7 +364,7 @@ UIPickerViewDelegate,UIPickerViewDataSource>
     logout.frame = CGRectMake(15, bg2.maxY + 40, _contentView.width-30, 44);
     logout.backgroundColor = UIColor_82b432;
     logout.layer.cornerRadius = 4;
-    [logout setTitle:@"退出登录" forState:UIControlStateNormal];//NSLocalizedString
+    [logout setTitle:NSLocalizedString(@"log out", nil) forState:UIControlStateNormal];//NSLocalizedString
     [logout setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     logout.titleLabel.font = [UIFont systemFontOfSize:16];
     [logout addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
@@ -438,16 +446,16 @@ UIPickerViewDelegate,UIPickerViewDataSource>
     genderLbl.text = ([[MineManager sharedInstance] getMyInfo].sex.integerValue == 0?@"男":@"女");
     
     UILabel *cityLbl = (UILabel*)[_contentView viewWithTag:103];
-    cityLbl.text = [[MineManager sharedInstance] getMyInfo].area.length > 0?[[MineManager sharedInstance] getMyInfo].area:@"请选择";
+    cityLbl.text = [[MineManager sharedInstance] getMyInfo].area.length > 0?[[MineManager sharedInstance] getMyInfo].area:NSLocalizedString(@"please select", nil);
     
     UILabel *pwdLbl = (UILabel*)[_contentView viewWithTag:104];
-    pwdLbl.text = @"点击修改";
+    pwdLbl.text = NSLocalizedString(@"clich to modify", nil);
     
     UILabel *mobileLbl = (UILabel*)[_contentView viewWithTag:105];
-    mobileLbl.text = [[MineManager sharedInstance] getMyInfo].phone.length > 0?[[MineManager sharedInstance] getMyInfo].phone:@"点击绑定";
+    mobileLbl.text = [[MineManager sharedInstance] getMyInfo].phone.length > 0?[[MineManager sharedInstance] getMyInfo].phone:NSLocalizedString(@"click to bind", nil);
     
     UILabel *emailLbl = (UILabel*)[_contentView viewWithTag:106];
-    emailLbl.text = [[MineManager sharedInstance] getMyInfo].email.length > 0?[[MineManager sharedInstance] getMyInfo].email:@"点击绑定";
+    emailLbl.text = [[MineManager sharedInstance] getMyInfo].email.length > 0?[[MineManager sharedInstance] getMyInfo].email:NSLocalizedString(@"click to bind", nil);
     
     UILabel *realLbl = (UILabel*)[_contentView viewWithTag:107];
     
@@ -455,24 +463,24 @@ UIPickerViewDelegate,UIPickerViewDataSource>
         //0未审核，1已审核，2已冻结，3未通过审核，4审核中
         switch ([[[MineManager sharedInstance] getMyInfo].realNameVerifyState intValue]) {
             case 0:
-                realLbl.text = @"点击提交";
+                realLbl.text = NSLocalizedString(@"click to submit", nil);
                 break;
             case 1:
-                realLbl.text = @"已审核";
+                realLbl.text = NSLocalizedString(@"verify finished", nil);
                 break;
             case 2:
-                realLbl.text = @"已冻结";
+                realLbl.text = NSLocalizedString(@"locked", nil);
                 break;
             case 3:
-                realLbl.text = @"未通过审核";
+                realLbl.text = NSLocalizedString(@"verify failed", nil);
                 break;
             default:
-                realLbl.text = @"审核中";
+                realLbl.text = NSLocalizedString(@"verifying", nil);
                 break;
         }
         
     } else {
-        realLbl.text = @"点击提交";
+        realLbl.text = NSLocalizedString(@"click to submit", nil);
     }
     
 }

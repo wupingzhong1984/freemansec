@@ -40,7 +40,7 @@
         [self addSubview:_cancelBtn];
         
         //get room num
-        self.roomIdLbl = [UILabel createLabelWithFrame:CGRectZero text:[NSString stringWithFormat:@"房间号%@",@""] textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:17]];
+        self.roomIdLbl = [UILabel createLabelWithFrame:CGRectZero text:[NSString stringWithFormat:@"%@%@",NSLocalizedString(@"room no", nil),@""] textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:17]];
         [_roomIdLbl sizeToFit];
         _roomIdLbl.textAlignment = NSTextAlignmentCenter;
         _roomIdLbl.width = grayBg.width;
@@ -59,14 +59,14 @@
         _titleTF.frame = CGRectMake(tfBg.x + 10, (tfBg.height-20)/2 + tfBg.y, tfBg.width-20, 20);
         _titleTF.font = [UIFont systemFontOfSize:16];
         _titleTF.textColor = [UIColor darkGrayColor];
-        _titleTF.placeholder = @"直播标题";//NSLocalizedString
+        _titleTF.placeholder = NSLocalizedString(@"live title", nil);//NSLocalizedString
         [self addSubview:_titleTF];
         
         self.startLiveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _startLiveBtn.frame = CGRectMake(tfBg.x, tfBg.maxY + 37, tfBg.width, 40);
         _startLiveBtn.backgroundColor = UIColor_82b432;
         _startLiveBtn.layer.cornerRadius = 4;
-        [_startLiveBtn setTitle:@"开始直播" forState:UIControlStateNormal];//NSLocalizedString
+        [_startLiveBtn setTitle:NSLocalizedString(@"start living", nil) forState:UIControlStateNormal];//NSLocalizedString
         [_startLiveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _startLiveBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [self addSubview:_startLiveBtn];

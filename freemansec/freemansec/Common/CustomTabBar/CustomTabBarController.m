@@ -45,9 +45,9 @@
     
     //NSLocalizedString
     [self setupChildVc:[[LiveRootViewController alloc] init] title:NSLocalizedString(@"Live", nil) image:@"tab_img_0.png" selectedImage:@"tab_img_0_h.png"];
-    [self setupChildVc:[[VideoRoot2ViewController alloc] init] title:@"热门视频" image:@"tab_img_1.png" selectedImage:@"tab_img_1_h.png"];
-    [self setupChildVc:[[MessageRootViewController alloc] init] title:@"消息" image:@"tab_img_2.png" selectedImage:@"tab_img_2_h.png"];
-    [self setupChildVc:[[MineRootViewController alloc] init] title:@"我的" image:@"tab_img_3.png" selectedImage:@"tab_img_3_h.png"];
+    [self setupChildVc:[[VideoRoot2ViewController alloc] init] title:NSLocalizedString(@"hot video", nil) image:@"tab_img_1.png" selectedImage:@"tab_img_1_h.png"];
+    [self setupChildVc:[[MessageRootViewController alloc] init] title:NSLocalizedString(@"message", nil) image:@"tab_img_2.png" selectedImage:@"tab_img_2_h.png"];
+    [self setupChildVc:[[MineRootViewController alloc] init] title:NSLocalizedString(@"mine", nil) image:@"tab_img_3.png" selectedImage:@"tab_img_3_h.png"];
     
     // 自定义tabBar ,用KVC 替换系统的tabbar
     CustomTabBar *tabbar = [[CustomTabBar alloc]init];

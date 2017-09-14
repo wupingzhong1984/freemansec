@@ -63,9 +63,9 @@ NIMSessionViewControllerDelegate>
     if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWWAN) {
         
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您当前在非WIFI状态下，是否继续使用流量观看？" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"一会再说" style:UIAlertActionStyleDefault handler:nil]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"继续观看" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"continue playing in 4g", nil) preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"wait moment", nil) style:UIAlertActionStyleDefault handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"continue watching", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             [self.liveplayer play];
             played = YES;
@@ -84,7 +84,7 @@ NIMSessionViewControllerDelegate>
     
     if (!isInChatroom) {
         //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"聊天室异常" okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"room error", nil) okBtnTitle:nil] animated:YES completion:nil];
         return;
     }
     
@@ -102,14 +102,14 @@ NIMSessionViewControllerDelegate>
     if (played) {
         
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"正在观看直播，是否确定退出？" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"living confirm close", nil) preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             [self.liveplayer pause];
             played = NO;
             [self back];
         }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert cancel", nil) style:UIAlertActionStyleDefault handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         
     } else {
@@ -126,9 +126,9 @@ NIMSessionViewControllerDelegate>
         [[MineManager sharedInstance] addMyAttentionLiveId:_userLiveChannelModel.liveId completion:^(NSError * _Nullable error) {
             
             if (error) {
-                [MBProgressHUD showError:@"关注失败！"];//NSLocalizedString
+                [MBProgressHUD showError:NSLocalizedString(@"attention failed", nil)];//NSLocalizedString
             } else {
-                [MBProgressHUD showSuccess:@"关注成功！"];//NSLocalizedString
+                [MBProgressHUD showSuccess:NSLocalizedString(@"attention success", nil)];//NSLocalizedString
                 _userLiveChannelModel.isAttent = @"1";
                 [_markBtn setImage:[UIImage imageNamed:@"live_mark_icon_1.png"] forState:UIControlStateNormal];
                 if (_delegate && [_delegate respondsToSelector:@selector(didLiveAttent:)]) {
@@ -141,9 +141,9 @@ NIMSessionViewControllerDelegate>
         [[MineManager sharedInstance] cancelMyAttentionLiveId:_userLiveChannelModel.liveId completion:^(NSError * _Nullable error) {
             
             if (error) {
-                [MBProgressHUD showError:@"取消关注失败！"];//NSLocalizedString
+                [MBProgressHUD showError:NSLocalizedString(@"cancel attention failed", nil)];//NSLocalizedString
             } else {
-                [MBProgressHUD showSuccess:@"取消关注成功！"];//NSLocalizedString
+                [MBProgressHUD showSuccess:NSLocalizedString(@"cancel attention success", nil)];//NSLocalizedString
                 _userLiveChannelModel.isAttent = @"0";
                 [_markBtn setImage:[UIImage imageNamed:@"live_mark_icon.png"] forState:UIControlStateNormal];
                 if (_delegate && [_delegate respondsToSelector:@selector(didLiveAttent:)]) {
@@ -380,7 +380,7 @@ NIMSessionViewControllerDelegate>
         if (error || !roomModel) {
             
             //NSLocalizedString
-            [self presentViewController:[Utility createErrorAlertWithContent:@"聊天室异常" okBtnTitle:nil] animated:YES completion:nil];
+            [self presentViewController:[Utility createErrorAlertWithContent:NSLocalizedString(@"room error", nil) okBtnTitle:nil] animated:YES completion:nil];
             
         } else {
             
@@ -473,9 +473,9 @@ NIMSessionViewControllerDelegate>
     } else if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWWAN) {
         
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您当前在非WIFI状态下，是否继续使用流量观看？" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"一会再说" style:UIAlertActionStyleDefault handler:nil]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"继续观看" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"continue playing in 4g", nil) preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"wait moment", nil) style:UIAlertActionStyleDefault handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"continue watching", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             [self.liveplayer play];
             played = YES;
@@ -503,8 +503,8 @@ NIMSessionViewControllerDelegate>
     {
         case NELPMovieFinishReasonPlaybackEnded:
             if ([self.mediaType isEqualToString:@"livestream"]) {
-                alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"该直播已停止。" preferredStyle:UIAlertControllerStyleAlert];
-                [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:@"该直播已停止。" preferredStyle:UIAlertControllerStyleAlert];
+                [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     
                     [self.liveplayer pause];
                     played = NO;
@@ -517,8 +517,8 @@ NIMSessionViewControllerDelegate>
             
         case NELPMovieFinishReasonPlaybackError:
         {
-            alertController = [UIAlertController alertControllerWithTitle:@"注意" message:@"播放失败" preferredStyle:UIAlertControllerStyleAlert];
-            action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"play failed", nil) preferredStyle:UIAlertControllerStyleAlert];
+            action = [UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
                 
                 [self.liveplayer pause];
                 played = NO;

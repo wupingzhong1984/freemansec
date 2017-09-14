@@ -40,7 +40,7 @@
     v.backgroundColor = UIColor_navibg;
     
     //NSLocalizedString
-    [v addSubview:[self commNaviTitle:@"精彩回看" color:UIColor_navititle]];
+    [v addSubview:[self commNaviTitle:NSLocalizedString(@"wonder playback", nil) color:UIColor_navititle]];
     
     UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_gray.png"]];
     back.centerX = 25;

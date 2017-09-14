@@ -47,7 +47,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"消息" color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:NSLocalizedString(@"message", nil) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -85,13 +85,13 @@
     
     // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
     //NSLocalizedString
-    self.tableView.headerPullToRefreshText = @"下拉可以刷新了";
-    self.tableView.headerReleaseToRefreshText = @"松开马上刷新了";
-    self.tableView.headerRefreshingText = @"正在拼命的刷新数据中，请稍后!";
+    self.tableView.headerPullToRefreshText = NSLocalizedString(@"release to refresh", nil);
+    self.tableView.headerReleaseToRefreshText = NSLocalizedString(@"release then refresh", nil);
+    self.tableView.headerRefreshingText = NSLocalizedString(@"updating data please wait", nil);
     
-    self.tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
-    self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
-    self.tableView.footerRefreshingText = @"正在拼命的加载中";
+    self.tableView.footerPullToRefreshText = NSLocalizedString(@"pull to get more data", nil);
+    self.tableView.footerReleaseToRefreshText = NSLocalizedString(@"release then load more data", nil);
+    self.tableView.footerRefreshingText = NSLocalizedString(@"loading data", nil);
     
 }
 
@@ -150,13 +150,13 @@
         [self.nodataView removeFromSuperview]; //clear
         [self.view addSubview:self.nodataView];
         if (!_didLoginAppear) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"您还未登录" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"一会再说" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"you did not login", nil) preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"wait moment", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 [self.nodataView removeFromSuperview]; //clear
                 [self.view addSubview:self.nodataView];
             }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"login", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 _didLoginAppear = YES;
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoadUserLogin object:nil];

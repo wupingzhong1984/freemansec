@@ -546,32 +546,32 @@
 
 #pragma mark - Action
 - (void)onMore:(id)sender{
-    _moreActionSheet = [[UIActionSheet alloc] initWithTitle:@"请操作" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"转让群",@"转让群并退出",nil];
+    _moreActionSheet = [[UIActionSheet alloc] initWithTitle:@"请操作" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) destructiveButtonTitle:nil otherButtonTitles:@"转让群",@"转让群并退出",nil];
     [_moreActionSheet showInView:self.view];
 }
 
 - (void)onTouchAvatar:(id)sender{
     if([NIMKitUtil canEditTeamInfo:self.myTeamInfo])
     {
-        _avatarActionSheet = [[UIActionSheet alloc] initWithTitle:@"设置群头像" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从相册", nil];
+        _avatarActionSheet = [[UIActionSheet alloc] initWithTitle:@"设置群头像" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从相册", nil];
         [_avatarActionSheet showInView:self.view];
     }
 }
 
 - (void)updateTeamName{
-    _updateTeamNameAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"修改群名称" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    _updateTeamNameAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"修改群名称" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) otherButtonTitles:@"确认", nil];
     _updateTeamNameAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     [_updateTeamNameAlertView show];
 }
 
 - (void)updateTeamNick{
-    _updateTeamNickAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"修改群昵称" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    _updateTeamNickAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"修改群昵称" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) otherButtonTitles:@"确认", nil];
     _updateTeamNickAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     [_updateTeamNickAlertView show];
 }
 
 - (void)updateTeamIntro{
-    _updateTeamIntroAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"修改群介绍" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    _updateTeamIntroAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"修改群介绍" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) otherButtonTitles:@"确认", nil];
     _updateTeamIntroAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     [_updateTeamIntroAlertView show];
 }
@@ -585,33 +585,33 @@
 
 
 - (void)quitTeam{
-    _quitTeamAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"确认退出群聊?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    _quitTeamAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"确认退出群聊?" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) otherButtonTitles:@"确认", nil];
     [_quitTeamAlertView show];
 }
 
 - (void)dismissTeam{
-    _dismissTeamAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"确认解散群聊?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    _dismissTeamAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"确认解散群聊?" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) otherButtonTitles:@"确认", nil];
     [_dismissTeamAlertView show];
 }
 
 
 - (void)changeAuthMode{
-    _authActionSheet = [[UIActionSheet alloc] initWithTitle:@"更改验证方式" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"允许任何人",@"需要验证",@"拒绝任何人", nil];
+    _authActionSheet = [[UIActionSheet alloc] initWithTitle:@"更改验证方式" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) destructiveButtonTitle:nil otherButtonTitles:@"允许任何人",@"需要验证",@"拒绝任何人", nil];
     [_authActionSheet showInView:self.view];
 }
 
 - (void)changeInviteMode{
-    _inviteActionSheet = [[UIActionSheet alloc] initWithTitle:@"邀请他人入群" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"管理员邀请",@"所有人邀请", nil];
+    _inviteActionSheet = [[UIActionSheet alloc] initWithTitle:@"邀请他人入群" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) destructiveButtonTitle:nil otherButtonTitles:@"管理员邀请",@"所有人邀请", nil];
     [_inviteActionSheet showInView:self.view];
 }
 
 - (void)changeUpdateInfoMode{
-    _updateInfoActionSheet = [[UIActionSheet alloc] initWithTitle:@"群资料修改权限" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"管理员修改",@"所有人修改", nil];
+    _updateInfoActionSheet = [[UIActionSheet alloc] initWithTitle:@"群资料修改权限" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) destructiveButtonTitle:nil otherButtonTitles:@"管理员修改",@"所有人修改", nil];
     [_updateInfoActionSheet showInView:self.view];
 }
 
 - (void)changeBeInviteMode{
-    _beInviteActionSheet = [[UIActionSheet alloc] initWithTitle:@"被邀请人身份验证" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"需要验证",@"不需要验证", nil];
+    _beInviteActionSheet = [[UIActionSheet alloc] initWithTitle:@"被邀请人身份验证" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) destructiveButtonTitle:nil otherButtonTitles:@"需要验证",@"不需要验证", nil];
     [_beInviteActionSheet showInView:self.view];
 }
 

@@ -31,7 +31,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"绑定手机" color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:NSLocalizedString(@"bind phonel", nil) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -66,7 +66,7 @@
     if (!_mobileTF.text.length) {
         
         //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"请输入手机号。" okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"please input phone num", nil) okBtnTitle:nil] animated:YES completion:nil];
         
     } else {
         
@@ -109,12 +109,12 @@
     
     if (!_mobileTF.text.length) {
         
-        [error appendString:@"请输入手机号。"];
+        [error appendString:NSLocalizedString(@"please input phone num point", nil)];
     }
     
     if (!_verifyCodeTF.text.length) {
         
-        [error appendString:@"请输入验证码。"];
+        [error appendString:NSLocalizedString(@"please input verify code point", nil)];
     }
     
     if (!error.length) {
@@ -180,7 +180,7 @@
     _verifyBtn.size = (CGSize){70,32};
     _verifyBtn.centerY = mobileBg.centerY;
     _verifyBtn.x = mobileBg.maxX - 5 - _verifyBtn.width;
-    [_verifyBtn setTitle:@"验证码" forState:UIControlStateNormal]; //NSLocalizedString
+    [_verifyBtn setTitle:NSLocalizedString(@"verify code", nil) forState:UIControlStateNormal]; //NSLocalizedString
     [_verifyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _verifyBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [_verifyBtn addTarget:self action:@selector(mobileVerifyBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -190,7 +190,7 @@
     _mobileTF.frame = CGRectMake(mobileBg.x + 10, (mobileBg.height-20)/2 + mobileBg.y, _verifyBtn.x - 10 - (mobileBg.x + 10), 20);
     _mobileTF.font = [UIFont systemFontOfSize:16];
     _mobileTF.textColor = [UIColor darkGrayColor];
-    _mobileTF.placeholder = @"请输入手机号";//NSLocalizedString
+    _mobileTF.placeholder = NSLocalizedString(@"please input phone num", nil);//NSLocalizedString
     _mobileTF.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:_mobileTF];
     
@@ -205,7 +205,7 @@
     _verifyCodeTF.frame = CGRectMake(verifyCodeBg.x + 10, (verifyCodeBg.height-20)/2 + verifyCodeBg.y, verifyCodeBg.width-20, 20);
     _verifyCodeTF.font = [UIFont systemFontOfSize:16];
     _verifyCodeTF.textColor = [UIColor darkGrayColor];
-    _verifyCodeTF.placeholder = @"请输入验证码";//NSLocalizedString
+    _verifyCodeTF.placeholder = NSLocalizedString(@"please input verify code", nil);//NSLocalizedString
     _verifyCodeTF.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:_verifyCodeTF];
     
@@ -213,7 +213,7 @@
     sumbit.frame = CGRectMake(verifyCodeBg.x, verifyCodeBg.maxY + 25, verifyCodeBg.width, 40);
     sumbit.backgroundColor = UIColor_82b432;
     sumbit.layer.cornerRadius = 4;
-    [sumbit setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
+    [sumbit setTitle:NSLocalizedString(@"submit", nil) forState:UIControlStateNormal];//NSLocalizedString
     [sumbit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     sumbit.titleLabel.font = [UIFont systemFontOfSize:16];
     [sumbit addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];

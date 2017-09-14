@@ -28,7 +28,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"昵称" color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:NSLocalizedString(@"nickname", nil) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -57,7 +57,7 @@
     
     if (!_nickNameTF.text.length) {
         //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"请输入昵称。" okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"please input nickname", nil) okBtnTitle:nil] animated:YES completion:nil];
     } else {
         
         [[MineManager sharedInstance] updateNickName:_nickNameTF.text completion:^(MyInfoModel * _Nullable myInfo, NSError * _Nullable error) {
@@ -86,14 +86,14 @@
     _nickNameTF.font = [UIFont systemFontOfSize:16];
     _nickNameTF.textColor = [UIColor darkGrayColor];
     _nickNameTF.text = [[MineManager sharedInstance] getMyInfo].nickName;
-    _nickNameTF.placeholder = @"请输入昵称";//NSLocalizedString
+    _nickNameTF.placeholder = NSLocalizedString(@"please input nickname", nil);//NSLocalizedString
     [_contentView addSubview:_nickNameTF];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(nameBg.x, nameBg.maxY + 27, nameBg.width, 40);
     btn.backgroundColor = UIColor_82b432;
     btn.layer.cornerRadius = 4;
-    [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
+    [btn setTitle:NSLocalizedString(@"submit", nil) forState:UIControlStateNormal];//NSLocalizedString
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:16];
     [btn addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];

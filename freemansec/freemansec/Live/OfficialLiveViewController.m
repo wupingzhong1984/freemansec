@@ -190,7 +190,7 @@ LivePlayViewControllerDelegate>
         
         _programArea.height = 60;
         //NSLocalizedString
-        UILabel *noData = [UILabel createLabelWithFrame:CGRectZero text:@"暂无节目" textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:16]];
+        UILabel *noData = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"none program", nil) textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:16]];
         [noData sizeToFit];
         noData.center = CGPointMake(_programArea.width/2, _programArea.height/2);
         [_programArea addSubview:noData];
@@ -216,7 +216,7 @@ LivePlayViewControllerDelegate>
     [whiteBg addSubview:green];
     
     //NSLocalizedString
-    UILabel *title = [UILabel createLabelWithFrame:CGRectZero text:@"精彩回看" textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];
+    UILabel *title = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"wonder playback", nil) textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];
     [title sizeToFit];
     title.x = 20;
     title.centerY = 38/2;
@@ -253,7 +253,7 @@ LivePlayViewControllerDelegate>
         if (self.wonderfulPlayBackList.count > 2) {
             
             //NSLocalizedString
-            UILabel *more = [UILabel createLabelWithFrame:CGRectZero text:@"查看更多" textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:14]];
+            UILabel *more = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"see more", nil) textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:14]];
             [more sizeToFit];
             more.centerY = title.centerY;
             more.x = whiteBg.width - 10 - more.width;
@@ -270,7 +270,7 @@ LivePlayViewControllerDelegate>
         
         whiteBg.height = whiteBg.height + 60;
         //NSLocalizedString
-        UILabel *noData = [UILabel createLabelWithFrame:CGRectZero text:@"暂无节目" textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:16]];
+        UILabel *noData = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"none program", nil) textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:16]];
         [noData sizeToFit];
         noData.center = CGPointMake(_wonderfulPlayBackArea.width/2, 37 + 60/2);
         [whiteBg addSubview:noData];
@@ -285,8 +285,7 @@ LivePlayViewControllerDelegate>
     LiveProgramModel *model = [self.programList objectAtIndex:(((UIButton*)sender).tag - 1000)];
     
     if (![model.status isEqualToString:@"1"]) {
-        //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"该节目不在播放中，无法观看。" okBtnTitle:nil] animated:YES completion:nil];
+        
         return;
     }
     

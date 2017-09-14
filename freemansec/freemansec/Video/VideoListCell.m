@@ -37,7 +37,7 @@
         [self.contentView addSubview:_imgV];
         
         //NSLocalizedString
-        UILabel *count = [UILabel createLabelWithFrame:CGRectZero text:@"播放数：" textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:13]];
+        UILabel *count = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"play count", nil) textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:13]];
         [count sizeToFit];
         count.x = _imgV.maxX + 10;
         count.y = _imgV.maxY - count.height;
@@ -52,7 +52,7 @@
         _countLbl.width = cellBg.maxX - 10 - _countLbl.x;
         [self.contentView addSubview:_countLbl];
         
-        UILabel *author = [UILabel createLabelWithFrame:CGRectZero text:@"上传者：" textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:13]];
+        UILabel *author = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"uploader", nil) textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:13]];
         [author sizeToFit];
         author.x = _imgV.maxX + 10;
         author.y = count.y - 10 - author.height;

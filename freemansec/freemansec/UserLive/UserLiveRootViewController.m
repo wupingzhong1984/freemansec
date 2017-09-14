@@ -102,7 +102,7 @@ NIMSessionViewControllerDelegate>{
     
     if (!isInChatroom) {
         //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"聊天室异常" okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"room error", nil) okBtnTitle:nil] animated:YES completion:nil];
         return;
     }
     
@@ -120,8 +120,8 @@ NIMSessionViewControllerDelegate>{
     if (_isLiving) {
         
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"当前正在直播，是否确定退出？" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"its living, confirm cancel", nil) preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             __weak UserLiveRootViewController *weakSelf = self;
             [_mediaCapture stopLiveStream:^(NSError *error) {
                 [[UserLiveManager sharedInstance] closeLivePushCompletion:^(NSError * _Nullable error) {
@@ -131,7 +131,7 @@ NIMSessionViewControllerDelegate>{
                 [weakSelf back];
             }];
         }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert cancel", nil) style:UIAlertActionStyleDefault handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         
     } else {
@@ -369,7 +369,7 @@ NIMSessionViewControllerDelegate>{
 - (void)updateUserLiveTitleViewStartLive {
     
     if (!_updateUserLiveTitleView.titleTF.text.length) {
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"请输入标题" okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"please input title", nil) okBtnTitle:nil] animated:YES completion:nil];
         return;
     }
     
@@ -409,7 +409,7 @@ NIMSessionViewControllerDelegate>{
     
     self.updateUserLiveTitleView = [[UpdateUserLiveTitleView alloc] init];
     _updateUserLiveTitleView.titleTF.text = [[MineManager sharedInstance] getMyInfo].liveTitle;
-    _updateUserLiveTitleView.roomIdLbl.text = [NSString stringWithFormat:@"房间号%@",[[MineManager sharedInstance] getMyInfo].liveId];
+    _updateUserLiveTitleView.roomIdLbl.text = [NSString stringWithFormat:@"%@%@",NSLocalizedString(@"room no", nil),[[MineManager sharedInstance] getMyInfo].liveId];
     [_updateUserLiveTitleView.bgBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
     [_updateUserLiveTitleView.cancelBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
     [_updateUserLiveTitleView.startLiveBtn addTarget:self action:@selector(updateUserLiveTitleViewStartLive) forControlEvents:UIControlEventTouchUpInside];
@@ -455,7 +455,7 @@ NIMSessionViewControllerDelegate>{
             [UIAlertController alertControllerWithTitle:@"错误"
                                                 message:[error.userInfo objectForKey:NSLocalizedDescriptionKey]
                                          preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [self updateUserLiveTitleViewCancel];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
@@ -632,8 +632,8 @@ NIMSessionViewControllerDelegate>{
         NNSLog(@"切换为移动网络");
         //提醒用户当前网络为移动网络，是否开启直播
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"当前网络为移动网络，是否开启直播？" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"begin living in 4g", nil) preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             //开始直播
             __weak typeof(self) weakSelf = self;
             NSError *error = nil;
@@ -642,7 +642,7 @@ NIMSessionViewControllerDelegate>{
                 [weakSelf showErrorAlert:error ];
             }
         }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert cancel", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             //取消直播
             __weak typeof(self) weakSelf = self;
             [_mediaCapture stopLiveStream:^(NSError *error) {
@@ -669,8 +669,8 @@ NIMSessionViewControllerDelegate>{
                     }];
                     _isLiving = NO;
                     //NSLocalizedString
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络已断开" preferredStyle:UIAlertControllerStyleAlert];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"network invalid", nil) preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         [self unInitLiveStream];
                         [self back];
                     }]];

@@ -56,7 +56,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"热门视频" color:UIColor_navititle]; //NSLocalizedString
+    UIView *title = [self commNaviTitle:NSLocalizedString(@"hot video", nil) color:UIColor_navititle]; //NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
    

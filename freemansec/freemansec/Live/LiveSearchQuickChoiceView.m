@@ -37,7 +37,7 @@ UIScrollViewDelegate>
             [contentView addSubview:blue];
             
             //NSLocalizedString
-            UILabel *lbl = [UILabel  createLabelWithFrame:CGRectZero text:@"热门搜索" textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];
+            UILabel *lbl = [UILabel  createLabelWithFrame:CGRectZero text:NSLocalizedString(@"hot search", nil) textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];
             [lbl sizeToFit];
             lbl.x = 10;
             lbl.centerY = blue.centerY;
@@ -58,7 +58,7 @@ UIScrollViewDelegate>
             [contentView addSubview:blue];
             
             //NSLocalizedString
-            UILabel *lbl = [UILabel  createLabelWithFrame:CGRectZero text:@"历史搜索" textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];
+            UILabel *lbl = [UILabel  createLabelWithFrame:CGRectZero text:NSLocalizedString(@"search history", nil) textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];
             [lbl sizeToFit];
             lbl.x = 10;
             lbl.centerY = blue.centerY;

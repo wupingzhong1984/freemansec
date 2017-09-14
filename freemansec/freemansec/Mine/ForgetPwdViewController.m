@@ -40,7 +40,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?@"重设密码":@"忘记密码") color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?NSLocalizedString(@"reset pwd", nil):NSLocalizedString(@"forget pwd", nil)) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -82,7 +82,7 @@
     left1.frame = CGRectMake(bg1.x, bg1.y, bg1.height, bg1.height);
     [self.view addSubview:left1];
     
-    UILabel *title1 = [UILabel createLabelWithFrame:CGRectZero text:(_resetPwdKind == RPKResetPwd?@"通过邮箱重设":@"邮箱找回") textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];//NSLocalizedString
+    UILabel *title1 = [UILabel createLabelWithFrame:CGRectZero text:(_resetPwdKind == RPKResetPwd?NSLocalizedString(@"reset pwd by email", nil):NSLocalizedString(@"find pwd by email", nil)) textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];//NSLocalizedString
     [title1 sizeToFit];
     title1.x = 85;
     title1.centerY = left1.centerY;
@@ -102,7 +102,7 @@
     left2.frame = CGRectMake(bg2.x, bg2.y, bg2.height, bg2.height);
     [self.view addSubview:left2];
     
-    UILabel *title2 = [UILabel createLabelWithFrame:CGRectZero text:(_resetPwdKind == RPKResetPwd?@"通过手机号重设":@"手机号找回") textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];//NSLocalizedString
+    UILabel *title2 = [UILabel createLabelWithFrame:CGRectZero text:(_resetPwdKind == RPKResetPwd?NSLocalizedString(@"reset pwd by phone", nil):NSLocalizedString(@"find pwd by phone", nil)) textColor:[UIColor darkGrayColor] font:[UIFont systemFontOfSize:16]];//NSLocalizedString
     [title2 sizeToFit];
     title2.x = 85;
     title2.centerY = left2.centerY;

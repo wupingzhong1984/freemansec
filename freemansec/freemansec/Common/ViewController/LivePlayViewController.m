@@ -19,14 +19,16 @@
 {
     BOOL played;
     BOOL landed;
+    NSTimeInterval updateInterval;
 }
 
-@property(nonatomic, strong) id<NELivePlayer> liveplayer;
+@property (nonatomic, strong) id<NELivePlayer> liveplayer;
 @property (nonatomic, strong) NSString *mediaType;
 @property (nonatomic, strong) UIView *controlBar;
 @property (nonatomic, strong) UIImageView *attentionIV;
-@property (nonatomic ,strong) UIButton *stateButton;
-@property (nonatomic ,strong) UIButton *oriBtn;
+@property (nonatomic, strong) UIButton *stateButton;
+@property (nonatomic, strong) UIButton *oriBtn;
+@property (nonatomic, strong) CMMotionManager *mManager;
 @end
 
 @implementation LivePlayViewController
@@ -37,6 +39,57 @@
     [self.liveplayer.view removeFromSuperview];
     self.liveplayer = nil;
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (CMMotionManager *)mManager
+{
+    if (!_mManager) {
+        updateInterval = 1.5;
+        _mManager = [[CMMotionManager alloc] init];
+    }
+    return _mManager;
+}
+
+- (void)startUpdateAccelerometerResult:(void (^)(NSInteger result))completion
+{
+    if ([self.mManager isAccelerometerAvailable] == YES) {
+        //回调会一直调用,建议获取到就调用下面的停止方法，需要再重新开始，当然如果需求是实时不间断的话可以等离开页面之后再stop
+        [self.mManager setAccelerometerUpdateInterval:updateInterval];
+        [self.mManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error)
+         {
+             double x = accelerometerData.acceleration.x;
+             double y = accelerometerData.acceleration.y;
+             if (fabs(y) >= fabs(x))
+             {
+                 if (y >= 0){
+                     completion(UIInterfaceOrientationPortraitUpsideDown);
+                 }
+                 else{
+                     
+                     completion(UIInterfaceOrientationPortrait);
+                 }
+             }
+             else
+             {
+                 if (x >= 0){
+                     
+                     completion(UIInterfaceOrientationLandscapeRight);
+                 }
+                 else{
+                     
+                     completion(UIInterfaceOrientationLandscapeLeft);
+                 }
+             }
+         }];
+    }
+}
+
+- (void)stopUpdate
+{
+    if ([self.mManager isAccelerometerActive] == YES)
+    {
+        [self.mManager stopAccelerometerUpdates];
+    }
 }
 
 - (void)attention {
@@ -52,9 +105,9 @@
         [[MineManager sharedInstance] addMyAttentionLiveId:_liveChannelModel.liveId completion:^(NSError * _Nullable error) {
             
             if (error) {
-                [MBProgressHUD showError:@"关注失败！"];//NSLocalizedString
+                [MBProgressHUD showError:NSLocalizedString(@"attention failed", nil)];//NSLocalizedString
             } else {
-                [MBProgressHUD showSuccess:@"关注成功！"];//NSLocalizedString
+                [MBProgressHUD showSuccess:NSLocalizedString(@"attention success", nil)];//NSLocalizedString
                 _liveChannelModel.isAttent = @"1";
                 [_attentionIV setImage:[UIImage imageNamed:@"navi_mark_1.png"]];
                 if (_delegate && [_delegate respondsToSelector:@selector(didLiveAttent:)]) {
@@ -67,9 +120,9 @@
         [[MineManager sharedInstance] cancelMyAttentionLiveId:_liveChannelModel.liveId completion:^(NSError * _Nullable error) {
             
             if (error) {
-                [MBProgressHUD showError:@"取消关注失败！"];//NSLocalizedString
+                [MBProgressHUD showError:NSLocalizedString(@"cancel attention failed", nil)];//NSLocalizedString
             } else {
-                [MBProgressHUD showSuccess:@"取消关注成功！"];//NSLocalizedString
+                [MBProgressHUD showSuccess:NSLocalizedString(@"cancel attention success", nil)];//NSLocalizedString
                 _liveChannelModel.isAttent = @"0";
                 [_attentionIV setImage:[UIImage imageNamed:@"navi_mark.png"]];
                 if (_delegate && [_delegate respondsToSelector:@selector(didLiveAttent:)]) {
@@ -134,14 +187,14 @@
 
 - (void)transPlayViewToPortrait {
     
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.4 animations:^{
         
         _liveplayer.view.transform = CGAffineTransformMakeRotation(0);
         _liveplayer.view.frame = CGRectMake(0, (K_UIScreenHeight-K_UIScreenWidth*3/4)/2, K_UIScreenWidth, K_UIScreenWidth*3/4);
         
-        _controlBar.transform = CGAffineTransformMakeRotation(0);
-        _controlBar.frame = CGRectMake(0, K_UIScreenHeight-40,K_UIScreenWidth,40);
-        _oriBtn.frame = CGRectMake(K_UIScreenWidth-60, 0, 60, 40);
+//        _controlBar.transform = CGAffineTransformMakeRotation(0);
+//        _controlBar.frame = CGRectMake(0, K_UIScreenHeight-40,K_UIScreenWidth,40);
+//        _oriBtn.frame = CGRectMake(K_UIScreenWidth-60, 0, 60, 40);
     } completion:^(BOOL finished) {
         if (finished) {
             [self prefersStatusBarHidden];
@@ -152,14 +205,14 @@
 
 - (void)transPlayViewToLandscape {
     
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.4 animations:^{
         
         _liveplayer.view.transform = CGAffineTransformMakeRotation(M_PI/2);
-        _liveplayer.view.frame = CGRectMake(40, 0, K_UIScreenWidth-40 ,K_UIScreenHeight);
+        _liveplayer.view.frame = CGRectMake(0, 0, K_UIScreenWidth, K_UIScreenHeight);
         
-        _controlBar.transform = CGAffineTransformMakeRotation(M_PI/2);
-        _controlBar.frame = CGRectMake(0, 0, 40, K_UIScreenHeight);
-        _oriBtn.x = K_UIScreenHeight-60;
+//        _controlBar.transform = CGAffineTransformMakeRotation(M_PI/2);
+//        _controlBar.frame = CGRectMake(0, 0, 40, K_UIScreenHeight);
+//        _oriBtn.x = K_UIScreenHeight-60;
     } completion:^(BOOL finished) {
         if (finished) {
             [self prefersStatusBarHidden];
@@ -185,9 +238,9 @@
         if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWWAN) {
             
             //NSLocalizedString
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您当前在非WIFI状态下，是否继续使用流量观看？" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"一会再说" style:UIAlertActionStyleDefault handler:nil]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"继续观看" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"continue playing in 4g", nil) preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"wait moment", nil) style:UIAlertActionStyleDefault handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"continue watching", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 [self.liveplayer play];
                 played=YES;
@@ -237,7 +290,6 @@
     name.centerY = face.centerY;
     name.width = 200;
     [self.view addSubview:name];
-    [self.view addSubview:_liveplayer.view];
     
     self.controlBar = [[UIView alloc] initWithFrame:CGRectMake(0, K_UIScreenHeight-40, K_UIScreenWidth, 40)];
     _controlBar.backgroundColor = [UIColor lightGrayColor];
@@ -257,6 +309,11 @@
     [_oriBtn addTarget:self action:@selector(changeOrientationChange) forControlEvents:UIControlEventTouchUpInside];
     [_controlBar addSubview:_oriBtn];
     
+    
+    
+    [self.view addSubview:_liveplayer.view];
+    
+    
     if ([self.mediaType isEqualToString:@"livestream"] ) {
         [self.liveplayer setBufferStrategy:NELPLowDelay]; // 直播低延时模式
     }
@@ -269,6 +326,9 @@
     [self.liveplayer setPauseInBackground:NO]; // 设置切入后台时的状态，暂停还是继续播放
     [self.liveplayer setPlaybackTimeout:15 *1000]; // 设置拉流超时时间
     [self.liveplayer prepareToPlay];
+    
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -278,6 +338,18 @@
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = YES;
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+    
+    [self startUpdateAccelerometerResult:^(NSInteger result) {
+        
+        if (result == UIInterfaceOrientationLandscapeRight || result == UIInterfaceOrientationLandscapeLeft) {
+        
+            if (!landed) [self changeOrientationChange];
+        } else {
+            if (landed) [self changeOrientationChange];
+        }
+        
+    }];
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(NELivePlayerDidPreparedToPlay:)
@@ -342,6 +414,8 @@
         played = NO;
     }
     
+    [self stopUpdate];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NELivePlayerDidPreparedToPlayNotification object:_liveplayer];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NELivePlayerPlaybackStateChangedNotification object:_liveplayer];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NELivePlayerLoadStateChangedNotification object:_liveplayer];
@@ -357,6 +431,8 @@
     
     NSLog(@"NELivePlayerDidPreparedToPlay");
     
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
     self.stateButton.enabled = YES;
     
     if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWiFi) {
@@ -366,9 +442,9 @@
     } else if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == ReachableViaWWAN) {
         
         //NSLocalizedString
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您当前在非WIFI状态下，是否继续使用流量观看？" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"一会再说" style:UIAlertActionStyleDefault handler:nil]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"继续观看" style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"continue playing in 4g", nil) preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"wait moment", nil) style:UIAlertActionStyleDefault handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"continue watching", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             [self.liveplayer play];
             played = YES;
@@ -380,25 +456,30 @@
 
 - (void)NELivePlayerPlaybackStateChanged:(NSNotification*)notification
 {
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     //    NSLog(@"NELivePlayerPlaybackStateChanged");
 }
 
 - (void)NeLivePlayerloadStateChanged:(NSNotification*)notification
 {
     
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 - (void)NELivePlayerPlayBackFinished:(NSNotification*)notification
 {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     UIAlertController *alertController = NULL;
     UIAlertAction *action = NULL;
     switch ([[[notification userInfo] valueForKey:NELivePlayerPlaybackDidFinishReasonUserInfoKey] intValue])
     {
         case NELPMovieFinishReasonPlaybackEnded:
         {
+            //NSLocalizedString
             if ([self.mediaType isEqualToString:@"livestream"]) {
-                alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"直播结束" preferredStyle:UIAlertControllerStyleAlert];
-                action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"living end", nil) preferredStyle:UIAlertControllerStyleAlert];
+                action = [UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
                         [self back];
                     }];
                 [alertController addAction:action];
@@ -408,8 +489,9 @@
         }
         case NELPMovieFinishReasonPlaybackError:
         {
-            alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"播放失败" preferredStyle:UIAlertControllerStyleAlert];
-            action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            //NSLocalizedString
+            alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"play failed", nil) preferredStyle:UIAlertControllerStyleAlert];
+            action = [UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
                 [self back];
             }];
             [alertController addAction:action];
@@ -427,21 +509,29 @@
 
 - (void)NELivePlayerFirstVideoDisplayed:(NSNotification*)notification
 {
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSLog(@"first video frame rendered!");
 }
 
 - (void)NELivePlayerFirstAudioDisplayed:(NSNotification*)notification
 {
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSLog(@"first audio frame rendered!");
 }
 
 - (void)NELivePlayerVideoParseError:(NSNotification*)notification
 {
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSLog(@"video parse error!");
 }
 
 - (void)NELivePlayerSeekComplete:(NSNotification*)notification
 {
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSLog(@"seek complete!");
 }
 

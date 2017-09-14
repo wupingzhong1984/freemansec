@@ -143,20 +143,20 @@
 
 
 - (void)onKickBtnClick:(id)sender {
-    _kickAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"移出本群" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    _kickAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"移出本群" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) otherButtonTitles:NSLocalizedString(@"alert OK", nil), nil];
     [_kickAlertView show];
 }
 
 - (void)updateTeamNick
 {
-    _updateNickAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"修改群昵称" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    _updateNickAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"修改群昵称" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) otherButtonTitles:@"确认", nil];
     _updateNickAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     [_updateNickAlertView show];
 }
 
 - (void)updateTeamRole
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"管理员操作" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles: self.member.type == NIMTeamMemberTypeManager ? @"取消管理员" : @"设为管理员", nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"管理员操作" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) destructiveButtonTitle:nil otherButtonTitles: self.member.type == NIMTeamMemberTypeManager ? @"取消管理员" : @"设为管理员", nil];
     [sheet showInView:self.view];
 }
 

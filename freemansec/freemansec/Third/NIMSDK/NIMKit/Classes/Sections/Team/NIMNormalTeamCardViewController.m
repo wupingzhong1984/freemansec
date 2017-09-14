@@ -165,13 +165,13 @@
 
 #pragma mark - UITableViewAction
 - (void)updateTeamInfoName{
-    _updateTeamNameAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"修改讨论组名称" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    _updateTeamNameAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"修改讨论组名称" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) otherButtonTitles:@"确认", nil];
     _updateTeamNameAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     [_updateTeamNameAlertView show];
 }
 
 - (void)quitTeam{
-    _quitTeamAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"确认退出讨论组?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    _quitTeamAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"确认退出讨论组?" delegate:self cancelButtonTitle:NSLocalizedString(@"alert cancel", nil) otherButtonTitles:@"确认", nil];
     [_quitTeamAlertView show];
 }
 

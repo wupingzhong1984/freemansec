@@ -36,7 +36,7 @@ SetTelCodeViewControllerDelegate>
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?@"重设密码":@"忘记密码") color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?NSLocalizedString(@"reset pwd", nil):NSLocalizedString(@"forget pwd", nil)) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -71,7 +71,7 @@ SetTelCodeViewControllerDelegate>
     if (!_mobileTF.text.length) {
         
         //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"请输入手机号。" okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"please input phone num", nil) okBtnTitle:nil] animated:YES completion:nil];
         
         return;
     }
@@ -79,7 +79,7 @@ SetTelCodeViewControllerDelegate>
     if (_resetPwdKind == RPKResetPwd && ![_mobileTF.text isEqualToString:[[MineManager sharedInstance] getMyInfo].phone]) {
         
         //NSLocalizedString
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"必须使用注册时使用的手机号。" okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"must use signup phone num", nil) okBtnTitle:nil] animated:YES completion:nil];
         
         return;
     }
@@ -123,18 +123,18 @@ SetTelCodeViewControllerDelegate>
     //NSLocalizedString
     if (!_mobileTF.text.length) {
         
-        [error appendString:@"请输入手机号。"];
+        [error appendString:NSLocalizedString(@"please input phone num point", nil)];
     }
     
     if (!_verifyCodeTF.text.length) {
         
-        [error appendString:@"请输入验证码。"];
+        [error appendString:NSLocalizedString(@"please input verify code point", nil)];
     }
     
     if (_resetPwdKind == RPKResetPwd && ![_mobileTF.text isEqualToString:[[MineManager sharedInstance] getMyInfo].phone]) {
         
         //NSLocalizedString
-        [error appendString:@"必须使用注册时使用的手机号。"];
+        [error appendString:NSLocalizedString(@"must use signup phone num", nil)];
         
     }
     
@@ -202,7 +202,7 @@ SetTelCodeViewControllerDelegate>
     _verifyBtn.size = (CGSize){70,32};
     _verifyBtn.centerY = mobileBg.centerY;
     _verifyBtn.x = mobileBg.maxX - 5 - _verifyBtn.width;
-    [_verifyBtn setTitle:@"验证码" forState:UIControlStateNormal]; //NSLocalizedString
+    [_verifyBtn setTitle:NSLocalizedString(@"verify code", nil) forState:UIControlStateNormal]; //NSLocalizedString
     [_verifyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _verifyBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [_verifyBtn addTarget:self action:@selector(verifyCodeAction) forControlEvents:UIControlEventTouchUpInside];
@@ -212,7 +212,7 @@ SetTelCodeViewControllerDelegate>
     _mobileTF.frame = CGRectMake(mobileBg.x + 10, (mobileBg.height-20)/2 + mobileBg.y, _verifyBtn.x - 10 - (mobileBg.x + 10), 20);
     _mobileTF.font = [UIFont systemFontOfSize:16];
     _mobileTF.textColor = [UIColor darkGrayColor];
-    _mobileTF.placeholder = @"请输入手机号";//NSLocalizedString
+    _mobileTF.placeholder = NSLocalizedString(@"please input phone num", nil);//NSLocalizedString
     _mobileTF.keyboardType = UIKeyboardTypeNumberPad;
     [_contentView addSubview:_mobileTF];
     
@@ -227,7 +227,7 @@ SetTelCodeViewControllerDelegate>
     _verifyCodeTF.frame = CGRectMake(verifyCodeBg.x + 10, (verifyCodeBg.height-20)/2 + verifyCodeBg.y, verifyCodeBg.width-20, 20);
     _verifyCodeTF.font = [UIFont systemFontOfSize:16];
     _verifyCodeTF.textColor = [UIColor darkGrayColor];
-    _verifyCodeTF.placeholder = @"请输入验证码";//NSLocalizedString
+    _verifyCodeTF.placeholder = NSLocalizedString(@"please input verify code", nil);//NSLocalizedString
     _verifyCodeTF.keyboardType = UIKeyboardTypeNumberPad;
     [_contentView addSubview:_verifyCodeTF];
     
@@ -235,7 +235,7 @@ SetTelCodeViewControllerDelegate>
     btn.frame = CGRectMake(verifyCodeBg.x, verifyCodeBg.maxY + 27, verifyCodeBg.width, 40);
     btn.backgroundColor = UIColor_82b432;
     btn.layer.cornerRadius = 4;
-    [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
+    [btn setTitle:NSLocalizedString(@"submit", nil) forState:UIControlStateNormal];//NSLocalizedString
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:16];
     [btn addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];

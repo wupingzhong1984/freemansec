@@ -57,13 +57,13 @@
     
     // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
     //NSLocalizedString
-    self.tableView.headerPullToRefreshText = @"下拉可以刷新了";
-    self.tableView.headerReleaseToRefreshText = @"松开马上刷新了";
-    self.tableView.headerRefreshingText = @"正在拼命的刷新数据中，请稍后!";
+    self.tableView.headerPullToRefreshText = NSLocalizedString(@"release to refresh", nil);
+    self.tableView.headerReleaseToRefreshText = NSLocalizedString(@"release then refresh", nil);
+    self.tableView.headerRefreshingText = NSLocalizedString(@"updating data please wait", nil);
     
-    self.tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
-    self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
-    self.tableView.footerRefreshingText = @"正在拼命的加载中";
+    self.tableView.footerPullToRefreshText = NSLocalizedString(@"pull to get more data", nil);
+    self.tableView.footerReleaseToRefreshText = NSLocalizedString(@"release then load more data", nil);
+    self.tableView.footerRefreshingText = NSLocalizedString(@"loading data", nil);
     
     self.pageNum = 1;
     // 2.2秒后刷新表格UI

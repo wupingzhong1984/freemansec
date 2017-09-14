@@ -342,7 +342,7 @@
                         [[[UIAlertView alloc] initWithTitle:nil
                                                     message:@"没有麦克风权限"
                                                    delegate:nil
-                                          cancelButtonTitle:@"确定"
+                                          cancelButtonTitle:NSLocalizedString(@"alert OK", nil)
                                           otherButtonTitles:nil] show];
                     });
                 }

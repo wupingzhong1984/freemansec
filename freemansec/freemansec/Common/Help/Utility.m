@@ -168,18 +168,18 @@
 + (UIAlertController *)createAlertWithTitle:(NSString*)titleStr content:(NSString*)content okBtnTitle:(NSString*)btnStr {
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:titleStr message:content preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:(btnStr?btnStr:NSLocalizedString(@"OK", nil)) style:UIAlertActionStyleDefault handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:(btnStr?btnStr:NSLocalizedString(@"alert OK", nil)) style:UIAlertActionStyleDefault handler:nil]];
     return alert;
 }
 
 + (UIAlertController *)createNoticeAlertWithContent:(NSString*)content okBtnTitle:(NSString*)btnStr {
     //NSLocalizedString
-    return [self createAlertWithTitle:@"提示" content:content okBtnTitle:btnStr];
+    return [self createAlertWithTitle:NSLocalizedString(@"notice", nil) content:content okBtnTitle:btnStr];
 }
 
 + (UIAlertController *)createErrorAlertWithContent:(NSString*)content okBtnTitle:(NSString*)btnStr {
     //NSLocalizedString
-    return [self createAlertWithTitle:@"错误 " content:content okBtnTitle:btnStr];
+    return [self createAlertWithTitle:NSLocalizedString(@"error", nil) content:content okBtnTitle:btnStr];
 }
 
 @end

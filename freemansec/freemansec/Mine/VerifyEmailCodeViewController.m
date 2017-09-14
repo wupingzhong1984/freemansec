@@ -31,12 +31,12 @@
     
     if (!_verifyCodeTF.text.length) {
         
-        [error appendString:@"请输入验证码。"];
+        [error appendString:NSLocalizedString(@"please input verify code point", nil)];
     }
     
     if (_pwdTF.text.length < 6 || _pwdTF.text.length > 16) {
         
-        [error appendString:@"请正确输入密码。"];
+        [error appendString:NSLocalizedString(@"please input correct pwd", nil)];
     }
     
     if (!error.length) {
@@ -77,7 +77,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:@"邮箱注册" color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:NSLocalizedString(@"email sign", nil) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -130,7 +130,7 @@
     _verifyCodeTF.frame = CGRectMake(verifyCodeBg.x + 10, (verifyCodeBg.height-20)/2 + verifyCodeBg.y, verifyCodeBg.width-20, 20);
     _verifyCodeTF.font = [UIFont systemFontOfSize:16];
     _verifyCodeTF.textColor = [UIColor darkGrayColor];
-    _verifyCodeTF.placeholder = @"请输入验证码";//NSLocalizedString
+    _verifyCodeTF.placeholder = NSLocalizedString(@"please input verify code", nil);//NSLocalizedString
     _verifyCodeTF.keyboardType = UIKeyboardTypeNumberPad;
     [_contentView addSubview:_verifyCodeTF];
     
@@ -145,7 +145,7 @@
     _pwdTF.frame = CGRectMake(pwdBg.x + 10, (pwdBg.height-20)/2 + pwdBg.y, pwdBg.width-20, 20);
     _pwdTF.font = [UIFont systemFontOfSize:16];
     _pwdTF.textColor = [UIColor darkGrayColor];
-    _pwdTF.placeholder = @"请输入6-16位登录密码";//NSLocalizedString
+    _pwdTF.placeholder = NSLocalizedString(@"please input login pwd", nil);//NSLocalizedString
     _pwdTF.secureTextEntry = YES;
     [_contentView addSubview:_pwdTF];
 
@@ -153,7 +153,7 @@
     submit.frame = CGRectMake(pwdBg.x, pwdBg.maxY + 50, pwdBg.width, 40);
     submit.backgroundColor = UIColor_82b432;
     submit.layer.cornerRadius = 4;
-    [submit setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
+    [submit setTitle:NSLocalizedString(@"submit", nil) forState:UIControlStateNormal];//NSLocalizedString
     [submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     submit.titleLabel.font = [UIFont systemFontOfSize:16];
     [submit addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];

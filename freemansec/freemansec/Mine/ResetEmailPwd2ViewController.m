@@ -29,7 +29,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     v.backgroundColor = UIColor_navibg;
     
-    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?@"重设密码":@"找回密码") color:UIColor_navititle];//NSLocalizedString
+    UIView *title = [self commNaviTitle:(_resetPwdKind == RPKResetPwd?NSLocalizedString(@"reset pwd", nil):NSLocalizedString(@"find pwd back", nil)) color:UIColor_navititle];//NSLocalizedString
     title.centerY = (v.height - 20)/2 + 20;
     [v addSubview:title];
     
@@ -61,12 +61,12 @@
     NSMutableString *error = [NSMutableString string];
     if (!_verifyCodeTF.text.length) {
         
-        [error appendString:@"请输入验证码"];
+        [error appendString:NSLocalizedString(@"please input verify code point", nil)];
     }
     
     if (_nPwdTF.text.length < 6 || _nPwdTF.text.length > 16) {
         
-        [error appendString:@"请正确输入密码。"];
+        [error appendString:NSLocalizedString(@"please input correct pwd", nil)];
     }
     
     if (![_nPwdTF2.text isEqualToString:_nPwdTF.text]) {
@@ -115,7 +115,7 @@
     _verifyCodeTF.frame = CGRectMake(verifyCodeBg.x + 10, (verifyCodeBg.height-20)/2 + verifyCodeBg.y, verifyCodeBg.width-20, 20);
     _verifyCodeTF.font = [UIFont systemFontOfSize:16];
     _verifyCodeTF.textColor = [UIColor darkGrayColor];
-    _verifyCodeTF.placeholder = @"请输入验证码";//NSLocalizedString
+    _verifyCodeTF.placeholder = NSLocalizedString(@"please input verify code", nil);//NSLocalizedString
     _verifyCodeTF.keyboardType = UIKeyboardTypeNumberPad;
     [_contentView addSubview:_verifyCodeTF];
     
@@ -130,7 +130,7 @@
     _nPwdTF.frame = CGRectMake(verifyCodeBg.x + 10, (verifyCodeBg.height-20)/2 + pwdBg.y, verifyCodeBg.width-20, 20);
     _nPwdTF.font = [UIFont systemFontOfSize:16];
     _nPwdTF.textColor = [UIColor darkGrayColor];
-    _nPwdTF.placeholder = @"请输入6-16位新密码";//NSLocalizedString
+    _nPwdTF.placeholder = NSLocalizedString(@"please input new pwd", nil);//NSLocalizedString
     _nPwdTF.secureTextEntry = YES;
     [_contentView addSubview:_nPwdTF];
     
@@ -145,7 +145,7 @@
     _nPwdTF2.frame = CGRectMake(verifyCodeBg.x + 10, (verifyCodeBg.height-20)/2 + pwdBg2.y, verifyCodeBg.width-20, 20);
     _nPwdTF2.font = [UIFont systemFontOfSize:16];
     _nPwdTF2.textColor = [UIColor darkGrayColor];
-    _nPwdTF2.placeholder = @"再输入一次密码";//NSLocalizedString
+    _nPwdTF2.placeholder = NSLocalizedString(@"input pwd again", nil);//NSLocalizedString
     [_contentView addSubview:_nPwdTF2];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -154,7 +154,7 @@
     btn.y = pwdBg2.maxY + 27;
     btn.backgroundColor = UIColor_82b432;
     btn.layer.cornerRadius = 4;
-    [btn setTitle:@"提交" forState:UIControlStateNormal];//NSLocalizedString
+    [btn setTitle:NSLocalizedString(@"submit", nil) forState:UIControlStateNormal];//NSLocalizedString
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:16];
     [btn addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];

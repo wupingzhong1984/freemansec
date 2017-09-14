@@ -37,7 +37,7 @@
         [self.contentView addSubview:_imgV];
         
         //NSLocalizedString
-        UILabel *count = [UILabel createLabelWithFrame:CGRectZero text:@"播放数：" textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:13]];
+        UILabel *count = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"play count", nil) textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:13]];
         [count sizeToFit];
         count.x = _imgV.maxX + 10;
         count.y = _imgV.maxY - count.height;

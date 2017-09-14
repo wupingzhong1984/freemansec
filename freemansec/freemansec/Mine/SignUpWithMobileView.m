@@ -65,7 +65,7 @@
         _verifyBtn.size = (CGSize){70,32};
         _verifyBtn.centerY = mobileBg.centerY;
         _verifyBtn.x = mobileBg.maxX - 5 - _verifyBtn.width;
-        [_verifyBtn setTitle:@"验证码" forState:UIControlStateNormal]; //NSLocalizedString
+        [_verifyBtn setTitle:NSLocalizedString(@"verify code", nil) forState:UIControlStateNormal]; //NSLocalizedString
         [_verifyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _verifyBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [self addSubview:_verifyBtn];
@@ -74,7 +74,7 @@
         _mobileTF.frame = CGRectMake(mobileBg.x + 10, (mobileBg.height-20)/2 + mobileBg.y, _verifyBtn.x - 10 - (mobileBg.x + 10), 20);
         _mobileTF.font = [UIFont systemFontOfSize:16];
         _mobileTF.textColor = [UIColor darkGrayColor];
-        _mobileTF.placeholder = @"请输入手机号";//NSLocalizedString
+        _mobileTF.placeholder = NSLocalizedString(@"please input phone num", nil);//NSLocalizedString
         _mobileTF.keyboardType = UIKeyboardTypeNumberPad;
         [self addSubview:_mobileTF];
         
@@ -89,7 +89,7 @@
         _verifyCodeTF.frame = CGRectMake(verifyCodeBg.x + 10, (verifyCodeBg.height-20)/2 + verifyCodeBg.y, verifyCodeBg.width-20, 20);
         _verifyCodeTF.font = [UIFont systemFontOfSize:16];
         _verifyCodeTF.textColor = [UIColor darkGrayColor];
-        _verifyCodeTF.placeholder = @"请输入验证码";//NSLocalizedString
+        _verifyCodeTF.placeholder = NSLocalizedString(@"please input verify code", nil);//NSLocalizedString
         _verifyCodeTF.keyboardType = UIKeyboardTypeNumberPad;
         [self addSubview:_verifyCodeTF];
         
@@ -104,7 +104,7 @@
         _pwdTF.frame = CGRectMake(pwdBg.x + 10, (pwdBg.height-20)/2 + pwdBg.y, pwdBg.width-20, 20);
         _pwdTF.font = [UIFont systemFontOfSize:16];
         _pwdTF.textColor = [UIColor darkGrayColor];
-        _pwdTF.placeholder = @"请输入6-16位登录密码";//NSLocalizedString
+        _pwdTF.placeholder = NSLocalizedString(@"please input login pwd", nil);//NSLocalizedString
         _pwdTF.secureTextEntry = YES;
         [self addSubview:_pwdTF];
         
@@ -113,7 +113,7 @@
         _agreeIV.y = pwdBg.maxY + 13;
         [self addSubview:_agreeIV];
         
-        UILabel *agreem = [UILabel createLabelWithFrame:CGRectZero text:@"我已阅读并同意<条例>" textColor:[UIColor grayColor] font:[UIFont systemFontOfSize:15]];
+        UILabel *agreem = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"I have read policy", nil) textColor:[UIColor grayColor] font:[UIFont systemFontOfSize:15]];
         [agreem sizeToFit];
         agreem.x = _agreeIV.maxX + 5;
         agreem.centerY = _agreeIV.centerY;
@@ -134,12 +134,12 @@
         _signBtn.frame = CGRectMake(pwdBg.x, _agreeIV.maxY + 25, pwdBg.width, 40);
         _signBtn.backgroundColor = UIColor_82b432;
         _signBtn.layer.cornerRadius = 4;
-        [_signBtn setTitle:@"注册" forState:UIControlStateNormal];//NSLocalizedString
+        [_signBtn setTitle:NSLocalizedString(@"sign", nil) forState:UIControlStateNormal];//NSLocalizedString
         [_signBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _signBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [self addSubview:_signBtn];
         
-        UILabel *change = [UILabel createLabelWithFrame:CGRectZero text:@"用邮箱注册" textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:15]];
+        UILabel *change = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"sign by email", nil) textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:15]];
         [change sizeToFit];//NSLocalizedString
         change.x = _signBtn.maxX - change.width;
         change.y = _signBtn.maxY + 15;

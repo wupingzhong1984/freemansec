@@ -34,7 +34,7 @@
         _emailTF.frame = CGRectMake(emailBg.x + 10, (emailBg.height-20)/2 + emailBg.y, emailBg.width-20, 20);
         _emailTF.font = [UIFont systemFontOfSize:16];
         _emailTF.textColor = [UIColor darkGrayColor];
-        _emailTF.placeholder = @"请输入邮箱";//NSLocalizedString
+        _emailTF.placeholder = NSLocalizedString(@"please input email", nil);//NSLocalizedString
         _emailTF.keyboardType = UIKeyboardTypeEmailAddress;
         [self addSubview:_emailTF];
         
@@ -43,7 +43,7 @@
         _agreeIV.y = emailBg.maxY + 13;
         [self addSubview:_agreeIV];
         
-        UILabel *agreem = [UILabel createLabelWithFrame:CGRectZero text:@"我已阅读并同意<条例>" textColor:[UIColor grayColor] font:[UIFont systemFontOfSize:15]];
+        UILabel *agreem = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"I have read policy", nil) textColor:[UIColor grayColor] font:[UIFont systemFontOfSize:15]];
         [agreem sizeToFit];
         agreem.x = _agreeIV.maxX + 5;
         agreem.centerY = _agreeIV.centerY;
@@ -64,12 +64,12 @@
         _signBtn.frame = CGRectMake(emailBg.x, _agreeIV.maxY + 25, emailBg.width, 40);
         _signBtn.backgroundColor = UIColor_82b432;
         _signBtn.layer.cornerRadius = 4;
-        [_signBtn setTitle:@"注册" forState:UIControlStateNormal];//NSLocalizedString
+        [_signBtn setTitle:NSLocalizedString(@"sign", nil) forState:UIControlStateNormal];//NSLocalizedString
         [_signBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _signBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [self addSubview:_signBtn];
         
-        UILabel *change = [UILabel createLabelWithFrame:CGRectZero text:@"用手机注册" textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:15]];
+        UILabel *change = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"sign by phone", nil) textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:15]];
         [change sizeToFit];//NSLocalizedString
         change.x = _signBtn.maxX - change.width;
         change.y = _signBtn.maxY + 15;
