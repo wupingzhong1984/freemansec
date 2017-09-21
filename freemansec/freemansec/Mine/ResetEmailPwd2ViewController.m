@@ -71,7 +71,7 @@
     
     if (![_nPwdTF2.text isEqualToString:_nPwdTF.text]) {
         
-        [error appendString:@"请正确重复输入密码。"];
+        [error appendString:NSLocalizedString(@"please input correct pwd again", nil)];
     }
     
     if (!error.length) {

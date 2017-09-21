@@ -85,7 +85,7 @@
                 [self.timer invalidate];
                 self.timer = nil;
                 _verifyBtn.enabled = YES;
-                [_verifyBtn setTitle:@"验证码" forState:UIControlStateNormal];
+                [_verifyBtn setTitle:NSLocalizedString(@"verify code", nil) forState:UIControlStateNormal];
             }
             
         }];

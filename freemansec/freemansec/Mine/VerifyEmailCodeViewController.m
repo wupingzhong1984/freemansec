@@ -115,7 +115,7 @@
     title.textColor = [UIColor blackColor];
     //NSLocalizedString
     title.numberOfLines = 0;
-    [Utility formatLabel:title text:@"提示：相关验证码信息已发送至您的邮箱，验证码有效期为15分钟。" font:[UIFont systemFontOfSize:16] lineSpacing:4];
+    [Utility formatLabel:title text:NSLocalizedString(@"verify code sent notice", nil) font:[UIFont systemFontOfSize:16] lineSpacing:4];
     title.centerY = icon.centerY;
     [_contentView addSubview:title];
     

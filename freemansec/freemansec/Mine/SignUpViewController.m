@@ -76,7 +76,7 @@ UserPolicyViewControllerDelegate>
                 [self.timer invalidate];
                 self.timer = nil;
                 _mobileSignView.verifyBtn.enabled = YES;
-                [_mobileSignView.verifyBtn setTitle:@"验证码" forState:UIControlStateNormal];
+                [_mobileSignView.verifyBtn setTitle:NSLocalizedString(@"verify code", nil) forState:UIControlStateNormal];
             }
             
         }];

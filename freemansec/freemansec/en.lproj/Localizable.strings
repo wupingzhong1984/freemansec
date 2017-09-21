@@ -151,4 +151,15 @@
 "people business live" = "民众财经直播";
 "living" = "直播中";
 "playback" = "回看";
+"point num" = "金币数";
+"clear memory" = "清除缓存";
+"cur version" = "当前版本";
+"no login" = "未登录";
+"please input correct username and pwd" = "请正确输入用户名和密码。";
+"the channel is not living" = "此频道当前未在直播中。";
+"enter chartroom failed" = "进入聊天室失败";
+"login failed" = "登录失败";
+"the living is end" = "该直播已停止。";
+"pushing has error and restart" = "推流过程中发生错误，请尝试重新开启。";
+"verify code sent notice" = "提示：相关验证码信息已发送至您的邮箱，验证码有效期为15分钟。"
 

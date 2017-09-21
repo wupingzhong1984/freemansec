@@ -39,7 +39,7 @@
     
     if (!_uNameTF.text.length || !_pwdTF.text.length) {
         
-        [self presentViewController:[Utility createNoticeAlertWithContent:@"请正确数据用户名和密码。" okBtnTitle:nil] animated:YES completion:nil];
+        [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"please input correct username and pwd", nil) okBtnTitle:nil] animated:YES completion:nil];
         return;
     }
     

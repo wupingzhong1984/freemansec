@@ -57,7 +57,7 @@
         _stateLight.layer.cornerRadius = 3;
         _stateLight.backgroundColor = [UIColor greenColor];
         
-        self.stateLbl = [UILabel createLabelWithFrame:CGRectZero text:@"直播中" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:13]];
+        self.stateLbl = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"living",nil) textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:13]];
         [_stateLbl sizeToFit];
         
         self.living = [[UIView alloc] init];

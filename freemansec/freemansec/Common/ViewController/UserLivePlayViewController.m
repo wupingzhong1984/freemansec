@@ -244,7 +244,7 @@ NIMSessionViewControllerDelegate>
         if (error || !detailModel || (![detailModel.status isEqualToString:@"1"] &&
                                       ![detailModel.status isEqualToString:@"3"])) {
             liveStreamOK = NO;
-            [self presentViewController:[Utility createNoticeAlertWithContent:@"此频道当前未在直播中。" okBtnTitle:nil] animated:YES completion:nil];
+            [self presentViewController:[Utility createNoticeAlertWithContent:NSLocalizedString(@"the channel is not living", nil) okBtnTitle:nil] animated:YES completion:nil];
             return;
             
         } else {
@@ -440,7 +440,7 @@ NIMSessionViewControllerDelegate>
                                                                                            [self.view bringSubviewToFront:_imBtn];
                                                                                            [self.view bringSubviewToFront:_markBtn];
                                                                                            [self.view bringSubviewToFront:_closeBtn];
-                                                                                           NSString *toast = [NSString stringWithFormat:@"进入聊天室失败 code:%zd",error.code];
+                                                                                           NSString *toast = [NSString stringWithFormat:@"%@ code:%zd",NSLocalizedString(@"enter chartroom failed", nil),error.code];
                                                                                            [wself.view makeToast:toast duration:2.0 position:CSToastPositionCenter];
                                                                                            NNSLog(@"enter room %@ failed %@",chatroom.roomId,error);
                                                                                        }
@@ -454,7 +454,7 @@ NIMSessionViewControllerDelegate>
                                           [self.view bringSubviewToFront:_imBtn];
                                           [self.view bringSubviewToFront:_markBtn];
                                           [self.view bringSubviewToFront:_closeBtn];
-                                          NSString *toast = [NSString stringWithFormat:@"登录失败 code: %zd",error.code];
+                                          NSString *toast = [NSString stringWithFormat:@"%@ code: %zd",NSLocalizedString(@"login failed", nil),error.code];
                                           [self.view makeToast:toast duration:2.0 position:CSToastPositionCenter];
                                       }
                                   }];
@@ -503,7 +503,7 @@ NIMSessionViewControllerDelegate>
     {
         case NELPMovieFinishReasonPlaybackEnded:
             if ([self.mediaType isEqualToString:@"livestream"]) {
-                alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:@"该直播已停止。" preferredStyle:UIAlertControllerStyleAlert];
+                alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"the living is end", nil) preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style: UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     
                     [self.liveplayer pause];

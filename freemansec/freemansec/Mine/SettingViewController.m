@@ -140,7 +140,7 @@
     line = [cell.contentView viewWithTag:3];
     
     if (indexPath.row == 0) {
-        lb1.text = @"清除缓存";
+        lb1.text = NSLocalizedString(@"clear memory", nil);
         
         CGFloat size = [[SDImageCache sharedImageCache] getSize];
         NSString *message = [NSString stringWithFormat:@"%.2fB", size];
@@ -170,7 +170,7 @@
         
         line.hidden = NO;
     } else {
-        lb1.text = @"当前版本";
+        lb1.text = NSLocalizedString(@"cur version", nil);
         NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
         lb2.text = [NSString stringWithFormat:@"V%@",[infoDict objectForKey:@"CFBundleShortVersionString"]];
         line.hidden = YES;

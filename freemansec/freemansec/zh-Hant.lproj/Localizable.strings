@@ -152,3 +152,14 @@
 "people business live" = "民衆財經直播";
 "living" = "直播中";
 "playback" = "回看";
+"point num" = "金幣數";
+"clear memory" = "清除緩存";
+"cur version" = "當前版本";
+"no login" = "未登錄";
+"please input correct username and pwd" = "請正確輸入用戶名和密碼。";
+"the channel is not living" = "此頻道當前未在直播中。";
+"enter chartroom failed" = "進入聊天室失敗";
+"login failed" = "登錄失敗";
+"the living is end" = "直播已停止。";
+"pushing has error and restart" = "推流過程中發生錯誤，請嘗試重新開啓。";
+"verify code sent notice" = "提示：相關驗證碼信息已發送至您的郵箱，驗證碼有效期為15分鍾。"

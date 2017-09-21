@@ -216,7 +216,7 @@
         face.center = visualEffectView2.center;
         [con1 addSubview:face];
         
-        name = [UILabel createLabelWithFrame:CGRectZero text:@"未登录" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:16]];
+        name = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"no login", nil) textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:16]];
         name.tag = 2;
         [name sizeToFit];
         name.width = tableView.width;
@@ -238,7 +238,7 @@
         visualEffectView3.alpha = 0.5;
         [_pointBg addSubview:visualEffectView3];
         
-        self.pLbl = [UILabel createLabelWithFrame:CGRectZero text:@"金币数" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:14]];
+        self.pLbl = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"point num", nil) textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:14]];
         [_pLbl sizeToFit];
         [container addSubview:_pLbl];
         
@@ -255,7 +255,7 @@
     if ([[MineManager sharedInstance] getMyInfo]) {
         name.text = [[MineManager sharedInstance] getMyInfo].nickName;
     } else {
-        name.text = @"未登录";
+        name.text = NSLocalizedString(@"no login", nil);
     }
     
     

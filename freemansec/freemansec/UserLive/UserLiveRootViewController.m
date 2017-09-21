@@ -72,7 +72,7 @@ NIMSessionViewControllerDelegate>{
 - (void)showErrorAlert:(NSError*)error {
     NSString *errMsg = @"";
     if(error == nil){
-        errMsg = @"推流过程中发生错误，请尝试重新开启";
+        errMsg = NSLocalizedString(@"pushing has error and restart", nil);
         
     }else if([error class] == [NSError class]){
         errMsg = [error localizedDescription];
@@ -452,7 +452,7 @@ NIMSessionViewControllerDelegate>{
         if (error) {
             
             UIAlertController *alert =
-            [UIAlertController alertControllerWithTitle:@"错误"
+            [UIAlertController alertControllerWithTitle:NSLocalizedString(@"error", nil)
                                                 message:[error.userInfo objectForKey:NSLocalizedDescriptionKey]
                                          preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -598,7 +598,7 @@ NIMSessionViewControllerDelegate>{
                                                                                            }
                                                                                            else
                                                                                            {
-                                                                                               NSString *toast = [NSString stringWithFormat:@"进入聊天室失败 code:%zd",error.code];
+                                                                                               NSString *toast = [NSString stringWithFormat:@"%@ code:%zd",NSLocalizedString(@"enter chartroom failed", nil),error.code];
                                                                                                [wself.view makeToast:toast duration:2.0 position:CSToastPositionCenter];
                                                                                                NNSLog(@"enter room %@ failed %@",chatroom.roomId,error);
                                                                                            }
@@ -608,7 +608,7 @@ NIMSessionViewControllerDelegate>{
                                           }
                                           else
                                           {
-                                              NSString *toast = [NSString stringWithFormat:@"登录失败 code: %zd",error.code];
+                                              NSString *toast = [NSString stringWithFormat:@"%@ code: %zd",NSLocalizedString(@"login failed", nil),error.code];
                                               [self.view makeToast:toast duration:2.0 position:CSToastPositionCenter];
                                           }
                                       }];

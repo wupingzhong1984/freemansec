@@ -294,7 +294,7 @@
             [self.liveplayer pause];
             played=NO;
             [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
-            alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:@"视频结束" preferredStyle:UIAlertControllerStyleAlert];
+            alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"video end", nil) preferredStyle:UIAlertControllerStyleAlert];
             action = [UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style:UIAlertActionStyleDefault handler:nil];
             [alertController addAction:action];
             [self presentViewController:alertController animated:YES completion:nil];
@@ -305,7 +305,7 @@
             [self.liveplayer pause];
             played=NO;
             [self.stateButton setImage:[UIImage imageNamed:@"play_bar_play.png"] forState:UIControlStateNormal];
-            alertController = [UIAlertController alertControllerWithTitle:@"注意" message:NSLocalizedString(@"play failed", nil) preferredStyle:UIAlertControllerStyleAlert];
+            alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"notice", nil) message:NSLocalizedString(@"play failed", nil) preferredStyle:UIAlertControllerStyleAlert];
             action = [UIAlertAction actionWithTitle:NSLocalizedString(@"alert OK", nil) style:UIAlertActionStyleDefault handler:nil];
             [alertController addAction:action];
             [self presentViewController:alertController animated:YES completion:nil];
