@@ -97,8 +97,9 @@ typedef void(^CancelMyAttentionCompletion)(NSError* _Nullable error);
 - (void)getCityListByProvinceId:(NSString* _Nullable)pId completion:(CityListCompletion _Nullable)completion;
 - (void)getAreaListByCityId:(NSString* _Nullable)cId completion:(AreaListCompletion _Nullable)completion;
 
-- (void)getMyVideoListCompletion:(MyVideoListCompletion _Nullable)completion;
-- (void)getMyFavourListCompletion:(MyFavourListCompletion _Nullable)completion;
+- (void)getMyVideoListPageNum:(NSInteger)pageNum completion:(MyVideoListCompletion _Nullable)completion;
+- (void)getMyOfficalFavourListCompletion:(MyFavourListCompletion _Nullable)completion;
+- (void)getMyUserFavourListCompletion:(MyFavourListCompletion _Nullable)completion;
 - (void)getMyAttentionListCompletion:(MyAttentionListCompletion _Nullable)completion;
 - (void)addMyAttentionLiveId:(NSString* _Nullable)liveId completion:(AddMyAttentionCompletion _Nullable)completion;
 - (void)cancelMyAttentionLiveId:(NSString* _Nullable)liveId completion:(CancelMyAttentionCompletion _Nullable)completion;

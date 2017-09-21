@@ -34,21 +34,6 @@ static VideoManager *instance;
     return instance;
 }
 
-+ (BOOL)videoKindNeedUpdate {
-    
-    NSDate *lastUpdateTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"videokindlastupdatetime"];
-    if (!lastUpdateTime || [[NSDate date] timeIntervalSinceDate:lastUpdateTime] > 3600) {
-        
-        return YES;
-    }
-    
-    return NO;
-}
-
-+ (void)updateVideoKindLastUpdateTime:(NSDate*_Nullable)time {
-    
-        [[NSUserDefaults standardUserDefaults] setObject:time forKey:@"videokindlastupdatetime"];
-}
 
 //- (void)getVideoKindCompletion:(VideoKindListCompletion _Nullable)completion {
 //    VideoHttpService* service = [[VideoHttpService alloc] init];
@@ -80,10 +65,10 @@ static VideoManager *instance;
 //    }];
 //}
 
-- (void)getVideoListPageNum:(NSInteger)pageNum pageSize:(NSInteger)pageSize completion:(VideoListCompletion _Nullable)completion {
+- (void)getVideoListPageNum:(NSInteger)pageNum completion:(VideoListCompletion _Nullable)completion {
     
     VideoHttpService* service = [[VideoHttpService alloc] init];
-    [service getVideoListPageNum:[NSString stringWithFormat:@"%d",(int)pageNum] pageSize:[NSString stringWithFormat:@"%d",(int)pageSize] status:@"40" type:@"0" completion:^(id obj, NSError *err) {
+    [service getVideoListPageNum:[NSString stringWithFormat:@"%d",(int)pageNum] completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);

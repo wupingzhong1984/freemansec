@@ -10,7 +10,7 @@
 #import "MJRefresh.h"
 #import "VideoModel.h"
 #import "VideoListCell.h"
-#import "VideoPlayViewController.h"
+#import "PlayBackDetailViewController.h"
 
 @interface VideoRoot2ViewController ()
 <UITableViewDelegate,UITableViewDataSource>
@@ -35,7 +35,7 @@
 - (UIView*)nodataView {
     
     if (!_nodataView) {
-        _nodataView = [[NodataView alloc] initWithTitle:@"暂无数据"];
+        _nodataView = [[NodataView alloc] initWithTitle:NSLocalizedString(@"no result data", nil)];
         _nodataView.center = _tableView.center;
     }
     
@@ -60,7 +60,7 @@
 
 - (void)createTableView{
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, K_UIScreenWidth, K_UIScreenHeight - 64) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, K_UIScreenWidth, K_UIScreenHeight - 64 - 49) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsHorizontalScrollIndicator = NO;
@@ -121,7 +121,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
@@ -132,6 +131,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
+    self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = YES;
@@ -158,7 +158,7 @@
     
     [self.nodataView removeFromSuperview];
     
-    [[VideoManager sharedInstance] getVideoListPageNum:_pageNum pageSize:20 completion:^(NSArray * _Nullable videoList, NSError * _Nullable error) {
+    [[VideoManager sharedInstance] getVideoListPageNum:_pageNum completion:^(NSArray * _Nullable videoList, NSError * _Nullable error) {
         
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
@@ -231,8 +231,11 @@
     }
     
     VideoModel * videoModel = [self.videoList objectAtIndex:indexPath.row];
-    VideoPlayViewController *vc = [[VideoPlayViewController alloc] init];
-    vc.videoModel = videoModel;
+    
+    PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
+    vc.playBackId = videoModel.videoId;
+    vc.name = videoModel.videoName;
+    vc.playBackType = @"0";
     [self.navigationController pushViewController:vc animated:YES];
 }
 

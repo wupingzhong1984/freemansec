@@ -216,10 +216,10 @@ static MineManager *instance;
     }];
 }
 
-- (void)getMyVideoListCompletion:(MyVideoListCompletion _Nullable)completion {
+- (void)getMyVideoListPageNum:(NSInteger)pageNum completion:(MyVideoListCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service getMyVideoListByUserId:@"" completion:^(id obj, NSError *err) {
+    [service getMyVideoListByCid:[[MineManager sharedInstance] getMyInfo].cId pageNum:pageNum completion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -232,10 +232,26 @@ static MineManager *instance;
     }];
 }
 
-- (void)getMyFavourListCompletion:(MyFavourListCompletion _Nullable)completion {
+- (void)getMyOfficalFavourListCompletion:(MyFavourListCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service getMyFavourListByUserId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
+    [service getMyOfficalFavourListCompletion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+    }];
+}
+
+- (void)getMyUserFavourListCompletion:(MyFavourListCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service getMyUserFavourListCompletion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);
@@ -251,7 +267,7 @@ static MineManager *instance;
 - (void)getMyAttentionListCompletion:(MyAttentionListCompletion _Nullable)completion {
     
     MineHttpService* service = [[MineHttpService alloc] init];
-    [service getMyAttentionListByUserId:[self getMyInfo].userId completion:^(id obj, NSError *err) {
+    [service getMyAttentionListCompletion:^(id obj, NSError *err) {
         if(err){
             
             completion(nil,err);

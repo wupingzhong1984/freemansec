@@ -124,7 +124,7 @@
     [self initDBIfNeed];
     
     [LiveManager updateLiveBannerLastUpdateTime:nil];
-    [VideoManager updateVideoKindLastUpdateTime:nil];
+    [LiveManager updateLiveTypeLastUpdateTime:nil];
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -176,6 +176,18 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    //language update
+    NSString *lastLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastapplanguage"];
+    NSArray *languages = [NSLocale preferredLanguages];
+    NSString *currentLanguage = [languages objectAtIndex:0];
+    if (!lastLang || ![currentLanguage isEqualToString:lastLang]) {
+        
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"livebannerlastupdatetime"];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"livetypelastupdatetime"];
+    }
+    
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(appearLogin) name:kNotificationLoadUserLogin object:nil];
     

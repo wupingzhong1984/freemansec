@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XBScrollPageController.h"
 
-@interface MyFavourViewController : UIViewController
+@interface MyFavourViewController : XBScrollPageController
 
 @end

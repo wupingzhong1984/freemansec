@@ -13,6 +13,7 @@
 #import "LivePlayViewController.h"
 #import "UserLivePlayViewController.h"
 #import "MJRefresh.h"
+#import "PlayBackDetailViewController.h"
 
 @interface LiveSearchViewController ()
 <LiveSearchQuickChoiceViewDelegate,
@@ -48,7 +49,7 @@ LivePlayViewControllerDelegate>
 - (UIView*)nodataView {
     
     if (!_nodataView) {
-        _nodataView = [[NodataView alloc] initWithTitle:@"未搜索到数据"];
+        _nodataView = [[NodataView alloc] initWithTitle:NSLocalizedString(@"no search result data", nil)];
         _nodataView.center = _collView.center;
     }
     
@@ -77,7 +78,7 @@ LivePlayViewControllerDelegate>
     self.searchTF = [[UITextField alloc] initWithFrame:CGRectMake(icon.maxX + 10, whiteBg.y + (whiteBg.height - 17)/2, whiteBg.maxX - whiteBg.height/2 - (icon.maxX + 10), 17)];
     _searchTF.font = [UIFont systemFontOfSize:16];
     _searchTF.textColor = [UIColor darkGrayColor];
-    _searchTF.placeholder = @"搜索频道栏目";
+    _searchTF.placeholder = NSLocalizedString(@"search channel", nil);
     _searchTF.returnKeyType = UIReturnKeySearch;
     _searchTF.delegate = self;
     [v addSubview:_searchTF];
@@ -350,8 +351,6 @@ LivePlayViewControllerDelegate>
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    _lastSelectIndex = indexPath.row;
-    
     LiveSearchResultModel *model = [_resultArray objectAtIndex:indexPath.row];
     
     if (model.cid.length > 0 ) { //个人
@@ -362,10 +361,22 @@ LivePlayViewControllerDelegate>
             return;
         }
         
-        UserLivePlayViewController *vc = [[UserLivePlayViewController alloc] init];
-        vc.userLiveChannelModel = model;
-        vc.delegate = self;
-        [self.navigationController pushViewController:vc animated:YES];
+        if ([model.state isEqualToString:@"1"] || [model.state isEqualToString:@"3"]) {
+            
+            _lastSelectIndex = indexPath.row;
+            UserLivePlayViewController *vc = [[UserLivePlayViewController alloc] init];
+            vc.userLiveChannelModel = model;
+            vc.delegate = self;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        } else if (model.vid.length > 0) {
+            
+            PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
+            vc.playBackId = model.vid;
+            vc.name = model.liveName;
+            vc.playBackType = @"0";
+            [self.navigationController pushViewController:vc animated:YES];
+        }
         
     } else { //官方
         

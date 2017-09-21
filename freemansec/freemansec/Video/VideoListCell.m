@@ -22,6 +22,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        self.backgroundColor = [UIColor clearColor];
+        
         UIView *cellBg = [[UIView alloc]
                           initWithFrame:CGRectMake(10,
                                                    10,
@@ -34,14 +36,14 @@
         [self.contentView addSubview:cellBg];
         
         self.imgV = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 120, 90)];
-        [self.contentView addSubview:_imgV];
+        [cellBg addSubview:_imgV];
         
         //NSLocalizedString
         UILabel *count = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"play count", nil) textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:13]];
         [count sizeToFit];
         count.x = _imgV.maxX + 10;
         count.y = _imgV.maxY - count.height;
-        [self.contentView addSubview:count];
+        [cellBg addSubview:count];
         
         self.countLbl = [[UILabel alloc] init];
         _countLbl.textColor = [UIColor blackColor];
@@ -50,13 +52,13 @@
         _countLbl.y = count.y;
         _countLbl.height = count.height;
         _countLbl.width = cellBg.maxX - 10 - _countLbl.x;
-        [self.contentView addSubview:_countLbl];
+        [cellBg addSubview:_countLbl];
         
         UILabel *author = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"uploader", nil) textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:13]];
         [author sizeToFit];
         author.x = _imgV.maxX + 10;
         author.y = count.y - 10 - author.height;
-        [self.contentView addSubview:author];
+        [cellBg addSubview:author];
         
         self.authorLbl = [[UILabel alloc] init];
         _authorLbl.textColor = [UIColor blackColor];
@@ -65,7 +67,7 @@
         _authorLbl.y = author.y;
         _authorLbl.height = author.height;
         _authorLbl.width = cellBg.maxX - 10 - _authorLbl.x;
-        [self.contentView addSubview:_authorLbl];
+        [cellBg addSubview:_authorLbl];
         
         self.nameLbl = [[UILabel alloc] init];
         _nameLbl.textColor = [UIColor blackColor];
@@ -75,7 +77,7 @@
         _nameLbl.text = @"1";
         [_nameLbl sizeToFit];
         _nameLbl.width = cellBg.maxX - 10 - _nameLbl.x;
-        [self.contentView addSubview:_nameLbl];
+        [cellBg addSubview:_nameLbl];
     }
     return self;
 }
@@ -86,7 +88,7 @@
         
         _videoModel = videoModel;
         
-        [_imgV sd_setImageWithURL:[NSURL URLWithString:_videoModel.snapshotUrl]];
+        [_imgV sd_setImageWithURL:[NSURL URLWithString:_videoModel.snapshotUrl] placeholderImage:[UIImage imageNamed:@"cover_place.png"]];
         
         _nameLbl.text = _videoModel.videoName;
         _authorLbl.text = _videoModel.authorName;

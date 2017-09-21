@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MyVideoModel.h"
+#import "VideoModel.h"
 
 @interface MyVideoListCell : UITableViewCell
 
-@property (nonatomic,strong) MyVideoModel *videoModel;
+@property (nonatomic,strong) VideoModel *videoModel;
 @end

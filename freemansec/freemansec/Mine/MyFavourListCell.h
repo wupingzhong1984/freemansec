@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MyFavourModel.h"
+#import "VideoModel.h"
 
 @interface MyFavourListCell : UITableViewCell
-@property (nonatomic,strong) MyFavourModel *favourModel;
+@property (nonatomic,strong) VideoModel *videoModel;
 @end

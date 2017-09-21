@@ -56,6 +56,22 @@ static LiveManager *instance;
     [[NSUserDefaults standardUserDefaults] setObject:time forKey:@"livebannerlastupdatetime"];
 }
 
++ (BOOL)liveTypeNeedUpdate {
+    
+    NSDate *lastUpdateTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"livetypelastupdatetime"];
+    if (!lastUpdateTime || [[NSDate date] timeIntervalSinceDate:lastUpdateTime] > 3600) {
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
++ (void)updateLiveTypeLastUpdateTime:(NSDate*_Nullable)time {
+    
+    [[NSUserDefaults standardUserDefaults] setObject:time forKey:@"livetypelastupdatetime"];
+}
+
 + (NSMutableArray*)getOfficialLiveTypeList {
     
     NSMutableArray *names = [NSMutableArray arrayWithObjects:@"郭sir专区",@"皇牌节目",@"财经访谈",@"股市新闻",@"财经互动",@"其它", nil];

@@ -135,9 +135,10 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     LivePlayBackModel *model = [self.playbackList objectAtIndex:indexPath.row];
-        PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
-        vc.playBackId = model.playbackId;
-        [self.navigationController pushViewController:vc animated:YES];
+    PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
+    vc.playBackId = model.playbackId;
+    vc.playBackType = @"1";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

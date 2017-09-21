@@ -14,6 +14,8 @@
 #import "AreaModel.h"
 #import "UserLiveType.h"
 #import "LiveSearchResultModel.h"
+#import "OfficalVideoModel.h"
+#import "VideoModel.h"
 
 static NSString* RegisterUserPath = @"Ajax/RegisterUser.ashx";
 static NSString* LoginUserPath = @"Ajax/LoginUser.ashx";
@@ -37,6 +39,9 @@ static NSString* RefreshUserInfoPath = @"Ajax/getUser.ashx";
 static NSString* GetMyAttentionListPath = @"Ajax/getConcernsList.ashx";
 static NSString* AddMyAttentionPath = @"Ajax/addConcerns.ashx";
 static NSString* CancelMyAttentionPath = @"Ajax/cancelConcerns.ashx";
+static NSString* GetMyUserFavourPath = @"Ajax/getCollect.ashx";
+static NSString* GetMyOfficalFavourPath = @"Ajax/getCollectToOfficial.ashx";
+static NSString* GetMyVideoPath = @"Ajax/getMyVideo.ashx";
 
 @implementation MineHttpService
 
@@ -645,22 +650,80 @@ static NSString* CancelMyAttentionPath = @"Ajax/cancelConcerns.ashx";
                  }];
 }
 
-- (void)getMyVideoListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+- (void)getMyVideoListByCid:(NSString*)cid pageNum:(NSInteger)pageNum completion:(HttpClientServiceObjectBlock)completion {
     
-    //todo
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetMyVideoPath
+                     params:@{@"cid":cid,@"pnum":[NSString stringWithFormat:@"%d",(int)pageNum]}
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [VideoModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
 }
 
-- (void)getMyFavourListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+- (void)getMyUserFavourListCompletion:(HttpClientServiceObjectBlock)completion {
     
-    //todo
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetMyUserFavourPath
+                     params:nil
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [VideoModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
 }
 
-- (void)getMyAttentionListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion {
+- (void)getMyOfficalFavourListCompletion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetMyOfficalFavourPath
+                     params:nil
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [OfficalVideoModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
+}
+
+- (void)getMyAttentionListCompletion:(HttpClientServiceObjectBlock)completion {
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:GetMyAttentionListPath
-                     params:@{@"userid":userId
-                              }
+                     params:nil
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      if(response == nil) {

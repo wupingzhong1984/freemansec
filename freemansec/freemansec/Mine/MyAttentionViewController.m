@@ -11,6 +11,7 @@
 #import "LiveSearchResultCollectionViewCell.h"
 #import "LivePlayViewController.h"
 #import "UserLivePlayViewController.h"
+#import "PlayBackDetailViewController.h"
 
 @interface MyAttentionViewController ()
 <UICollectionViewDelegate,UICollectionViewDataSource>
@@ -39,7 +40,7 @@
 - (UIView*)nodataView {
     
     if (!_nodataView) {
-        _nodataView = [[NodataView alloc] initWithTitle:@"暂无数据"];
+        _nodataView = [[NodataView alloc] initWithTitle:NSLocalizedString(@"no result data", nil)];
         _nodataView.center = _collView.center;
     }
     
@@ -171,9 +172,20 @@
     if (model.cid.length > 0) { //个人
         model.isAttent = @"1";
         
-        UserLivePlayViewController *vc = [[UserLivePlayViewController alloc] init];
-        vc.userLiveChannelModel = model;
-        [self.navigationController pushViewController:vc animated:YES];
+        if ([model.state isEqualToString:@"1"] || [model.state isEqualToString:@"3"]) {
+            
+            UserLivePlayViewController *vc = [[UserLivePlayViewController alloc] init];
+            vc.userLiveChannelModel = model;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        } else if (model.vid.length > 0) {
+            
+            PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
+            vc.playBackId = model.vid;
+            vc.name = model.liveName;
+            vc.playBackType = @"0";
+            [self.navigationController pushViewController:vc animated:YES];
+        }
         
     } else { //官方
         LiveChannelModel *channel = [[LiveChannelModel alloc] init];

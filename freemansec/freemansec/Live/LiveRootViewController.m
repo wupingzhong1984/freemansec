@@ -176,9 +176,9 @@
     
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
-    if ([VideoManager videoKindNeedUpdate] || !self.typeNameArray.count) {
+    if ([LiveManager liveTypeNeedUpdate] || !self.typeNameArray.count) {
 
-        [VideoManager updateVideoKindLastUpdateTime:[NSDate date]];
+        [LiveManager updateLiveTypeLastUpdateTime:[NSDate date]];
 
         [[MineManager sharedInstance] getUserLiveTypeCompletion:^(NSArray * _Nullable typeList, NSError * _Nullable error) {
 

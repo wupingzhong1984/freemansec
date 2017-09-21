@@ -16,13 +16,11 @@ typedef void(^AddVideoPlayCountCompletion)(NSError* _Nullable error);
 
 + (VideoManager* _Nonnull)sharedInstance;
 
-+ (BOOL)videoKindNeedUpdate;
-+ (void)updateVideoKindLastUpdateTime:(NSDate*_Nullable)time;
 
 //- (void)getVideoKindCompletion:(VideoKindListCompletion _Nullable)completion;
 //- (void)getVideoListByKindId:(NSString*_Nullable)kindId completion:(VideoListCompletion _Nullable)completion;
 
-- (void)getVideoListPageNum:(NSInteger)pageNum pageSize:(NSInteger)pageSize completion:(VideoListCompletion _Nullable)completion;
+- (void)getVideoListPageNum:(NSInteger)pageNum completion:(VideoListCompletion _Nullable)completion;
 
 
 - (void)addVideoPlayCount:(NSString*_Nullable)videoId completion:(AddVideoPlayCountCompletion _Nullable)completion;

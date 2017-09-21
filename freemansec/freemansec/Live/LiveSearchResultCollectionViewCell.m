@@ -15,6 +15,8 @@
 @property (nonatomic,strong) UILabel *anchor;
 @property (nonatomic,strong) UILabel *title;
 @property (nonatomic,strong) UIView *living;
+@property (nonatomic,strong) UILabel *stateLbl;
+@property (nonatomic,strong) UIView *stateLight;
 
 @end
 
@@ -51,15 +53,15 @@
         _title.textColor = [UIColor lightGrayColor];
         [self addSubview:_title];
         
-        UIView *green = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 6, 6)];
-        green.layer.cornerRadius = 3;
-        green.backgroundColor = [UIColor greenColor];
+        self.stateLight = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 6, 6)];
+        _stateLight.layer.cornerRadius = 3;
+        _stateLight.backgroundColor = [UIColor greenColor];
         
-        UILabel *l = [UILabel createLabelWithFrame:CGRectZero text:@"直播中" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:13]];
-        [l sizeToFit];
+        self.stateLbl = [UILabel createLabelWithFrame:CGRectZero text:@"直播中" textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:13]];
+        [_stateLbl sizeToFit];
         
         self.living = [[UIView alloc] init];
-        _living.size = CGSizeMake(green.width + l.width + 18, 20);
+        _living.size = CGSizeMake(_stateLight.width + _stateLbl.width + 18, 20);
         _living.y = _coverIV.y + 7;
         _living.x = self.width - 7 - _living.width;
         _living.layer.cornerRadius = _living.height/2;
@@ -68,13 +70,13 @@
         _living.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
         [self addSubview:_living];
         
-        green.centerY = _living.height/2;
-        green.x = 6;
-        [_living addSubview:green];
+        _stateLight.centerY = _living.height/2;
+        _stateLight.x = 6;
+        [_living addSubview:_stateLight];
         
-        l.x = green.maxX + 6;
-        l.centerY = green.centerY;
-        [_living addSubview:l];
+        _stateLbl.x = _stateLight.maxX + 6;
+        _stateLbl.centerY = _stateLight.centerY;
+        [_living addSubview:_stateLbl];
         
     }
     
@@ -103,7 +105,31 @@
         _title.centerY = _headIV.centerY + 9;
         _title.width = _anchor.width;
         
-        _living.hidden = !([resultModel.state isEqualToString:@"1"] || [resultModel.state isEqualToString:@"3"]);
+        
+        if ([resultModel.state isEqualToString:@"1"] || [resultModel.state isEqualToString:@"3"]) {
+            
+            _living.hidden = NO;
+            _stateLight.backgroundColor = [UIColor greenColor];
+            _stateLbl.text = NSLocalizedString(@"living", nil);
+            [_stateLbl sizeToFit];
+            
+        } else if (resultModel.vid.length > 0) {
+            
+            _living.hidden = NO;
+            _stateLight.backgroundColor = [UIColor orangeColor];
+            _stateLbl.text = NSLocalizedString(@"playback", nil);
+            [_stateLbl sizeToFit];
+            
+        } else {
+            
+            _living.hidden = YES;
+        }
+        
+        _living.size = CGSizeMake(_stateLight.width + _stateLbl.width + 18, 20);
+        _living.x = self.width - 7 - _living.width;
+        _stateLight.x = 6;
+        _stateLbl.x = _stateLight.maxX + 6;
+        
     }
 }
 

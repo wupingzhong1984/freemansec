@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSString<Optional>* nickName;
 @property (nonatomic, strong) NSString<Optional>* headImg;
 @property (nonatomic, strong) NSString<Optional>* cid;  //个人频道id
+@property (nonatomic, strong) NSString<Optional>* vid; //回看视频id
 @property (nonatomic, strong) NSString<Optional>* httpPullUrl;
 @property (nonatomic, strong) NSString<Optional>* hlsPullUrl;
 @property (nonatomic, strong) NSString<Optional>* rtmpPullUrl;

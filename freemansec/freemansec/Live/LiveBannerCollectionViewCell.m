@@ -32,7 +32,7 @@
     
     if (channelModel) {
         
-        [self.coverIV sd_setImageWithURL:[NSURL URLWithString:channelModel.liveImg]];
+        [self.coverIV sd_setImageWithURL:[NSURL URLWithString:channelModel.liveImg] placeholderImage:[UIImage imageNamed:@"cover_place.png"]];
     }
 }
 

@@ -28,6 +28,9 @@ typedef void(^LivePlayBackListCompletion)(NSArray* _Nullable playList, NSError* 
 + (BOOL)liveBannerNeedUpdate;
 + (void)updateLiveBannerLastUpdateTime:(NSDate*_Nullable)time;
 
++ (BOOL)liveTypeNeedUpdate;
++ (void)updateLiveTypeLastUpdateTime:(NSDate*_Nullable)time;
+
 + (NSMutableArray*_Nonnull)getOfficialLiveTypeList;
 
 -(void)getLiveBannerCompletion:(LiveChannelListCompletion _Nullable)completion;

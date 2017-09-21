@@ -8,8 +8,9 @@
 
 #import "MyVideoViewController.h"
 #import "MJRefresh.h"
-#import "MyVideoModel.h"
+#import "VideoModel.h"
 #import "MyVideoListCell.h"
+#import "PlayBackDetailViewController.h"
 
 @interface MyVideoViewController ()
 <UITableViewDelegate,UITableViewDataSource>
@@ -39,7 +40,7 @@
 - (UIView*)nodataView {
     
     if (!_nodataView) {
-        _nodataView = [[NodataView alloc] initWithTitle:@"暂无数据"];
+        _nodataView = [[NodataView alloc] initWithTitle:NSLocalizedString(@"no result data", nil)];
         _nodataView.center = _tableView.center;
     }
     
@@ -149,10 +150,6 @@
     [self.view addSubview:naviBar];
     
     [self createTableViewWithOriginY:naviBar.maxY];
-    
-    
-    //todo
-    [self.view addSubview:self.nodataView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -177,7 +174,7 @@
     
     [self.nodataView removeFromSuperview];
     
-    [[MineManager sharedInstance] getMyVideoListCompletion:^(NSArray * _Nullable videoList, NSError * _Nullable error) {
+    [[MineManager sharedInstance] getMyVideoListPageNum:_pageNo completion:^(NSArray * _Nullable videoList, NSError * _Nullable error) {
         
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
@@ -228,7 +225,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    MyVideoModel * videoModel = [self.videoList objectAtIndex:indexPath.row];
+    VideoModel * videoModel = [self.videoList objectAtIndex:indexPath.row];
     
     cell.videoModel = videoModel;
     
@@ -239,8 +236,13 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    MyVideoModel * videoModel = [self.videoList objectAtIndex:indexPath.row];
-    //todo
+    VideoModel *videoModel = [self.videoList objectAtIndex:indexPath.row];
+    
+    PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
+    vc.playBackId = videoModel.videoId;
+    vc.name = videoModel.videoName;
+    vc.playBackType = @"0";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

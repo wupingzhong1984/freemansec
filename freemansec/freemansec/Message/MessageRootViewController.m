@@ -35,7 +35,7 @@
 - (UIView*)nodataView {
     
     if (!_nodataView) {
-        _nodataView = [[NodataView alloc] initWithTitle:@"暂无数据"];
+        _nodataView = [[NodataView alloc] initWithTitle:NSLocalizedString(@"no result data", nil)];
         _nodataView.center = _tableView.center;
     }
     

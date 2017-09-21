@@ -12,6 +12,7 @@
 #import "XBPageCell.h"
 #import "XBTagTitleModel.h"
 #import "UserLiveViewController.h"
+#import "MyFavourKindViewController.h"
 @interface XBScrollPageController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (nonatomic,assign) CGFloat tagViewHeight;   /**< 标签高度  */
 @property (nonatomic,strong) UICollectionViewFlowLayout *tagFlowLayout;
@@ -67,7 +68,8 @@
 {
     [super viewDidLayoutSubviews];
     self.tagCollectionView.frame = _tabCollViewRect;
-    self.pageCollectionView.frame = CGRectMake(0, self.tagCollectionView.maxY, XBScreenWidth, self.view.frame.size.height - self.tagCollectionView.maxY);
+    self.pageCollectionView.frame = CGRectMake(0, self.tagCollectionView.maxY, XBScreenWidth, K_UIScreenHeight - self.tagCollectionView.maxY);
+    NNSLog(@"%f %f %f",K_UIScreenHeight,self.view.frame.size.height,self.pageCollectionView.height);
 }
 
 - (void)dealloc
@@ -102,7 +104,7 @@
     //初始化标签View
     UICollectionView *tagCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:tagFlowLayout];
     [tagCollectionView registerClass:[XBTagTitleCell class] forCellWithReuseIdentifier:kTagCollectionViewCellIdentifier];
-    tagCollectionView.backgroundColor = [UIColor whiteColor];
+    tagCollectionView.backgroundColor = [UIColor clearColor];
     tagCollectionView.showsHorizontalScrollIndicator = NO;
     tagCollectionView.dataSource = self;
     tagCollectionView.delegate = self;
@@ -167,6 +169,9 @@
         if (self.params.count != 0) {
             if ([cachedViewController isKindOfClass:[UserLiveViewController class]] && ![cachedViewController valueForKeyPath:@"typeId"]) {
                 [cachedViewController setValue:self.params[indexPath.item] forKeyPath:@"typeId"];
+            }
+            if ([cachedViewController isKindOfClass:[MyFavourKindViewController class]] && ![cachedViewController valueForKeyPath:@"kind"]) {
+                [cachedViewController setValue:self.params[indexPath.item] forKeyPath:@"kind"];
             }
         }
         [self addChildViewController:cachedViewController];
@@ -307,10 +312,11 @@
 }
 - (void)reloadDataWith:(NSArray *)titleArray andSubViewdisplayClasses:(NSArray *)classes withParams:(NSArray *)params
 {
-//    if (titleArray.count < 3) {
-//        
-//        self.tagItemSize = (CGSize){_tabCollViewRect.size.width/titleArray.count,_tagViewHeight};
-//    } else {
+    if (titleArray.count > 0 && titleArray.count < 3) {
+        
+        self.tagItemSize = (CGSize){_tabCollViewRect.size.width/titleArray.count,_tagViewHeight};
+    }
+    //else {
 //        self.tagItemSize = (CGSize){_tabCollViewRect.size.width/2.5,_tagViewHeight};
 //    }
     

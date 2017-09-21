@@ -23,6 +23,7 @@
                                             @"nickName": @"nickName",
                                             @"headImg": @"headImg",
                                             @"cid": @"cid",
+                                            @"vid": @"vid",
                                             @"httpPullUrl": @"httpPullUrl",
                                             @"hlsPullUrl": @"hlsPullUrl",
                                             @"rtmpPullUrl": @"rtmpPullUrl",

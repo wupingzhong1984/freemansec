@@ -115,9 +115,9 @@
     [self.view addSubview:naviBar];
     
     self.mediaType = @"livestream";
-    self.liveplayer = [[NELivePlayerController alloc] initWithContentURL:[NSURL URLWithString:self.videoModel.videoOrigUrl]];
+    self.liveplayer = [[NELivePlayerController alloc] initWithContentURL:[NSURL URLWithString:self.videoModel.origUrl]];
     if (self.liveplayer == nil) {
-        NSLog(@"player initilize failed, please tay again! url:%@",self.videoModel.videoOrigUrl);
+        NSLog(@"player initilize failed, please tay again! url:%@",self.videoModel.origUrl);
     }
     self.liveplayer.view.frame = CGRectMake(0, naviBar.maxY, K_UIScreenWidth, K_UIScreenHeight - naviBar.maxY - 40);
     [self.view addSubview:_liveplayer.view];

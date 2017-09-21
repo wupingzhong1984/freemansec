@@ -13,15 +13,11 @@ static NSString* GetVideoListPath = @"Ajax/queryVideo.ashx";
 static NSString* AddVideoPlayCountPath = @"Ajax/addvideocount.ashx";
 
 @implementation VideoHttpService
-- (void)getVideoListPageNum:(NSString*)pageNum pageSize:(NSString*)pageSize status:(NSString*)status type:(NSString*)type completion:(HttpClientServiceObjectBlock)completion {
+- (void)getVideoListPageNum:(NSString*)pageNum completion:(HttpClientServiceObjectBlock)completion {
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:GetVideoListPath
-                     params:@{@"currentPage":pageNum,
-                              @"pageSize":pageSize,
-                              @"status":status,
-                              @"type":type
-                                  }
+                     params:@{@"pnum":pageNum}
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      if(response == nil) {
@@ -29,14 +25,7 @@ static NSString* AddVideoPlayCountPath = @"Ajax/addvideocount.ashx";
                          return ;
                      }
                      
-                     NSArray *videoList = (NSArray*)[(NSDictionary*)response.data objectForKey:@"list"];
-                     if (!videoList || videoList.count == 0) {
-                         
-                         completion(nil,nil);
-                         return;
-                     }
-                     
-                     NSArray *list = [VideoModel arrayOfModelsFromDictionaries:videoList error:&err];
+                     NSArray *list = [VideoModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
                      if(list == nil){
                          
                          NSLog(@"%@", err);

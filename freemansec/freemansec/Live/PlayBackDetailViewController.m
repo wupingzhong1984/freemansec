@@ -77,7 +77,11 @@
         langCode = @"0";
     }
     
-    NSString *url = [NSString stringWithFormat:@"http://mzcj.dhteam.net/videoback.html?lang=%@&vid=%@",langCode,_playBackId];
+    NSMutableString *url = [NSMutableString stringWithFormat:@"http://mzcj.dhteam.net/videoback.html?vid=%@&lang=%@&type=%@",_playBackId,langCode,_playBackType];
+    
+    if ([[MineManager sharedInstance] getMyInfo]) {
+        [url appendFormat:@"&userid=%@",[[MineManager sharedInstance] getMyInfo].userId];
+    }
     
     [_webView loadRequest:[NSURLRequest requestWithURL:
                            [NSURL URLWithString:

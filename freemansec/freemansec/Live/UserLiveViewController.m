@@ -12,6 +12,7 @@
 #import "MJRefresh.h"
 #import "LiveSearchResultModel.h"
 #import "LiveSearchResultCollectionViewCell.h"
+#import "PlayBackDetailViewController.h"
 
 @interface UserLiveViewController ()
 <UICollectionViewDelegate,UICollectionViewDataSource,
@@ -41,7 +42,7 @@ LivePlayViewControllerDelegate> {
 - (UIView*)nodataView {
     
     if (!_nodataView) {
-        _nodataView = [[NodataView alloc] initWithTitle:@"暂无数据"];
+        _nodataView = [[NodataView alloc] initWithTitle:NSLocalizedString(@"no result data", nil)];
         _nodataView.center = _collView.center;
     }
     
@@ -189,36 +190,6 @@ LivePlayViewControllerDelegate> {
     }];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    return;
-    NNSLog(@"%f  %f",scrollView.contentOffset.y,roundf(scrollView.contentSize.height-scrollView.frame.size.height));
-    if (![scrollView isEqual:_collView]) {
-        
-        return;
-    }
-    
-    if ((int)scrollView.contentOffset.y == (int)roundf(scrollView.contentSize.height-scrollView.frame.size.height)) {
-        
-        [self.collView performBatchUpdates:^{
-            
-            self.pageNum = [NSString stringWithFormat:@"%d",(int)(_pageNum.integerValue + 1)];
-            [self requestSearch];
-            
-        } completion:nil];
-    }
-    
-    if (scrollView.contentOffset.y < -60) {
-        
-        [self.collView performBatchUpdates:^{
-            
-            self.pageNum = @"1";
-            [self requestSearch];
-            
-        } completion:nil];
-    }
-}
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     return self.liveList.count;
@@ -233,40 +204,31 @@ LivePlayViewControllerDelegate> {
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    _lastSelectIndex = indexPath.row;
+    if (![[MineManager sharedInstance] getMyInfo]) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoadUserLogin object:nil];
+        return;
+    }
+    
     LiveSearchResultModel *model = [_liveList objectAtIndex:indexPath.row];
     
-    if (model.cid.length > 0 ) { //个人
+    if ([model.state isEqualToString:@"1"] || [model.state isEqualToString:@"3"]) {
     
-        if (![[MineManager sharedInstance] getMyInfo]) {
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLoadUserLogin object:nil];
-            return;
-        }
-        
+        _lastSelectIndex = indexPath.row;
         UserLivePlayViewController *vc = [[UserLivePlayViewController alloc] init];
         vc.userLiveChannelModel = model;
         vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
         
-    } else { //官方
+    } else if (model.vid.length > 0) {
         
-        LiveChannelModel *channel = [[LiveChannelModel alloc] init];
-        channel.liveId = model.liveId;
-        channel.liveName = model.liveName;
-        channel.liveImg = model.liveImg;
-        channel.liveIntroduce = model.liveIntroduce;
-        channel.livelink = model.livelink;
-        channel.anchorId = model.anchorId;
-        channel.anchorName = model.nickName;
-        channel.anchorImg = model.headImg;
-        channel.isAttent = model.isAttent;
-        
-        LivePlayViewController *vc = [[LivePlayViewController alloc] init];
-        vc.liveChannelModel = channel;
-        vc.delegate = self;
+        PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
+        vc.playBackId = model.vid;
+        vc.name = model.liveName;
+        vc.playBackType = @"0";
         [self.navigationController pushViewController:vc animated:YES];
     }
+
 }
 
 - (void)didLiveAttent:(BOOL)attent {

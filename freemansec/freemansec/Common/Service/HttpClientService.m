@@ -17,10 +17,6 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
 
 -(void)suppleParams:(NSMutableDictionary*)params {
     
-    if (!params) {
-        params = [[NSMutableDictionary alloc] init];
-    }
-    
     MyInfoModel *info = [[MineManager sharedInstance] getMyInfo];
     if(info) { //logined
         
@@ -55,6 +51,8 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
     NSMutableDictionary *paramDic;
     if (params) {
         paramDic = [[NSMutableDictionary alloc] initWithDictionary:params];
+    } else {
+        paramDic = [[NSMutableDictionary alloc] init];
     }
     [self suppleParams:paramDic];
     
@@ -67,7 +65,7 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
- //           NNSLog(@"result:%@", responseObject);
+            NNSLog(@"result:%@", responseObject);
             
             NSError* error = nil;
             

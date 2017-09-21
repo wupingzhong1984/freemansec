@@ -38,9 +38,10 @@
 - (void)updateSex:(NSString*)sex userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 - (void)updateProvince:(NSString*)provinceId city:(NSString*)cityId area:(NSString*)areaId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 
-- (void)getMyVideoListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
-- (void)getMyFavourListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
-- (void)getMyAttentionListByUserId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
+- (void)getMyVideoListByCid:(NSString*)cid pageNum:(NSInteger)pageNum completion:(HttpClientServiceObjectBlock)completion;
+- (void)getMyOfficalFavourListCompletion:(HttpClientServiceObjectBlock)completion;
+- (void)getMyUserFavourListCompletion:(HttpClientServiceObjectBlock)completion;
+- (void)getMyAttentionListCompletion:(HttpClientServiceObjectBlock)completion;
 
 - (void)addMyAttentionLiveId:(NSString*)liveId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 - (void)cancelMyAttentionLiveId:(NSString*)liveId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;

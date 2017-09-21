@@ -22,6 +22,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        self.backgroundColor = [UIColor clearColor];
+        
         UIView *cellBg = [[UIView alloc]
                           initWithFrame:CGRectMake(10,
                                                    10,
@@ -34,14 +36,14 @@
         [self.contentView addSubview:cellBg];
         
         self.imgV = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 120, 90)];
-        [self.contentView addSubview:_imgV];
+        [cellBg addSubview:_imgV];
         
         //NSLocalizedString
         UILabel *count = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"play count", nil) textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:13]];
         [count sizeToFit];
         count.x = _imgV.maxX + 10;
         count.y = _imgV.maxY - count.height;
-        [self.contentView addSubview:count];
+        [cellBg addSubview:count];
         
         self.countLbl = [[UILabel alloc] init];
         _countLbl.textColor = [UIColor blackColor];
@@ -50,7 +52,7 @@
         _countLbl.y = count.y;
         _countLbl.height = count.height;
         _countLbl.width = cellBg.maxX - 10 - _countLbl.x;
-        [self.contentView addSubview:_countLbl];
+        [cellBg addSubview:_countLbl];
         
         self.dateLbl = [[UILabel alloc] init];
         _dateLbl.textColor = [UIColor lightGrayColor];
@@ -59,7 +61,7 @@
         _dateLbl.y = count.y - 10 - count.height;
         _dateLbl.height = count.height;
         _dateLbl.width = cellBg.maxX - 10 - _dateLbl.x;
-        [self.contentView addSubview:_dateLbl];
+        [cellBg addSubview:_dateLbl];
         
         self.titleLbl = [[UILabel alloc] init];
         _titleLbl.textColor = [UIColor blackColor];
@@ -69,21 +71,21 @@
         _titleLbl.text = @"1";
         [_titleLbl sizeToFit];
         _titleLbl.width = cellBg.maxX - 10 - _titleLbl.x;
-        [self.contentView addSubview:_titleLbl];
+        [cellBg addSubview:_titleLbl];
     }
     return self;
 }
 
-- (void)setVideoModel:(MyVideoModel*)videoModel {
+- (void)setVideoModel:(VideoModel*)videoModel {
     
     if (videoModel) {
         
         _videoModel = videoModel;
         
-        [_imgV sd_setImageWithURL:[NSURL URLWithString:_videoModel.img]];
+        [_imgV sd_setImageWithURL:[NSURL URLWithString:_videoModel.snapshotUrl] placeholderImage:[UIImage imageNamed:@"cover_place.png"]];
         
-        _titleLbl.text = _videoModel.title;
-        _dateLbl.text = _videoModel.date;
+        _titleLbl.text = _videoModel.videoName;
+        _dateLbl.text = _videoModel.createTime;
         _countLbl.text = _videoModel.playCount;
     }
 }

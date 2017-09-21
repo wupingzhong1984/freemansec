@@ -21,6 +21,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        self.backgroundColor = [UIColor clearColor];
         UIView *cellBg = [[UIView alloc]
                           initWithFrame:CGRectMake(10,
                                                    10,
@@ -33,14 +34,14 @@
         [self.contentView addSubview:cellBg];
         
         self.imgV = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 120, 90)];
-        [self.contentView addSubview:_imgV];
+        [cellBg addSubview:_imgV];
         
         //NSLocalizedString
         UILabel *count = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"play count", nil) textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:13]];
         [count sizeToFit];
         count.x = _imgV.maxX + 10;
         count.y = _imgV.maxY - count.height;
-        [self.contentView addSubview:count];
+        [cellBg addSubview:count];
         
         self.countLbl = [[UILabel alloc] init];
         _countLbl.textColor = [UIColor blackColor];
@@ -49,7 +50,7 @@
         _countLbl.y = count.y;
         _countLbl.height = count.height;
         _countLbl.width = cellBg.maxX - 10 - _countLbl.x;
-        [self.contentView addSubview:_countLbl];
+        [cellBg addSubview:_countLbl];
         
         self.anchorLbl = [[UILabel alloc] init];
         _anchorLbl.textColor = [UIColor lightGrayColor];
@@ -58,7 +59,7 @@
         _anchorLbl.y = count.y - 10 - count.height;
         _anchorLbl.height = count.height;
         _anchorLbl.width = cellBg.maxX - 10 - _anchorLbl.x;
-        [self.contentView addSubview:_anchorLbl];
+        [cellBg addSubview:_anchorLbl];
         
         self.titleLbl = [[UILabel alloc] init];
         _titleLbl.textColor = [UIColor blackColor];
@@ -68,22 +69,22 @@
         _titleLbl.text = @"1";
         [_titleLbl sizeToFit];
         _titleLbl.width = cellBg.maxX - 10 - _titleLbl.x;
-        [self.contentView addSubview:_titleLbl];
+        [cellBg addSubview:_titleLbl];
     }
     return self;
 }
 
-- (void)setFavourModel:(MyFavourModel *)favourModel {
+- (void)setVideoModel:(VideoModel *)videoModel{
     
-    if (favourModel) {
+    if (videoModel) {
         
-        _favourModel = favourModel;
+        _videoModel = videoModel;
         
-        [_imgV sd_setImageWithURL:[NSURL URLWithString:_favourModel.img]];
+        [_imgV sd_setImageWithURL:[NSURL URLWithString:_videoModel.snapshotUrl] placeholderImage:[UIImage imageNamed:@"cover_place.png"]];
         
-        _titleLbl.text = _favourModel.title;
-        _anchorLbl.text = _favourModel.anchorName;
-        _countLbl.text = _favourModel.playCount;
+        _titleLbl.text = _videoModel.videoName;
+        _anchorLbl.text = _videoModel.authorName;
+        _countLbl.text = _videoModel.playCount;
     }
 }
 

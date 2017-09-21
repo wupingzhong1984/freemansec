@@ -80,13 +80,13 @@ LivePlayViewControllerDelegate>
     return _kingPlayBackList;
 }
 
-- (void)liveTypeClicked:(id)sender {
-    
-    int type = (int)((UIButton*)sender).tag - 100;
-    OfficialLiveTypeViewController *vc = [[OfficialLiveTypeViewController alloc] init];
-    vc.typeIndex = type;
-    [self.navigationController pushViewController:vc animated:YES];
-}
+//- (void)liveTypeClicked:(id)sender {
+//    
+//    int type = (int)((UIButton*)sender).tag - 100;
+//    OfficialLiveTypeViewController *vc = [[OfficialLiveTypeViewController alloc] init];
+//    vc.typeIndex = type;
+//    [self.navigationController pushViewController:vc animated:YES];
+//}
 
 - (void)setupBannerArea {
     
@@ -108,7 +108,7 @@ LivePlayViewControllerDelegate>
 
 - (void)setupSegmentControl {
     
-    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"今日直播",@"皇牌节目", nil]];
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"today living", nil),NSLocalizedString(@"king program", nil), nil]];
     _segmentedControl.frame = CGRectMake(7, (int)(_bannerCollView.maxY + 10), K_UIScreenWidth - 14, 34);
     _segmentedControl.selectedSegmentIndex = 0;
     _segmentedControl.tintColor = UIColor_82b432;
@@ -307,6 +307,7 @@ LivePlayViewControllerDelegate>
     PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
     vc.playBackId = model.playbackId;
     vc.name = model.title;
+    vc.playBackType = @"1";
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -316,6 +317,7 @@ LivePlayViewControllerDelegate>
     PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
     vc.playBackId = model.playbackId;
     vc.name = model.title;
+    vc.playBackType = @"1";
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -372,6 +374,7 @@ LivePlayViewControllerDelegate>
 //    self.navigationController.navigationBar.hidden = YES;
 //    
 //    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+    
     
     if ([LiveManager liveBannerNeedUpdate] || !self.bannerList.count) {
         
@@ -527,6 +530,7 @@ LivePlayViewControllerDelegate>
         PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
         vc.playBackId = model.playbackId;
         vc.name = model.title;
+        vc.playBackType = @"1";
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
