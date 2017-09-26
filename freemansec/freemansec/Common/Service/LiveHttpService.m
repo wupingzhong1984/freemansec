@@ -210,6 +210,10 @@ static NSString* GetLivePlayBackPath = @"Ajax/GetPlayBack.ashx";
                          return ;
                      }
                      
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil,nil);
+                     }
+                     
                      NSArray *list = [LiveProgramModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
                      if(list == nil){
                          

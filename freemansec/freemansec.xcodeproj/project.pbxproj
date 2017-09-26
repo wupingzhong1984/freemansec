@@ -53,6 +53,8 @@
 		2F234DC71F39AE7A00862029 /* UserLiveType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F234DC61F39AE7A00862029 /* UserLiveType.m */; };
 		2F3102291F35E87600F9364D /* NEMediaCaptureEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3102281F35E87600F9364D /* NEMediaCaptureEntity.m */; };
 		2F318B511F4F3AA1003FC62B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F318B501F4F3AA1003FC62B /* SettingViewController.m */; };
+		2F5527C41F763AB300F4AB02 /* play_count_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5527C21F763AB300F4AB02 /* play_count_gray@2x.png */; };
+		2F5527C51F763AB300F4AB02 /* play_count_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5527C31F763AB300F4AB02 /* play_count_gray@3x.png */; };
 		2F5E8F1F1F57B8EB00249C3A /* nodata_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5E8F1D1F57B8EB00249C3A /* nodata_icon@2x.png */; };
 		2F5E8F201F57B8EB00249C3A /* nodata_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5E8F1E1F57B8EB00249C3A /* nodata_icon@3x.png */; };
 		2F5E8F231F57BB5000249C3A /* NodataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5E8F221F57BB5000249C3A /* NodataView.m */; };
@@ -651,6 +653,8 @@
 		2F3102281F35E87600F9364D /* NEMediaCaptureEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEMediaCaptureEntity.m; sourceTree = "<group>"; };
 		2F318B4F1F4F3AA1003FC62B /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		2F318B501F4F3AA1003FC62B /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		2F5527C21F763AB300F4AB02 /* play_count_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_count_gray@2x.png"; sourceTree = "<group>"; };
+		2F5527C31F763AB300F4AB02 /* play_count_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_count_gray@3x.png"; sourceTree = "<group>"; };
 		2F5E8F1D1F57B8EB00249C3A /* nodata_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nodata_icon@2x.png"; sourceTree = "<group>"; };
 		2F5E8F1E1F57B8EB00249C3A /* nodata_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nodata_icon@3x.png"; sourceTree = "<group>"; };
 		2F5E8F211F57BB5000249C3A /* NodataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodataView.h; sourceTree = "<group>"; };
@@ -2476,6 +2480,8 @@
 		2FAF31741F160FDF004329ED /* images */ = {
 			isa = PBXGroup;
 			children = (
+				2F5527C21F763AB300F4AB02 /* play_count_gray@2x.png */,
+				2F5527C31F763AB300F4AB02 /* play_count_gray@3x.png */,
 				2F5E8F4E1F5EE95300249C3A /* user_headimg_default@2x.png */,
 				2F5E8F4F1F5EE95300249C3A /* user_headimg_default@3x.png */,
 				2F5E8F4C1F589BCC00249C3A /* officiallive_headImg_default.png */,
@@ -3633,6 +3639,7 @@
 				2F869E311F374A27005C8212 /* emailverify_notice_bg@3x.png in Resources */,
 				2F9999711F4AA0A700656DF0 /* NIMKitSettings.bundle in Resources */,
 				2F22DF6C1F21D63F0039316B /* p3@2x.png in Resources */,
+				2F5527C41F763AB300F4AB02 /* play_count_gray@2x.png in Resources */,
 				2FAF317C1F16175E004329ED /* navibar_search@3x.png in Resources */,
 				2F9999551F46EB8300656DF0 /* searchbar_icon@3x.png in Resources */,
 				2FAF319A1F166DA8004329ED /* tab_img_3@2x.png in Resources */,
@@ -3749,6 +3756,7 @@
 				2FAF31F11F17ECDD004329ED /* tab_img_3_h@3x.png in Resources */,
 				2F869C271F35F29B005C8212 /* TZImagePickerController.bundle in Resources */,
 				2F5E8F371F5872B200249C3A /* playback_playcount_icon@2x.png in Resources */,
+				2F5527C51F763AB300F4AB02 /* play_count_gray@3x.png in Resources */,
 				2FAF31EE1F17ECDD004329ED /* tab_img_2_h@2x.png in Resources */,
 				2F869E301F374A27005C8212 /* emailverify_notice_bg@2x.png in Resources */,
 				2F22DF791F21F4C40039316B /* Localizable.strings in Resources */,

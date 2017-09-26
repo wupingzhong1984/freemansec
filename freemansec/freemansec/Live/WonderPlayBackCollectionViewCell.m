@@ -26,6 +26,14 @@
         self.face = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, (int)self.width*3/4)];
         [self addSubview:_face];
         
+        UIView *cover = [[UIView alloc] initWithFrame:_face.frame];
+        cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
+        [self addSubview:cover];
+        
+        UIImageView *play = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"playback_cover_icon.png"]];
+        play.center = cover.center;
+        [self addSubview:play];
+        
         self.title = [[UILabel alloc] init];
         _title.font = [UIFont systemFontOfSize:12];
         _title.textColor = [UIColor darkGrayColor];

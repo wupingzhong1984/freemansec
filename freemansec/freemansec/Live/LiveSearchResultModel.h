@@ -31,4 +31,5 @@
 @property (nonatomic, strong) NSString<Optional>* isAttent;
 @property (nonatomic, strong) NSString<Optional>* state; //1,3 可播
 @property (nonatomic, strong) NSString<Optional>* onlineusercount;
+@property (nonatomic, strong) NSString<Optional>* playCount;
 @end

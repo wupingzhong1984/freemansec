@@ -654,7 +654,7 @@ static NSString* GetMyVideoPath = @"Ajax/getMyVideo.ashx";
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:GetMyVideoPath
-                     params:@{@"cid":cid,@"pnum":[NSString stringWithFormat:@"%d",(int)pageNum]}
+                     params:@{@"cid":(!cid.length)?@"":cid,@"pnum":[NSString stringWithFormat:@"%d",(int)pageNum]}
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      if(response == nil) {

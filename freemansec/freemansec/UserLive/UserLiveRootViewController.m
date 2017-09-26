@@ -757,7 +757,7 @@ NIMSessionViewControllerDelegate>{
         [weakSelf.mediaCapture snapShotWithCompletionBlock:^(UIImage *latestFrameImage) {
             
             CGImageRef sourceImageRef = [latestFrameImage CGImage];
-            CGRect newImgRect = (CGRect){0,(latestFrameImage.size.height - latestFrameImage.size.width*3/4)/2,latestFrameImage.size.width,latestFrameImage.size.width*3/4};
+            CGRect newImgRect = (CGRect){0,0,latestFrameImage.size.width,latestFrameImage.size.height};
             CGImageRef newImageRef = CGImageCreateWithImageInRect(sourceImageRef, newImgRect);
             UIImage *newImage = [UIImage imageWithCGImage:newImageRef];
             

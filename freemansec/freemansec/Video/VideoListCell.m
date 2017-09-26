@@ -35,7 +35,8 @@
         cellBg.layer.borderColor = [UIColor lightGrayColor].CGColor;
         [self.contentView addSubview:cellBg];
         
-        self.imgV = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 120, 90)];
+        self.imgV = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 90, 90)];
+        _imgV.contentMode = UIViewContentModeScaleAspectFit;
         [cellBg addSubview:_imgV];
         
         //NSLocalizedString
@@ -88,7 +89,7 @@
         
         _videoModel = videoModel;
         
-        [_imgV sd_setImageWithURL:[NSURL URLWithString:_videoModel.snapshotUrl] placeholderImage:[UIImage imageNamed:@"cover_place.png"]];
+        [_imgV sd_setImageWithURL:[NSURL URLWithString:_videoModel.snapshotUrl] placeholderImage:[UIImage imageNamed:@"cover_place_2.png"]];
         
         _nameLbl.text = _videoModel.videoName;
         _authorLbl.text = _videoModel.authorName;
