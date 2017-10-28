@@ -178,14 +178,15 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
     //language update
-    NSString *lastLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastapplanguage"];
-    NSArray *languages = [NSLocale preferredLanguages];
-    NSString *currentLanguage = [languages objectAtIndex:0];
-    if (!lastLang || ![currentLanguage isEqualToString:lastLang]) {
+    NSString *lastLangCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastapplanguage"];
+    if (!lastLangCode || ![[LogicManager appLangCode] isEqualToString:lastLangCode]) {
         
         [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"livebannerlastupdatetime"];
         
         [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"livetypelastupdatetime"];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:[LogicManager appLangCode]
+                                                  forKey:@"lastapplanguage"];
     }
     
     

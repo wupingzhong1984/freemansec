@@ -17,6 +17,7 @@ typedef void(^ChatroomByUserLiveIdCompletion)(ChatroomInfoModel* _Nullable roomM
 typedef void(^LiveDetailCompletion)(LiveDetailNTModel* _Nullable detailModel, NSError* _Nullable error);
 typedef void(^LiveProgramListCompletion)(NSArray* _Nullable programlList, NSError* _Nullable error);
 typedef void(^LivePlayBackListCompletion)(NSArray* _Nullable playList, NSError* _Nullable error);
+typedef void(^KingProgramLiveTypeListCompletion)(NSArray* _Nullable typeList, NSError* _Nullable error);
 
 @interface LiveManager : NSObject
 
@@ -33,17 +34,20 @@ typedef void(^LivePlayBackListCompletion)(NSArray* _Nullable playList, NSError* 
 
 + (NSMutableArray*_Nonnull)getOfficialLiveTypeList;
 
--(void)getLiveBannerCompletion:(LiveChannelListCompletion _Nullable)completion;
+- (void)getLiveBannerCompletion:(LiveChannelListCompletion _Nullable)completion;
 
--(void)getLiveListByLiveTypeId:(NSString* _Nonnull)typeId
+- (void)getLiveListByLiveTypeId:(NSString* _Nonnull)typeId
                     completion:(LiveChannelListCompletion _Nullable)completion;
--(void)getLiveSearchHotWordsCompletion:(LiveHotWordListCompletion _Nullable)completion;
--(void)queryLiveByWord:(NSString*_Nullable)word pageNum:(NSInteger)num completion:(QueryLiveListCompletion _Nullable)completion;
--(void)queryLiveByType:(NSString* _Nullable)typeId pageNum:(NSInteger)num completion:(QueryLiveListCompletion _Nullable)completion;
--(void)queryLiveDetailByCId:(NSString* _Nullable)cid completion:(LiveDetailCompletion _Nullable)completion;
+- (void)getLiveSearchHotWordsCompletion:(LiveHotWordListCompletion _Nullable)completion;
+- (void)queryLiveByWord:(NSString*_Nullable)word pageNum:(NSInteger)num completion:(QueryLiveListCompletion _Nullable)completion;
+- (void)queryLiveByType:(NSString* _Nullable)typeId pageNum:(NSInteger)num completion:(QueryLiveListCompletion _Nullable)completion;
+- (void)queryLiveDetailByCId:(NSString* _Nullable)cid completion:(LiveDetailCompletion _Nullable)completion;
 
--(void)getChatroomByUserLiveId:(NSString*_Nullable)liveId completion:(ChatroomByUserLiveIdCompletion _Nullable)completion;
+- (void)getChatroomByUserLiveId:(NSString*_Nullable)liveId completion:(ChatroomByUserLiveIdCompletion _Nullable)completion;
 
-- (void)getLiveProgramListCompletion:(LiveProgramListCompletion)completion;
-- (void)getLivePlayBackListByTypeId:(NSString*_Nullable)typId completion:(LivePlayBackListCompletion)completion;
+- (void)getLiveProgramListCompletion:(LiveProgramListCompletion _Nullable)completion;
+- (void)getLivePlayBackListByTypeId:(NSString*_Nullable)typId completion:(LivePlayBackListCompletion _Nullable)completion;
+
+- (void)getKingProgramLiveTypeListCompletion:(KingProgramLiveTypeListCompletion _Nullable)completion;
+
 @end

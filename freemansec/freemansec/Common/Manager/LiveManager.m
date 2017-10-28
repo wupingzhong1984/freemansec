@@ -8,7 +8,7 @@
 
 #import "LiveManager.h"
 #import "LiveHttpService.h"
-#import "OfficialLiveType.h"
+#import "OfficialLiveTypeModel.h"
 
 static LiveManager *instance;
 
@@ -80,7 +80,7 @@ static LiveManager *instance;
     
     for (int i = 0;i < names.count;i++) {
         
-        OfficialLiveType *type = [[OfficialLiveType alloc] init];
+        OfficialLiveTypeModel *type = [[OfficialLiveTypeModel alloc] init];
         type.liveTypeId = [ids objectAtIndex:i];
         type.liveTypeName = [names objectAtIndex:i];
         [array addObject:type];
@@ -88,7 +88,6 @@ static LiveManager *instance;
     
     return array;
 }
-
 
 -(void)getLiveBannerCompletion:(LiveChannelListCompletion)completion {
     
@@ -302,4 +301,20 @@ static LiveManager *instance;
     }];
 }
 
+
+- (void)getKingProgramLiveTypeListCompletion:(KingProgramLiveTypeListCompletion)completion {
+    
+    LiveHttpService* service = [[LiveHttpService alloc] init];
+    [service getKingProgramLiveTypeListCompletion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+    }];
+}
 @end

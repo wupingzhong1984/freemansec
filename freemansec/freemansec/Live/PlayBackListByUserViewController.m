@@ -1,18 +1,17 @@
 //
-//  OfficialLiveTypeViewController.m
+//  PlayBackListByUserViewController.m
 //  freemansec
 //
-//  Created by adamwu on 2017/7/12.
+//  Created by adamwu on 2017/10/28.
 //  Copyright © 2017年 adamwu. All rights reserved.
 //
 
-#import "OfficialLiveTypeViewController.h"
-#import "PlayBackCollectionViewCell.h"
+#import "PlayBackListByUserViewController.h"
+#import "CommonVideoModel.h"
 #import "PlayBackDetailViewController.h"
-#import "LiveManager.h"
-#import "LivePlayBackModel.h"
+#import "CommonPlayBackCollectionViewCell.h"
 
-@interface OfficialLiveTypeViewController ()
+@interface PlayBackListByUserViewController ()
 <UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,strong) NSMutableArray *playBackList;
@@ -21,7 +20,7 @@
 
 @end
 
-@implementation OfficialLiveTypeViewController
+@implementation PlayBackListByUserViewController
 
 - (NSMutableArray*)playBackList {
     
@@ -53,7 +52,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
     v.backgroundColor = UIColor_navibg;
     
-    [v addSubview:[self commNaviTitle:_typeModel.liveTypeName color:UIColor_navititle]];
+    [v addSubview:[self commNaviTitle:_userName color:UIColor_navititle]];
     
     UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_gray.png"]];
     back.centerX = 25;
@@ -76,6 +75,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
@@ -83,27 +83,27 @@
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
     
-    int itemWidth = (int)((K_UIScreenWidth-20-10)/2);
-    int itemHeight = (int)(itemWidth*3/4 + 40);
+    
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
-    layout.minimumInteritemSpacing = 10;
-    layout.minimumLineSpacing = 10;
-    layout.headerReferenceSize = CGSizeMake(K_UIScreenWidth,10);
-    layout.footerReferenceSize = CGSizeMake(K_UIScreenWidth,10);
+    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 0;
+    layout.headerReferenceSize = CGSizeMake(0,0);
+    layout.footerReferenceSize = CGSizeMake(0,0);
+    CGFloat itemWidth = K_UIScreenWidth/2;
+    layout.itemSize = CGSizeMake(itemWidth, itemWidth + 50);
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    [layout setHeaderReferenceSize:CGSizeMake(K_UIScreenWidth, 0)];
+    [layout setFooterReferenceSize:CGSizeMake(K_UIScreenWidth, 0)];
     self.playBackCollView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, naviBar.maxY, K_UIScreenWidth, K_UIScreenHeight - naviBar.maxY) collectionViewLayout:layout];
-    _playBackCollView.x = 10;
-    _playBackCollView.width = K_UIScreenWidth - 20;
     _playBackCollView.backgroundColor = [UIColor clearColor];
     _playBackCollView.delegate = self;
     _playBackCollView.dataSource = self;
     _playBackCollView.showsHorizontalScrollIndicator = NO;
     _playBackCollView.showsVerticalScrollIndicator = NO;
-    [_playBackCollView registerClass:[PlayBackCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
+    [_playBackCollView registerClass:[CommonPlayBackCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
     [self.view addSubview:_playBackCollView];
     
-    [[LiveManager sharedInstance] getLivePlayBackListByTypeId:_typeModel.liveTypeId completion:^(NSArray * _Nullable playBackList, NSError * _Nullable error) {
+    [[VideoManager sharedInstance] getVideoListByType:(_cId?@"1":@"0") typeId:_typeId user:_cId completion:^(NSArray * _Nullable playBackList, NSError * _Nullable error) {
         
         
         if (error) {
@@ -153,31 +153,22 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    PlayBackCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.playBackModel = [_playBackList objectAtIndex:indexPath.row];
+    CommonPlayBackCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.videoModel = [_playBackList objectAtIndex:indexPath.row];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    LivePlayBackModel *model = [self.playBackList objectAtIndex:indexPath.row];
+    CommonVideoModel *model = [self.playBackList objectAtIndex:indexPath.row];
     
     PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
-    vc.playBackId = model.playbackId;
-    vc.name = model.title;
-    vc.playBackType = @"1";
-    vc.kingPlayBackType = _typeModel.liveTypeId;
+    vc.playBackId = model.videoId;
+    vc.name = model.videoName;
+    vc.playBackType = (_cId?@"1":@"0");
+    vc.kingPlayBackType = _typeId;
     [self.navigationController pushViewController:vc animated:YES];
 }
-
-//- (void)didLiveAttent:(BOOL)attent {
-//    
-//    if (_lastSelectIndex > -1) {
-//        
-//        LiveChannelModel *model = [_channelList objectAtIndex:_lastSelectIndex];
-//        model.isAttent = attent?@"1":@"0";
-//    }
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

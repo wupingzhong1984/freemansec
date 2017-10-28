@@ -89,4 +89,20 @@ static VideoManager *instance;
         completion(err);
     }];
 }
+
+- (void)getVideoListByType:(NSString*_Nullable)type typeId:(NSString*_Nullable)typeId user:(NSString*_Nullable)user completion:(VideoList2Completion _Nullable)completion {
+    
+    VideoHttpService* service = [[VideoHttpService alloc] init];
+    [service getVideoListByType:type typeId:typeId user:user completion:^(id obj, NSError *err) {
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+    }];
+}
 @end

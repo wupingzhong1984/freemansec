@@ -85,4 +85,26 @@ static LogicManager *instance;
     
     return YES;
 }
+
++(NSString*)appLangCode {
+    
+    
+    NSArray *languages = [NSLocale preferredLanguages];
+    NSString *currentLanguage = [languages objectAtIndex:0];
+    if ([currentLanguage containsString:@"zh-Hans"])
+    {
+        return @"0";
+        
+    } else if ([currentLanguage containsString:@"zh-Hant"] ||
+               [currentLanguage containsString:@"zh-HK"] ||
+               [currentLanguage containsString:@"zh-TW"])
+    {
+        return @"1";
+        
+    } else
+    {
+        return @"0";
+    }
+    
+}
 @end

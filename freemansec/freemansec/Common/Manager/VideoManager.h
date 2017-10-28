@@ -11,7 +11,7 @@
 typedef void(^VideoKindListCompletion)(NSArray* _Nullable kindList, NSError* _Nullable error);
 typedef void(^VideoListCompletion)(NSArray* _Nullable videoList, NSError* _Nullable error);
 typedef void(^AddVideoPlayCountCompletion)(NSError* _Nullable error);
-
+typedef void(^VideoList2Completion)(NSArray* _Nullable videoList, NSError* _Nullable error);
 @interface VideoManager : NSObject
 
 + (VideoManager* _Nonnull)sharedInstance;
@@ -25,4 +25,6 @@ typedef void(^AddVideoPlayCountCompletion)(NSError* _Nullable error);
 
 - (void)addVideoPlayCount:(NSString*_Nullable)videoId completion:(AddVideoPlayCountCompletion _Nullable)completion;
 
+
+- (void)getVideoListByType:(NSString*_Nullable)type typeId:(NSString*_Nullable)typeId user:(NSString*_Nullable)user completion:(VideoList2Completion _Nullable)completion;
 @end

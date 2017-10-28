@@ -13,4 +13,5 @@
 @property (nonatomic,strong) NSString *playBackId;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *playBackType; // type=0主播视频 1=民众官方视频
+@property (nonatomic,strong) NSString *kingPlayBackType; //1001 1002 1003...
 @end

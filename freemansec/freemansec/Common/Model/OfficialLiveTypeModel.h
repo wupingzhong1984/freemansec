@@ -1,5 +1,5 @@
 //
-//  OfficialLiveType.h
+//  OfficialLiveTypeModel.h
 //  freemansec
 //
 //  Created by adamwu on 2017/8/7.
@@ -8,8 +8,9 @@
 
 #import "JSONModel.h"
 
-@interface OfficialLiveType : JSONModel
+@interface OfficialLiveTypeModel : JSONModel
 
 @property (nonatomic,strong) NSString<Optional> *liveTypeId;
 @property (nonatomic,strong) NSString<Optional> *liveTypeName;
+@property (nonatomic,strong) NSString<Optional> *liveTypeImg;
 @end

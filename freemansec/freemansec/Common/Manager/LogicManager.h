@@ -19,4 +19,6 @@
 +(BOOL)isSameLiveChannelModel:(LiveChannelModel*)model1
                         other:(LiveChannelModel*)model2;
 
++(NSString*)appLangCode;
+
 @end

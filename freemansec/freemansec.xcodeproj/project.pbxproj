@@ -201,7 +201,7 @@
 		2F869E381F37534B005C8212 /* forgetpwd_phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F869E341F37534A005C8212 /* forgetpwd_phone@2x.png */; };
 		2F869E391F37534B005C8212 /* forgetpwd_phone@3x的.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F869E351F37534A005C8212 /* forgetpwd_phone@3x的.png */; };
 		2F869E3C1F377408005C8212 /* MyInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F869E3B1F377408005C8212 /* MyInfoModel.m */; };
-		2F869E3F1F37821E005C8212 /* OfficialLiveType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F869E3E1F37821E005C8212 /* OfficialLiveType.m */; };
+		2F869E3F1F37821E005C8212 /* OfficialLiveTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F869E3E1F37821E005C8212 /* OfficialLiveTypeModel.m */; };
 		2F869E421F3820EE005C8212 /* IMTokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F869E411F3820EE005C8212 /* IMTokenModel.m */; };
 		2F88AF061F29B056005E8383 /* MinePersonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88AF051F29B056005E8383 /* MinePersonInfoViewController.m */; };
 		2F945E9C1F4F4B6D00D48C70 /* MessageRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F945E9B1F4F4B6D00D48C70 /* MessageRootViewController.m */; };
@@ -565,6 +565,10 @@
 		2FE7FF251F2E387E007DFCC0 /* MyFavourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF241F2E387E007DFCC0 /* MyFavourViewController.m */; };
 		2FE7FF281F2E38B3007DFCC0 /* MyAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF271F2E38B3007DFCC0 /* MyAttentionViewController.m */; };
 		2FE7FF311F2E56DD007DFCC0 /* MyFavourListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7FF301F2E56DD007DFCC0 /* MyFavourListCell.m */; };
+		2FF20E931FA3B70B0031C61D /* LiveTypeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF20E921FA3B70B0031C61D /* LiveTypeCollectionViewCell.m */; };
+		2FF20E961FA4BDD30031C61D /* PlayBackListByUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF20E951FA4BDD30031C61D /* PlayBackListByUserViewController.m */; };
+		2FF20E991FA4E10B0031C61D /* CommonVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF20E981FA4E10B0031C61D /* CommonVideoModel.m */; };
+		2FF20E9C1FA4E3980031C61D /* CommonPlayBackCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF20E9B1FA4E3980031C61D /* CommonPlayBackCollectionViewCell.m */; };
 		2FFCB15C1F4B54C5004BC9FC /* navi_mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFCB15A1F4B54C5004BC9FC /* navi_mark@2x.png */; };
 		2FFCB15D1F4B54C5004BC9FC /* navi_mark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFCB15B1F4B54C5004BC9FC /* navi_mark@3x.png */; };
 		2FFCB1601F4B552F004BC9FC /* UserLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFCB15F1F4B552F004BC9FC /* UserLiveViewController.m */; };
@@ -876,8 +880,8 @@
 		2F869E351F37534A005C8212 /* forgetpwd_phone@3x的.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forgetpwd_phone@3x的.png"; sourceTree = "<group>"; };
 		2F869E3A1F377408005C8212 /* MyInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoModel.h; sourceTree = "<group>"; };
 		2F869E3B1F377408005C8212 /* MyInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoModel.m; sourceTree = "<group>"; };
-		2F869E3D1F37821E005C8212 /* OfficialLiveType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficialLiveType.h; sourceTree = "<group>"; };
-		2F869E3E1F37821E005C8212 /* OfficialLiveType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficialLiveType.m; sourceTree = "<group>"; };
+		2F869E3D1F37821E005C8212 /* OfficialLiveTypeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficialLiveTypeModel.h; sourceTree = "<group>"; };
+		2F869E3E1F37821E005C8212 /* OfficialLiveTypeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficialLiveTypeModel.m; sourceTree = "<group>"; };
 		2F869E401F3820EE005C8212 /* IMTokenModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMTokenModel.h; sourceTree = "<group>"; };
 		2F869E411F3820EE005C8212 /* IMTokenModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMTokenModel.m; sourceTree = "<group>"; };
 		2F88AF041F29B056005E8383 /* MinePersonInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinePersonInfoViewController.h; sourceTree = "<group>"; };
@@ -1531,6 +1535,14 @@
 		2FE7FF271F2E38B3007DFCC0 /* MyAttentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAttentionViewController.m; sourceTree = "<group>"; };
 		2FE7FF2F1F2E56DD007DFCC0 /* MyFavourListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFavourListCell.h; sourceTree = "<group>"; };
 		2FE7FF301F2E56DD007DFCC0 /* MyFavourListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFavourListCell.m; sourceTree = "<group>"; };
+		2FF20E911FA3B70B0031C61D /* LiveTypeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveTypeCollectionViewCell.h; sourceTree = "<group>"; };
+		2FF20E921FA3B70B0031C61D /* LiveTypeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveTypeCollectionViewCell.m; sourceTree = "<group>"; };
+		2FF20E941FA4BDD30031C61D /* PlayBackListByUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayBackListByUserViewController.h; sourceTree = "<group>"; };
+		2FF20E951FA4BDD30031C61D /* PlayBackListByUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayBackListByUserViewController.m; sourceTree = "<group>"; };
+		2FF20E971FA4E10B0031C61D /* CommonVideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonVideoModel.h; sourceTree = "<group>"; };
+		2FF20E981FA4E10B0031C61D /* CommonVideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonVideoModel.m; sourceTree = "<group>"; };
+		2FF20E9A1FA4E3980031C61D /* CommonPlayBackCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonPlayBackCollectionViewCell.h; sourceTree = "<group>"; };
+		2FF20E9B1FA4E3980031C61D /* CommonPlayBackCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonPlayBackCollectionViewCell.m; sourceTree = "<group>"; };
 		2FFCB15A1F4B54C5004BC9FC /* navi_mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_mark@2x.png"; sourceTree = "<group>"; };
 		2FFCB15B1F4B54C5004BC9FC /* navi_mark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_mark@3x.png"; sourceTree = "<group>"; };
 		2FFCB15E1F4B552F004BC9FC /* UserLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLiveViewController.h; sourceTree = "<group>"; };
@@ -2122,6 +2134,8 @@
 				2F9EEE901F25C64300E161C3 /* VideoModel.m */,
 				2F821DBB1F726621001C9BE3 /* OfficalVideoModel.h */,
 				2F821DBC1F726621001C9BE3 /* OfficalVideoModel.m */,
+				2FF20E971FA4E10B0031C61D /* CommonVideoModel.h */,
+				2FF20E981FA4E10B0031C61D /* CommonVideoModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2640,8 +2654,8 @@
 				2F69811D1F1C9FB20083E785 /* JsonResponse.m */,
 				2F869E3A1F377408005C8212 /* MyInfoModel.h */,
 				2F869E3B1F377408005C8212 /* MyInfoModel.m */,
-				2F869E3D1F37821E005C8212 /* OfficialLiveType.h */,
-				2F869E3E1F37821E005C8212 /* OfficialLiveType.m */,
+				2F869E3D1F37821E005C8212 /* OfficialLiveTypeModel.h */,
+				2F869E3E1F37821E005C8212 /* OfficialLiveTypeModel.m */,
 				2F869E401F3820EE005C8212 /* IMTokenModel.h */,
 				2F869E411F3820EE005C8212 /* IMTokenModel.m */,
 				2F234DC51F39AE7A00862029 /* UserLiveType.h */,
@@ -2669,16 +2683,18 @@
 				2FAF30DE1F1605BD004329ED /* LiveRootViewController.m */,
 				2FAF30DF1F1605BD004329ED /* LiveSearchViewController.h */,
 				2FAF30E01F1605BD004329ED /* LiveSearchViewController.m */,
-				2FAF31851F1666C8004329ED /* OfficialLiveTypeViewController.h */,
-				2FAF31861F1666C8004329ED /* OfficialLiveTypeViewController.m */,
 				2F9999671F4A8F6F00656DF0 /* OfficialLiveViewController.h */,
 				2F9999681F4A8F6F00656DF0 /* OfficialLiveViewController.m */,
+				2FAF31851F1666C8004329ED /* OfficialLiveTypeViewController.h */,
+				2FAF31861F1666C8004329ED /* OfficialLiveTypeViewController.m */,
 				2FFCB15E1F4B552F004BC9FC /* UserLiveViewController.h */,
 				2FFCB15F1F4B552F004BC9FC /* UserLiveViewController.m */,
 				2F5E8F431F588AB100249C3A /* PlayBackDetailViewController.h */,
 				2F5E8F441F588AB100249C3A /* PlayBackDetailViewController.m */,
 				2F5E8F461F58905B00249C3A /* MoreWonderPlayBackViewController.h */,
 				2F5E8F471F58905B00249C3A /* MoreWonderPlayBackViewController.m */,
+				2FF20E941FA4BDD30031C61D /* PlayBackListByUserViewController.h */,
+				2FF20E951FA4BDD30031C61D /* PlayBackListByUserViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -2704,6 +2720,10 @@
 				2F5E8F411F5888E700249C3A /* PlayBackCollectionViewCell.m */,
 				2F5E8F491F58924A00249C3A /* WonderPlayBackCollectionViewCell.h */,
 				2F5E8F4A1F58924A00249C3A /* WonderPlayBackCollectionViewCell.m */,
+				2FF20E911FA3B70B0031C61D /* LiveTypeCollectionViewCell.h */,
+				2FF20E921FA3B70B0031C61D /* LiveTypeCollectionViewCell.m */,
+				2FF20E9A1FA4E3980031C61D /* CommonPlayBackCollectionViewCell.h */,
+				2FF20E9B1FA4E3980031C61D /* CommonPlayBackCollectionViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -3599,9 +3619,9 @@
 				TargetAttributes = {
 					2FAF30AE1F1603F8004329ED = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = Q47BYSSVCD;
+						DevelopmentTeam = U8NNC43JQ4;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -3846,6 +3866,7 @@
 				2F869BFB1F35F29A005C8212 /* FMDatabaseAdditions.m in Sources */,
 				2FCBD95E1F4430BE00F21A60 /* NIMTeamMemberListViewController.m in Sources */,
 				2FCBD7AB1F44016D00F21A60 /* VideoPlayViewController.m in Sources */,
+				2FF20E9C1FA4E3980031C61D /* CommonPlayBackCollectionViewCell.m in Sources */,
 				2F821DBD1F726621001C9BE3 /* OfficalVideoModel.m in Sources */,
 				2FCBD9981F44372D00F21A60 /* NTESLoginManager.m in Sources */,
 				2F869C2D1F35F29B005C8212 /* TZVideoPlayerController.m in Sources */,
@@ -3887,6 +3908,7 @@
 				2F22DF611F2108180039316B /* SignUpViewController.m in Sources */,
 				2F869C0C1F35F29B005C8212 /* SDWebImageDownloaderOperation.m in Sources */,
 				2FCBD9611F4430BE00F21A60 /* NIMTeamCardHeaderCell.m in Sources */,
+				2FF20E961FA4BDD30031C61D /* PlayBackListByUserViewController.m in Sources */,
 				2FCBD9651F4430BE00F21A60 /* NIMKitDevice.m in Sources */,
 				2F22DF5E1F20FA9C0039316B /* LoginViewController.m in Sources */,
 				2FCBD92B1F4430BE00F21A60 /* NIMAudioContentConfig.m in Sources */,
@@ -3981,6 +4003,7 @@
 				2FE7FF1C1F2DDC6A007DFCC0 /* MineManager.m in Sources */,
 				2FCBD9441F4430BE00F21A60 /* NIMSessionAudioContentView.m in Sources */,
 				2FC4CF641F3A069D002DF8D8 /* UpdateEmailViewController.m in Sources */,
+				2FF20E931FA3B70B0031C61D /* LiveTypeCollectionViewCell.m in Sources */,
 				2FCBD7CA1F442DA800F21A60 /* NTESCellLayoutConfig.m in Sources */,
 				2FCBD99F1F44378700F21A60 /* NTESChartletAttachment.m in Sources */,
 				2FCBD98F1F4435E900F21A60 /* NTESClientUtil.m in Sources */,
@@ -4028,13 +4051,14 @@
 				2FFE5DB61F4F09E600C6971D /* MsgModel.m in Sources */,
 				2F12E0791F31E9800064AD5A /* NEAuthorizeManager.m in Sources */,
 				2FAF31531F1605BD004329ED /* AFURLSessionManager.m in Sources */,
-				2F869E3F1F37821E005C8212 /* OfficialLiveType.m in Sources */,
+				2F869E3F1F37821E005C8212 /* OfficialLiveTypeModel.m in Sources */,
 				2F869C011F35F29B005C8212 /* M80AttributedLabelAttachment.m in Sources */,
 				2F869C0B1F35F29B005C8212 /* SDWebImageDownloader.m in Sources */,
 				2FAF31BE1F167C32004329ED /* CLLocation+YCLocation.m in Sources */,
 				2FCBD9681F4430BE00F21A60 /* NIMKitTimerHolder.m in Sources */,
 				2FCBD9171F4430BE00F21A60 /* NIMContactSelectTabView.m in Sources */,
 				2F6981381F1CA1B40083E785 /* JSONAPI.m in Sources */,
+				2FF20E991FA4E10B0031C61D /* CommonVideoModel.m in Sources */,
 				2FCBD95A1F4430BE00F21A60 /* NIMCreateTeamAnnouncement.m in Sources */,
 				2F99995D1F48560E00656DF0 /* FSSessionConfig.m in Sources */,
 				2FCBD9641F4430BE00F21A60 /* NIMTimePickerView.m in Sources */,
@@ -4309,7 +4333,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ken Yu (QHB7Z56PFF)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = U8NNC43JQ4;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4348,7 +4372,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.live;
+				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.liveplay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4362,8 +4386,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Juze Network Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = Q47BYSSVCD;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = U8NNC43JQ4;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4402,10 +4426,10 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.live;
+				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.liveplay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d21217e1-580b-46bc-83f5-99d839c00763";
-				PROVISIONING_PROFILE_SPECIFIER = live_dis_inhouse;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

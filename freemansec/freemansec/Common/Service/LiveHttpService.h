@@ -23,4 +23,6 @@
 
 - (void)getLiveProgramListCompletion:(HttpClientServiceObjectBlock)completion;
 - (void)getLivePlayBackListByTypeId:(NSString*)typId completion:(HttpClientServiceObjectBlock)completion;
+
+- (void)getKingProgramLiveTypeListCompletion:(HttpClientServiceObjectBlock)completion;
 @end

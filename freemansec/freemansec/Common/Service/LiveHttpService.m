@@ -14,6 +14,7 @@
 #import "LiveDetailNTModel.h"
 #import "LiveProgramModel.h"
 #import "LivePlayBackModel.h"
+#import "OfficialLiveTypeModel.h"
 
 static NSString* GetLiveBannerPath = @"Ajax/GetBanner.ashx";
 static NSString* GetLiveListByTypePath = @"Ajax/GetLive.ashx";
@@ -23,7 +24,7 @@ static NSString* GetLiveDetailPath = @"Ajax/QueryLiveToCid.ashx";
 static NSString* GetChatroomByUserLiveIdPath = @"Ajax/getChatrommByUser.ashx";
 static NSString* GetLiveProgramPath = @"Ajax/GetProgram.ashx";
 static NSString* GetLivePlayBackPath = @"Ajax/GetPlayBack.ashx";
-
+static NSString* GetKingProgramLiveTypePath = @"Ajax/GetLiveType.ashx";
 @implementation LiveHttpService
 
 -(void)getLiveBannerCompletion:(HttpClientServiceObjectBlock)completion {
@@ -248,4 +249,26 @@ static NSString* GetLivePlayBackPath = @"Ajax/GetPlayBack.ashx";
                  }];
 }
 
+- (void)getKingProgramLiveTypeListCompletion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetKingProgramLiveTypePath
+                     params:nil
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [OfficialLiveTypeModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                 }];
+}
 @end

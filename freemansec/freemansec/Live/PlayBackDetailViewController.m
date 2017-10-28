@@ -7,12 +7,12 @@
 //
 
 #import "PlayBackDetailViewController.h"
-#import <WebKit/WebKit.h>
+#import "PlayBackListByUserViewController.h"
 
 @interface PlayBackDetailViewController ()
-<WKScriptMessageHandler,WKUIDelegate>
+<UIWebViewDelegate>
 
-@property (nonatomic,strong) WKWebView *webView;
+@property (nonatomic,strong) UIWebView *webView;
 @end
 
 @implementation PlayBackDetailViewController
@@ -57,27 +57,11 @@
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
     
-    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, naviBar.maxY,K_UIScreenWidth, K_UIScreenHeight - naviBar.maxY)];
+    _webView.delegate = self;
+    [self.view addSubview:_webView];
     
-    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, naviBar.maxY,K_UIScreenWidth, K_UIScreenHeight - naviBar.maxY) configuration:config];
-    [self.view addSubview:self.webView];
-    
-    NSArray *languages = [NSLocale preferredLanguages];
-    NSString *currentLanguage = [languages objectAtIndex:0];
-    NSString *langCode;
-    if ([currentLanguage containsString:@"zh-Hans"])
-    {
-        langCode = @"0";
-    } else if ([currentLanguage containsString:@"zh-Hant"] ||
-               [currentLanguage containsString:@"zh-HK"] ||
-               [currentLanguage containsString:@"zh-TW"])
-    {
-        langCode = @"1";
-    } else {
-        langCode = @"0";
-    }
-    
-    NSMutableString *url = [NSMutableString stringWithFormat:@"http://mzcj.dhteam.net/videoback.html?vid=%@&lang=%@&type=%@",_playBackId,langCode,_playBackType];
+    NSMutableString *url = [NSMutableString stringWithFormat:@"http://mzcj.dhteam.net/videoback.html?vid=%@&lang=%@&type=%@",_playBackId,[LogicManager appLangCode],_playBackType];
     
     if ([[MineManager sharedInstance] getMyInfo]) {
         [url appendFormat:@"&userid=%@",[[MineManager sharedInstance] getMyInfo].userId];
@@ -102,6 +86,40 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
+    NSString *scheme = @"freemansec://";
+    NSString *urlStr = request.URL.absoluteString;
+    NSRange range = [urlStr rangeOfString:scheme];
+        
+    if (range.length > 0) {
+            
+        NSString *subPath = [urlStr substringFromIndex:scheme.length];
+        NSArray *arr = [subPath componentsSeparatedByString:@"?"];
+        
+        if ([arr[0] isEqualToString:@"keyword"]) {
+            
+            if (arr.count > 1) {
+                
+                NSString *str = [arr[1] stringByRemovingPercentEncoding];
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[str dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+                
+                PlayBackListByUserViewController *vc = [[PlayBackListByUserViewController alloc] init];
+                if ([dic[@"type"] isEqualToString:@"0"]) { //官方
+                    vc.typeId = _kingPlayBackType;
+                } else { //主播
+                    vc.cId = dic[@"cid"];
+                }
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+        }
+        
+        return NO;
+    }
+    
+    return YES;
 }
 
 /*

@@ -25,19 +25,8 @@ NSString* const LogicErrorDomain = @"freemansec.logic.error.domain";
         }
     }
     
-    NSArray *languages = [NSLocale preferredLanguages];
-    NSString *currentLanguage = [languages objectAtIndex:0];
-    if ([currentLanguage containsString:@"zh-Hans"])
-    {
-        [params setObject:@"0" forKey:@"lang"];
-    } else if ([currentLanguage containsString:@"zh-Hant"] ||
-               [currentLanguage containsString:@"zh-HK"] ||
-               [currentLanguage containsString:@"zh-TW"])
-    {
-        [params setObject:@"1" forKey:@"lang"];
-    } else {
-        [params setObject:@"0" forKey:@"lang"];
-    }
+    //language
+    [params setObject:[LogicManager appLangCode] forKey:@"lang"];
     
 }
 

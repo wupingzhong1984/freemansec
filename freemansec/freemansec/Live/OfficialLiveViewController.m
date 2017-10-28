@@ -7,15 +7,16 @@
 //
 
 #import "OfficialLiveViewController.h"
-#import "OfficialLiveTypeViewController.h"
 #import "LivePlayViewController.h"
 #import "LiveBannerCollectionViewCell.h"
-#import "OfficialLiveType.h"
+#import "OfficialLiveTypeModel.h"
 #import "LiveProgramCellView.h"
 #import "LiveWonderPlayBackCellView.h"
 #import "PlayBackCollectionViewCell.h"
 #import "PlayBackDetailViewController.h"
 #import "MoreWonderPlayBackViewController.h"
+#import "LiveTypeCollectionViewCell.h"
+#import "OfficialLiveTypeViewController.h"
 
 @interface OfficialLiveViewController ()
 <UICollectionViewDelegate,UICollectionViewDataSource,
@@ -34,8 +35,8 @@ LivePlayViewControllerDelegate>
 @property (nonatomic,strong) NSMutableArray *wonderfulPlayBackList;
 @property (nonatomic,strong) UICollectionView *wonderfulPlayBackCollView;
 
-@property (nonatomic,strong) NSMutableArray *kingPlayBackList;
-@property (nonatomic,strong) UICollectionView *kingPlayBackCollView;
+@property (nonatomic,strong) NSMutableArray *kingProgramLiveTypeList;
+@property (nonatomic,strong) UICollectionView *kingProgramLiveTypeCollView;
 @end
 
 @implementation OfficialLiveViewController
@@ -70,23 +71,15 @@ LivePlayViewControllerDelegate>
     return _wonderfulPlayBackList;
 }
 
-- (NSMutableArray*)kingPlayBackList {
+- (NSMutableArray*)kingProgramLiveTypeList {
     
-    if (!_kingPlayBackList) {
+    if (!_kingProgramLiveTypeList) {
         
-        _kingPlayBackList = [[NSMutableArray alloc] init];
+        _kingProgramLiveTypeList = [[NSMutableArray alloc] init];
     }
     
-    return _kingPlayBackList;
+    return _kingProgramLiveTypeList;
 }
-
-//- (void)liveTypeClicked:(id)sender {
-//    
-//    int type = (int)((UIButton*)sender).tag - 100;
-//    OfficialLiveTypeViewController *vc = [[OfficialLiveTypeViewController alloc] init];
-//    vc.typeIndex = type;
-//    [self.navigationController pushViewController:vc animated:YES];
-//}
 
 - (void)setupBannerArea {
     
@@ -121,12 +114,12 @@ LivePlayViewControllerDelegate>
     if (seg.selectedSegmentIndex == 0) {
         
         _todayLiveContentView.hidden = NO;
-        _kingPlayBackCollView.hidden = YES;
+        _kingProgramLiveTypeCollView.hidden = YES;
         
     } else {
         
         _todayLiveContentView.hidden = YES;
-        _kingPlayBackCollView.hidden = NO;
+        _kingProgramLiveTypeCollView.hidden = NO;
     }
 }
 
@@ -336,17 +329,17 @@ LivePlayViewControllerDelegate>
     layout.minimumInteritemSpacing = 10;
     layout.minimumLineSpacing = 10;
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    self.kingPlayBackCollView = [[UICollectionView alloc] initWithFrame:_todayLiveContentView.frame collectionViewLayout:layout];
-    _kingPlayBackCollView.x = 10;
-    _kingPlayBackCollView.width = _kingPlayBackCollView.width - 20;
-    _kingPlayBackCollView.backgroundColor = [UIColor whiteColor];
-    _kingPlayBackCollView.delegate = self;
-    _kingPlayBackCollView.dataSource = self;
-    _kingPlayBackCollView.showsHorizontalScrollIndicator = NO;
-    _kingPlayBackCollView.showsVerticalScrollIndicator = NO;
-    [_kingPlayBackCollView registerClass:[PlayBackCollectionViewCell class] forCellWithReuseIdentifier:@"PlayBackCell"];
-    [self.view addSubview:_kingPlayBackCollView];
-    _kingPlayBackCollView.hidden = YES;
+    self.kingProgramLiveTypeCollView = [[UICollectionView alloc] initWithFrame:_todayLiveContentView.frame collectionViewLayout:layout];
+    _kingProgramLiveTypeCollView.x = 10;
+    _kingProgramLiveTypeCollView.width = K_UIScreenWidth - 20;
+    _kingProgramLiveTypeCollView.backgroundColor = [UIColor whiteColor];
+    _kingProgramLiveTypeCollView.delegate = self;
+    _kingProgramLiveTypeCollView.dataSource = self;
+    _kingProgramLiveTypeCollView.showsHorizontalScrollIndicator = NO;
+    _kingProgramLiveTypeCollView.showsVerticalScrollIndicator = NO;
+    [_kingProgramLiveTypeCollView registerClass:[LiveTypeCollectionViewCell class] forCellWithReuseIdentifier:@"LiveTypeCell"];
+    [self.view addSubview:_kingProgramLiveTypeCollView];
+    _kingProgramLiveTypeCollView.hidden = YES;
 }
 
 - (void)viewDidLoad {
@@ -460,28 +453,28 @@ LivePlayViewControllerDelegate>
             }
         }
         
-        [self requestKingPlayBack];
+        [self requestKingProgramLiveType];
     }];
 }
 
-- (void)requestKingPlayBack {
+- (void)requestKingProgramLiveType {
     
-    [[LiveManager sharedInstance] getLivePlayBackListByTypeId:@"1" completion:^(NSArray * _Nullable playList, NSError * _Nullable error) {
+    [[LiveManager sharedInstance] getKingProgramLiveTypeListCompletion:^(NSArray * _Nullable typeList, NSError * _Nullable error) {
         
         if (error) {
             [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
         } else {
             
-            [self.kingPlayBackList removeAllObjects];
-            if (playList && playList.count > 0) {
+            [self.kingProgramLiveTypeList removeAllObjects];
+            if (typeList && typeList.count > 0) {
                 
-                [self.kingPlayBackList addObjectsFromArray:playList];
+                [self.kingProgramLiveTypeList addObjectsFromArray:typeList];
             }
             
         }
         
         [self reloadProgramArea];
-        [_kingPlayBackCollView reloadData];
+        [_kingProgramLiveTypeCollView reloadData];
     }];
 }
 
@@ -491,8 +484,8 @@ LivePlayViewControllerDelegate>
         return self.bannerList.count;
     }
     
-    if ([collectionView isEqual:_kingPlayBackCollView]) {
-        return self.kingPlayBackList.count;
+    if ([collectionView isEqual:_kingProgramLiveTypeCollView]) {
+        return self.kingProgramLiveTypeList.count;
     }
     
     return 0;
@@ -508,8 +501,8 @@ LivePlayViewControllerDelegate>
         return cell;
     } else {
         
-        PlayBackCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PlayBackCell" forIndexPath:indexPath];
-        cell.playBackModel = [self.kingPlayBackList objectAtIndex:indexPath.row];
+        LiveTypeCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LiveTypeCell" forIndexPath:indexPath];
+        cell.typeModel = [self.kingProgramLiveTypeList objectAtIndex:indexPath.row];
         
         return cell;
     }
@@ -526,11 +519,9 @@ LivePlayViewControllerDelegate>
         [self.navigationController pushViewController:vc animated:YES];
     } else {
         
-        LivePlayBackModel *model = [self.kingPlayBackList objectAtIndex:indexPath.row];
-        PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
-        vc.playBackId = model.playbackId;
-        vc.name = model.title;
-        vc.playBackType = @"1";
+        OfficialLiveTypeModel *model = [self.kingProgramLiveTypeList objectAtIndex:indexPath.row];
+        OfficialLiveTypeViewController *vc = [[OfficialLiveTypeViewController alloc] init];
+        vc.typeModel = model;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

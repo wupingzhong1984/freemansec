@@ -17,4 +17,7 @@
 - (void)getVideoListPageNum:(NSString*)pageNum completion:(HttpClientServiceObjectBlock)completion;
 
 - (void)addVideoPlayCount:(NSString*)videoId completion:(HttpClientServiceObjectBlock)completion;
+
+- (void)getVideoListByType:(NSString*)type typeId:(NSString*)typeId user:(NSString*)user completion:(HttpClientServiceObjectBlock)completion;
+
 @end
