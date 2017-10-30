@@ -52,7 +52,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, K_UIScreenWidth, self.navigationController.navigationBar.maxY)];
     v.backgroundColor = UIColor_navibg;
     
-    [v addSubview:[self commNaviTitle:_userName color:UIColor_navititle]];
+    [v addSubview:[self commNaviTitle:NSLocalizedString(@"playback list", nil) color:UIColor_navititle]];
     
     UIImageView *back = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navi_back_gray.png"]];
     back.centerX = 25;
