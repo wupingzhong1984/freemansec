@@ -16,7 +16,7 @@
 #import "PlayBackDetailViewController.h"
 #import "MoreWonderPlayBackViewController.h"
 #import "LiveTypeCollectionViewCell.h"
-#import "OfficialLiveTypeViewController.h"
+#import "PlayBackListByUserViewController.h"
 
 @interface OfficialLiveViewController ()
 <UICollectionViewDelegate,UICollectionViewDataSource,
@@ -520,8 +520,8 @@ LivePlayViewControllerDelegate>
     } else {
         
         OfficialLiveTypeModel *model = [self.kingProgramLiveTypeList objectAtIndex:indexPath.row];
-        OfficialLiveTypeViewController *vc = [[OfficialLiveTypeViewController alloc] init];
-        vc.typeModel = model;
+        PlayBackListByUserViewController *vc = [[PlayBackListByUserViewController alloc] init];
+        vc.typeId = model.liveTypeId;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

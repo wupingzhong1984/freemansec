@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PlayBackListByUserViewController : UIViewController
-@property (nonatomic,strong) NSString *userName;
 @property (nonatomic,strong) NSString *typeId; //type 0
 @property (nonatomic,strong) NSString *cId; //type 1
 @end

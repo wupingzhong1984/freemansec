@@ -52,11 +52,20 @@ static NSString* GetVideoListPath2 = @"Ajax/getVedioListByUser.ashx";
 
 - (void)getVideoListByType:(NSString*)type typeId:(NSString*)typeId user:(NSString*)user completion:(HttpClientServiceObjectBlock)completion {
     
+    NSDictionary *dic;
+    if ([type isEqualToString:@"0"]) {
+        
+        if (typeId) {
+            dic = @{@"type":@"0",@"typeid":typeId};
+        } else {
+            dic = @{@"type":@"0"};
+        }
+    } else {
+        dic = @{@"type":@"1",@"cid":user};
+    }
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:GetVideoListPath2
-                     params:([type isEqualToString:@"0"]?
-                             @{@"type":@"0",@"typeid":typeId}:
-                             @{@"type":@"1",@"cid":user})
+                     params:dic
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      if(response == nil) {

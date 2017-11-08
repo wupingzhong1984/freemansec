@@ -165,7 +165,7 @@
     PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
     vc.playBackId = model.videoId;
     vc.name = model.videoName;
-    vc.playBackType = (_cId?@"1":@"0");
+    vc.playBackType = (_cId?@"0":@"1");
     vc.kingPlayBackType = _typeId;
     [self.navigationController pushViewController:vc animated:YES];
 }

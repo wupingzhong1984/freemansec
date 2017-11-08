@@ -230,7 +230,7 @@ static NSString* GetKingProgramLiveTypePath = @"Ajax/GetLiveType.ashx";
     
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:GetLivePlayBackPath
-                     params:@{@"type":typId}
+                     params:@{@"typeId":typId}
                  completion:^(JsonResponse* response, NSError *err) {
                      
                      if(response == nil) {
