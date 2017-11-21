@@ -110,7 +110,7 @@
                 if ([dic[@"type"] isEqualToString:@"0"]) { //官方
                     vc.typeId = _kingPlayBackType;
                 } else { //主播
-                    vc.cId = dic[@"cid"];
+                    vc.cId = dic[@"vid"];
                 }
                 [self.navigationController pushViewController:vc animated:YES];
             }

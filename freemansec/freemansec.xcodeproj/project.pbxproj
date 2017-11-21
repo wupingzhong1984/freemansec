@@ -3619,7 +3619,7 @@
 				TargetAttributes = {
 					2FAF30AE1F1603F8004329ED = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = Q47BYSSVCD;
+						DevelopmentTeam = U8NNC43JQ4;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Manual;
 					};
@@ -4372,7 +4372,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.live;
+				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.liveplay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "843a9044-3a8f-4211-9ac0-5c7875de85c0";
 				PROVISIONING_PROFILE_SPECIFIER = live_dev;
@@ -4426,7 +4426,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.live;
+				PRODUCT_BUNDLE_IDENTIFIER = com.freemansec.liveplay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d21217e1-580b-46bc-83f5-99d839c00763";
 				PROVISIONING_PROFILE_SPECIFIER = live_dis_inhouse;

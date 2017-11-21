@@ -539,4 +539,13 @@ static MineManager *instance;
         }
     }];
 }
+
+- (void)deleteMyVideo:(NSString *)vid completion:(DeleteMyVideoCompletion)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service deleteMyVideo:vid completion:^(id obj, NSError *err) {
+                        
+                        completion(err);
+                    }];
+}
 @end

@@ -27,6 +27,9 @@
 #define K_UISreenWidthScale    K_UIScreenWidth/375  //以iphone6 屏幕为基准
 #define K_UIScale(x)           x*K_UISreenWidthScale
 
+#define kUtilityButtonsWidthMax 260
+#define kUtilityButtonWidthDefault 80
+
 #define BASE_URL @"http://mzcj.dhteam.net"
 
 #define NETEASE_APP_KEY @"728d3efc69a56832f570c12c5fa7d780"  //test
@@ -68,6 +71,12 @@ typedef enum {
     VCLSPush,
     VCLSPresent
 } VCLoadStyle;
+
+typedef enum {
+    kCellStateCenter,
+    kCellStateLeft,
+    kCellStateRight
+} SWCellState;
 
 #define IOS8            ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 8.0)
 #define NTESNotificationLogout @"NTESNotificationLogout"

@@ -164,3 +164,5 @@
 "pushing has error and restart" = "推流过程中发生错误，请尝试重新开启。";
 "verify code sent notice" = "提示：相关验证码信息已发送至您的邮箱，验证码有效期为15分钟。";
 "playback list" = "回看列表";
+"delete" = "删除";
+"check to delete my video" = "确定要删除该视频吗？";

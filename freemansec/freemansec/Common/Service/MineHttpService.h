@@ -39,6 +39,7 @@
 - (void)updateProvince:(NSString*)provinceId city:(NSString*)cityId area:(NSString*)areaId userId:(NSString*)userId completion:(HttpClientServiceObjectBlock)completion;
 
 - (void)getMyVideoListByCid:(NSString*)cid pageNum:(NSInteger)pageNum completion:(HttpClientServiceObjectBlock)completion;
+- (void)deleteMyVideo:(NSString*)vid completion:(HttpClientServiceObjectBlock)completion;
 - (void)getMyOfficalFavourListCompletion:(HttpClientServiceObjectBlock)completion;
 - (void)getMyUserFavourListCompletion:(HttpClientServiceObjectBlock)completion;
 - (void)getMyAttentionListCompletion:(HttpClientServiceObjectBlock)completion;

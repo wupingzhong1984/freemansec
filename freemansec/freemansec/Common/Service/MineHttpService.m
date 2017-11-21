@@ -42,7 +42,7 @@ static NSString* CancelMyAttentionPath = @"Ajax/cancelConcerns.ashx";
 static NSString* GetMyUserFavourPath = @"Ajax/getCollect.ashx";
 static NSString* GetMyOfficalFavourPath = @"Ajax/getCollectToOfficial.ashx";
 static NSString* GetMyVideoPath = @"Ajax/getMyVideo.ashx";
-
+static NSString* DeleteMyVideoPath = @"Ajax/delMyVideo.ashx";
 @implementation MineHttpService
 
 - (void)registerUserAreaCode:(NSString*)areaCode phone:(NSString*)phone verify:(NSString*)verify pwd:(NSString*)pwd completion:(HttpClientServiceObjectBlock)completion {
@@ -768,4 +768,15 @@ static NSString* GetMyVideoPath = @"Ajax/getMyVideo.ashx";
                  }];
 }
 
+- (void)deleteMyVideo:(NSString *)vid completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:DeleteMyVideoPath
+                     params:@{@"vid":vid
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     completion(response, err);
+                 }];
+}
 @end
