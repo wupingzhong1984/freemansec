@@ -33,4 +33,6 @@
                             params:(NSString *)params
                            toRobot:(NSString *)robotId;
 
++ (NIMMessage *)msgWithGift:(NSString*)giftId;
+
 @end

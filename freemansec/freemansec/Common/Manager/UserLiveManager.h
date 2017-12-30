@@ -27,4 +27,7 @@ typedef void(^CloseLivePushCompletion)(NSError* _Nullable error);
 
 - (void)startLivePushByTitle:(NSString* _Nullable)title completion:(StartLivePushCompletion _Nullable)completion;
 - (void)closeLivePushCompletion:(CloseLivePushCompletion _Nullable)completion;
+
+- (void)updateGiftArray:(NSArray* _Nullable)array;
+- (NSMutableArray* _Nullable)getNewestGiftArray;
 @end

@@ -35,6 +35,7 @@ static NSString* CloseLivePath = @"Ajax/closeLive.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil, nil);
+                         return;
                      }
                      
                      NSString *roomId = [(NSDictionary*)response.data objectForKey:@"roomid"];
@@ -65,6 +66,7 @@ static NSString* CloseLivePath = @"Ajax/closeLive.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil, nil);
+                         return;
                      }
                      
                      ChatroomInfoModel* model = [[ChatroomInfoModel alloc] initWithDictionary:(NSDictionary*)response.data error:&err];

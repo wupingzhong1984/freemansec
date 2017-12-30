@@ -51,6 +51,11 @@ typedef void(^RefreshUserInfoCompletion)(MyInfoModel* _Nullable myInfo, NSError*
 typedef void(^AddMyAttentionCompletion)(NSError* _Nullable error);
 typedef void(^CancelMyAttentionCompletion)(NSError* _Nullable error);
 typedef void(^DeleteMyVideoCompletion)(NSError* _Nullable error);
+typedef void(^UserTotalCoinCompletion)(NSString* _Nullable coin, NSError* _Nullable error);
+typedef void(^ConsumeRecordListCompletion)(NSArray* _Nullable recordList, NSError* _Nullable error);
+typedef void(^TopupProductListCompletion)(NSArray* _Nullable productList, NSError* _Nullable error);
+typedef void(^LiveGiftListCompletion)(NSArray* _Nullable giftList, NSError* _Nullable error);
+typedef void(^AddGiftRecordCompletion)(NSError* _Nullable error);
 
 @interface MineManager : NSObject
 
@@ -108,4 +113,10 @@ typedef void(^DeleteMyVideoCompletion)(NSError* _Nullable error);
 
 - (void)loginWithThird:(ThirdLoginType)type userCode:(NSString*_Nullable)code nickName:(NSString*_Nullable)nickName headImg:(NSString*_Nullable)headImg completion:(ThirdLoginCompletion _Nullable)completion;
 - (void)refreshUserInfoCompletion:(RefreshUserInfoCompletion _Nullable)completion;
+
+- (void)getUserTotalCoinCompletion:(UserTotalCoinCompletion _Nullable)completion;
+- (void)getUserConsumeRecordListCompletion:(ConsumeRecordListCompletion _Nullable)completion;
+- (void)getTopupProductListCompletion:(TopupProductListCompletion _Nullable)completion;
+- (void)getLiveGiftListCompletion:(LiveGiftListCompletion _Nullable)completion;
+- (void)addGiftRecordGiftId:(NSString*_Nullable)giftId anchorId:(NSString*_Nullable)anchorId completion:(AddGiftRecordCompletion _Nullable)completion;
 @end

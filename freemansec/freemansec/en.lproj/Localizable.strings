@@ -5,6 +5,7 @@
   Created by adamwu on 2017/7/21.
   Copyright © 2017年 adamwu. All rights reserved.
 */
+
 "Live" = "Live";
 "apply anchor" = "申请主播";
 "attention failed" = "关注失败!";
@@ -165,3 +166,9 @@
 "playback list" = "回看列表";
 "delete" = "删除";
 "check to delete my video" = "确定要删除该视频吗？";
+"records of consumption" = "消费记录";
+"account balance" = "账户余额";
+"top-up" = "充值";
+"please select pop-up item" = "请选择充值金额。";
+"present" = "赠送";
+"pay presently" = "立即支付";

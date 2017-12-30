@@ -63,6 +63,11 @@
 //    [self sendMessage:[NTESSessionMsgConverter msgWithJenKenPon:attachment]];
 //}
 
+- (void)presentGift:(NSString*)giftId {
+    
+    //todo
+}
+
 - (void)sendMessage:(NIMMessage *)message
 {
     NIMChatroomMember *member = [[NTESChatroomManager sharedInstance] myInfo:self.chatroom.roomId];

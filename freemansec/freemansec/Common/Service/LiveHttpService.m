@@ -159,6 +159,7 @@ static NSString* GetKingProgramLiveTypePath = @"Ajax/GetLiveType.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil, nil);
+                         return;
                      }
                      
                      LiveDetailNTModel* model = [[LiveDetailNTModel alloc] initWithDictionary:(NSDictionary*)response.data error:&err];
@@ -186,6 +187,7 @@ static NSString* GetKingProgramLiveTypePath = @"Ajax/GetLiveType.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil, nil);
+                         return;
                      }
                      
                      ChatroomInfoModel* model = [[ChatroomInfoModel alloc] initWithDictionary:(NSDictionary*)response.data error:&err];
@@ -213,6 +215,7 @@ static NSString* GetKingProgramLiveTypePath = @"Ajax/GetLiveType.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil,nil);
+                         return;
                      }
                      
                      NSArray *list = [LiveProgramModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];

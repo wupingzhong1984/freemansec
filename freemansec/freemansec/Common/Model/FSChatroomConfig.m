@@ -31,8 +31,8 @@
 
 - (NSArray<NSNumber *> *)inputBarItemTypes{
     return @[
-             @(NIMInputBarItemTypeTextAndRecord),
-             @(NIMInputBarItemTypeEmoticon)
+             @(NIMInputBarItemTypeTextAndRecord)
+//             @(NIMInputBarItemTypeEmoticon)
              ];
 }
 

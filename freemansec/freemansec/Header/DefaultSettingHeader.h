@@ -61,7 +61,9 @@
 #define UIColor_0a6ed2 (UIColorFromRGB(0x0a6ed2))
 #define UIColor_82b432 (UIColorFromRGB(0x82b432))
 #define UIColor_9f9f9f (UIColorFromRGB(0x9f9f9f))
-
+#define UIColor_dc8f23 (UIColorFromRGB(0xdc8f23))
+#define UIColor_3ecafb (UIColorFromRGB(0x3ecafb))
+#define UIColor_1877d1 (UIColorFromRGB(0x1877d1))
 typedef enum {
     RPKForgetPwd,
     RPKResetPwd

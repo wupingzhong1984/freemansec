@@ -16,10 +16,13 @@
 #import "NTESLoginManager.h"
 #import "NELivePlayer.h"
 #import "NELivePlayerController.h"
+#import "SelectLiveGiftView.h"
+#import "LiveGiftModel.h"
 
 @interface UserLivePlayViewController ()
 <NIMChatroomManagerDelegate,
-NIMSessionViewControllerDelegate>
+NIMSessionViewControllerDelegate,
+SelectLiveGiftViewDelegate>
 {
     BOOL liveStreamOK;
     BOOL isInChatroom;
@@ -39,6 +42,7 @@ NIMSessionViewControllerDelegate>
 @property (nonatomic,strong) UIButton *imBtn;
 @property (nonatomic,strong) UIButton *markBtn;
 @property (nonatomic,strong) UIButton *closeBtn;
+@property (nonatomic,strong) UIButton *giftBtn;
 @end
 
 @implementation UserLivePlayViewController
@@ -80,6 +84,11 @@ NIMSessionViewControllerDelegate>
     
 }
 
+- (void)giftAction {
+    
+    
+}
+
 - (void)IMAction {
     
     if (!isInChatroom) {
@@ -91,6 +100,7 @@ NIMSessionViewControllerDelegate>
     [self.view sendSubviewToBack:_markBtn];
     [self.view sendSubviewToBack:_imBtn];
     [self.view sendSubviewToBack:_closeBtn];
+    [self.view sendSubviewToBack:_giftBtn];
     
     _chatroomViewController.sessionInputView.hidden = NO;
     [_chatroomViewController.sessionInputView.toolBar.inputTextView becomeFirstResponder];
@@ -209,11 +219,20 @@ NIMSessionViewControllerDelegate>
     _roomPCount.x = countIcon.maxX + 10;
     _roomPCount.centerY = countIcon.centerY;
     
+    self.giftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_giftBtn setImage:[UIImage imageNamed:@"live_gift_icon.png"] forState:UIControlStateNormal];
+    _giftBtn.size = [_giftBtn imageForState:UIControlStateNormal].size;
+    _giftBtn.y = K_UIScreenHeight-48;
+    _giftBtn.centerX = K_UIScreenWidth/2 - 22;
+    [_giftBtn addTarget:self action:@selector(giftAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_giftBtn];
+    _giftBtn.enabled = NO;
+    
     self.markBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_markBtn setImage:[UIImage imageNamed:[_userLiveChannelModel.isAttent isEqualToString:@"0"]?@"live_mark_icon.png":@"live_mark_icon_1.png"] forState:UIControlStateNormal];
     _markBtn.size = [_markBtn imageForState:UIControlStateNormal].size;
-    _markBtn.y = K_UIScreenHeight-48;
-    _markBtn.centerX = K_UIScreenWidth/2;
+    _markBtn.y = _giftBtn.y;
+    _markBtn.centerX = K_UIScreenWidth/2 + 22;
     [_markBtn addTarget:self action:@selector(markAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_markBtn];
     
@@ -221,7 +240,7 @@ NIMSessionViewControllerDelegate>
     [_imBtn setImage:[UIImage imageNamed:@"live_im_icon.png"] forState:UIControlStateNormal];
     _imBtn.size = _markBtn.size;
     _imBtn.y = _markBtn.y;
-    _imBtn.x = _markBtn.x - 44;
+    _imBtn.x = _giftBtn.x - 44;
     [_imBtn addTarget:self action:@selector(IMAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_imBtn];
     
@@ -233,11 +252,12 @@ NIMSessionViewControllerDelegate>
     [_closeBtn addTarget:self action:@selector(closeAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_closeBtn];
     
-//    if(!liveStreamOK) {
-//
-//        [self presentViewController:[Utility createNoticeAlertWithContent:@"此频道暂时无法播放。" okBtnTitle:nil] animated:YES completion:nil];
-//        return;
-//    }
+    //test
+    _giftBtn.hidden = YES;
+    _markBtn.centerX = K_UIScreenWidth/2;
+    _imBtn.x = _markBtn.x - 44;
+    _closeBtn.x = _markBtn.x + 44;
+    
     
     [[LiveManager sharedInstance] queryLiveDetailByCId:_userLiveChannelModel.cid completion:^(LiveDetailNTModel * _Nullable detailModel, NSError * _Nullable error) {
         
@@ -280,7 +300,10 @@ NIMSessionViewControllerDelegate>
     
     [self setupSubViews];
     
+    [self requestGetGiftList];
+    
     [self requestGetLiveRoomInfo];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -373,6 +396,18 @@ NIMSessionViewControllerDelegate>
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NELivePlayerMoviePlayerSeekCompletedNotification object:_liveplayer];
 }
 
+- (void)requestGetGiftList {
+    
+    [[MineManager sharedInstance] getLiveGiftListCompletion:^(NSArray * _Nullable giftList, NSError * _Nullable error) {
+        
+        if (giftList && giftList.count > 0) {
+            
+            [[UserLiveManager sharedInstance] updateGiftArray:giftList];
+            _giftBtn.enabled = YES;
+        }
+    }];
+}
+
 - (void)requestGetLiveRoomInfo {
     
     [[LiveManager sharedInstance] getChatroomByUserLiveId:_userLiveChannelModel.liveId completion:^(ChatroomInfoModel * _Nullable roomModel, NSError * _Nullable error) {
@@ -431,6 +466,7 @@ NIMSessionViewControllerDelegate>
                                                                                            [self.view bringSubviewToFront:_imBtn];
                                                                                            [self.view bringSubviewToFront:_markBtn];
                                                                                            [self.view bringSubviewToFront:_closeBtn];
+                                                                                           [self.view bringSubviewToFront:_giftBtn];
                                                                                            
                                                                                            isInChatroom = YES;
                                                                                        }
@@ -440,6 +476,7 @@ NIMSessionViewControllerDelegate>
                                                                                            [self.view bringSubviewToFront:_imBtn];
                                                                                            [self.view bringSubviewToFront:_markBtn];
                                                                                            [self.view bringSubviewToFront:_closeBtn];
+                                                                                           [self.view bringSubviewToFront:_giftBtn];
                                                                                            NSString *toast = [NSString stringWithFormat:@"%@ code:%zd",NSLocalizedString(@"enter chartroom failed", nil),error.code];
                                                                                            [wself.view makeToast:toast duration:2.0 position:CSToastPositionCenter];
                                                                                            NNSLog(@"enter room %@ failed %@",chatroom.roomId,error);
@@ -454,6 +491,7 @@ NIMSessionViewControllerDelegate>
                                           [self.view bringSubviewToFront:_imBtn];
                                           [self.view bringSubviewToFront:_markBtn];
                                           [self.view bringSubviewToFront:_closeBtn];
+                                          [self.view bringSubviewToFront:_giftBtn];
                                           NSString *toast = [NSString stringWithFormat:@"%@ code: %zd",NSLocalizedString(@"login failed", nil),error.code];
                                           [self.view makeToast:toast duration:2.0 position:CSToastPositionCenter];
                                       }
@@ -575,5 +613,22 @@ NIMSessionViewControllerDelegate>
     [self.view bringSubviewToFront:_markBtn];
     [self.view bringSubviewToFront:_imBtn];
     [self.view bringSubviewToFront:_closeBtn];
+    [self.view bringSubviewToFront:_giftBtn];
+}
+
+- (void)presentGiftByIndex:(NSInteger)index {
+    
+    LiveGiftModel *giftModel = [[[UserLiveManager sharedInstance] getNewestGiftArray] objectAtIndex:index];
+    [[MineManager sharedInstance] addGiftRecordGiftId:giftModel.giftId anchorId:_userLiveChannelModel.anchorId completion:^(NSError * _Nullable error) {
+        
+        if (error) {
+            
+            [self presentViewController:[Utility createErrorAlertWithContent:[error.userInfo objectForKey:NSLocalizedDescriptionKey] okBtnTitle:nil] animated:YES completion:nil];
+            
+        } else {
+            
+            [_chatroomViewController presentGift:giftModel.giftId];
+        }
+    }];
 }
 @end

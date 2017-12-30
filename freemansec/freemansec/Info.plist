@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>民众财经直播</string>
+	<string>民眾財經直播</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -40,7 +40,7 @@
 	<key>FacebookAppID</key>
 	<string>222519288272132</string>
 	<key>FacebookDisplayName</key>
-	<string>民众财经直播</string>
+	<string>民眾財經直播</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>wechat</string>

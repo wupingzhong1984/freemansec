@@ -109,5 +109,14 @@
     return queryMessage;
 }
 
++ (NIMMessage *)msgWithGift:(NSString*)giftId {
+    
+//    NIMCustomObject *giftObject = [[NIMCustomObject alloc] init];
+//    giftObject.attachment = [NSString ]
+//    NIMMessage *message = [[NIMMessage alloc] init];
+//    message.messageObject = giftObject;
+//    return message;
+    return nil;
+}
 
 @end

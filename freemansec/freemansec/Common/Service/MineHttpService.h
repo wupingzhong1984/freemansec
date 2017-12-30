@@ -59,4 +59,9 @@
 - (void)refreshUserInfo:(NSString*)userLoginId completion:(HttpClientServiceObjectBlock)completion;
 
 
+- (void)getUserTotalCoinCompletion:(HttpClientServiceObjectBlock)completion;
+- (void)getUserConsumeRecordListCompletion:(HttpClientServiceObjectBlock)completion;
+- (void)getTopupProductListCompletion:(HttpClientServiceObjectBlock)completion;
+- (void)getLiveGiftListCompletion:(HttpClientServiceObjectBlock)completion;
+- (void)addGiftRecordGiftId:(NSString*)giftId anchorId:(NSString*)anchorId completion:(HttpClientServiceObjectBlock)completion;
 @end

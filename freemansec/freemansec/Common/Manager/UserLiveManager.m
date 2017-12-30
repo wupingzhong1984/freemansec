@@ -10,6 +10,10 @@
 #import "UserLiveHttpService.h"
 #import "NSString-MD5.h"
 
+@interface UserLiveManager ()
+@property (nonatomic,strong) NSMutableArray *giftArray;
+@end
+
 @implementation UserLiveManager
 
 static UserLiveManager *instance;
@@ -17,7 +21,7 @@ static UserLiveManager *instance;
 - (id)init
 {
     self = [super init];
-    
+    _giftArray = [[NSMutableArray alloc] init];
     return self;
 }
 
@@ -102,4 +106,17 @@ static UserLiveManager *instance;
     }];
 }
 
+- (void)updateGiftArray:(NSArray*)array {
+    
+    [_giftArray removeAllObjects];
+    if (!array) {
+        return;
+    }
+    [_giftArray addObjectsFromArray:array];
+}
+
+- (NSMutableArray*)getNewestGiftArray {
+    
+    return _giftArray;
+}
 @end

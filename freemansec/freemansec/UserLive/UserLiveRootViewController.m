@@ -407,14 +407,18 @@ NIMSessionViewControllerDelegate>{
 //    [self requestGetChatRoomWhenLiveStart];
 //    return;
     
-    self.updateUserLiveTitleView = [[UpdateUserLiveTitleView alloc] init];
-    _updateUserLiveTitleView.titleTF.text = [[MineManager sharedInstance] getMyInfo].liveTitle;
-    _updateUserLiveTitleView.roomIdLbl.text = [NSString stringWithFormat:@"%@%@",NSLocalizedString(@"room no", nil),[[MineManager sharedInstance] getMyInfo].liveId];
-    [_updateUserLiveTitleView.bgBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
-    [_updateUserLiveTitleView.cancelBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
-    [_updateUserLiveTitleView.startLiveBtn addTarget:self action:@selector(updateUserLiveTitleViewStartLive) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_updateUserLiveTitleView];
+//    self.updateUserLiveTitleView = [[UpdateUserLiveTitleView alloc] init];
+//    _updateUserLiveTitleView.titleTF.text = [[MineManager sharedInstance] getMyInfo].liveTitle;
+//    _updateUserLiveTitleView.roomIdLbl.text = [NSString stringWithFormat:@"%@%@",NSLocalizedString(@"room no", nil),[[MineManager sharedInstance] getMyInfo].liveId];
+//    [_updateUserLiveTitleView.bgBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
+//    [_updateUserLiveTitleView.cancelBtn addTarget:self action:@selector(updateUserLiveTitleViewCancel) forControlEvents:UIControlEventTouchUpInside];
+//    [_updateUserLiveTitleView.startLiveBtn addTarget:self action:@selector(updateUserLiveTitleViewStartLive) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:_updateUserLiveTitleView];
     
+    self.pushUrl = [[MineManager sharedInstance] getMyInfo].pushUrl;
+    [self startPush];
+    
+    [self requestGetChatRoomWhenLiveStart];
 }
 
 - (void)viewWillAppear:(BOOL)animated

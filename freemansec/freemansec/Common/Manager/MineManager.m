@@ -548,4 +548,77 @@ static MineManager *instance;
                         completion(err);
                     }];
 }
+
+
+- (void)getUserTotalCoinCompletion:(UserTotalCoinCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service getUserTotalCoinCompletion:^(id obj, NSError *err) {
+        
+        completion(obj,err);
+    }];
+}
+
+- (void)getUserConsumeRecordListCompletion:(ConsumeRecordListCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service getUserConsumeRecordListCompletion:^(id obj, NSError *err) {
+        
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+        
+    }];
+}
+
+- (void)getTopupProductListCompletion:(TopupProductListCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service getTopupProductListCompletion:^(id obj, NSError *err) {
+        
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+        
+    }];
+}
+
+- (void)getLiveGiftListCompletion:(LiveGiftListCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service getLiveGiftListCompletion:^(id obj, NSError *err) {
+        
+        if(err){
+            
+            completion(nil,err);
+            
+        } else {
+            
+            NSArray* list = obj;
+            completion(list,err);
+        }
+        
+    }];
+}
+
+- (void)addGiftRecordGiftId:(NSString*_Nullable)giftId anchorId:(NSString*_Nullable)anchorId completion:(AddGiftRecordCompletion _Nullable)completion {
+    
+    MineHttpService* service = [[MineHttpService alloc] init];
+    [service addGiftRecordGiftId:giftId anchorId:anchorId completion:^(id obj, NSError *err) {
+        
+        completion(err);
+    }];
+}
 @end

@@ -16,6 +16,9 @@
 #import "LiveSearchResultModel.h"
 #import "OfficalVideoModel.h"
 #import "VideoModel.h"
+#import "ConsumeRecordModel.h"
+#import "TopupProductModel.h"
+#import "LiveGiftModel.h"
 
 static NSString* RegisterUserPath = @"Ajax/RegisterUser.ashx";
 static NSString* LoginUserPath = @"Ajax/LoginUser.ashx";
@@ -43,6 +46,12 @@ static NSString* GetMyUserFavourPath = @"Ajax/getCollect.ashx";
 static NSString* GetMyOfficalFavourPath = @"Ajax/getCollectToOfficial.ashx";
 static NSString* GetMyVideoPath = @"Ajax/getMyVideo.ashx";
 static NSString* DeleteMyVideoPath = @"Ajax/delMyVideo.ashx";
+static NSString* GetUserTotalCoinPath = @"Ajax/getUserCoinInfo.ashx";
+static NSString* GetConsumeRecordListPath = @"Ajax/getConsumptionRecord.ashx";
+static NSString* GetTopupProductListPath = @"Ajax/getRechargeInfo.ashx";
+static NSString* GetLiveGiftListPath = @"Ajax/getGiftInfo.ashx";
+static NSString* AddGiftRecordPath = @"Ajax/addGiftRecordInfo.ashx";
+
 @implementation MineHttpService
 
 - (void)registerUserAreaCode:(NSString*)areaCode phone:(NSString*)phone verify:(NSString*)verify pwd:(NSString*)pwd completion:(HttpClientServiceObjectBlock)completion {
@@ -64,6 +73,7 @@ static NSString* DeleteMyVideoPath = @"Ajax/delMyVideo.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil, nil);
+                         return;
                      }
                      
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
@@ -96,6 +106,7 @@ static NSString* DeleteMyVideoPath = @"Ajax/delMyVideo.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil, nil);
+                         return;
                      }
                      
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
@@ -126,6 +137,7 @@ static NSString* DeleteMyVideoPath = @"Ajax/delMyVideo.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil, nil);
+                         return;
                      }
                      
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
@@ -362,6 +374,7 @@ static NSString* DeleteMyVideoPath = @"Ajax/delMyVideo.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil, nil);
+                         return;
                      }
                      
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
@@ -394,6 +407,7 @@ static NSString* DeleteMyVideoPath = @"Ajax/delMyVideo.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil, nil);
+                         return;
                      }
                      
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
@@ -423,6 +437,7 @@ static NSString* DeleteMyVideoPath = @"Ajax/delMyVideo.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil, nil);
+                         return;
                      }
                      
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
@@ -454,6 +469,7 @@ static NSString* DeleteMyVideoPath = @"Ajax/delMyVideo.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil, nil);
+                         return;
                      }
                      
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
@@ -609,6 +625,7 @@ static NSString* DeleteMyVideoPath = @"Ajax/delMyVideo.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil, nil);
+                         return;
                      }
                      
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
@@ -637,6 +654,7 @@ static NSString* DeleteMyVideoPath = @"Ajax/delMyVideo.ashx";
                      
                      if ([response.code isEqualToString:@"1"]) {
                          completion(nil, nil);
+                         return;
                      }
                      
                      MyInfoModel* model = [[MyInfoModel alloc] initWithDictionary:[(NSArray*)response.data objectAtIndex:0] error:&err];
@@ -773,6 +791,120 @@ static NSString* DeleteMyVideoPath = @"Ajax/delMyVideo.ashx";
     [self httpRequestMethod:HttpReuqestMethodGet
                        path:DeleteMyVideoPath
                      params:@{@"vid":vid
+                              }
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     completion(response, err);
+                 }];
+}
+
+
+- (void)getUserTotalCoinCompletion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetUserTotalCoinPath
+                     params:nil
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+
+                     if ([response.code isEqualToString:@"1"]) {
+                         completion(nil, nil);
+                         return;
+                     }
+                     
+                     NSDictionary *dic = [(NSArray*)response.data objectAtIndex:0];
+                     NSString *coin = [dic objectForKey:@"totalcoin"];
+                     completion(coin,nil);
+                
+                 }];
+}
+
+
+- (void)getUserConsumeRecordListCompletion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetConsumeRecordListPath
+                     params:nil
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [ConsumeRecordModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                     
+                 }];
+
+}
+
+
+- (void)getTopupProductListCompletion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetTopupProductListPath
+                     params:nil
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [TopupProductModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                     
+                 }];
+}
+
+
+- (void)getLiveGiftListCompletion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:GetLiveGiftListPath
+                     params:nil
+                 completion:^(JsonResponse* response, NSError *err) {
+                     
+                     if(response == nil) {
+                         completion(response, err);
+                         return ;
+                     }
+                     
+                     NSArray *list = [LiveGiftModel arrayOfModelsFromDictionaries:(NSArray*)response.data error:&err];
+                     if(list == nil){
+                         
+                         NSLog(@"%@", err);
+                         completion(nil, err);
+                     }else{
+                         completion(list, nil); //success
+                     }
+                     
+                 }];
+}
+
+- (void)addGiftRecordGiftId:(NSString*)giftId anchorId:(NSString*)anchorId completion:(HttpClientServiceObjectBlock)completion {
+    
+    [self httpRequestMethod:HttpReuqestMethodGet
+                       path:AddGiftRecordPath
+                     params:@{@"giftid":giftId,
+                              @"anchorid":anchorId
                               }
                  completion:^(JsonResponse* response, NSError *err) {
                      

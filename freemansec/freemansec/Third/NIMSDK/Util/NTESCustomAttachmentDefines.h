@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger,NTESCustomMessageType){
     CustomMessageTypeWhiteboard = 4, //白板会话
     CustomMessageTypeRedPacket  = 5, //红包消息
     CustomMessageTypeRedPacketTip = 6, //红包提示消息
+    CustomMessageTypeSendGift = 7,     //赠送礼物
 };
 
 

@@ -10,4 +10,5 @@
 
 @interface FSChatroomViewController : NIMSessionViewController
 - (instancetype)initWithChatroom:(NIMChatroom *)chatroom withRect:(CGRect)rect;
+- (void)presentGift:(NSString*)giftId;
 @end

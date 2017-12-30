@@ -15,6 +15,7 @@
 #import "ApplyAnchorViewController.h"
 #import "SettingViewController.h"
 #import "RealNameCertifyViewController.h"
+#import "MyPointViewController.h"
 
 @interface MineRootViewController ()
 <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
@@ -25,6 +26,7 @@
 @property (nonatomic,strong) UIView *pointBg;
 @property (nonatomic,strong) UILabel *pLbl;
 @property (nonatomic,strong) UILabel *pointLbl;
+@property (nonatomic,strong) NSString *userTotalCoin;
 @end
 
 @implementation MineRootViewController
@@ -73,6 +75,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = UIColor_vc_bgcolor_lightgray;
     
+    self.userTotalCoin = @"0";
+    
     UIView *naviBar = [self naviBarView];
     [self.view addSubview:naviBar];
     
@@ -97,25 +101,38 @@
     
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     
+    if ([[MineManager sharedInstance] getMyInfo]) {
+        
+        [[MineManager sharedInstance] getUserTotalCoinCompletion:^(NSString * _Nullable coin, NSError * _Nullable error) {
+            if (coin) {
+                
+                _pointLbl.text = [NSString stringWithFormat:@"%d",(int)[coin intValue]];
+                [_pointLbl sizeToFit];
+                _pointBg.width = _pLbl.width + _pointLbl.width + 13*3;
+                _pointBg.centerX = _tableView.width/2;
+                _pLbl.x = _pointBg.x + 13;
+                _pLbl.centerY = _pointBg.centerY;
+                _pointLbl.x = _pLbl.maxX + 13;
+                _pointLbl.centerY = _pointBg.centerY;
+                
+            } else {
+                
+                NNSLog(@"getUserTotalCoin error.")
+            }
+        }];
+    } else {
+        
+        self.userTotalCoin = @"0";
+    }
+    
     [_tableView reloadData];
-    
-    //get point
-    _pointLbl.text = @"0";
-    [_pointLbl sizeToFit];
-    _pointBg.width = _pLbl.width + _pointLbl.width + 13*3;
-    _pointBg.centerX = _tableView.width/2;
-    _pLbl.x = _pointBg.x + 13;
-    _pLbl.centerY = _pointBg.centerY;
-    _pointLbl.x = _pLbl.maxX + 13;
-    _pointLbl.centerY = _pointBg.centerY;
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
     
-    self.navigationController.navigationBar.hidden = NO;
+//    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -134,26 +151,33 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    if (section == 0) {
-        return 0.1f;
-    } else {
-        return 10.0f;
-    }
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    return 0.1f;
+    if (section == 0) {
+        
+        return 10.0f;
+    } else {
+        return 0;
+    }
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
+
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 0)];
+    return v;
+}
+
+- (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 0)];
     v.backgroundColor = UIColor_vc_bgcolor_lightgray;
     if (section == 0) {
-        v.height = 0.1f;
-    } else {
         v.height = 10.0f;
+    } else {
+        v.height = 0;
     }
     return v;
 }
@@ -249,17 +273,17 @@
     }
     
     face = (UIImageView*)[cell.contentView viewWithTag:1];
-    [face sd_setImageWithURL:[NSURL URLWithString:[[MineManager sharedInstance] getMyInfo].headImg] placeholderImage:[UIImage imageNamed:@"user_headimg_default.png"]];
-    
     name = (UILabel*)[cell.contentView viewWithTag:2];
+    
+    
     if ([[MineManager sharedInstance] getMyInfo]) {
         name.text = [[MineManager sharedInstance] getMyInfo].nickName;
+        [face sd_setImageWithURL:[NSURL URLWithString:[[MineManager sharedInstance] getMyInfo].headImg] placeholderImage:[UIImage imageNamed:@"user_headimg_default.png"]];
     } else {
         name.text = NSLocalizedString(@"no login", nil);
+        [face setImage:[UIImage imageNamed:@"user_headimg_default.png"]];
     }
-    
-    
-    _pointLbl.text = @"0";//todo
+    _pointLbl.text = self.userTotalCoin;
     [_pointLbl sizeToFit];
     _pointBg.width = _pLbl.width + _pointLbl.width + 13*3;
     _pointBg.centerX = K_UIScreenWidth/2;
@@ -373,9 +397,20 @@
     
     if (indexPath.section == 0) {
         
-        if (indexPath.row == 0||indexPath.row == 1) {
+        if (indexPath.row == 0) {
+            
             MinePersonInfoViewController *vc = [[MinePersonInfoViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
+            
+        } else if (indexPath.row == 1) {
+          
+            MinePersonInfoViewController *vc = [[MinePersonInfoViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            
+            //todo
+//            MyPointViewController *vc = [[MyPointViewController alloc] init];
+//            [self.navigationController pushViewController:vc animated:YES];
+            
         } else if (indexPath.row == 2) {
             
             MyVideoViewController *vc = [[MyVideoViewController alloc] init];

@@ -217,33 +217,43 @@ LivePlayViewControllerDelegate>
     
     if (self.wonderfulPlayBackList.count > 0) {
         
-        
-        CGFloat itemWidth = (K_UIScreenWidth - 20 - 15)/2;
-        whiteBg.height = whiteBg.height + (int)itemWidth*3/4+30;
-        
-        LiveWonderPlayBackCellView *cell = [[LiveWonderPlayBackCellView alloc] initWithPlayBack:[self.wonderfulPlayBackList objectAtIndex:0] width:itemWidth];
-        cell.x = 10;
-        cell.y = 38;
-        [whiteBg addSubview:cell];
-        
-        UIButton *cb1 = [UIButton buttonWithType:UIButtonTypeCustom];
-        cb1.frame = cell.frame;
-        [cb1 addTarget:self action:@selector(loadFirstWonderPlayBack) forControlEvents:UIControlEventTouchUpInside];
-        [whiteBg addSubview:cb1];
-        
-        if (self.wonderfulPlayBackList.count > 1) {
-            LiveWonderPlayBackCellView *cell2 = [[LiveWonderPlayBackCellView alloc] initWithPlayBack:[self.wonderfulPlayBackList objectAtIndex:1] width:itemWidth];
-            cell2.x = cell.maxX + 15;
-            cell2.y = 38;
-            [whiteBg addSubview:cell2];
-            
-            UIButton *cb2 = [UIButton buttonWithType:UIButtonTypeCustom];
-            cb2.frame = cell2.frame;
-            [cb2 addTarget:self action:@selector(loadSecondWonderPlayBack) forControlEvents:UIControlEventTouchUpInside];
-            [whiteBg addSubview:cb2];
+        BOOL showMore;
+        NSInteger maxCount;
+        if (self.wonderfulPlayBackList.count > 8) {
+            maxCount = 8;
+            showMore = YES;
+        } else {
+            maxCount = self.wonderfulPlayBackList.count;
+            showMore = NO;
         }
         
-        if (self.wonderfulPlayBackList.count > 2) {
+        LiveWonderPlayBackCellView *cell;
+        CGFloat originX = 10;
+        CGFloat originY = 38;
+        CGFloat itemWidth = (K_UIScreenWidth - originX*2 - 15)/2;
+        for (int i = 0; i < maxCount; i++) {
+            
+            cell = [[LiveWonderPlayBackCellView alloc] initWithPlayBack:[self.wonderfulPlayBackList objectAtIndex:i] width:itemWidth];
+            cell.origin = CGPointMake(originX, originY);
+            [whiteBg addSubview:cell];
+            
+            UIButton *cb = [UIButton buttonWithType:UIButtonTypeCustom];
+            cb.frame = cell.frame;
+            cb.tag = 100+i;
+            [cb addTarget:self action:@selector(loadWonderPlayBack:) forControlEvents:UIControlEventTouchUpInside];
+            [whiteBg addSubview:cb];
+            
+            if ((i+1)%2 == 0) {
+                originX = 10;
+                originY += cell.height + 10;
+            } else {
+                originX += 15 + cell.width;
+            }
+        }
+        
+        whiteBg.height = cell.maxY;
+        
+        if (showMore) {
             
             //NSLocalizedString
             UILabel *more = [UILabel createLabelWithFrame:CGRectZero text:NSLocalizedString(@"see more", nil) textColor:[UIColor lightGrayColor] font:[UIFont systemFontOfSize:14]];
@@ -294,19 +304,9 @@ LivePlayViewControllerDelegate>
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)loadFirstWonderPlayBack {
+- (void)loadWonderPlayBack:(id)sender {
     
-    LivePlayBackModel *model = [self.wonderfulPlayBackList objectAtIndex:0];
-    PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
-    vc.playBackId = model.playbackId;
-    vc.name = model.title;
-    vc.playBackType = @"1";
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)loadSecondWonderPlayBack {
-    
-    LivePlayBackModel *model = [self.wonderfulPlayBackList objectAtIndex:1];
+    LivePlayBackModel *model = [self.wonderfulPlayBackList objectAtIndex:((UIButton*)sender).tag - 100];
     PlayBackDetailViewController *vc = [[PlayBackDetailViewController alloc] init];
     vc.playBackId = model.playbackId;
     vc.name = model.title;
